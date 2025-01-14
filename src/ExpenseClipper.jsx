@@ -9,7 +9,9 @@ const ExpenseClipper = () => {
         new Date().toISOString().split("T")[0]
     );
     const [expenses, setExpenses] = useState([]);
-    // count [totalAmount, setTotalAmount] = useState(0);
+    const [filterDate, setFilteDate] = useState(
+        new Date().toISOString().split("T")[0]
+    );
 
     const handleClick = () => {
         if (inputItem && inputAmounts) {
@@ -29,12 +31,14 @@ const ExpenseClipper = () => {
             alert("Please fill in all fields");
         }
     };
-    const total_amounts = expenses.reduce((total, expense) => total + expense.amount, 0);
 
+    const expensesDatewise = expenses.filter(
+        (expense) => expense.date === filterDate
+    );
+    const total_amounts = expensesDatewise.reduce((total, expense) => {
+        return total + expense.amount;
+    }, 0);
 
-    // const total_amounts = expenses.map((expenses) => {
-    //     return expenses.amount;
-    // })
     useEffect(() => {
         const storedExpenses = JSON.parse(localStorage.getItem("My_Expenses"));
         if (storedExpenses) {
@@ -79,9 +83,17 @@ const ExpenseClipper = () => {
                 </div>
             </div>
             <div className="w-full max-w-lg p-6 bg-white pt-2">
-                <h1 className="font-semibold text-4xl text-green-700 p-3">
-                    All Expenses
-                </h1>
+                <div className="flex flex-row justify-between">
+                    <h1 className="font-semibold text-4xl text-green-700 p-3">
+                        All Expenses
+                    </h1>
+                    <InputField
+                        type={"date"}
+                        customClass={"border-2 rounded-lg p-3 text-lg mb-4"}
+                        value={filterDate}
+                        onChange={(e) => setFilteDate(e.target.value)}
+                    />
+                </div>
                 <div className="flex flex-row justify-between p-2 border-b">
                     <span className="text-xl font-normal text-green-700">
                         Items
@@ -91,7 +103,7 @@ const ExpenseClipper = () => {
                     </span>
                 </div>
                 <ul className="">
-                    {expenses.map((expense, indx) => (
+                    {expensesDatewise.map((expense, indx) => (
                         <li key={indx}>
                             <div className="flex flex-row justify-between p-2 border-b">
                                 <span className="text-xl font-normal">
@@ -110,7 +122,7 @@ const ExpenseClipper = () => {
                     Total Amounts
                 </span>
                 <span className="text-xl font-normal text-green-700">
-                   {total_amounts}
+                    {total_amounts}
                 </span>
             </div>
         </div>

@@ -47,7 +47,7 @@ const ExpenseClipper = () => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center gap-4 bg-gray-200 p-4 h-screen">
+        <div className="flex flex-col items-center gap-4 bg-gray-200 p-4">
             <h1 className="font-semibold text-4xl text-green-600">
                 Expense Tracker
             </h1>

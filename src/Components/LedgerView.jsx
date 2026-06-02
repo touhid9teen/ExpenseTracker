@@ -27,7 +27,6 @@ const LedgerView = ({
     setCustomEnd,
     setAppliedCustomRange,
     handleApplyCustomRange,
-    customRangeSum,
     handleResetFilters,
     paginatedExpenses,
     getCategoryStyles,
@@ -305,13 +304,14 @@ const LedgerView = ({
                                             Apply Filter
                                         </button>
                                     </div>
-                                    
-                                    <div className="text-sm font-semibold">
-                                        <span className={darkMode ? "text-slate-400" : "text-slate-500"}>Total Expense for Selected Range: </span>
-                                        <span className="text-emerald-500 font-extrabold">৳{customRangeSum.toLocaleString()}</span>
-                                    </div>
+
                                 </div>
                             )}
+
+                            <div className={`mt-5 p-4 rounded-xl border flex items-center justify-between gap-3 text-sm font-semibold ${darkMode ? "bg-[#141b2b]/80 border-slate-800" : "bg-slate-50/80 border-slate-200/60"}`}>
+                                <span className={darkMode ? "text-slate-400" : "text-slate-500"}>Total Expense for Current Table Data:</span>
+                                <span className="text-emerald-500 font-extrabold">৳{currentTableTotal.toLocaleString()}</span>
+                            </div>
                         </div>
 
                         {/* ----------------------------------------------------

@@ -10,7 +10,6 @@ import { getCategoryStyles } from "./utils/categoryStyles";
 import { loadStoredExpenses, loadThemePreference, saveStoredExpenses, saveThemePreference } from "./utils/storageUtils";
 import {
     calculateCategoryBreakdown,
-    calculateCustomRangeSum,
     calculateDailySpendingTrend,
     calculateQuickStats,
     calculateSummaryCards,
@@ -121,10 +120,6 @@ const ExpenseClipper = () => {
     const quickStats = useMemo(() => calculateQuickStats(filteredExpenses), [filteredExpenses]);
     const categoryBreakdown = useMemo(() => calculateCategoryBreakdown(filteredExpenses), [filteredExpenses]);
     const dailySpendingTrend = useMemo(() => calculateDailySpendingTrend(filteredExpenses), [filteredExpenses]);
-    const customRangeSum = useMemo(
-        () => calculateCustomRangeSum(expenses, customStart, customEnd),
-        [expenses, customStart, customEnd]
-    );
     const dashboardDateLabels = useMemo(() => getDashboardDateLabels(), []);
 
     // ----------------------------------------------------
@@ -282,7 +277,6 @@ const ExpenseClipper = () => {
                     setCustomEnd={setCustomEnd}
                     setAppliedCustomRange={setAppliedCustomRange}
                     handleApplyCustomRange={handleApplyCustomRange}
-                    customRangeSum={customRangeSum}
                     handleResetFilters={handleResetFilters}
                     paginatedExpenses={paginatedExpenses}
                     getCategoryStyles={getCategoryStylesForTheme}

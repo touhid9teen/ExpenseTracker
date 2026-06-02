@@ -310,7 +310,7 @@ const LedgerView = ({
 
                             <div className={`mt-5 p-4 rounded-xl border flex items-center justify-between gap-3 text-sm font-semibold ${darkMode ? "bg-[#141b2b]/80 border-slate-800" : "bg-slate-50/80 border-slate-200/60"}`}>
                                 <span className={darkMode ? "text-slate-400" : "text-slate-500"}>Total Expense for Current Table Data:</span>
-                                <span className="text-emerald-500 font-extrabold">৳{currentTableTotal.toLocaleString()}</span>
+                                <span className="text-emerald-500 font-extrabold">৳{Math.round(currentTableTotal).toLocaleString()}</span>
                             </div>
                         </div>
 
@@ -401,7 +401,7 @@ const LedgerView = ({
 
                                                         {/* Amount */}
                                                         <td className="px-4 py-3 font-bold whitespace-nowrap">
-                                                            ৳{exp.amount.toLocaleString("en-US", { minimumFractionDigits: 0 })}
+                                                            ৳{Math.round(exp.amount).toLocaleString()}
                                                         </td>
 
                                                         {/* ⋮ Three-dot dropdown column */}
@@ -495,7 +495,7 @@ const LedgerView = ({
                                         of <span className="font-bold text-slate-200 dark:text-slate-100">{filteredExpenses.length}</span> results
                                     </span>
                                     <span className={`block text-sm font-extrabold ${darkMode ? "text-emerald-400" : "text-emerald-700"}`}>
-                                        Current table total: ৳{currentTableTotal.toLocaleString()}
+                                        Current table total: ৳{Math.round(currentTableTotal).toLocaleString()}
                                     </span>
                                 </div>
 

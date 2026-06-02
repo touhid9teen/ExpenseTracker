@@ -45,7 +45,7 @@ export const DailyExpenseModal = ({
                                             </span>
                                         </div>
                                         <span className="font-black text-sm text-emerald-500 flex-shrink-0">
-                                            ৳{item.amount.toLocaleString()}
+                                            ৳{Math.round(item.amount).toLocaleString()}
                                         </span>
                                     </div>
                                 );
@@ -55,7 +55,7 @@ export const DailyExpenseModal = ({
                         {/* Day's total */}
                         <div className="border-t pt-4 border-slate-200 dark:border-slate-800 flex items-center justify-between">
                             <span className={`font-bold text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Total Expense of Day:</span>
-                            <span className="text-xl font-extrabold text-emerald-500">৳{dailyModalDetails.total.toLocaleString()}</span>
+                            <span className="text-xl font-extrabold text-emerald-500">৳{Math.round(dailyModalDetails.total).toLocaleString()}</span>
                         </div>
 
                         <div className="mt-6 flex justify-end">
@@ -197,7 +197,7 @@ export const DeleteExpenseModal = ({
 
                         <p className={`text-sm leading-relaxed mb-6 ${darkMode ? "text-slate-300" : "text-slate-650"}`}>
                             Are you absolutely sure you want to permanently delete <span className="font-bold text-slate-150 dark:text-slate-100">&quot;{deletingExpense.description}&quot;</span> of amount{" "}
-                            <span className="font-extrabold text-rose-500">৳{deletingExpense.amount}</span>? This action is irreversible.
+                            <span className="font-extrabold text-rose-500">৳{Math.round(deletingExpense.amount).toLocaleString()}</span>? This action is irreversible.
                         </p>
 
                         <div className="flex justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">

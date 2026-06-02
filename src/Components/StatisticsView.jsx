@@ -45,7 +45,7 @@ const StatisticsView = ({
                                     </div>
                                 </div>
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-3xl font-extrabold tracking-tight">৳{summaryCards.total.toLocaleString("en-US", { minimumFractionDigits: 0 })}</span>
+                                    <span className="text-3xl font-extrabold tracking-tight">৳{Math.round(summaryCards.total).toLocaleString()}</span>
                                 </div>
                                 <p className={`text-xs font-medium mt-2 ${darkMode ? "text-slate-500" : "text-slate-400"}`}>Filtered active dataset</p>
                             </div>
@@ -61,7 +61,7 @@ const StatisticsView = ({
                                     </div>
                                 </div>
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-3xl font-extrabold tracking-tight">৳{summaryCards.today.toLocaleString("en-US", { minimumFractionDigits: 0 })}</span>
+                                    <span className="text-3xl font-extrabold tracking-tight">৳{Math.round(summaryCards.today).toLocaleString()}</span>
                                 </div>
                                 <p className={`text-xs font-medium mt-2 ${darkMode ? "text-slate-500" : "text-slate-400"}`}>{dateLabels.today}</p>
                             </div>
@@ -77,7 +77,7 @@ const StatisticsView = ({
                                     </div>
                                 </div>
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-3xl font-extrabold tracking-tight">৳{summaryCards.week.toLocaleString("en-US", { minimumFractionDigits: 0 })}</span>
+                                    <span className="text-3xl font-extrabold tracking-tight">৳{Math.round(summaryCards.week).toLocaleString()}</span>
                                 </div>
                                 <p className={`text-xs font-medium mt-2 ${darkMode ? "text-slate-500" : "text-slate-400"}`}>{dateLabels.week}</p>
                             </div>
@@ -94,7 +94,7 @@ const StatisticsView = ({
                                     </div>
                                 </div>
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-3xl font-extrabold tracking-tight">৳{summaryCards.month.toLocaleString("en-US", { minimumFractionDigits: 0 })}</span>
+                                    <span className="text-3xl font-extrabold tracking-tight">৳{Math.round(summaryCards.month).toLocaleString()}</span>
                                 </div>
                                 <p className={`text-xs font-medium mt-2 ${darkMode ? "text-slate-500" : "text-slate-400"}`}>{dateLabels.month}</p>
                             </div>
@@ -113,7 +113,7 @@ const StatisticsView = ({
                                 <div className={`p-4 rounded-xl border ${darkMode ? "bg-slate-800/30 border-slate-850" : "bg-slate-50 border-slate-150"}`}>
                                     <span className={`text-[10px] uppercase font-bold tracking-widest block ${darkMode ? "text-slate-500" : "text-slate-400"}`}>Highest Spending Day</span>
                                     <span className="text-lg font-black tracking-tight text-rose-500 mt-1 block">
-                                        ৳{quickStats.highest.amount.toLocaleString()}
+                                        ৳{Math.round(quickStats.highest.amount).toLocaleString()}
                                     </span>
                                     <span className={`text-xs font-medium block truncate ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                                         {quickStats.highest.date !== "N/A" ? formatDate(quickStats.highest.date) : "N/A"}
@@ -124,7 +124,7 @@ const StatisticsView = ({
                                 <div className={`p-4 rounded-xl border ${darkMode ? "bg-slate-800/30 border-slate-850" : "bg-slate-50 border-slate-150"}`}>
                                     <span className={`text-[10px] uppercase font-bold tracking-widest block ${darkMode ? "text-slate-500" : "text-slate-400"}`}>Lowest Spending Day</span>
                                     <span className="text-lg font-black tracking-tight text-emerald-500 mt-1 block">
-                                        ৳{quickStats.lowest.amount.toLocaleString()}
+                                        ৳{Math.round(quickStats.lowest.amount).toLocaleString()}
                                     </span>
                                     <span className={`text-xs font-medium block truncate ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                                         {quickStats.lowest.date !== "N/A" ? formatDate(quickStats.lowest.date) : "N/A"}
@@ -182,7 +182,7 @@ const StatisticsView = ({
                                                         </div>
                                                         <div className="flex gap-2">
                                                             <span className={darkMode ? "text-slate-450" : "text-slate-500"}>{percentage}%</span>
-                                                            <span className="font-extrabold text-slate-200 dark:text-slate-100">৳{amount}</span>
+                                                            <span className="font-extrabold text-slate-200 dark:text-slate-100">৳{Math.round(amount).toLocaleString()}</span>
                                                         </div>
                                                     </div>
                                                     <div className={`w-full h-2.5 rounded-full overflow-hidden ${darkMode ? "bg-slate-800" : "bg-slate-100"}`}>
@@ -212,7 +212,7 @@ const StatisticsView = ({
                                         <div key={t.date} className="flex-1 flex flex-col items-center group relative h-full justify-end">
                                             {/* Amount Hover Indicator Tooltip */}
                                             <div className="absolute bottom-full mb-2 scale-0 group-hover:scale-100 transition-all duration-150 origin-bottom px-2 py-1 rounded bg-slate-950 text-[10px] font-bold text-white z-10 border border-slate-800 whitespace-nowrap">
-                                                ৳{t.amount.toLocaleString()}
+                                                ৳{Math.round(t.amount).toLocaleString()}
                                             </div>
 
                                             {/* Column Bar graphic */}

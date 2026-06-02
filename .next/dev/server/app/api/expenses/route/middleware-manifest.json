@@ -1,0 +1,42 @@
+{
+  "sorted_middleware": [
+    "/api/expenses/route"
+  ],
+  "middleware": {},
+  "instrumentation": null,
+  "functions": {
+    "/api/expenses/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/server-reference-manifest.js",
+        "server/app/api/expenses/route_client-reference-manifest.js",
+        "server/edge/chunks/_next-internal_server_app_api_expenses_route_actions_0_ea2bf.js",
+        "server/edge/chunks/node_modules_next_dist_esm_0o4y2pb._.js",
+        "server/edge/chunks/node_modules_next_dist_compiled_09nx5jw._.js",
+        "server/edge/chunks/node_modules_next_dist_0-g83ei._.js",
+        "server/edge/chunks/node_modules_@neondatabase_serverless_index_mjs_1z34eza._.js",
+        "server/edge/chunks/[root-of-the-server]__0rvzwxk._.js",
+        "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_1_m84tc.js"
+      ],
+      "name": "app/api/expenses/route",
+      "page": "/api/expenses/route",
+      "entrypoint": "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_1_m84tc.js",
+      "matchers": [
+        {
+          "regexp": "^/api/expenses(?:/)?$",
+          "originalSource": "/api/expenses"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "4YVA7i0d04G3SW/gDsFiclLbjjDk0zyzB/cSPGkkY7k=",
+        "__NEXT_PREVIEW_MODE_ID": "fb93bd7475332fb46c83f5209ae180ab",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "9a5ed779682e058d497652c3be26bafb6b8821459053e479da20746b2fc5dc12",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "9d9730c572fb3791761535a196ec2c8d6e33894ad573a0058d7d3098d86fe75c"
+      }
+    }
+  }
+}

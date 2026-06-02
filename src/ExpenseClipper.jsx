@@ -9,7 +9,7 @@ import { DailyExpenseModal, EditExpenseModal, DeleteExpenseModal } from "./Compo
 import { CATEGORIES } from "./data/expenseData";
 import { formatDate, getDashboardDateLabels, getTodayInputValue } from "./utils/dateUtils";
 import { getCategoryStyles } from "./utils/categoryStyles";
-import { loadStoredExpenses, loadThemePreference, saveStoredExpenses, saveThemePreference } from "./utils/storageUtils";
+import { loadThemePreference, saveThemePreference } from "./utils/storageUtils";
 import {
     calculateCategoryBreakdown,
     calculateDailySpendingTrend,
@@ -74,7 +74,23 @@ const ExpenseClipper = () => {
     // LIFECYCLE / INITIALIZATION
     // ----------------------------------------------------
     useEffect(() => {
-        setExpenses(loadStoredExpenses());
+        const fetchExpenses = async () => {
+            try {
+                const response = await fetch('/api/expenses');
+                if (response.ok) {
+                    const data = await response.json();
+                    // Ensure dates are parsed correctly from ISO strings
+                    const formattedData = data.map(exp => ({
+                        ...exp,
+                        date: exp.date.split('T')[0]
+                    }));
+                    setExpenses(formattedData);
+                }
+            } catch (error) {
+                console.error("Failed to fetch expenses:", error);
+            }
+        };
+        fetchExpenses();
         setDarkMode(loadThemePreference());
     }, []);
 
@@ -85,10 +101,9 @@ const ExpenseClipper = () => {
         saveThemePreference(nextTheme);
     };
 
-    // Helper: Write current expenses to storage
+    // Helper: Write current expenses to state (removed local storage save)
     const saveExpensesToStorage = (updatedList) => {
         setExpenses(updatedList);
-        saveStoredExpenses(updatedList);
     };
 
     const getCategoryStylesForTheme = (category) => getCategoryStyles(category, darkMode);
@@ -127,7 +142,7 @@ const ExpenseClipper = () => {
     // ----------------------------------------------------
     // ACTIONS: ADD, EDIT, DELETE, RESET
     // ----------------------------------------------------
-    const handleAddExpense = (e) => {
+    const handleAddExpense = async (e) => {
         e.preventDefault();
         if (!addAmount || !addDescription.trim()) {
             alert("Please fill in the Amount and Description fields.");
@@ -136,15 +151,26 @@ const ExpenseClipper = () => {
 
         const newExpense = {
             id: `exp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-            item: addDescription.trim(),
             description: addDescription.trim(),
             amount: parseFloat(addAmount),
             date: addDate,
             category: addCategory
         };
 
-        const updated = [newExpense, ...expenses];
-        saveExpensesToStorage(updated);
+        try {
+            const res = await fetch('/api/expenses', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newExpense)
+            });
+            if (res.ok) {
+                const savedExpense = await res.json();
+                const updated = [savedExpense, ...expenses];
+                saveExpensesToStorage(updated);
+            }
+        } catch (error) {
+            console.error("Failed to add expense", error);
+        }
 
         // Reset Add inputs
         setAddAmount("");
@@ -154,30 +180,54 @@ const ExpenseClipper = () => {
         setShowQuickAdd(false);
     };
 
-    const handleSaveEdit = (e) => {
+    const handleSaveEdit = async (e) => {
         e.preventDefault();
         if (!editingExpense.description.trim() || !editingExpense.amount) {
             alert("Description and Amount are required.");
             return;
         }
 
-        const updated = expenses.map((exp) =>
-            exp.id === editingExpense.id
-                ? {
-                      ...editingExpense,
-                      item: editingExpense.description,
-                      amount: parseFloat(editingExpense.amount)
-                  }
-                : exp
-        );
-        saveExpensesToStorage(updated);
+        const expenseToUpdate = {
+            ...editingExpense,
+            description: editingExpense.description.trim(),
+            amount: parseFloat(editingExpense.amount)
+        };
+
+        try {
+            const res = await fetch(`/api/expenses/${editingExpense.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(expenseToUpdate)
+            });
+            if (res.ok) {
+                const updatedExpense = await res.json();
+                const updated = expenses.map((exp) =>
+                    exp.id === updatedExpense.id ? updatedExpense : exp
+                );
+                saveExpensesToStorage(updated);
+            }
+        } catch (error) {
+            console.error("Failed to update expense", error);
+        }
+        
         setEditingExpense(null);
     };
 
-    const handleConfirmDelete = () => {
+    const handleConfirmDelete = async () => {
         if (!deletingExpense) return;
-        const updated = expenses.filter((exp) => exp.id !== deletingExpense.id);
-        saveExpensesToStorage(updated);
+        
+        try {
+            const res = await fetch(`/api/expenses/${deletingExpense.id}`, {
+                method: 'DELETE'
+            });
+            if (res.ok) {
+                const updated = expenses.filter((exp) => exp.id !== deletingExpense.id);
+                saveExpensesToStorage(updated);
+            }
+        } catch (error) {
+            console.error("Failed to delete expense", error);
+        }
+        
         setDeletingExpense(null);
     };
 

@@ -1,5 +1,5 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/expenses/route": "app/api/expenses/route.js",
+  "/api/expenses/route": "app-edge-has-no-entrypoint",
+  "/api/init/route": "app-edge-has-no-entrypoint",
   "/page": "app/page.js"
 }

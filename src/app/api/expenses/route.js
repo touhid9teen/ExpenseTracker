@@ -19,8 +19,8 @@ export async function POST(request) {
     const { id, description, amount, date, category } = data;
 
     const result = await sql`
-      INSERT INTO expenses (id, description, amount, date, category)
-      VALUES (${id}, ${description}, ${amount}, ${date}, ${category})
+      INSERT INTO expenses (id, item, description, amount, date, category)
+      VALUES (${id}, ${description}, ${description}, ${amount}, ${date}, ${category})
       RETURNING *
     `;
 

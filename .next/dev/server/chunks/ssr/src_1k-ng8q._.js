@@ -397,7 +397,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 ;
-const SummaryCard = ({ darkMode, title, value, icon, accentClass, note })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+const SummaryCard = ({ darkMode, title, value = 0, icon, accentClass, note })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 shadow-sm ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -457,14 +457,27 @@ const SummaryCard = ({ darkMode, title, value, icon, accentClass, note })=>/*#__
         lineNumber: 2,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
-const SummaryCardsGrid = ({ darkMode, summaryCards, dateLabels })=>{
+const SummaryCardsGrid = ({ darkMode = true, summaryCards = {}, dateLabels = {} })=>{
+    const safeSummaryCards = {
+        total: 0,
+        today: 0,
+        week: 0,
+        month: 0,
+        ...summaryCards
+    };
+    const safeDateLabels = {
+        today: "",
+        week: "",
+        month: "",
+        ...dateLabels
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SummaryCard, {
                 darkMode: darkMode,
                 title: "All-Time Total",
-                value: summaryCards.total,
+                value: safeSummaryCards.total,
                 note: "Filtered active dataset",
                 accentClass: "bg-emerald-500/10 text-emerald-500",
                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -479,24 +492,24 @@ const SummaryCardsGrid = ({ darkMode, summaryCards, dateLabels })=>{
                         d: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                        lineNumber: 15,
-                        columnNumber: 279
+                        lineNumber: 29,
+                        columnNumber: 283
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                    lineNumber: 15,
-                    columnNumber: 182
+                    lineNumber: 29,
+                    columnNumber: 186
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                lineNumber: 15,
+                lineNumber: 29,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SummaryCard, {
                 darkMode: darkMode,
                 title: "Today's Expense",
-                value: summaryCards.today,
-                note: dateLabels.today,
+                value: safeSummaryCards.today,
+                note: safeDateLabels.today,
                 accentClass: "bg-teal-500/10 text-teal-500",
                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                     className: "w-5 h-5",
@@ -510,24 +523,24 @@ const SummaryCardsGrid = ({ darkMode, summaryCards, dateLabels })=>{
                         d: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                        lineNumber: 16,
-                        columnNumber: 272
+                        lineNumber: 30,
+                        columnNumber: 280
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                    lineNumber: 16,
-                    columnNumber: 175
+                    lineNumber: 30,
+                    columnNumber: 183
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                lineNumber: 16,
+                lineNumber: 30,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SummaryCard, {
                 darkMode: darkMode,
                 title: "This Week",
-                value: summaryCards.week,
-                note: dateLabels.week,
+                value: safeSummaryCards.week,
+                note: safeDateLabels.week,
                 accentClass: "bg-cyan-500/10 text-cyan-500",
                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                     className: "w-5 h-5",
@@ -541,24 +554,24 @@ const SummaryCardsGrid = ({ darkMode, summaryCards, dateLabels })=>{
                         d: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                        lineNumber: 17,
-                        columnNumber: 259
+                        lineNumber: 31,
+                        columnNumber: 267
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                    lineNumber: 17,
-                    columnNumber: 162
+                    lineNumber: 31,
+                    columnNumber: 170
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                lineNumber: 17,
+                lineNumber: 31,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SummaryCard, {
                 darkMode: darkMode,
                 title: "This Month",
-                value: summaryCards.month,
-                note: dateLabels.month,
+                value: safeSummaryCards.month,
+                note: safeDateLabels.month,
                 accentClass: "bg-purple-500/10 text-purple-500",
                 icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                     className: "w-5 h-5",
@@ -573,8 +586,8 @@ const SummaryCardsGrid = ({ darkMode, summaryCards, dateLabels })=>{
                             d: "M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                            lineNumber: 18,
-                            columnNumber: 266
+                            lineNumber: 32,
+                            columnNumber: 274
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                             strokeLinecap: "round",
@@ -582,24 +595,24 @@ const SummaryCardsGrid = ({ darkMode, summaryCards, dateLabels })=>{
                             d: "M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                            lineNumber: 18,
-                            columnNumber: 369
+                            lineNumber: 32,
+                            columnNumber: 377
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                    lineNumber: 18,
-                    columnNumber: 169
+                    lineNumber: 32,
+                    columnNumber: 177
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-                lineNumber: 18,
+                lineNumber: 32,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/StatisticsView/SummaryCardsGrid.jsx",
-        lineNumber: 14,
+        lineNumber: 28,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -613,7 +626,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 ;
-const StatCard = ({ darkMode, title, value, valueClass, note, children })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+const StatCard = ({ darkMode, title, value = "", valueClass, note, children })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `p-4 rounded-xl border ${darkMode ? "bg-slate-800/30 border-slate-850" : "bg-slate-50 border-slate-150"}`,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -647,7 +660,20 @@ const StatCard = ({ darkMode, title, value, valueClass, note, children })=>/*#__
         lineNumber: 2,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
-const QuickStatsGrid = ({ darkMode, quickStats, formatDate })=>{
+const QuickStatsGrid = ({ darkMode = true, quickStats = {}, formatDate = (value)=>value || "" })=>{
+    const safeQuickStats = {
+        highest: {
+            date: "N/A",
+            amount: 0
+        },
+        lowest: {
+            date: "N/A",
+            amount: 0
+        },
+        mostUsedCategory: "N/A",
+        avgDaily: 0,
+        ...quickStats
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `p-6 rounded-2xl border shadow-sm ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`,
         children: [
@@ -666,19 +692,19 @@ const QuickStatsGrid = ({ darkMode, quickStats, formatDate })=>{
                             d: "M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/StatisticsView/QuickStatsGrid.jsx",
-                            lineNumber: 14,
+                            lineNumber: 22,
                             columnNumber: 129
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/Components/StatisticsView/QuickStatsGrid.jsx",
-                        lineNumber: 14,
+                        lineNumber: 22,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     "Core Spending Statistics"
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/StatisticsView/QuickStatsGrid.jsx",
-                lineNumber: 13,
+                lineNumber: 21,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -687,57 +713,57 @@ const QuickStatsGrid = ({ darkMode, quickStats, formatDate })=>{
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatCard, {
                         darkMode: darkMode,
                         title: "Highest Spending Day",
-                        value: `৳${Math.round(quickStats.highest.amount).toLocaleString()}`,
+                        value: `৳${Math.round(safeQuickStats.highest.amount).toLocaleString()}`,
                         valueClass: "text-rose-500",
-                        note: quickStats.highest.date !== "N/A" ? formatDate(quickStats.highest.date) : "N/A"
+                        note: safeQuickStats.highest.date !== "N/A" ? formatDate(safeQuickStats.highest.date) : "N/A"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/StatisticsView/QuickStatsGrid.jsx",
-                        lineNumber: 18,
+                        lineNumber: 26,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatCard, {
                         darkMode: darkMode,
                         title: "Lowest Spending Day",
-                        value: `৳${Math.round(quickStats.lowest.amount).toLocaleString()}`,
+                        value: `৳${Math.round(safeQuickStats.lowest.amount).toLocaleString()}`,
                         valueClass: "text-emerald-500",
-                        note: quickStats.lowest.date !== "N/A" ? formatDate(quickStats.lowest.date) : "N/A"
+                        note: safeQuickStats.lowest.date !== "N/A" ? formatDate(safeQuickStats.lowest.date) : "N/A"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/StatisticsView/QuickStatsGrid.jsx",
-                        lineNumber: 19,
+                        lineNumber: 27,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatCard, {
                         darkMode: darkMode,
                         title: "Most Used Category",
-                        value: quickStats.mostUsedCategory,
+                        value: safeQuickStats.mostUsedCategory,
                         valueClass: "text-purple-500 truncate",
                         note: "Frequent category"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/StatisticsView/QuickStatsGrid.jsx",
-                        lineNumber: 20,
+                        lineNumber: 28,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatCard, {
                         darkMode: darkMode,
                         title: "Average Daily Expense",
-                        value: `৳${Math.round(quickStats.avgDaily).toLocaleString()}`,
+                        value: `৳${Math.round(safeQuickStats.avgDaily).toLocaleString()}`,
                         valueClass: "text-teal-500",
                         note: "Per active day"
                     }, void 0, false, {
                         fileName: "[project]/src/Components/StatisticsView/QuickStatsGrid.jsx",
-                        lineNumber: 21,
+                        lineNumber: 29,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/StatisticsView/QuickStatsGrid.jsx",
-                lineNumber: 17,
+                lineNumber: 25,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/StatisticsView/QuickStatsGrid.jsx",
-        lineNumber: 12,
+        lineNumber: 20,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -751,7 +777,9 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 ;
-const CategoryBreakdown = ({ darkMode, categoryBreakdown, getCategoryStyles })=>{
+const CategoryBreakdown = ({ darkMode = true, categoryBreakdown = [], getCategoryStyles = ()=>({
+        bullet: "bg-slate-400"
+    }) })=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `p-6 rounded-2xl border shadow-sm ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`,
         children: [
@@ -909,7 +937,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 ;
-const DailyTrendChart = ({ darkMode, dailySpendingTrend })=>{
+const DailyTrendChart = ({ darkMode = true, dailySpendingTrend = [] })=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `p-6 rounded-2xl border shadow-sm flex flex-col ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`,
         children: [
@@ -1016,66 +1044,89 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$Statist
 ;
 ;
 const StatisticsView = (props)=>{
-    return props.activeTab === "statistics" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+    const { activeTab, darkMode = true, setActiveTab, summaryCards = {
+        total: 0,
+        today: 0,
+        week: 0,
+        month: 0
+    }, quickStats = {
+        highest: {
+            date: "N/A",
+            amount: 0
+        },
+        lowest: {
+            date: "N/A",
+            amount: 0
+        },
+        mostUsedCategory: "N/A",
+        avgDaily: 0
+    }, formatDate = (value)=>value || "", categoryBreakdown = [], getCategoryStyles = ()=>({
+            bullet: "bg-slate-400"
+        }), dailySpendingTrend = [], dateLabels = {
+        today: "",
+        week: "",
+        month: ""
+    } } = props;
+    return activeTab === "statistics" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-8 animate-fadeIn",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$StatisticsView$2f$StatisticsHeader$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["StatisticsHeader"], {
-                darkMode: props.darkMode,
-                setActiveTab: props.setActiveTab,
-                dateLabels: props.dateLabels
+                darkMode: darkMode,
+                setActiveTab: setActiveTab,
+                dateLabels: dateLabels
             }, void 0, false, {
                 fileName: "[project]/src/Components/StatisticsView.jsx",
-                lineNumber: 10,
+                lineNumber: 23,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$StatisticsView$2f$SummaryCardsGrid$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SummaryCardsGrid"], {
-                darkMode: props.darkMode,
-                summaryCards: props.summaryCards,
-                dateLabels: props.dateLabels
+                darkMode: darkMode,
+                summaryCards: summaryCards,
+                dateLabels: dateLabels
             }, void 0, false, {
                 fileName: "[project]/src/Components/StatisticsView.jsx",
-                lineNumber: 15,
+                lineNumber: 28,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$StatisticsView$2f$QuickStatsGrid$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["QuickStatsGrid"], {
-                darkMode: props.darkMode,
-                quickStats: props.quickStats,
-                formatDate: props.formatDate
+                darkMode: darkMode,
+                quickStats: quickStats,
+                formatDate: formatDate
             }, void 0, false, {
                 fileName: "[project]/src/Components/StatisticsView.jsx",
-                lineNumber: 16,
+                lineNumber: 29,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "grid grid-cols-1 md:grid-cols-2 gap-6",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$StatisticsView$2f$CategoryBreakdown$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CategoryBreakdown"], {
-                        darkMode: props.darkMode,
-                        categoryBreakdown: props.categoryBreakdown,
-                        getCategoryStyles: props.getCategoryStyles
+                        darkMode: darkMode,
+                        categoryBreakdown: categoryBreakdown,
+                        getCategoryStyles: getCategoryStyles
                     }, void 0, false, {
                         fileName: "[project]/src/Components/StatisticsView.jsx",
-                        lineNumber: 18,
+                        lineNumber: 31,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$StatisticsView$2f$DailyTrendChart$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DailyTrendChart"], {
-                        darkMode: props.darkMode,
-                        dailySpendingTrend: props.dailySpendingTrend
+                        darkMode: darkMode,
+                        dailySpendingTrend: dailySpendingTrend
                     }, void 0, false, {
                         fileName: "[project]/src/Components/StatisticsView.jsx",
-                        lineNumber: 19,
+                        lineNumber: 32,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/StatisticsView.jsx",
-                lineNumber: 17,
+                lineNumber: 30,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/StatisticsView.jsx",
-        lineNumber: 9,
+        lineNumber: 22,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0)) : null;
 };
@@ -2606,58 +2657,59 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerV
 ;
 ;
 const LedgerView = (props)=>{
-    const currentTableTotal = props.filteredExpenses.reduce((sum, expense)=>sum + (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["normalizeExpenseAmount"])(expense.amount), 0);
+    const filteredExpenses = props.filteredExpenses ?? [];
+    const currentTableTotal = filteredExpenses.reduce((sum, expense)=>sum + (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["normalizeExpenseAmount"])(expense.amount), 0);
     return props.activeTab === "ledger" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-6 animate-fadeIn",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2f$LedgerHeaderActions$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["LedgerHeaderActions"], {
-                darkMode: props.darkMode,
+                darkMode: props.darkMode ?? true,
                 setActiveTab: props.setActiveTab,
                 showQuickAdd: props.showQuickAdd,
                 setShowQuickAdd: props.setShowQuickAdd
             }, void 0, false, {
                 fileName: "[project]/src/Components/LedgerView.jsx",
-                lineNumber: 13,
+                lineNumber: 14,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2f$QuickAddExpenseForm$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["QuickAddExpenseForm"], {
                 ...props
             }, void 0, false, {
                 fileName: "[project]/src/Components/LedgerView.jsx",
-                lineNumber: 19,
+                lineNumber: 20,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2f$LedgerFilters$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["LedgerFilters"], {
                 ...props
             }, void 0, false, {
                 fileName: "[project]/src/Components/LedgerView.jsx",
-                lineNumber: 20,
+                lineNumber: 21,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2f$ExpenseTable$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ExpenseTable"], {
                 ...props
             }, void 0, false, {
                 fileName: "[project]/src/Components/LedgerView.jsx",
-                lineNumber: 21,
+                lineNumber: 22,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2f$PaginationBar$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["PaginationBar"], {
-                darkMode: props.darkMode,
-                filteredExpenses: props.filteredExpenses,
-                currentPage: props.currentPage,
+                darkMode: props.darkMode ?? true,
+                filteredExpenses: filteredExpenses,
+                currentPage: props.currentPage ?? 1,
                 setCurrentPage: props.setCurrentPage,
-                itemsPerPage: props.itemsPerPage,
-                totalPages: props.totalPages,
+                itemsPerPage: props.itemsPerPage ?? 8,
+                totalPages: props.totalPages ?? 1,
                 currentTableTotal: currentTableTotal
             }, void 0, false, {
                 fileName: "[project]/src/Components/LedgerView.jsx",
-                lineNumber: 22,
+                lineNumber: 23,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/LedgerView.jsx",
-        lineNumber: 12,
+        lineNumber: 13,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0)) : null;
 };

@@ -5,18 +5,31 @@ import { CategoryBreakdown } from "./StatisticsView/CategoryBreakdown";
 import { DailyTrendChart } from "./StatisticsView/DailyTrendChart";
 
 const StatisticsView = (props) => {
-    return props.activeTab === "statistics" ? (
+    const {
+        activeTab,
+        darkMode = true,
+        setActiveTab,
+        summaryCards = { total: 0, today: 0, week: 0, month: 0 },
+        quickStats = { highest: { date: "N/A", amount: 0 }, lowest: { date: "N/A", amount: 0 }, mostUsedCategory: "N/A", avgDaily: 0 },
+        formatDate = (value) => value || "",
+        categoryBreakdown = [],
+        getCategoryStyles = () => ({ bullet: "bg-slate-400" }),
+        dailySpendingTrend = [],
+        dateLabels = { today: "", week: "", month: "" }
+    } = props;
+
+    return activeTab === "statistics" ? (
         <div className="space-y-8 animate-fadeIn">
             <StatisticsHeader
-                darkMode={props.darkMode}
-                setActiveTab={props.setActiveTab}
-                dateLabels={props.dateLabels}
+                darkMode={darkMode}
+                setActiveTab={setActiveTab}
+                dateLabels={dateLabels}
             />
-            <SummaryCardsGrid darkMode={props.darkMode} summaryCards={props.summaryCards} dateLabels={props.dateLabels} />
-            <QuickStatsGrid darkMode={props.darkMode} quickStats={props.quickStats} formatDate={props.formatDate} />
+            <SummaryCardsGrid darkMode={darkMode} summaryCards={summaryCards} dateLabels={dateLabels} />
+            <QuickStatsGrid darkMode={darkMode} quickStats={quickStats} formatDate={formatDate} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <CategoryBreakdown darkMode={props.darkMode} categoryBreakdown={props.categoryBreakdown} getCategoryStyles={props.getCategoryStyles} />
-                <DailyTrendChart darkMode={props.darkMode} dailySpendingTrend={props.dailySpendingTrend} />
+                <CategoryBreakdown darkMode={darkMode} categoryBreakdown={categoryBreakdown} getCategoryStyles={getCategoryStyles} />
+                <DailyTrendChart darkMode={darkMode} dailySpendingTrend={dailySpendingTrend} />
             </div>
         </div>
     ) : null;

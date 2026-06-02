@@ -1,4 +1,4 @@
-export const DailyTrendChart = ({ darkMode, dailySpendingTrend }) => {
+export const DailyTrendChart = ({ darkMode = true, dailySpendingTrend = [] }) => {
     return (
         <div className={`p-6 rounded-2xl border shadow-sm flex flex-col ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`}>
             <h2 className="text-base font-bold tracking-tight mb-4 flex items-center gap-2">

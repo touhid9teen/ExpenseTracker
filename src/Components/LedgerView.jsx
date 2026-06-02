@@ -6,12 +6,13 @@ import { ExpenseTable } from "./LedgerView/ExpenseTable";
 import { PaginationBar } from "./LedgerView/PaginationBar";
 
 const LedgerView = (props) => {
-    const currentTableTotal = props.filteredExpenses.reduce((sum, expense) => sum + normalizeExpenseAmount(expense.amount), 0);
+    const filteredExpenses = props.filteredExpenses ?? [];
+    const currentTableTotal = filteredExpenses.reduce((sum, expense) => sum + normalizeExpenseAmount(expense.amount), 0);
 
     return props.activeTab === "ledger" ? (
         <div className="space-y-6 animate-fadeIn">
             <LedgerHeaderActions
-                darkMode={props.darkMode}
+                darkMode={props.darkMode ?? true}
                 setActiveTab={props.setActiveTab}
                 showQuickAdd={props.showQuickAdd}
                 setShowQuickAdd={props.setShowQuickAdd}
@@ -20,12 +21,12 @@ const LedgerView = (props) => {
             <LedgerFilters {...props} />
             <ExpenseTable {...props} />
             <PaginationBar
-                darkMode={props.darkMode}
-                filteredExpenses={props.filteredExpenses}
-                currentPage={props.currentPage}
+                darkMode={props.darkMode ?? true}
+                filteredExpenses={filteredExpenses}
+                currentPage={props.currentPage ?? 1}
                 setCurrentPage={props.setCurrentPage}
-                itemsPerPage={props.itemsPerPage}
-                totalPages={props.totalPages}
+                itemsPerPage={props.itemsPerPage ?? 8}
+                totalPages={props.totalPages ?? 1}
                 currentTableTotal={currentTableTotal}
             />
         </div>

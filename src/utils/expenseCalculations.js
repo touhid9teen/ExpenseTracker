@@ -1,5 +1,18 @@
 import { formatShortDate, getRelativeInputDate, isThisMonth, isThisWeek, isToday } from "./dateUtils";
 
+export const normalizeExpenseAmount = (amount) => {
+    if (typeof amount === "number" && Number.isFinite(amount)) return amount;
+
+    const parsedAmount = Number.parseFloat(amount);
+    return Number.isFinite(parsedAmount) ? parsedAmount : 0;
+};
+
+export const normalizeExpenseRecord = (expense) => ({
+    ...expense,
+    item: expense.item ?? expense.description ?? "",
+    amount: normalizeExpenseAmount(expense.amount)
+});
+
 export const filterAndSortExpenses = ({
     expenses,
     searchQuery,
@@ -9,7 +22,7 @@ export const filterAndSortExpenses = ({
     sortBy,
     sortOrder
 }) => {
-    let result = [...expenses];
+    let result = expenses.map(normalizeExpenseRecord);
 
     if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
@@ -63,10 +76,11 @@ export const calculateSummaryCards = (expenses) => {
     let month = 0;
 
     expenses.forEach((exp) => {
-        total += exp.amount;
-        if (isToday(exp.date)) today += exp.amount;
-        if (isThisWeek(exp.date)) week += exp.amount;
-        if (isThisMonth(exp.date)) month += exp.amount;
+        const amount = normalizeExpenseAmount(exp.amount);
+        total += amount;
+        if (isToday(exp.date)) today += amount;
+        if (isThisWeek(exp.date)) week += amount;
+        if (isThisMonth(exp.date)) month += amount;
     });
 
     return { total, today, week, month };
@@ -86,7 +100,8 @@ export const calculateQuickStats = (expenses) => {
     const categoryCounts = {};
 
     expenses.forEach((exp) => {
-        dateGroups[exp.date] = (dateGroups[exp.date] || 0) + exp.amount;
+        const amount = normalizeExpenseAmount(exp.amount);
+        dateGroups[exp.date] = (dateGroups[exp.date] || 0) + amount;
         categoryCounts[exp.category] = (categoryCounts[exp.category] || 0) + 1;
     });
 
@@ -110,7 +125,7 @@ export const calculateQuickStats = (expenses) => {
         }
     });
 
-    const totalAmount = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+    const totalAmount = expenses.reduce((sum, exp) => sum + normalizeExpenseAmount(exp.amount), 0);
     const avgDaily = totalAmount / dateEntries.length;
 
     return { highest, lowest, mostUsedCategory, avgDaily };
@@ -123,8 +138,9 @@ export const calculateCategoryBreakdown = (expenses) => {
     let grandTotal = 0;
 
     expenses.forEach((exp) => {
-        totals[exp.category] = (totals[exp.category] || 0) + exp.amount;
-        grandTotal += exp.amount;
+        const amount = normalizeExpenseAmount(exp.amount);
+        totals[exp.category] = (totals[exp.category] || 0) + amount;
+        grandTotal += amount;
     });
 
     return Object.entries(totals)
@@ -147,7 +163,7 @@ export const calculateDailySpendingTrend = (expenses) => {
 
     expenses.forEach((exp) => {
         if (dateValues[exp.date] !== undefined) {
-            dateValues[exp.date] += exp.amount;
+            dateValues[exp.date] += normalizeExpenseAmount(exp.amount);
         }
     });
 
@@ -172,7 +188,7 @@ export const calculateCustomRangeSum = (expenses, customStart, customEnd) => {
             const time = new Date(exp.date).getTime();
             return time >= startTime && time <= endTime;
         })
-        .reduce((sum, exp) => sum + exp.amount, 0);
+        .reduce((sum, exp) => sum + normalizeExpenseAmount(exp.amount), 0);
 };
 
 export const paginateExpenses = (expenses, currentPage, itemsPerPage) => {
@@ -184,7 +200,7 @@ export const getDailyModalDetails = (expenses, selectedDailyDate) => {
     if (!selectedDailyDate) return null;
 
     const items = expenses.filter((expense) => expense.date === selectedDailyDate);
-    const total = items.reduce((sum, expense) => sum + expense.amount, 0);
+    const total = items.reduce((sum, expense) => sum + normalizeExpenseAmount(expense.amount), 0);
 
     return {
         date: selectedDailyDate,

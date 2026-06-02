@@ -17,7 +17,8 @@ import {
     calculateSummaryCards,
     filterAndSortExpenses,
     getDailyModalDetails,
-    paginateExpenses
+    paginateExpenses,
+    normalizeExpenseRecord
 } from "./utils/expenseCalculations";
 
 const ExpenseClipper = () => {
@@ -80,10 +81,12 @@ const ExpenseClipper = () => {
                 if (response.ok) {
                     const data = await response.json();
                     // Ensure dates are parsed correctly from ISO strings
-                    const formattedData = data.map(exp => ({
-                        ...exp,
-                        date: exp.date.split('T')[0]
-                    }));
+                    const formattedData = data.map((exp) =>
+                        normalizeExpenseRecord({
+                            ...exp,
+                            date: exp.date.split('T')[0]
+                        })
+                    );
                     setExpenses(formattedData);
                 }
             } catch (error) {
@@ -164,7 +167,7 @@ const ExpenseClipper = () => {
                 body: JSON.stringify(newExpense)
             });
             if (res.ok) {
-                const savedExpense = await res.json();
+                const savedExpense = normalizeExpenseRecord(await res.json());
                 const updated = [savedExpense, ...expenses];
                 saveExpensesToStorage(updated);
             }
@@ -200,7 +203,7 @@ const ExpenseClipper = () => {
                 body: JSON.stringify(expenseToUpdate)
             });
             if (res.ok) {
-                const updatedExpense = await res.json();
+                const updatedExpense = normalizeExpenseRecord(await res.json());
                 const updated = expenses.map((exp) =>
                     exp.id === updatedExpense.id ? updatedExpense : exp
                 );

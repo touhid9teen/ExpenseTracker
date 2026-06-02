@@ -3,6 +3,12 @@ import { NextResponse } from 'next/server';
 
 export const runtime = 'edge';
 
+const normalizeAmount = (amount) => {
+  if (typeof amount === 'number' && Number.isFinite(amount)) return amount;
+  const parsedAmount = Number.parseFloat(amount);
+  return Number.isFinite(parsedAmount) ? parsedAmount : 0;
+};
+
 export async function PUT(request, { params }) {
   const { id } = params;
   
@@ -21,7 +27,10 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ error: 'Expense not found' }, { status: 404 });
     }
 
-    return NextResponse.json(result[0]);
+    return NextResponse.json({
+      ...result[0],
+      amount: normalizeAmount(result[0].amount)
+    });
   } catch (error) {
     console.error('Error updating expense:', error);
     return NextResponse.json({ error: 'Failed to update expense' }, { status: 500 });

@@ -9,6 +9,7 @@ export async function GET(request) {
     const res = await sql`
       CREATE TABLE IF NOT EXISTS expenses (
         id VARCHAR(255) PRIMARY KEY,
+        item VARCHAR(255),
         description VARCHAR(255) NOT NULL,
         amount DECIMAL(10, 2) NOT NULL,
         date DATE NOT NULL,

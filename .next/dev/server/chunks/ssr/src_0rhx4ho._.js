@@ -3524,7 +3524,18 @@ const ExpenseClipper = ()=>{
     // LIFECYCLE / INITIALIZATION
     // ----------------------------------------------------
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        setExpenses((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$storageUtils$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["loadStoredExpenses"])());
+        const fetchExpenses = async ()=>{
+            try {
+                const res = await fetch("/api/expenses");
+                const data = res.ok ? await res.json() : [];
+                if (Array.isArray(data)) {
+                    setExpenses(data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch expenses:", error);
+            }
+        };
+        fetchExpenses();
         setDarkMode((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$storageUtils$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["loadThemePreference"])());
     }, []);
     // Sync theme to localStorage
@@ -3532,11 +3543,6 @@ const ExpenseClipper = ()=>{
         const nextTheme = !darkMode;
         setDarkMode(nextTheme);
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$storageUtils$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["saveThemePreference"])(nextTheme);
-    };
-    // Helper: Write current expenses to storage
-    const saveExpensesToStorage = (updatedList)=>{
-        setExpenses(updatedList);
-        (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$storageUtils$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["saveStoredExpenses"])(updatedList);
     };
     const getCategoryStylesForTheme = (category)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$categoryStyles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getCategoryStyles"])(category, darkMode);
     // ----------------------------------------------------
@@ -3587,51 +3593,97 @@ const ExpenseClipper = ()=>{
     // ----------------------------------------------------
     // ACTIONS: ADD, EDIT, DELETE, RESET
     // ----------------------------------------------------
-    const handleAddExpense = (e)=>{
+    const handleAddExpense = async (e)=>{
         e.preventDefault();
         if (!addAmount || !addDescription.trim()) {
             alert("Please fill in the Amount and Description fields.");
             return;
         }
-        const newExpense = {
-            id: `exp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        const newExpenseData = {
             item: addDescription.trim(),
             description: addDescription.trim(),
             amount: parseFloat(addAmount),
             date: addDate,
             category: addCategory
         };
-        const updated = [
-            newExpense,
-            ...expenses
-        ];
-        saveExpensesToStorage(updated);
-        // Reset Add inputs
-        setAddAmount("");
-        setAddDescription("");
-        setAddDate((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$dateUtils$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getTodayInputValue"])());
-        setAddCategory("Food");
-        setShowQuickAdd(false);
+        try {
+            const res = await fetch("/api/expenses", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newExpenseData)
+            });
+            const saved = await res.json();
+            if (res.ok) {
+                setExpenses([
+                    saved,
+                    ...expenses
+                ]);
+                // Reset Add inputs
+                setAddAmount("");
+                setAddDescription("");
+                setAddDate((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$dateUtils$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getTodayInputValue"])());
+                setAddCategory("Food");
+                setShowQuickAdd(false);
+            } else {
+                alert(`Failed to add expense: ${saved.error}`);
+            }
+        } catch (error) {
+            console.error("Error adding expense:", error);
+            alert("Failed to add expense due to network/server error.");
+        }
     };
-    const handleSaveEdit = (e)=>{
+    const handleSaveEdit = async (e)=>{
         e.preventDefault();
         if (!editingExpense.description.trim() || !editingExpense.amount) {
             alert("Description and Amount are required.");
             return;
         }
-        const updated = expenses.map((exp)=>exp.id === editingExpense.id ? {
-                ...editingExpense,
-                item: editingExpense.description,
-                amount: parseFloat(editingExpense.amount)
-            } : exp);
-        saveExpensesToStorage(updated);
-        setEditingExpense(null);
+        const updatedExpenseData = {
+            item: editingExpense.description.trim(),
+            description: editingExpense.description.trim(),
+            amount: parseFloat(editingExpense.amount),
+            date: editingExpense.date,
+            category: editingExpense.category
+        };
+        try {
+            const res = await fetch(`/api/expenses/${editingExpense.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedExpenseData)
+            });
+            const saved = await res.json();
+            if (res.ok) {
+                setExpenses(expenses.map((exp)=>exp.id === editingExpense.id ? saved : exp));
+                setEditingExpense(null);
+            } else {
+                alert(`Failed to update expense: ${saved.error}`);
+            }
+        } catch (error) {
+            console.error("Error updating expense:", error);
+            alert("Failed to update expense due to network/server error.");
+        }
     };
-    const handleConfirmDelete = ()=>{
+    const handleConfirmDelete = async ()=>{
         if (!deletingExpense) return;
-        const updated = expenses.filter((exp)=>exp.id !== deletingExpense.id);
-        saveExpensesToStorage(updated);
-        setDeletingExpense(null);
+        try {
+            const res = await fetch(`/api/expenses/${deletingExpense.id}`, {
+                method: "DELETE"
+            });
+            const result = await res.json();
+            if (res.ok) {
+                setExpenses(expenses.filter((exp)=>exp.id !== deletingExpense.id));
+                setDeletingExpense(null);
+            } else {
+                alert(`Failed to delete expense: ${result.error}`);
+            }
+        } catch (error) {
+            console.error("Error deleting expense:", error);
+            alert("Failed to delete expense due to network/server error.");
+        }
     };
     const handleResetFilters = ()=>{
         setSearchQuery("");
@@ -3682,7 +3734,7 @@ const ExpenseClipper = ()=>{
                 toggleTheme: toggleTheme
             }, void 0, false, {
                 fileName: "[project]/src/ExpenseClipper.jsx",
-                lineNumber: 224,
+                lineNumber: 268,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -3696,7 +3748,7 @@ const ExpenseClipper = ()=>{
                         handleResetFilters: handleResetFilters
                     }, void 0, false, {
                         fileName: "[project]/src/ExpenseClipper.jsx",
-                        lineNumber: 232,
+                        lineNumber: 276,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$StatisticsView$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -3712,7 +3764,7 @@ const ExpenseClipper = ()=>{
                         dateLabels: dashboardDateLabels
                     }, void 0, false, {
                         fileName: "[project]/src/ExpenseClipper.jsx",
-                        lineNumber: 240,
+                        lineNumber: 284,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -3763,13 +3815,13 @@ const ExpenseClipper = ()=>{
                         totalPages: totalPages
                     }, void 0, false, {
                         fileName: "[project]/src/ExpenseClipper.jsx",
-                        lineNumber: 253,
+                        lineNumber: 297,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/ExpenseClipper.jsx",
-                lineNumber: 231,
+                lineNumber: 275,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DailyExpenseModal"], {
@@ -3781,7 +3833,7 @@ const ExpenseClipper = ()=>{
                 setSelectedDailyDate: setSelectedDailyDate
             }, void 0, false, {
                 fileName: "[project]/src/ExpenseClipper.jsx",
-                lineNumber: 302,
+                lineNumber: 346,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditExpenseModal"], {
@@ -3792,7 +3844,7 @@ const ExpenseClipper = ()=>{
                 CATEGORIES: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$expenseData$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CATEGORIES"]
             }, void 0, false, {
                 fileName: "[project]/src/ExpenseClipper.jsx",
-                lineNumber: 311,
+                lineNumber: 355,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DeleteExpenseModal"], {
@@ -3802,13 +3854,13 @@ const ExpenseClipper = ()=>{
                 handleConfirmDelete: handleConfirmDelete
             }, void 0, false, {
                 fileName: "[project]/src/ExpenseClipper.jsx",
-                lineNumber: 319,
+                lineNumber: 363,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/ExpenseClipper.jsx",
-        lineNumber: 223,
+        lineNumber: 267,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

@@ -1,3 +1,0 @@
-module.exports=[76700,a=>{a.v({className:"inter_c28cdf08-module__T0UfLq__className",variable:"inter_c28cdf08-module__T0UfLq__variable"})},29735,a=>{"use strict";var b=a.i(7997),c=a.i(76700);let d={className:c.default.className,style:{fontFamily:"'Inter', 'Inter Fallback'",fontStyle:"normal"}};null!=c.default.variable&&(d.variable=c.default.variable),a.s(["default",0,function({children:a}){return(0,b.jsx)("html",{lang:"en",className:`${d.variable} h-full`,children:(0,b.jsx)("body",{className:"h-full antialiased font-sans",children:a})})},"metadata",0,{title:"FinVue - Premium Expense Tracker",description:"Interactive and responsive financial management dashboard."}],29735)},81967,a=>{a.n(a.i(29735))}];
-
-//# sourceMappingURL=%5Broot-of-the-server%5D__1-9w-m9._.js.map

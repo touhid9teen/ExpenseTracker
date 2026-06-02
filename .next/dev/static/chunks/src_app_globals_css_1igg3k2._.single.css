@@ -260,10 +260,6 @@ img, video {
   display: none;
 }
 
-.visible {
-  visibility: visible;
-}
-
 .fixed {
   position: fixed;
 }

@@ -43,10 +43,18 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 const runtime = 'edge';
+const normalizeAmount = (amount)=>{
+    if (typeof amount === 'number' && Number.isFinite(amount)) return amount;
+    const parsedAmount = Number.parseFloat(amount);
+    return Number.isFinite(parsedAmount) ? parsedAmount : 0;
+};
 async function GET() {
     try {
         const expenses = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$js__$5b$app$2d$edge$2d$route$5d$__$28$ecmascript$29$__["default"]`SELECT * FROM expenses ORDER BY date DESC`;
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$app$2d$edge$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(expenses);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$app$2d$edge$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(expenses.map((expense)=>({
+                ...expense,
+                amount: normalizeAmount(expense.amount)
+            })));
     } catch (error) {
         console.error('Error fetching expenses:', error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$app$2d$edge$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -61,11 +69,14 @@ async function POST(request) {
         const data = await request.json();
         const { id, description, amount, date, category } = data;
         const result = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$db$2e$js__$5b$app$2d$edge$2d$route$5d$__$28$ecmascript$29$__["default"]`
-      INSERT INTO expenses (id, description, amount, date, category)
-      VALUES (${id}, ${description}, ${amount}, ${date}, ${category})
+      INSERT INTO expenses (id, item, description, amount, date, category)
+      VALUES (${id}, ${description}, ${description}, ${amount}, ${date}, ${category})
       RETURNING *
     `;
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$app$2d$edge$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(result[0], {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$app$2d$edge$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            ...result[0],
+            amount: normalizeAmount(result[0].amount)
+        }, {
             status: 201
         });
     } catch (error) {

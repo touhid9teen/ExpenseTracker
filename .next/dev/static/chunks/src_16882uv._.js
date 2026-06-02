@@ -2749,6 +2749,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerV
 const LedgerView = (props)=>{
     const filteredExpenses = props.filteredExpenses ?? [];
     const currentTableTotal = filteredExpenses.reduce((sum, expense)=>sum + (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["normalizeExpenseAmount"])(expense.amount), 0);
+    const getCategoryStyles = props.getCategoryStyles ?? props.getCategoryStylesForTheme ?? (()=>({
+            bg: "bg-slate-100",
+            bullet: "bg-slate-400"
+        }));
     return props.activeTab === "ledger" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-6 animate-fadeIn",
         children: [
@@ -2759,28 +2763,29 @@ const LedgerView = (props)=>{
                 setShowQuickAdd: props.setShowQuickAdd
             }, void 0, false, {
                 fileName: "[project]/src/Components/LedgerView.jsx",
-                lineNumber: 14,
+                lineNumber: 15,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2f$QuickAddExpenseForm$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["QuickAddExpenseForm"], {
                 ...props
             }, void 0, false, {
                 fileName: "[project]/src/Components/LedgerView.jsx",
-                lineNumber: 20,
+                lineNumber: 21,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2f$LedgerFilters$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["LedgerFilters"], {
                 ...props
             }, void 0, false, {
                 fileName: "[project]/src/Components/LedgerView.jsx",
-                lineNumber: 21,
+                lineNumber: 22,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2f$ExpenseTable$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ExpenseTable"], {
-                ...props
+                ...props,
+                getCategoryStyles: getCategoryStyles
             }, void 0, false, {
                 fileName: "[project]/src/Components/LedgerView.jsx",
-                lineNumber: 22,
+                lineNumber: 23,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2f$PaginationBar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PaginationBar"], {
@@ -2793,13 +2798,13 @@ const LedgerView = (props)=>{
                 currentTableTotal: currentTableTotal
             }, void 0, false, {
                 fileName: "[project]/src/Components/LedgerView.jsx",
-                lineNumber: 23,
+                lineNumber: 24,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/LedgerView.jsx",
-        lineNumber: 13,
+        lineNumber: 14,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0)) : null;
 };
@@ -4049,6 +4054,7 @@ const useExpenseClipper = ()=>{
         setAddDescription,
         toggleTheme,
         getCategoryStylesForTheme,
+        getCategoryStyles: getCategoryStylesForTheme,
         filteredExpenses,
         summaryCards,
         quickStats,

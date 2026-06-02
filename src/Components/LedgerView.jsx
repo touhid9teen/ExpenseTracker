@@ -8,6 +8,7 @@ import { PaginationBar } from "./LedgerView/PaginationBar";
 const LedgerView = (props) => {
     const filteredExpenses = props.filteredExpenses ?? [];
     const currentTableTotal = filteredExpenses.reduce((sum, expense) => sum + normalizeExpenseAmount(expense.amount), 0);
+    const getCategoryStyles = props.getCategoryStyles ?? props.getCategoryStylesForTheme ?? (() => ({ bg: "bg-slate-100", bullet: "bg-slate-400" }));
 
     return props.activeTab === "ledger" ? (
         <div className="space-y-6 animate-fadeIn">
@@ -19,7 +20,7 @@ const LedgerView = (props) => {
             />
             <QuickAddExpenseForm {...props} />
             <LedgerFilters {...props} />
-            <ExpenseTable {...props} />
+            <ExpenseTable {...props} getCategoryStyles={getCategoryStyles} />
             <PaginationBar
                 darkMode={props.darkMode ?? true}
                 filteredExpenses={filteredExpenses}

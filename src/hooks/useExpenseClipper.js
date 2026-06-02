@@ -269,6 +269,7 @@ export const useExpenseClipper = () => {
         setAddDescription,
         toggleTheme,
         getCategoryStylesForTheme,
+        getCategoryStyles: getCategoryStylesForTheme,
         filteredExpenses,
         summaryCards,
         quickStats,

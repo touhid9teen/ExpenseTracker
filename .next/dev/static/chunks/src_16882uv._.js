@@ -3809,12 +3809,12 @@ const useExpenseClipper = ()=>{
                         const response = await fetch("/api/expenses");
                         if (response.ok) {
                             const data = await response.json();
-                            const formattedData = data.map({
-                                "useExpenseClipper.useEffect.fetchExpenses.formattedData": (exp)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["normalizeExpenseRecord"])({
+                            const formattedData = Array.isArray(data) ? data.map({
+                                "useExpenseClipper.useEffect.fetchExpenses": (exp)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["normalizeExpenseRecord"])({
                                         ...exp,
-                                        date: exp.date.split("T")[0]
+                                        date: exp.date ? String(exp.date).split("T")[0] : ""
                                     })
-                            }["useExpenseClipper.useEffect.fetchExpenses.formattedData"]);
+                            }["useExpenseClipper.useEffect.fetchExpenses"]) : [];
                             setExpenses(formattedData);
                         }
                     } catch (error) {

@@ -11,6 +11,9 @@ const normalizeAmount = (amount) => {
 
 export async function PUT(request, { params }) {
   const { id } = params;
+  if (!sql) {
+    return NextResponse.json({ error: 'Database is not configured' }, { status: 503 });
+  }
   
   try {
     const data = await request.json();
@@ -39,6 +42,9 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
   const { id } = params;
+  if (!sql) {
+    return NextResponse.json({ error: 'Database is not configured' }, { status: 503 });
+  }
   
   try {
     const result = await sql`

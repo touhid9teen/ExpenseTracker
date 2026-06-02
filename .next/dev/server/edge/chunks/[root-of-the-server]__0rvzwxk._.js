@@ -20,10 +20,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$neondatabase$2f$serverless$2f$index$2e$mjs__$5b$app$2d$edge$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@neondatabase/serverless/index.mjs [app-edge-route] (ecmascript)");
 ;
-if (!process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL is not defined in the environment variables');
-}
-const sql = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$neondatabase$2f$serverless$2f$index$2e$mjs__$5b$app$2d$edge$2d$route$5d$__$28$ecmascript$29$__["neon"])(process.env.DATABASE_URL);
+const sql = process.env.DATABASE_URL ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$neondatabase$2f$serverless$2f$index$2e$mjs__$5b$app$2d$edge$2d$route$5d$__$28$ecmascript$29$__["neon"])(process.env.DATABASE_URL) : null;
 const __TURBOPACK__default__export__ = sql;
 }),
 "[project]/src/app/api/expenses/route.js [app-edge-route] (ecmascript)", ((__turbopack_context__) => {

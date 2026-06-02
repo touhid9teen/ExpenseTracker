@@ -16,12 +16,12 @@
         "server/edge/chunks/node_modules_next_dist_compiled_09nx5jw._.js",
         "server/edge/chunks/node_modules_next_dist_0-g83ei._.js",
         "server/edge/chunks/node_modules_@neondatabase_serverless_index_mjs_1z34eza._.js",
-        "server/edge/chunks/[root-of-the-server]__0rvzwxk._.js",
-        "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_1_m84tc.js"
+        "server/edge/chunks/[root-of-the-server]__0nfo4y8._.js",
+        "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_1n7lcp8.js"
       ],
       "name": "app/api/expenses/route",
       "page": "/api/expenses/route",
-      "entrypoint": "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_1_m84tc.js",
+      "entrypoint": "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_1n7lcp8.js",
       "matchers": [
         {
           "regexp": "^/api/expenses(?:/)?$",

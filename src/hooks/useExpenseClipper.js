@@ -50,12 +50,14 @@ export const useExpenseClipper = () => {
                 const response = await fetch("/api/expenses");
                 if (response.ok) {
                     const data = await response.json();
-                    const formattedData = data.map((exp) =>
-                        normalizeExpenseRecord({
-                            ...exp,
-                            date: exp.date.split("T")[0]
-                        })
-                    );
+                    const formattedData = Array.isArray(data)
+                        ? data.map((exp) =>
+                              normalizeExpenseRecord({
+                                  ...exp,
+                                  date: exp.date ? String(exp.date).split("T")[0] : ""
+                              })
+                          )
+                        : [];
                     setExpenses(formattedData);
                 }
             } catch (error) {

@@ -29,7 +29,6 @@ export async function GET() {
     await sql`
       CREATE TABLE IF NOT EXISTS expenses (
         id VARCHAR(255) PRIMARY KEY,
-        user_id UUID REFERENCES users(id) ON DELETE CASCADE,
         item VARCHAR(255),
         description TEXT,
         amount NUMERIC,
@@ -37,6 +36,12 @@ export async function GET() {
         category VARCHAR(255),
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       )
+    `;
+
+    // 4.b Add user_id column to expenses if it doesn't exist
+    await sql`
+      ALTER TABLE expenses 
+      ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES users(id) ON DELETE CASCADE
     `;
 
     // 5. Create expenses index

@@ -3773,6 +3773,8 @@ var _s = __turbopack_context__.k.signature();
 ;
 const useExpenseClipper = ()=>{
     _s();
+    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [isAuthLoading, setIsAuthLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [expenses, setExpenses] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("statistics");
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
@@ -3808,26 +3810,35 @@ const useExpenseClipper = ()=>{
     }["useExpenseClipper.useEffect"], []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "useExpenseClipper.useEffect": ()=>{
-            const fetchExpenses = {
-                "useExpenseClipper.useEffect.fetchExpenses": async ()=>{
+            const checkAuthAndFetchExpenses = {
+                "useExpenseClipper.useEffect.checkAuthAndFetchExpenses": async ()=>{
                     try {
-                        const response = await fetch("/api/expenses");
-                        if (response.ok) {
-                            const data = await response.json();
-                            const formattedData = Array.isArray(data) ? data.map({
-                                "useExpenseClipper.useEffect.fetchExpenses": (exp)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["normalizeExpenseRecord"])({
-                                        ...exp,
-                                        date: exp.date ? String(exp.date).split("T")[0] : ""
-                                    })
-                            }["useExpenseClipper.useEffect.fetchExpenses"]) : [];
-                            setExpenses(formattedData);
+                        const authRes = await fetch("/api/auth/me");
+                        if (authRes.ok) {
+                            const { user } = await authRes.json();
+                            setUser(user);
+                            if (user) {
+                                const response = await fetch("/api/expenses");
+                                if (response.ok) {
+                                    const data = await response.json();
+                                    const formattedData = Array.isArray(data) ? data.map({
+                                        "useExpenseClipper.useEffect.checkAuthAndFetchExpenses": (exp)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["normalizeExpenseRecord"])({
+                                                ...exp,
+                                                date: exp.date ? String(exp.date).split("T")[0] : ""
+                                            })
+                                    }["useExpenseClipper.useEffect.checkAuthAndFetchExpenses"]) : [];
+                                    setExpenses(formattedData);
+                                }
+                            }
                         }
                     } catch (error) {
-                        console.error("Failed to fetch expenses:", error);
+                        console.error("Failed to authenticate or fetch expenses:", error);
+                    } finally{
+                        setIsAuthLoading(false);
                     }
                 }
-            }["useExpenseClipper.useEffect.fetchExpenses"];
-            fetchExpenses();
+            }["useExpenseClipper.useEffect.checkAuthAndFetchExpenses"];
+            checkAuthAndFetchExpenses();
             setDarkMode((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$storageUtils$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["loadThemePreference"])());
         }
     }["useExpenseClipper.useEffect"], []);
@@ -4008,7 +4019,22 @@ const useExpenseClipper = ()=>{
         expenses,
         selectedDailyDate
     ]);
+    const handleLogout = async ()=>{
+        try {
+            await fetch("/api/auth/logout", {
+                method: "POST"
+            });
+            setUser(null);
+            setExpenses([]);
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
     return {
+        user,
+        setUser,
+        isAuthLoading,
+        handleLogout,
         expenses,
         setExpenses,
         activeTab,
@@ -4074,7 +4100,7 @@ const useExpenseClipper = ()=>{
         CATEGORIES: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$expenseData$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CATEGORIES"]
     };
 };
-_s(useExpenseClipper, "EQgxAi3znNiOGHpeiax/b1KnNXk=");
+_s(useExpenseClipper, "ZXuH77DMKs9WuZpcEa5wb23Cpog=");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

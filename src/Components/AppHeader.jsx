@@ -1,4 +1,6 @@
-const AppHeader = ({ darkMode, activeTab, setActiveTab, toggleTheme }) => {
+const AppHeader = ({ darkMode, 
+    // activeTab, setActiveTab, 
+    toggleTheme, user, handleLogout }) => {
     return (
             <header className={`sticky top-0 z-30 transition-colors duration-300 border-b ${darkMode ? "bg-[#0f172a]/90 border-slate-800/80 backdrop-blur-md" : "bg-white/95 border-slate-200/85 backdrop-blur-md shadow-sm"}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-3 sm:py-0 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
@@ -16,7 +18,7 @@ const AppHeader = ({ darkMode, activeTab, setActiveTab, toggleTheme }) => {
                     </div>
 
                     {/* TWO-PAGE VIEW SELECTOR (TAB BUTTONS) */}
-                    <div className="order-3 w-full sm:order-none sm:w-auto flex items-center">
+                    {/* <div className="order-3 w-full sm:order-none sm:w-auto flex items-center">
                         <div className={`w-full sm:w-auto p-1 rounded-xl grid grid-cols-2 sm:flex gap-1 border ${darkMode ? "bg-slate-900 border-slate-800" : "bg-slate-100 border-slate-200"}`}>
                             <button
                                 onClick={() => setActiveTab("statistics")}
@@ -41,7 +43,7 @@ const AppHeader = ({ darkMode, activeTab, setActiveTab, toggleTheme }) => {
                                 <span className="hidden sm:inline">Transactions Ledger</span>
                             </button>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="flex shrink-0 items-center gap-3">
                         {/* Theme Toggle Button */}
@@ -61,6 +63,21 @@ const AppHeader = ({ darkMode, activeTab, setActiveTab, toggleTheme }) => {
                                 </svg>
                             )}
                         </button>
+
+                        {/* User Profile & Logout */}
+                        {user && (
+                            <div className="flex items-center gap-2 border-l pl-3 ml-1 border-slate-200 dark:border-slate-700">
+                                <div className={`hidden sm:flex items-center justify-center w-8 h-8 rounded-full font-bold text-xs ${darkMode ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-100 text-emerald-700'}`}>
+                                    {user.username.charAt(0).toUpperCase()}
+                                </div>
+                                <button
+                                    onClick={handleLogout}
+                                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${darkMode ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-red-50 text-red-600 hover:bg-red-100'}`}
+                                >
+                                    Logout
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </header>

@@ -15,6 +15,8 @@ import {
 } from "../utils/expenseCalculations";
 
 export const useExpenseClipper = () => {
+    const [user, setUser] = useState(null);
+    const [isAuthLoading, setIsAuthLoading] = useState(true);
     const [expenses, setExpenses] = useState([]);
     const [activeTab, setActiveTab] = useState("statistics");
     const [searchQuery, setSearchQuery] = useState("");
@@ -45,27 +47,37 @@ export const useExpenseClipper = () => {
     }, []);
 
     useEffect(() => {
-        const fetchExpenses = async () => {
+        const checkAuthAndFetchExpenses = async () => {
             try {
-                const response = await fetch("/api/expenses");
-                if (response.ok) {
-                    const data = await response.json();
-                    const formattedData = Array.isArray(data)
-                        ? data.map((exp) =>
-                              normalizeExpenseRecord({
-                                  ...exp,
-                                  date: exp.date ? String(exp.date).split("T")[0] : ""
-                              })
-                          )
-                        : [];
-                    setExpenses(formattedData);
+                const authRes = await fetch("/api/auth/me");
+                if (authRes.ok) {
+                    const { user } = await authRes.json();
+                    setUser(user);
+                    
+                    if (user) {
+                        const response = await fetch("/api/expenses");
+                        if (response.ok) {
+                            const data = await response.json();
+                            const formattedData = Array.isArray(data)
+                                ? data.map((exp) =>
+                                      normalizeExpenseRecord({
+                                          ...exp,
+                                          date: exp.date ? String(exp.date).split("T")[0] : ""
+                                      })
+                                  )
+                                : [];
+                            setExpenses(formattedData);
+                        }
+                    }
                 }
             } catch (error) {
-                console.error("Failed to fetch expenses:", error);
+                console.error("Failed to authenticate or fetch expenses:", error);
+            } finally {
+                setIsAuthLoading(false);
             }
         };
 
-        fetchExpenses();
+        checkAuthAndFetchExpenses();
         setDarkMode(loadThemePreference());
     }, []);
 
@@ -223,7 +235,21 @@ export const useExpenseClipper = () => {
         [expenses, selectedDailyDate]
     );
 
+    const handleLogout = async () => {
+        try {
+            await fetch("/api/auth/logout", { method: "POST" });
+            setUser(null);
+            setExpenses([]);
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+
     return {
+        user,
+        setUser,
+        isAuthLoading,
+        handleLogout,
         expenses,
         setExpenses,
         activeTab,

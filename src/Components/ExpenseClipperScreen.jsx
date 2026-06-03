@@ -3,11 +3,23 @@ import FilterAlert from "./FilterAlert";
 import StatisticsView from "./StatisticsView";
 import LedgerView from "./LedgerView";
 import { DailyExpenseModal, EditExpenseModal, DeleteExpenseModal } from "./ExpenseModals";
+import AuthModal from "./AuthModal";
 
 const ExpenseClipperScreen = (props) => {
+    if (props.isAuthLoading) {
+        return (
+            <div className={`min-h-screen flex items-center justify-center ${props.darkMode ? 'bg-[#0b0f19]' : 'bg-[#f8fafc]'}`}>
+                <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
+    if (!props.user) {
+        return <AuthModal setUser={props.setUser} darkMode={props.darkMode} />;
+    }
     return (
         <div className={`min-h-screen font-sans transition-colors duration-300 ${props.darkMode ? "bg-[#0b0f19] text-slate-100" : "bg-[#f8fafc] text-slate-800"}`}>
-            <AppHeader darkMode={props.darkMode} activeTab={props.activeTab} setActiveTab={props.setActiveTab} toggleTheme={props.toggleTheme} />
+            <AppHeader darkMode={props.darkMode} activeTab={props.activeTab} setActiveTab={props.setActiveTab} toggleTheme={props.toggleTheme} user={props.user} handleLogout={props.handleLogout} />
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <FilterAlert searchQuery={props.searchQuery} categoryFilter={props.categoryFilter} activeDateFilter={props.activeDateFilter} darkMode={props.darkMode} handleResetFilters={props.handleResetFilters} />
                 <StatisticsView {...props} />

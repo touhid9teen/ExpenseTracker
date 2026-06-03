@@ -1,5 +1,6 @@
 import sql from '../../../lib/db';
 import { NextResponse } from 'next/server';
+import { decrypt } from '../../../lib/jwt';
 import { SEED_EXPENSES } from '../../../data/expenseData';
 
 export const runtime = 'edge';
@@ -10,13 +11,19 @@ const normalizeAmount = (amount) => {
   return Number.isFinite(parsedAmount) ? parsedAmount : 0;
 };
 
-export async function GET() {
-  if (!sql) {
+export async function GET(request) {
+  const token = request.cookies.get('auth_token')?.value;
+  let user = null;
+  if (token) {
+    user = await decrypt(token);
+  }
+
+  if (!sql || !user) {
     return NextResponse.json(SEED_EXPENSES, { status: 200 });
   }
 
   try {
-    const expenses = await sql`SELECT * FROM expenses ORDER BY date DESC`;
+    const expenses = await sql`SELECT * FROM expenses WHERE user_id = ${user.id} ORDER BY date DESC`;
     return NextResponse.json(expenses.map((expense) => ({
       ...expense,
       amount: normalizeAmount(expense.amount)
@@ -28,6 +35,16 @@ export async function GET() {
 }
 
 export async function POST(request) {
+  const token = request.cookies.get('auth_token')?.value;
+  let user = null;
+  if (token) {
+    user = await decrypt(token);
+  }
+
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   if (!sql) {
     return NextResponse.json({ error: 'Database is not configured' }, { status: 503 });
   }
@@ -37,8 +54,8 @@ export async function POST(request) {
     const { id, description, amount, date, category } = data;
 
     const result = await sql`
-      INSERT INTO expenses (id, item, description, amount, date, category)
-      VALUES (${id}, ${description}, ${description}, ${amount}, ${date}, ${category})
+      INSERT INTO expenses (id, user_id, item, description, amount, date, category)
+      VALUES (${id}, ${user.id}, ${description}, ${description}, ${amount}, ${date}, ${category})
       RETURNING *
     `;
 

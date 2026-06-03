@@ -16,12 +16,13 @@
         "server/edge/chunks/node_modules_next_dist_compiled_09nx5jw._.js",
         "server/edge/chunks/node_modules_next_dist_0-g83ei._.js",
         "server/edge/chunks/node_modules_@neondatabase_serverless_index_mjs_1z34eza._.js",
-        "server/edge/chunks/[root-of-the-server]__0nfo4y8._.js",
-        "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_1n7lcp8.js"
+        "server/edge/chunks/node_modules_jose_dist_webapi_04zsgei._.js",
+        "server/edge/chunks/[root-of-the-server]__19stb_9._.js",
+        "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_1m2k8-h.js"
       ],
       "name": "app/api/expenses/route",
       "page": "/api/expenses/route",
-      "entrypoint": "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_1n7lcp8.js",
+      "entrypoint": "server/edge/chunks/turbopack-node_modules_next_dist_esm_build_templates_edge-wrapper_1m2k8-h.js",
       "matchers": [
         {
           "regexp": "^/api/expenses(?:/)?$",
@@ -33,9 +34,9 @@
       "env": {
         "__NEXT_BUILD_ID": "development",
         "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "4YVA7i0d04G3SW/gDsFiclLbjjDk0zyzB/cSPGkkY7k=",
-        "__NEXT_PREVIEW_MODE_ID": "71373500aba4b7da1267ade229615ac4",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "acfe76e92dfe4c096588172a41efb9f601e5fd3c98cf7d13a168e398ef1f30ac",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "3e46d19fc1a458052372ffddc77bb46c7c9c231a62c20400be1d10d46070e065"
+        "__NEXT_PREVIEW_MODE_ID": "3cf816cf00f0062d15663eb92e0cd280",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "2dddd2e9181755fe6456ff04a0e0fa46b11d9c84ce5f383863a3de066a95d2bb",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "092583c9ff3731f74f7ca037a400f2c0bf255b15f39e6c05b525e3d3b63703b1"
       }
     }
   }

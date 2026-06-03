@@ -3637,6 +3637,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalcu
 ;
 ;
 const useExpenseClipper = ()=>{
+    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [isAuthLoading, setIsAuthLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const [expenses, setExpenses] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("statistics");
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
@@ -3665,22 +3667,31 @@ const useExpenseClipper = ()=>{
         return ()=>document.removeEventListener("click", handleClickOutside);
     }, []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        const fetchExpenses = async ()=>{
+        const checkAuthAndFetchExpenses = async ()=>{
             try {
-                const response = await fetch("/api/expenses");
-                if (response.ok) {
-                    const data = await response.json();
-                    const formattedData = Array.isArray(data) ? data.map((exp)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["normalizeExpenseRecord"])({
-                            ...exp,
-                            date: exp.date ? String(exp.date).split("T")[0] : ""
-                        })) : [];
-                    setExpenses(formattedData);
+                const authRes = await fetch("/api/auth/me");
+                if (authRes.ok) {
+                    const { user } = await authRes.json();
+                    setUser(user);
+                    if (user) {
+                        const response = await fetch("/api/expenses");
+                        if (response.ok) {
+                            const data = await response.json();
+                            const formattedData = Array.isArray(data) ? data.map((exp)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["normalizeExpenseRecord"])({
+                                    ...exp,
+                                    date: exp.date ? String(exp.date).split("T")[0] : ""
+                                })) : [];
+                            setExpenses(formattedData);
+                        }
+                    }
                 }
             } catch (error) {
-                console.error("Failed to fetch expenses:", error);
+                console.error("Failed to authenticate or fetch expenses:", error);
+            } finally{
+                setIsAuthLoading(false);
             }
         };
-        fetchExpenses();
+        checkAuthAndFetchExpenses();
         setDarkMode((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$storageUtils$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["loadThemePreference"])());
     }, []);
     const toggleTheme = ()=>{
@@ -3842,7 +3853,22 @@ const useExpenseClipper = ()=>{
         expenses,
         selectedDailyDate
     ]);
+    const handleLogout = async ()=>{
+        try {
+            await fetch("/api/auth/logout", {
+                method: "POST"
+            });
+            setUser(null);
+            setExpenses([]);
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
     return {
+        user,
+        setUser,
+        isAuthLoading,
+        handleLogout,
         expenses,
         setExpenses,
         activeTab,

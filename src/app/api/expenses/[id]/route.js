@@ -1,5 +1,6 @@
 import sql from '../../../../lib/db';
 import { NextResponse } from 'next/server';
+import { decrypt } from '../../../../lib/jwt';
 
 export const runtime = 'edge';
 
@@ -10,6 +11,16 @@ const normalizeAmount = (amount) => {
 };
 
 export async function PUT(request, { params }) {
+  const token = request.cookies.get('auth_token')?.value;
+  let user = null;
+  if (token) {
+    user = await decrypt(token);
+  }
+
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   const { id } = params;
   if (!sql) {
     return NextResponse.json({ error: 'Database is not configured' }, { status: 503 });
@@ -22,7 +33,7 @@ export async function PUT(request, { params }) {
     const result = await sql`
       UPDATE expenses
       SET description = ${description}, amount = ${amount}, date = ${date}, category = ${category}
-      WHERE id = ${id}
+      WHERE id = ${id} AND user_id = ${user.id}
       RETURNING *
     `;
 
@@ -41,6 +52,16 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+  const token = request.cookies.get('auth_token')?.value;
+  let user = null;
+  if (token) {
+    user = await decrypt(token);
+  }
+
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   const { id } = params;
   if (!sql) {
     return NextResponse.json({ error: 'Database is not configured' }, { status: 503 });
@@ -49,7 +70,7 @@ export async function DELETE(request, { params }) {
   try {
     const result = await sql`
       DELETE FROM expenses
-      WHERE id = ${id}
+      WHERE id = ${id} AND user_id = ${user.id}
       RETURNING *
     `;
 

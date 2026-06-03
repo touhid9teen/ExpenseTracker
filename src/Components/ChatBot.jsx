@@ -84,26 +84,42 @@ const ChatBot = ({ darkMode, user, expenses, addExpenseDirect, updateExpenseDire
 
     return (
         <>
-            {/* Floating Button */}
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className={`fixed sm:bottom-8 sm:right-8 bottom-[90px] right-4 z-50 p-3 sm:p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 active:scale-95 flex items-center justify-center ${
-                    isOpen 
-                    ? 'bg-rose-500 hover:bg-rose-600 text-white shadow-rose-500/40' 
-                    : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white shadow-purple-500/40'
-                }`}
-                aria-label="Toggle AI Chat"
-            >
-                {isOpen ? (
-                    <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                ) : (
-                    <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                    </svg>
+            {/* Floating Button Container */}
+            <div className="fixed sm:bottom-8 sm:right-8 bottom-[90px] right-4 z-50 flex items-center gap-3">
+                
+                {/* AI Helper Text Bubble */}
+                {!isOpen && (
+                    <div className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full shadow-lg border text-sm font-bold ${
+                        darkMode ? 'bg-slate-800 border-slate-700 text-indigo-400 shadow-black/40' : 'bg-white border-indigo-100 text-indigo-600 shadow-indigo-500/20'
+                    }`}>
+                        <span>Ask AI ✨</span>
+                        {/* Right-pointing triangle */}
+                        <div className={`absolute right-[72px] w-2 h-2 rotate-45 border-t border-r hidden sm:block ${
+                            darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-indigo-100'
+                        }`} style={{ borderBottom: 'none', borderLeft: 'none', marginTop: '1px' }}></div>
+                    </div>
                 )}
-            </button>
+
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className={`p-3 sm:p-4 rounded-full shadow-2xl transition-colors flex items-center justify-center relative ${
+                        isOpen 
+                        ? 'bg-rose-500 hover:bg-rose-600 text-white shadow-rose-500/40' 
+                        : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white shadow-purple-500/40'
+                    }`}
+                    aria-label="Toggle AI Chat"
+                >
+                    {isOpen ? (
+                        <svg className="w-6 h-6 sm:w-7 sm:h-7 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    ) : (
+                        <svg className="w-6 h-6 sm:w-7 sm:h-7 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
+                    )}
+                </button>
+            </div>
 
             {/* Chat Window */}
             {isOpen && (

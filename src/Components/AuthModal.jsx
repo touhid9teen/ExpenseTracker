@@ -29,10 +29,6 @@ const AuthModal = ({ setUser, darkMode }) => {
             if (res.ok && data.success) {
                 toast.success('Successfully logged in!');
                 setUser(data.user);
-                // Delay reload so the toast has time to show
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
             } else {
                 toast.error(data.error || 'Login failed');
             }

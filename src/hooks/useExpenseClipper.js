@@ -49,39 +49,48 @@ export const useExpenseClipper = () => {
     }, []);
 
     useEffect(() => {
-        const checkAuthAndFetchExpenses = async () => {
+        const checkAuth = async () => {
             try {
                 const authRes = await fetch("/api/auth/me");
                 if (authRes.ok) {
                     const { user } = await authRes.json();
                     setUser(user);
-                    
-                    if (user) {
-                        const response = await fetch("/api/expenses");
-                        if (response.ok) {
-                            const data = await response.json();
-                            const formattedData = Array.isArray(data)
-                                ? data.map((exp) =>
-                                      normalizeExpenseRecord({
-                                          ...exp,
-                                          date: exp.date ? String(exp.date).split("T")[0] : ""
-                                      })
-                                  )
-                                : [];
-                            setExpenses(formattedData);
-                        }
-                    }
                 }
             } catch (error) {
-                console.error("Failed to authenticate or fetch expenses:", error);
+                console.error("Failed to authenticate:", error);
             } finally {
                 setIsAuthLoading(false);
             }
         };
 
-        checkAuthAndFetchExpenses();
+        checkAuth();
         setDarkMode(loadThemePreference());
     }, []);
+
+    useEffect(() => {
+        const fetchExpenses = async () => {
+            if (!user) return;
+            try {
+                const response = await fetch("/api/expenses");
+                if (response.ok) {
+                    const data = await response.json();
+                    const formattedData = Array.isArray(data)
+                        ? data.map((exp) =>
+                              normalizeExpenseRecord({
+                                  ...exp,
+                                  date: exp.date ? String(exp.date).split("T")[0] : ""
+                              })
+                          )
+                        : [];
+                    setExpenses(formattedData);
+                }
+            } catch (error) {
+                console.error("Failed to fetch expenses:", error);
+            }
+        };
+
+        fetchExpenses();
+    }, [user]);
 
     const toggleTheme = () => {
         const nextTheme = !darkMode;

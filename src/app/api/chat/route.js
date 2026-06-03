@@ -1,24 +1,32 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export async function POST(request) {
   try {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ response: "API Key not configured." }, { status: 500 });
+      return NextResponse.json(
+        { response: "API Key not configured." },
+        { status: 500 },
+      );
     }
     const genAI = new GoogleGenerativeAI(apiKey);
-    
+
     const { message, expenses, user } = await request.json();
 
     const safeExpenses = expenses || [];
-    const expensesText = safeExpenses.map(exp => `ID: ${exp.id} | Date: ${exp.date} | Amount: ৳${exp.amount} | Category: ${exp.category} | Description: ${exp.description}`).join('\n');
+    const expensesText = safeExpenses
+      .map(
+        (exp) =>
+          `ID: ${exp.id} | Date: ${exp.date} | Amount: ৳${exp.amount} | Category: ${exp.category} | Description: ${exp.description}`,
+      )
+      .join("\n");
 
     const SYSTEM_INSTRUCTION = `YOU ARE A PERSONAL EXPENSE TRACKER ASSISTANT CALLED "FinVue AI".
 
 YOUR KNOWLEDGE BASE:
 1. USER INFORMATION:
-Username: ${user?.username || 'User'}
+Username: ${user?.username || "User"}
 
 2. EXPENSE CATEGORIES:
 - Food
@@ -31,7 +39,7 @@ Username: ${user?.username || 'User'}
 - Other
 
 3. CURRENT EXPENSES LIST:
-${expensesText || 'No expenses recorded yet.'}
+${expensesText || "No expenses recorded yet."}
 
 YOUR GUIDELINES:
 - Answer as a professional, friendly personal finance assistant.
@@ -51,7 +59,8 @@ ACTION BLOCK FORMAT (only include this if modifying data):
 - For updating/deleting, find the correct ID from the CURRENT EXPENSES LIST based on their description/amount/date. If multiple match, ask for clarification.
 `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    // const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
     const prompt = `${SYSTEM_INSTRUCTION}\n\nUser: ${message}\nAssistant:`;
     const result = await model.generateContent(prompt);
@@ -60,6 +69,11 @@ ACTION BLOCK FORMAT (only include this if modifying data):
     return NextResponse.json({ response });
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return NextResponse.json({ response: "I'm sorry, I encountered an error processing your request." }, { status: 500 });
+    return NextResponse.json(
+      {
+        response: "I'm sorry, I encountered an error processing your request.",
+      },
+      { status: 500 },
+    );
   }
 }

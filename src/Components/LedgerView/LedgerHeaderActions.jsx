@@ -17,7 +17,7 @@ export const LedgerHeaderActions = ({ darkMode, setActiveTab, showQuickAdd, setS
                 </button>
                 <button
                     onClick={() => setActiveTab("statistics")}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-300" : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650"}`}
+                    className={`hidden sm:inline-block px-4 py-2 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-300" : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650"}`}
                 >
                     ← Open Analytics
                 </button>

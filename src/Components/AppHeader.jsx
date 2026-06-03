@@ -1,6 +1,4 @@
-const AppHeader = ({ darkMode, 
-    // activeTab, setActiveTab, 
-    toggleTheme, user, handleLogout }) => {
+const AppHeader = ({ darkMode, activeTab, setActiveTab, toggleTheme, user, handleLogout }) => {
     return (
             <header className={`sticky top-0 z-30 transition-colors duration-300 border-b ${darkMode ? "bg-[#0f172a]/90 border-slate-800/80 backdrop-blur-md" : "bg-white/95 border-slate-200/85 backdrop-blur-md shadow-sm"}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-3 sm:py-0 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
@@ -13,12 +11,12 @@ const AppHeader = ({ darkMode,
                         </div>
                         <div className="min-w-0">
                             <span className="block truncate font-extrabold text-xl tracking-tight bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent">FinVue</span>
-                            <span className={`text-xs block truncate font-medium -mt-1 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Expense Control Center</span>
+                            <span className={`text-xs block truncate font-medium -mt-1 ${darkMode ? "text-slate-400" : "text-slate-550"}`}>Expense Control Center</span>
                         </div>
                     </div>
 
-                    {/* TWO-PAGE VIEW SELECTOR (TAB BUTTONS) */}
-                    {/* <div className="order-3 w-full sm:order-none sm:w-auto flex items-center">
+                    {/* TWO-PAGE VIEW SELECTOR (TAB BUTTONS) - Hidden on mobile, shown on sm+ */}
+                    <div className="hidden sm:flex order-3 w-full sm:order-none sm:w-auto items-center">
                         <div className={`w-full sm:w-auto p-1 rounded-xl grid grid-cols-2 sm:flex gap-1 border ${darkMode ? "bg-slate-900 border-slate-800" : "bg-slate-100 border-slate-200"}`}>
                             <button
                                 onClick={() => setActiveTab("statistics")}
@@ -43,7 +41,7 @@ const AppHeader = ({ darkMode,
                                 <span className="hidden sm:inline">Transactions Ledger</span>
                             </button>
                         </div>
-                    </div> */}
+                    </div>
 
                     <div className="flex shrink-0 items-center gap-3">
                         {/* Theme Toggle Button */}

@@ -6,6 +6,10 @@ export const runtime = 'edge';
 export async function GET(request) {
   const token = request.cookies.get('auth_token')?.value;
   if (!token) {
+    const isDevelopment = process.env.APP_ENV === 'development' || process.env.NODE_ENV === 'development';
+    if (isDevelopment) {
+      return NextResponse.json({ user: { id: 'dev-user-id', username: 'dev-user' } });
+    }
     return NextResponse.json({ user: null });
   }
   

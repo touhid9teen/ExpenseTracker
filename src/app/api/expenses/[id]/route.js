@@ -16,6 +16,8 @@ export async function PUT(request, props) {
   let user = null;
   if (token) {
     user = await decrypt(token);
+  } else if (process.env.APP_ENV === 'development' || process.env.NODE_ENV === 'development') {
+    user = { id: 'dev-user-id', username: 'dev-user' };
   }
 
   if (!user) {
@@ -58,6 +60,8 @@ export async function DELETE(request, props) {
   let user = null;
   if (token) {
     user = await decrypt(token);
+  } else if (process.env.APP_ENV === 'development' || process.env.NODE_ENV === 'development') {
+    user = { id: 'dev-user-id', username: 'dev-user' };
   }
 
   if (!user) {

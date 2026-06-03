@@ -16,6 +16,8 @@ export async function GET(request) {
   let user = null;
   if (token) {
     user = await decrypt(token);
+  } else if (process.env.APP_ENV === 'development' || process.env.NODE_ENV === 'development') {
+    user = { id: 'dev-user-id', username: 'dev-user' };
   }
 
   if (!sql || !user) {
@@ -39,6 +41,8 @@ export async function POST(request) {
   let user = null;
   if (token) {
     user = await decrypt(token);
+  } else if (process.env.APP_ENV === 'development' || process.env.NODE_ENV === 'development') {
+    user = { id: 'dev-user-id', username: 'dev-user' };
   }
 
   if (!user) {

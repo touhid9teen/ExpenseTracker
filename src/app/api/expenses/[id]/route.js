@@ -10,7 +10,8 @@ const normalizeAmount = (amount) => {
   return Number.isFinite(parsedAmount) ? parsedAmount : 0;
 };
 
-export async function PUT(request, { params }) {
+export async function PUT(request, props) {
+  const params = await props.params;
   const token = request.cookies.get('auth_token')?.value;
   let user = null;
   if (token) {
@@ -51,7 +52,8 @@ export async function PUT(request, { params }) {
   }
 }
 
-export async function DELETE(request, { params }) {
+export async function DELETE(request, props) {
+  const params = await props.params;
   const token = request.cookies.get('auth_token')?.value;
   let user = null;
   if (token) {

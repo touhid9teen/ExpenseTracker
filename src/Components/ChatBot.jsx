@@ -145,15 +145,46 @@ const ChatBot = ({ darkMode, user, expenses, addExpenseDirect, updateExpenseDire
                     <div className={`flex-1 overflow-y-auto p-4 flex flex-col gap-4 ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
                         {messages.map((msg) => (
                             <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
-                                    msg.sender === 'user'
-                                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-br-none shadow-md shadow-emerald-500/20'
-                                    : darkMode
-                                        ? 'bg-slate-800 text-slate-200 rounded-bl-none border border-slate-700'
-                                        : 'bg-slate-100 text-slate-700 rounded-bl-none border border-slate-200'
-                                }`}>
-                                    <div className="whitespace-pre-wrap">{msg.text}</div>
-                                </div>
+                                {msg.sender === 'ai' && msg.text.includes('\n|') ? (
+                                    // Parse markdown-like table
+                                    (() => {
+                                        const lines = msg.text.trim().split('\n');
+                                        const header = lines[0].replace(/^\|/, '').replace(/\|$/,'' ).split('|').map(h => h.trim());
+                                        const rows = lines.slice(2).map(line => line.replace(/^\|/, '').replace(/\|$/,'').split('|').map(cell => cell.trim()));
+                                        return (
+                                            <div className="max-w-full overflow-x-auto">
+                                                <table className="min-w-full border border-gray-300 text-sm">
+                                                    <thead className="bg-gray-100">
+                                                        <tr>
+                                                            {header.map((h, i) => (
+                                                                <th key={i} className="px-2 py-1 border border-gray-300 font-medium text-left">{h}</th>
+                                                            ))}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {rows.map((row, ri) => (
+                                                            <tr key={ri} className={ri % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                                                                {row.map((cell, ci) => (
+                                                                    <td key={ci} className="px-2 py-1 border border-gray-300">{cell}</td>
+                                                                ))}
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        );
+                                    })()
+                                ) : (
+                                    <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
+                                        msg.sender === 'user'
+                                            ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-br-none shadow-md shadow-emerald-500/20'
+                                            : darkMode
+                                                ? 'bg-slate-800 text-slate-200 rounded-bl-none border border-slate-700'
+                                                : 'bg-slate-100 text-slate-700 rounded-bl-none border border-slate-200'
+                                    }`}>
+                                        <div className="whitespace-pre-wrap">{msg.text}</div>
+                                    </div>
+                                )}
                             </div>
                         ))}
                         {isLoading && (
@@ -175,10 +206,10 @@ const ChatBot = ({ darkMode, user, expenses, addExpenseDirect, updateExpenseDire
                     {/* Suggestions Area */}
                     <div className={`px-4 py-2 flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide ${darkMode ? 'bg-slate-800/80 border-t border-slate-700' : 'bg-slate-50 border-t border-slate-200'}`}>
                         {[
-                            { label: "Summary", action: "send", text: "Show my expense summary for this month." },
-                            { label: "Add", action: "type", text: "Add " },
-                            { label: "Edit", action: "type", text: "Change " },
-                            { label: "Delete", action: "type", text: "Delete " }
+                            { label: "Summary", action: "type", text: "Show my expense summary for today." },
+                            { label: "Add", action: "type", text: "Add item" },
+                            { label: "Edit", action: "type", text: "Change item" },
+                            { label: "Delete", action: "type", text: "Delete item" }
                         ].map((suggestion, idx) => (
                             <button
                                 key={idx}

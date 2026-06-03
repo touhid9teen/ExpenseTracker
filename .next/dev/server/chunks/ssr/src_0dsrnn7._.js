@@ -3491,31 +3491,74 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot
 ;
 ;
 const ExpenseClipperScreen = (props)=>{
+    const toaster = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Toaster"], {
+        position: "top-center",
+        containerStyle: {
+            zIndex: 99999
+        },
+        toastOptions: {
+            duration: 5000,
+            style: {
+                background: props.darkMode ? '#1e293b' : '#ffffff',
+                color: props.darkMode ? '#f1f5f9' : '#1e293b',
+                border: props.darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
+                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.2)',
+                padding: '12px 16px',
+                fontSize: '14px',
+                fontWeight: '500',
+                borderRadius: '12px'
+            },
+            success: {
+                iconTheme: {
+                    primary: '#10b981',
+                    secondary: '#fff'
+                }
+            },
+            error: {
+                iconTheme: {
+                    primary: '#ef4444',
+                    secondary: '#fff'
+                }
+            }
+        }
+    }, void 0, false, {
+        fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
+        lineNumber: 11,
+        columnNumber: 9
+    }, ("TURBOPACK compile-time value", void 0));
     if (props.isAuthLoading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: `min-h-screen flex items-center justify-center ${props.darkMode ? 'bg-[#0b0f19]' : 'bg-[#f8fafc]'}`,
-            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"
-            }, void 0, false, {
-                fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 13,
-                columnNumber: 17
-            }, ("TURBOPACK compile-time value", void 0))
-        }, void 0, false, {
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"
+                }, void 0, false, {
+                    fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
+                    lineNumber: 45,
+                    columnNumber: 17
+                }, ("TURBOPACK compile-time value", void 0)),
+                toaster
+            ]
+        }, void 0, true, {
             fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-            lineNumber: 12,
+            lineNumber: 44,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
     if (!props.user) {
-        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$AuthModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-            setUser: props.setUser,
-            darkMode: props.darkMode
-        }, void 0, false, {
-            fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-            lineNumber: 19,
-            columnNumber: 16
-        }, ("TURBOPACK compile-time value", void 0));
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$AuthModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    setUser: props.setUser,
+                    darkMode: props.darkMode
+                }, void 0, false, {
+                    fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
+                    lineNumber: 54,
+                    columnNumber: 17
+                }, ("TURBOPACK compile-time value", void 0)),
+                toaster
+            ]
+        }, void 0, true);
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `min-h-screen font-sans transition-colors duration-300 ${props.darkMode ? "bg-[#0b0f19] text-slate-100" : "bg-[#f8fafc] text-slate-800"}`,
@@ -3529,7 +3572,7 @@ const ExpenseClipperScreen = (props)=>{
                 handleLogout: props.handleLogout
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 23,
+                lineNumber: 62,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -3543,27 +3586,27 @@ const ExpenseClipperScreen = (props)=>{
                         handleResetFilters: props.handleResetFilters
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                        lineNumber: 25,
+                        lineNumber: 64,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$StatisticsView$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                         ...props
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                        lineNumber: 26,
+                        lineNumber: 65,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                         ...props
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                        lineNumber: 27,
+                        lineNumber: 66,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 24,
+                lineNumber: 63,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$DailyExpenseModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DailyExpenseModal"], {
@@ -3575,7 +3618,7 @@ const ExpenseClipperScreen = (props)=>{
                 setSelectedDailyDate: props.setSelectedDailyDate
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 29,
+                lineNumber: 68,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$EditExpenseModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditExpenseModal"], {
@@ -3586,7 +3629,7 @@ const ExpenseClipperScreen = (props)=>{
                 CATEGORIES: props.CATEGORIES
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 30,
+                lineNumber: 69,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$DeleteExpenseModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DeleteExpenseModal"], {
@@ -3596,26 +3639,14 @@ const ExpenseClipperScreen = (props)=>{
                 handleConfirmDelete: props.handleConfirmDelete
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 31,
+                lineNumber: 70,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Toaster"], {
-                position: "bottom-right",
-                toastOptions: {
-                    style: {
-                        background: props.darkMode ? '#1e293b' : '#fff',
-                        color: props.darkMode ? '#fff' : '#1e293b'
-                    }
-                }
-            }, void 0, false, {
-                fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 32,
-                columnNumber: 13
-            }, ("TURBOPACK compile-time value", void 0))
+            toaster
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-        lineNumber: 22,
+        lineNumber: 61,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

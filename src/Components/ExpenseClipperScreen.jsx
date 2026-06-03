@@ -7,17 +7,56 @@ import AuthModal from "./AuthModal";
 import { Toaster } from 'react-hot-toast';
 
 const ExpenseClipperScreen = (props) => {
+    const toaster = (
+        <Toaster 
+            position="top-center"
+            containerStyle={{ zIndex: 99999 }}
+            toastOptions={{
+                duration: 5000,
+                style: {
+                    background: props.darkMode ? '#1e293b' : '#ffffff',
+                    color: props.darkMode ? '#f1f5f9' : '#1e293b',
+                    border: props.darkMode ? '1px solid #334155' : '1px solid #e2e8f0',
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.2)',
+                    padding: '12px 16px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    borderRadius: '12px',
+                },
+                success: {
+                    iconTheme: {
+                        primary: '#10b981',
+                        secondary: '#fff',
+                    },
+                },
+                error: {
+                    iconTheme: {
+                        primary: '#ef4444',
+                        secondary: '#fff',
+                    },
+                },
+            }} 
+        />
+    );
+
     if (props.isAuthLoading) {
         return (
             <div className={`min-h-screen flex items-center justify-center ${props.darkMode ? 'bg-[#0b0f19]' : 'bg-[#f8fafc]'}`}>
                 <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+                {toaster}
             </div>
         );
     }
 
     if (!props.user) {
-        return <AuthModal setUser={props.setUser} darkMode={props.darkMode} />;
+        return (
+            <>
+                <AuthModal setUser={props.setUser} darkMode={props.darkMode} />
+                {toaster}
+            </>
+        );
     }
+
     return (
         <div className={`min-h-screen font-sans transition-colors duration-300 ${props.darkMode ? "bg-[#0b0f19] text-slate-100" : "bg-[#f8fafc] text-slate-800"}`}>
             <AppHeader darkMode={props.darkMode} activeTab={props.activeTab} setActiveTab={props.setActiveTab} toggleTheme={props.toggleTheme} user={props.user} handleLogout={props.handleLogout} />
@@ -29,15 +68,7 @@ const ExpenseClipperScreen = (props) => {
             <DailyExpenseModal selectedDailyDate={props.selectedDailyDate} dailyModalDetails={props.dailyModalDetails} darkMode={props.darkMode} formatDate={props.formatDate} getCategoryStyles={props.getCategoryStylesForTheme} setSelectedDailyDate={props.setSelectedDailyDate} />
             <EditExpenseModal editingExpense={props.editingExpense} setEditingExpense={props.setEditingExpense} darkMode={props.darkMode} handleSaveEdit={props.handleSaveEdit} CATEGORIES={props.CATEGORIES} />
             <DeleteExpenseModal deletingExpense={props.deletingExpense} setDeletingExpense={props.setDeletingExpense} darkMode={props.darkMode} handleConfirmDelete={props.handleConfirmDelete} />
-            <Toaster 
-                position="bottom-right" 
-                toastOptions={{
-                    style: {
-                        background: props.darkMode ? '#1e293b' : '#fff',
-                        color: props.darkMode ? '#fff' : '#1e293b',
-                    }
-                }} 
-            />
+            {toaster}
         </div>
     );
 };

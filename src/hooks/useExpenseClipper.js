@@ -40,6 +40,7 @@ export const useExpenseClipper = () => {
     const [addAmount, setAddAmount] = useState("");
     const [addCategory, setAddCategory] = useState("Food");
     const [addDescription, setAddDescription] = useState("");
+    const [specificDate, setSpecificDate] = useState("");
 
     useEffect(() => {
         const handleClickOutside = () => setOpenMenuId(null);
@@ -98,15 +99,16 @@ export const useExpenseClipper = () => {
                 categoryFilter,
                 activeDateFilter,
                 appliedCustomRange,
+                specificDate,
                 sortBy,
                 sortOrder
             }),
-        [expenses, searchQuery, categoryFilter, activeDateFilter, appliedCustomRange, sortBy, sortOrder]
+        [expenses, searchQuery, categoryFilter, activeDateFilter, appliedCustomRange, specificDate, sortBy, sortOrder]
     );
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [searchQuery, categoryFilter, activeDateFilter, appliedCustomRange]);
+    }, [searchQuery, categoryFilter, activeDateFilter, appliedCustomRange, specificDate]);
 
     const summaryCards = useMemo(() => calculateSummaryCards(filteredExpenses), [filteredExpenses]);
     const quickStats = useMemo(() => calculateQuickStats(filteredExpenses), [filteredExpenses]);
@@ -220,6 +222,7 @@ export const useExpenseClipper = () => {
         setCustomStart("");
         setCustomEnd("");
         setAppliedCustomRange(null);
+        setSpecificDate("");
         setSortBy("date");
         setSortOrder("desc");
         setCurrentPage(1);
@@ -308,6 +311,8 @@ export const useExpenseClipper = () => {
         setAddCategory,
         addDescription,
         setAddDescription,
+        specificDate,
+        setSpecificDate,
         toggleTheme,
         getCategoryStylesForTheme,
         getCategoryStyles: getCategoryStylesForTheme,

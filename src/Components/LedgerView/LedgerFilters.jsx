@@ -14,6 +14,8 @@ export const LedgerFilters = ({
     setAppliedCustomRange,
     handleApplyCustomRange,
     handleResetFilters,
+    specificDate,
+    setSpecificDate,
     CATEGORIES
 }) => {
     return (
@@ -44,6 +46,7 @@ export const LedgerFilters = ({
                     {["today", "week", "month"].map((filter) => (
                         <button key={filter} onClick={() => setActiveDateFilter(filter)} className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${activeDateFilter === filter ? "bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/10" : darkMode ? "bg-[#182235] hover:bg-slate-750 border-slate-750 text-slate-350 hover:text-slate-200" : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650 hover:text-slate-850"}`}>{filter === "today" ? "Today" : filter === "week" ? "This Week" : "This Month"}</button>
                     ))}
+                    <button onClick={() => { if (activeDateFilter === "specific") { setActiveDateFilter("all"); setSpecificDate(""); } else { setActiveDateFilter("specific"); } }} className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${activeDateFilter === "specific" ? "bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/10" : darkMode ? "bg-[#182235] hover:bg-slate-750 border-slate-750 text-slate-350 hover:text-slate-200" : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650 hover:text-slate-850"}`}>Specific Date</button>
                     <button onClick={() => { if (activeDateFilter === "custom") { setActiveDateFilter("all"); setAppliedCustomRange(null); } else { setActiveDateFilter("custom"); } }} className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${activeDateFilter === "custom" ? "bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/10" : darkMode ? "bg-[#182235] hover:bg-slate-750 border-slate-750 text-slate-350 hover:text-slate-200" : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650 hover:text-slate-850"}`}>Custom Date Range</button>
                 </div>
                 <button onClick={handleResetFilters} className={`flex items-center gap-1.5 px-4.5 py-2 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-300 hover:text-slate-100" : "bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-600 hover:text-slate-800"}`}>
@@ -51,6 +54,17 @@ export const LedgerFilters = ({
                     Reset Filters
                 </button>
             </div>
+            {activeDateFilter === "specific" && (
+                <div className={`mt-5 p-4 rounded-xl border flex flex-col sm:flex-row flex-wrap sm:items-center gap-4 transition-all duration-300 ${darkMode ? "bg-[#141b2b]/80 border-slate-800" : "bg-slate-50/80 border-slate-200/60"}`}>
+                    <div className="flex items-center gap-2">
+                        <label className={`text-xs font-bold uppercase ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Pick a Date</label>
+                        <input type="date" value={specificDate} onChange={(e) => setSpecificDate(e.target.value)} className={`px-3 py-1.5 rounded-lg border text-xs focus:outline-none ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-white border-slate-250 text-slate-800"}`} />
+                    </div>
+                    {specificDate && (
+                        <button onClick={() => { setSpecificDate(""); setActiveDateFilter("all"); }} className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${darkMode ? "bg-slate-800 text-slate-300 hover:bg-slate-700" : "bg-slate-200 text-slate-600 hover:bg-slate-300"}`}>Clear</button>
+                    )}
+                </div>
+            )}
             {activeDateFilter === "custom" && (
                 <div className={`mt-5 p-4 rounded-xl border flex flex-col md:flex-row flex-wrap md:items-center justify-between gap-4 transition-all duration-300 ${darkMode ? "bg-[#141b2b]/80 border-slate-800" : "bg-slate-50/80 border-slate-200/60"}`}>
                     <div className="flex flex-wrap items-center gap-4">

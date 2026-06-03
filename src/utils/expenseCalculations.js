@@ -19,6 +19,7 @@ export const filterAndSortExpenses = ({
     categoryFilter,
     activeDateFilter,
     appliedCustomRange,
+    specificDate,
     sortBy,
     sortOrder
 }) => {
@@ -43,6 +44,8 @@ export const filterAndSortExpenses = ({
         result = result.filter((exp) => isThisWeek(exp.date));
     } else if (activeDateFilter === "month") {
         result = result.filter((exp) => isThisMonth(exp.date));
+    } else if (activeDateFilter === "specific" && specificDate) {
+        result = result.filter((exp) => exp.date === specificDate);
     } else if (activeDateFilter === "custom" && appliedCustomRange) {
         result = result.filter((exp) => {
             const expTime = new Date(exp.date).getTime();

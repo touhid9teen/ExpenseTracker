@@ -105,12 +105,14 @@ const ChatBot = ({
           { id: Date.now() + 1, text: aiResponseText, sender: "ai" },
         ]);
       } else {
-        toast.error(data.response || "Failed to get AI response");
+        const errorResponse =
+          data.response || "Sorry, I encountered an error. Please try again.";
+        toast.error(errorResponse);
         setMessages((prev) => [
           ...prev,
           {
             id: Date.now() + 1,
-            text: "Sorry, I encountered an error. Please try again.",
+            text: errorResponse,
             sender: "ai",
           },
         ]);

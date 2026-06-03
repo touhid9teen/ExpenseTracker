@@ -26,6 +26,14 @@ export const LedgerFilters = ({
                     <div className="flex flex-wrap items-baseline gap-2">
                         <h3 className="text-lg font-bold tracking-tight">Filter Criteria</h3>
                         <span className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold border ${darkMode ? "bg-emerald-950/40 border-emerald-800/40 text-emerald-300" : "bg-emerald-50 border-emerald-100 text-emerald-700"}`}>{filteredExpenses.length} record{filteredExpenses.length !== 1 ? "s" : ""}</span>
+                        <button
+                            type="button"
+                            onClick={handleResetFilters}
+                            className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-dotted text-[10px] font-bold uppercase tracking-wide transition-colors ${darkMode ? "border-red-500/60 text-red-300 hover:border-red-400 hover:text-red-200 hover:bg-red-950/20" : "border-red-300 text-red-500 hover:border-red-400 hover:text-red-600 hover:bg-red-50"}`}
+                        >
+                            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                            Reset
+                        </button>
                     </div>
                 </div>
                 <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-3 items-center">
@@ -49,10 +57,6 @@ export const LedgerFilters = ({
                     <button onClick={() => { if (activeDateFilter === "specific") { setActiveDateFilter("all"); setSpecificDate(""); } else { setActiveDateFilter("specific"); } }} className={`px-4 py-2 shrink-0 rounded-xl text-xs font-bold transition-all border ${activeDateFilter === "specific" ? "bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/10" : darkMode ? "bg-[#182235] hover:bg-slate-750 border-slate-750 text-slate-350 hover:text-slate-200" : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650 hover:text-slate-850"}`}>Specific Date</button>
                     <button onClick={() => { if (activeDateFilter === "custom") { setActiveDateFilter("all"); setAppliedCustomRange(null); } else { setActiveDateFilter("custom"); } }} className={`px-4 py-2 shrink-0 rounded-xl text-xs font-bold transition-all border ${activeDateFilter === "custom" ? "bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/10" : darkMode ? "bg-[#182235] hover:bg-slate-750 border-slate-750 text-slate-350 hover:text-slate-200" : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650 hover:text-slate-850"}`}>Custom Date Range</button>
                 </div>
-                <button onClick={handleResetFilters} className={`flex items-center gap-1.5 px-4.5 py-2 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-300 hover:text-slate-100" : "bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-600 hover:text-slate-800"}`}>
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89M9 11l3-3m-3 3l-3-3" /></svg>
-                    Reset Filters
-                </button>
             </div>
             {activeDateFilter === "specific" && (
                 <div className={`mt-5 p-4 rounded-xl border flex flex-col sm:flex-row flex-wrap sm:items-center gap-4 transition-all duration-300 ${darkMode ? "bg-[#141b2b]/80 border-slate-800" : "bg-slate-50/80 border-slate-200/60"}`}>

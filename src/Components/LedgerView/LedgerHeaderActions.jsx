@@ -3,7 +3,7 @@ export const LedgerHeaderActions = ({ darkMode, setActiveTab, showQuickAdd, setS
         <div className="flex flex-col md:flex-row md:items-center justify-between border-b pb-4 border-slate-200/50 dark:border-slate-800/50">
             <div>
                 <h1 className="text-2xl font-black tracking-tight">Transactions Ledger</h1>
-                <p className={`text-sm ${darkMode ? "text-slate-400" : "text-slate-550"}`}>Log, search, sort, and edit expenditures safely</p>
+                <p className={`mt-1 text-sm ${darkMode ? "text-slate-400" : "text-slate-550"}`}>Log, search, sort, and edit expenditures safely</p>
             </div>
             <div className="mt-3 md:mt-0 flex gap-2">
                 <button

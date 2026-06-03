@@ -1,6 +1,22 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+const getRetryDelaySeconds = (error) => {
+  const retryInfo = error?.errorDetails?.find((detail) =>
+    detail?.["@type"]?.includes("RetryInfo"),
+  );
+  const retryDelay = retryInfo?.retryDelay;
+  const seconds = Number.parseInt(retryDelay, 10);
+
+  return Number.isFinite(seconds) ? seconds : null;
+};
+
+const isRateLimitError = (error) =>
+  error?.status === 429 ||
+  error?.statusText === "Too Many Requests" ||
+  error?.message?.includes("429 Too Many Requests") ||
+  error?.message?.toLowerCase().includes("quota");
+
 export async function POST(request) {
   try {
     const apiKey = process.env.GEMINI_API_KEY;
@@ -69,6 +85,27 @@ ACTION BLOCK FORMAT (only include this if modifying data):
     return NextResponse.json({ response });
   } catch (error) {
     console.error("Gemini API Error:", error);
+
+    if (isRateLimitError(error)) {
+      const retryDelaySeconds = getRetryDelaySeconds(error);
+      const retryText = retryDelaySeconds
+        ? ` Please try again in about ${retryDelaySeconds} seconds.`
+        : " Please try again later.";
+
+      return NextResponse.json(
+        {
+          response: `FinVue AI has reached the current Gemini API quota limit.${retryText}`,
+          code: "GEMINI_RATE_LIMIT",
+        },
+        {
+          status: 429,
+          headers: retryDelaySeconds
+            ? { "Retry-After": String(retryDelaySeconds) }
+            : undefined,
+        },
+      );
+    }
+
     return NextResponse.json(
       {
         response: "I'm sorry, I encountered an error processing your request.",

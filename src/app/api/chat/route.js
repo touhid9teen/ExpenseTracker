@@ -11,7 +11,8 @@ export async function POST(request) {
     
     const { message, expenses, user } = await request.json();
 
-    const expensesText = expenses.map(exp => `ID: ${exp.id} | Date: ${exp.date} | Amount: ৳${exp.amount} | Category: ${exp.category} | Description: ${exp.description}`).join('\n');
+    const safeExpenses = expenses || [];
+    const expensesText = safeExpenses.map(exp => `ID: ${exp.id} | Date: ${exp.date} | Amount: ৳${exp.amount} | Category: ${exp.category} | Description: ${exp.description}`).join('\n');
 
     const SYSTEM_INSTRUCTION = `YOU ARE A PERSONAL EXPENSE TRACKER ASSISTANT CALLED "FinVue AI".
 

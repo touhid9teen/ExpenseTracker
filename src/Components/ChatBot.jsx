@@ -9,6 +9,7 @@ const ChatBot = ({ darkMode, user, expenses, addExpenseDirect, updateExpenseDire
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef(null);
+    const inputRef = useRef(null);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -18,11 +19,12 @@ const ChatBot = ({ darkMode, user, expenses, addExpenseDirect, updateExpenseDire
         scrollToBottom();
     }, [messages, isOpen]);
 
-    const handleSend = async (e) => {
-        e.preventDefault();
-        if (!input.trim()) return;
+    const handleSend = async (e, directText = null) => {
+        if (e) e.preventDefault();
+        const textToSend = directText || input;
+        if (!textToSend.trim()) return;
 
-        const userMessage = { id: Date.now(), text: input.trim(), sender: 'user' };
+        const userMessage = { id: Date.now(), text: textToSend.trim(), sender: 'user' };
         setMessages(prev => [...prev, userMessage]);
         setInput('');
         setIsLoading(true);
@@ -170,10 +172,42 @@ const ChatBot = ({ darkMode, user, expenses, addExpenseDirect, updateExpenseDire
                         <div ref={messagesEndRef} />
                     </div>
 
+                    {/* Suggestions Area */}
+                    <div className={`px-4 py-2 flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide ${darkMode ? 'bg-slate-800/80 border-t border-slate-700' : 'bg-slate-50 border-t border-slate-200'}`}>
+                        {[
+                            { label: "Summary", action: "send", text: "Show my expense summary for this month." },
+                            { label: "Add", action: "type", text: "Add " },
+                            { label: "Edit", action: "type", text: "Change " },
+                            { label: "Delete", action: "type", text: "Delete " }
+                        ].map((suggestion, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => {
+                                    if (suggestion.action === "send") {
+                                        handleSend(null, suggestion.text);
+                                    } else {
+                                        setInput(suggestion.text);
+                                        setTimeout(() => {
+                                            inputRef.current?.focus();
+                                        }, 10);
+                                    }
+                                }}
+                                className={`text-[11px] font-bold px-3 py-1.5 rounded-full border transition-all ${
+                                    darkMode 
+                                    ? 'bg-slate-800 border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white' 
+                                    : 'bg-white border-slate-300 text-slate-600 hover:bg-slate-100 hover:text-slate-800'
+                                }`}
+                            >
+                                {suggestion.label}
+                            </button>
+                        ))}
+                    </div>
+
                     {/* Input Area */}
                     <div className={`p-4 border-t ${darkMode ? 'bg-slate-800/80 border-slate-700' : 'bg-white border-slate-200'}`}>
                         <form onSubmit={handleSend} className="relative flex items-center">
                             <input
+                                ref={inputRef}
                                 type="text"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}

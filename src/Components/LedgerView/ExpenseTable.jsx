@@ -51,9 +51,9 @@ const LedgerRow = ({ exp, darkMode, getCategoryStyles, formatDate, openMenuId, s
 export const ExpenseTable = ({ darkMode, paginatedExpenses, getCategoryStyles, openMenuId, setOpenMenuId, setSelectedDailyDate, setEditingExpense, setDeletingExpense, sortBy, setSortBy, sortOrder, setSortOrder, formatDate }) => {
     return (
         <div className={`rounded-2xl sm:border overflow-hidden transition-all duration-300 sm:shadow-sm ${darkMode ? "bg-transparent sm:bg-slate-900/60 sm:border-slate-800/80 sm:shadow-black/10" : "bg-transparent sm:bg-white sm:border-slate-100 sm:shadow-slate-100/30"}`}>
-            <div className="w-full sm:overflow-x-auto overflow-y-auto sm:max-h-[520px]">
-                <table className="w-full text-left sm:border-collapse block sm:table">
-                    <thead className="hidden sm:table-header-group sticky top-0 z-10">
+            <div className="w-full overflow-x-auto overflow-y-auto max-h-[520px]">
+                <table className="w-full text-left border-collapse">
+                    <thead className="sticky top-0 z-10 border-b text-xs font-bold uppercase tracking-wider ${darkMode ? 'bg-[#0f172a] border-slate-800 text-slate-400' : 'bg-slate-50 border-slate-200 text-slate-500'}">
                         <tr className={`border-b text-xs font-bold uppercase tracking-wider ${darkMode ? "bg-[#0f172a] border-slate-800 text-slate-400" : "bg-slate-50 border-slate-200 text-slate-500"}`}>
                             <th className="px-4 py-3 whitespace-nowrap"><button onClick={() => { if (sortBy === "date") setSortOrder(sortOrder === "desc" ? "asc" : "desc"); else { setSortBy("date"); setSortOrder("desc"); } }} className="flex items-center gap-1 hover:text-emerald-500 transition-colors focus:outline-none font-bold uppercase">Date <span className="text-[10px]">{sortBy === "date" ? (sortOrder === "desc" ? "▼" : "▲") : "↕"}</span></button></th>
                             <th className="px-4 py-3 whitespace-nowrap">Category</th>

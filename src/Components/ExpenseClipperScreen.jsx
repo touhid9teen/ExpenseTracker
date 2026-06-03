@@ -8,6 +8,7 @@ import {
 } from "./ExpenseModals";
 import LedgerView from "./LedgerView";
 import StatisticsView from "./StatisticsView";
+import ChatBot from "./ChatBot";
 
 const ExpenseClipperScreen = (props) => {
   const toaster = (
@@ -178,6 +179,14 @@ const ExpenseClipperScreen = (props) => {
         setDeletingExpense={props.setDeletingExpense}
         darkMode={props.darkMode}
         handleConfirmDelete={props.handleConfirmDelete}
+      />
+      <ChatBot 
+        darkMode={props.darkMode} 
+        user={props.user} 
+        expenses={props.expenses} 
+        addExpenseDirect={props.addExpenseDirect} 
+        updateExpenseDirect={props.updateExpenseDirect} 
+        deleteExpenseDirect={props.deleteExpenseDirect} 
       />
       {toaster}
     </div>

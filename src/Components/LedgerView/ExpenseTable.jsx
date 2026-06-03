@@ -31,7 +31,7 @@ const LedgerRow = ({ exp, darkMode, getCategoryStyles, formatDate, openMenuId, s
             {/* Actions Menu */}
             <td className="sm:table-cell px-0 sm:px-4 py-2 sm:py-3 text-right sm:text-center mt-2 sm:mt-0 flex justify-end w-full sm:w-auto border-t sm:border-0 border-slate-200/50 dark:border-slate-700/50 pt-3 sm:pt-3">
                 <div className="relative inline-block text-left">
-                    <button onClick={(e) => { e.stopPropagation(); setOpenMenuId(isMenuOpen ? null : exp.id); }} className={`p-2 sm:p-1.5 rounded-lg transition-all focus:outline-none flex items-center gap-2 ${isMenuOpen ? (darkMode ? "bg-slate-700 text-emerald-400" : "bg-slate-200 text-emerald-600") : (darkMode ? "text-slate-400 hover:bg-slate-700 hover:text-slate-200" : "text-slate-500 hover:bg-slate-100 hover:text-slate-800")}`} aria-label="Row actions" title="More actions">
+                    <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); e.nativeEvent.stopPropagation(); setOpenMenuId(isMenuOpen ? null : exp.id); }} className={`p-2 sm:p-1.5 rounded-lg transition-all focus:outline-none flex items-center gap-2 ${isMenuOpen ? (darkMode ? "bg-slate-700 text-emerald-400" : "bg-slate-200 text-emerald-600") : (darkMode ? "text-slate-400 hover:bg-slate-700 hover:text-slate-200" : "text-slate-500 hover:bg-slate-100 hover:text-slate-800")}`} aria-label="Row actions" title="More actions">
                         <span className="text-xs font-bold sm:hidden">Manage</span>
                         <svg className="w-4 h-4 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" /></svg>
                     </button>

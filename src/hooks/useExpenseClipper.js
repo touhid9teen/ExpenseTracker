@@ -125,6 +125,71 @@ export const useExpenseClipper = () => {
     const dailySpendingTrend = useMemo(() => calculateDailySpendingTrend(filteredExpenses), [filteredExpenses]);
     const dashboardDateLabels = useMemo(() => getDashboardDateLabels(), []);
 
+    const addExpenseDirect = async (expenseData) => {
+        const newExpense = {
+            id: `exp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            description: expenseData.description.trim(),
+            amount: parseFloat(expenseData.amount),
+            date: expenseData.date || getTodayInputValue(),
+            category: expenseData.category || "Other"
+        };
+        try {
+            const res = await fetch("/api/expenses", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newExpense)
+            });
+            if (res.ok) {
+                const savedExpense = normalizeExpenseRecord(await res.json());
+                setExpenses((current) => [savedExpense, ...current]);
+                toast.success("Expense added automatically!");
+                return savedExpense;
+            }
+        } catch (error) {
+            console.error("Failed to add expense", error);
+        }
+        return null;
+    };
+
+    const updateExpenseDirect = async (expenseData) => {
+        try {
+            const res = await fetch(`/api/expenses/${expenseData.id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(expenseData)
+            });
+            if (res.ok) {
+                const updatedExpense = normalizeExpenseRecord(await res.json());
+                setExpenses((current) =>
+                    current.map((exp) => (exp.id === updatedExpense.id ? updatedExpense : exp))
+                );
+                toast.success("Expense updated automatically!");
+                return updatedExpense;
+            }
+        } catch (error) {
+            console.error("Failed to update expense", error);
+        }
+        return null;
+    };
+
+    const deleteExpenseDirect = async (id) => {
+        try {
+            const res = await fetch(`/api/expenses/${id}`, {
+                method: "DELETE"
+            });
+            if (res.ok) {
+                setExpenses((current) =>
+                    current.filter((exp) => exp.id !== id)
+                );
+                toast.success("Expense deleted automatically!");
+                return true;
+            }
+        } catch (error) {
+            console.error("Failed to delete expense", error);
+        }
+        return false;
+    };
+
     const handleAddExpense = async (e) => {
         e.preventDefault();
         if (!addAmount || !addDescription.trim()) {
@@ -337,6 +402,9 @@ export const useExpenseClipper = () => {
         handleConfirmDelete,
         handleResetFilters,
         handleApplyCustomRange,
+        addExpenseDirect,
+        updateExpenseDirect,
+        deleteExpenseDirect,
         totalPages,
         paginatedExpenses,
         dailyModalDetails,

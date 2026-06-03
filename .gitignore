@@ -13,6 +13,13 @@
 /out/
 build
 
+# turbopack and turbo
+.turbo/
+
+# dist
+/dist/
+/dist-ssr/
+
 # vercel
 .vercel
 

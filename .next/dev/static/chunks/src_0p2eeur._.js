@@ -1,247 +1,4 @@
 (globalThis["TURBOPACK"] || (globalThis["TURBOPACK"] = [])).push([typeof document === "object" ? document.currentScript : undefined,
-"[project]/src/Components/AppHeader.jsx [app-client] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-__turbopack_context__.s([
-    "default",
-    ()=>__TURBOPACK__default__export__
-]);
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-;
-const AppHeader = ({ darkMode, // activeTab, setActiveTab, 
-toggleTheme, user, handleLogout })=>{
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
-        className: `sticky top-0 z-30 transition-colors duration-300 border-b ${darkMode ? "bg-[#0f172a]/90 border-slate-800/80 backdrop-blur-md" : "bg-white/95 border-slate-200/85 backdrop-blur-md shadow-sm"}`,
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-3 sm:py-0 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex min-w-0 flex-1 sm:flex-none items-center gap-3",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "w-10 h-10 shrink-0 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                className: "w-6 h-6 text-white",
-                                fill: "none",
-                                viewBox: "0 0 24 24",
-                                stroke: "currentColor",
-                                strokeWidth: "2.5",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                    strokeLinecap: "round",
-                                    strokeLinejoin: "round",
-                                    d: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/Components/AppHeader.jsx",
-                                    lineNumber: 11,
-                                    columnNumber: 33
-                                }, ("TURBOPACK compile-time value", void 0))
-                            }, void 0, false, {
-                                fileName: "[project]/src/Components/AppHeader.jsx",
-                                lineNumber: 10,
-                                columnNumber: 29
-                            }, ("TURBOPACK compile-time value", void 0))
-                        }, void 0, false, {
-                            fileName: "[project]/src/Components/AppHeader.jsx",
-                            lineNumber: 9,
-                            columnNumber: 25
-                        }, ("TURBOPACK compile-time value", void 0)),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "min-w-0",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "block truncate font-extrabold text-xl tracking-tight bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent",
-                                    children: "FinVue"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/Components/AppHeader.jsx",
-                                    lineNumber: 15,
-                                    columnNumber: 29
-                                }, ("TURBOPACK compile-time value", void 0)),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: `text-xs block truncate font-medium -mt-1 ${darkMode ? "text-slate-400" : "text-slate-500"}`,
-                                    children: "Expense Control Center"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/Components/AppHeader.jsx",
-                                    lineNumber: 16,
-                                    columnNumber: 29
-                                }, ("TURBOPACK compile-time value", void 0))
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/Components/AppHeader.jsx",
-                            lineNumber: 14,
-                            columnNumber: 25
-                        }, ("TURBOPACK compile-time value", void 0))
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/Components/AppHeader.jsx",
-                    lineNumber: 8,
-                    columnNumber: 21
-                }, ("TURBOPACK compile-time value", void 0)),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex shrink-0 items-center gap-3",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            onClick: toggleTheme,
-                            className: `p-2.5 rounded-xl border transition-all duration-200 hover:scale-105 ${darkMode ? "bg-slate-800 border-slate-700/80 text-amber-400 hover:bg-slate-750" : "bg-slate-100 border-slate-200 text-slate-650 hover:bg-slate-200"}`,
-                            id: "theme-toggler",
-                            "aria-label": "Toggle Theme",
-                            children: darkMode ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                className: "w-5 h-5",
-                                fill: "none",
-                                viewBox: "0 0 24 24",
-                                stroke: "currentColor",
-                                strokeWidth: "2",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                    strokeLinecap: "round",
-                                    strokeLinejoin: "round",
-                                    d: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728L19 12a9 9 0 11-9-9c.386 0 .767.024 1.14.072M12 9a3 3 0 110 6 3 3 0 010-6z"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/Components/AppHeader.jsx",
-                                    lineNumber: 58,
-                                    columnNumber: 37
-                                }, ("TURBOPACK compile-time value", void 0))
-                            }, void 0, false, {
-                                fileName: "[project]/src/Components/AppHeader.jsx",
-                                lineNumber: 57,
-                                columnNumber: 33
-                            }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                className: "w-5 h-5",
-                                fill: "none",
-                                viewBox: "0 0 24 24",
-                                stroke: "currentColor",
-                                strokeWidth: "2",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                    strokeLinecap: "round",
-                                    strokeLinejoin: "round",
-                                    d: "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/Components/AppHeader.jsx",
-                                    lineNumber: 62,
-                                    columnNumber: 37
-                                }, ("TURBOPACK compile-time value", void 0))
-                            }, void 0, false, {
-                                fileName: "[project]/src/Components/AppHeader.jsx",
-                                lineNumber: 61,
-                                columnNumber: 33
-                            }, ("TURBOPACK compile-time value", void 0))
-                        }, void 0, false, {
-                            fileName: "[project]/src/Components/AppHeader.jsx",
-                            lineNumber: 50,
-                            columnNumber: 25
-                        }, ("TURBOPACK compile-time value", void 0)),
-                        user && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex items-center gap-2 border-l pl-3 ml-1 border-slate-200 dark:border-slate-700",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: `hidden sm:flex items-center justify-center w-8 h-8 rounded-full font-bold text-xs ${darkMode ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-100 text-emerald-700'}`,
-                                    children: user.username.charAt(0).toUpperCase()
-                                }, void 0, false, {
-                                    fileName: "[project]/src/Components/AppHeader.jsx",
-                                    lineNumber: 70,
-                                    columnNumber: 33
-                                }, ("TURBOPACK compile-time value", void 0)),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: handleLogout,
-                                    className: `px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${darkMode ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-red-50 text-red-600 hover:bg-red-100'}`,
-                                    children: "Logout"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/Components/AppHeader.jsx",
-                                    lineNumber: 73,
-                                    columnNumber: 33
-                                }, ("TURBOPACK compile-time value", void 0))
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/Components/AppHeader.jsx",
-                            lineNumber: 69,
-                            columnNumber: 29
-                        }, ("TURBOPACK compile-time value", void 0))
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/Components/AppHeader.jsx",
-                    lineNumber: 48,
-                    columnNumber: 21
-                }, ("TURBOPACK compile-time value", void 0))
-            ]
-        }, void 0, true, {
-            fileName: "[project]/src/Components/AppHeader.jsx",
-            lineNumber: 6,
-            columnNumber: 17
-        }, ("TURBOPACK compile-time value", void 0))
-    }, void 0, false, {
-        fileName: "[project]/src/Components/AppHeader.jsx",
-        lineNumber: 5,
-        columnNumber: 13
-    }, ("TURBOPACK compile-time value", void 0));
-};
-_c = AppHeader;
-const __TURBOPACK__default__export__ = AppHeader;
-var _c;
-__turbopack_context__.k.register(_c, "AppHeader");
-if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
-    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
-}
-}),
-"[project]/src/Components/FilterAlert.jsx [app-client] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-__turbopack_context__.s([
-    "default",
-    ()=>__TURBOPACK__default__export__
-]);
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-;
-const FilterAlert = ({ searchQuery, categoryFilter, activeDateFilter, darkMode, handleResetFilters })=>{
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
-        children: (searchQuery || categoryFilter !== "All" || activeDateFilter !== "all") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: `mb-6 p-3.5 rounded-xl border flex items-center justify-between gap-3 text-xs font-semibold ${darkMode ? "bg-emerald-950/20 border-emerald-900/40 text-emerald-300" : "bg-emerald-50 border-emerald-100 text-emerald-700"}`,
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex items-center gap-2",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            className: "w-2 h-2 rounded-full bg-emerald-400 animate-ping"
-                        }, void 0, false, {
-                            fileName: "[project]/src/Components/FilterAlert.jsx",
-                            lineNumber: 8,
-                            columnNumber: 29
-                        }, ("TURBOPACK compile-time value", void 0)),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            children: "Filters are active! The metrics below display values for the filtered search subset."
-                        }, void 0, false, {
-                            fileName: "[project]/src/Components/FilterAlert.jsx",
-                            lineNumber: 9,
-                            columnNumber: 29
-                        }, ("TURBOPACK compile-time value", void 0))
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/Components/FilterAlert.jsx",
-                    lineNumber: 7,
-                    columnNumber: 25
-                }, ("TURBOPACK compile-time value", void 0)),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                    onClick: handleResetFilters,
-                    className: "font-bold underline hover:text-emerald-400 uppercase tracking-wider",
-                    children: "Reset All Filters"
-                }, void 0, false, {
-                    fileName: "[project]/src/Components/FilterAlert.jsx",
-                    lineNumber: 11,
-                    columnNumber: 25
-                }, ("TURBOPACK compile-time value", void 0))
-            ]
-        }, void 0, true, {
-            fileName: "[project]/src/Components/FilterAlert.jsx",
-            lineNumber: 6,
-            columnNumber: 21
-        }, ("TURBOPACK compile-time value", void 0))
-    }, void 0, false);
-};
-_c = FilterAlert;
-const __TURBOPACK__default__export__ = FilterAlert;
-var _c;
-__turbopack_context__.k.register(_c, "FilterAlert");
-if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
-    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
-}
-}),
 "[project]/src/Components/StatisticsView/StatisticsHeader.jsx [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -3349,10 +3106,8 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hot-toast/dist/index.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
-;
 ;
 const AuthModal = ({ setUser, darkMode })=>{
     _s();
@@ -3363,7 +3118,7 @@ const AuthModal = ({ setUser, darkMode })=>{
     const handleLogin = async (e)=>{
         e.preventDefault();
         if (!username.trim() || !password) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error('Username and password are required');
+            setError('Username and password are required');
             return;
         }
         setIsLoading(true);
@@ -3381,15 +3136,14 @@ const AuthModal = ({ setUser, darkMode })=>{
             });
             const data = await res.json();
             if (res.ok && data.success) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success('Successfully logged in!');
                 setUser(data.user);
                 // Reload page to fetch expenses for this user
                 window.location.reload();
             } else {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error(data.error || 'Login failed');
+                setError(data.error || 'Login failed');
             }
         } catch (err) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error('An error occurred during login');
+            setError('An error occurred during login');
         } finally{
             setIsLoading(false);
         }
@@ -3416,17 +3170,17 @@ const AuthModal = ({ setUser, darkMode })=>{
                                     d: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 50,
+                                    lineNumber: 48,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/AuthModal.jsx",
-                                lineNumber: 49,
+                                lineNumber: 47,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 48,
+                            lineNumber: 46,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3434,7 +3188,7 @@ const AuthModal = ({ setUser, darkMode })=>{
                             children: "Welcome to FinVue"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 53,
+                            lineNumber: 51,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3442,13 +3196,13 @@ const AuthModal = ({ setUser, darkMode })=>{
                             children: "Enter your username and password to access your ledger"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 54,
+                            lineNumber: 52,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/AuthModal.jsx",
-                    lineNumber: 47,
+                    lineNumber: 45,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -3463,7 +3217,7 @@ const AuthModal = ({ setUser, darkMode })=>{
                                     children: "Username"
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 59,
+                                    lineNumber: 57,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3475,13 +3229,13 @@ const AuthModal = ({ setUser, darkMode })=>{
                                     className: `w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors ${darkMode ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:bg-slate-700' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white border'}`
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 62,
+                                    lineNumber: 60,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 58,
+                            lineNumber: 56,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3492,7 +3246,7 @@ const AuthModal = ({ setUser, darkMode })=>{
                                     children: "Password"
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 77,
+                                    lineNumber: 75,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3504,13 +3258,21 @@ const AuthModal = ({ setUser, darkMode })=>{
                                     className: `w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors ${darkMode ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:bg-slate-700' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white border'}`
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 80,
+                                    lineNumber: 78,
                                     columnNumber: 25
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "mt-2 text-sm text-red-500 font-medium",
+                                    children: error
+                                }, void 0, false, {
+                                    fileName: "[project]/src/Components/AuthModal.jsx",
+                                    lineNumber: 90,
+                                    columnNumber: 35
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 76,
+                            lineNumber: 74,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3532,7 +3294,7 @@ const AuthModal = ({ setUser, darkMode })=>{
                                         strokeWidth: "4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/AuthModal.jsx",
-                                        lineNumber: 105,
+                                        lineNumber: 104,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -3541,24 +3303,24 @@ const AuthModal = ({ setUser, darkMode })=>{
                                         d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/AuthModal.jsx",
-                                        lineNumber: 106,
+                                        lineNumber: 105,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/Components/AuthModal.jsx",
-                                lineNumber: 104,
+                                lineNumber: 103,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)) : 'Enter Your Ledger'
                         }, void 0, false, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 94,
+                            lineNumber: 93,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/AuthModal.jsx",
-                    lineNumber: 57,
+                    lineNumber: 55,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3566,18 +3328,18 @@ const AuthModal = ({ setUser, darkMode })=>{
                     children: "If the username doesn't exist, a new account will be created automatically."
                 }, void 0, false, {
                     fileName: "[project]/src/Components/AuthModal.jsx",
-                    lineNumber: 112,
+                    lineNumber: 111,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/Components/AuthModal.jsx",
-            lineNumber: 46,
+            lineNumber: 44,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/Components/AuthModal.jsx",
-        lineNumber: 45,
+        lineNumber: 43,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -3598,8 +3360,6 @@ __turbopack_context__.s([
     ()=>__TURBOPACK__default__export__
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$AppHeader$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/Components/AppHeader.jsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$FilterAlert$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/Components/FilterAlert.jsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$StatisticsView$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/Components/StatisticsView.jsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/Components/LedgerView.jsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/src/Components/ExpenseModals.jsx [app-client] (ecmascript) <locals>");
@@ -3614,8 +3374,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot
 ;
 ;
 ;
-;
-;
 const ExpenseClipperScreen = (props)=>{
     if (props.isAuthLoading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3624,12 +3382,12 @@ const ExpenseClipperScreen = (props)=>{
                 className: "w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 13,
+                lineNumber: 11,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-            lineNumber: 12,
+            lineNumber: 10,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -3639,14 +3397,14 @@ const ExpenseClipperScreen = (props)=>{
             darkMode: props.darkMode
         }, void 0, false, {
             fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-            lineNumber: 19,
+            lineNumber: 17,
             columnNumber: 16
         }, ("TURBOPACK compile-time value", void 0));
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `min-h-screen font-sans transition-colors duration-300 ${props.darkMode ? "bg-[#0b0f19] text-slate-100" : "bg-[#f8fafc] text-slate-800"}`,
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$AppHeader$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AppHeader, {
                 darkMode: props.darkMode,
                 activeTab: props.activeTab,
                 setActiveTab: props.setActiveTab,
@@ -3655,13 +3413,13 @@ const ExpenseClipperScreen = (props)=>{
                 handleLogout: props.handleLogout
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 23,
+                lineNumber: 21,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                 className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8",
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$FilterAlert$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(FilterAlert, {
                         searchQuery: props.searchQuery,
                         categoryFilter: props.categoryFilter,
                         activeDateFilter: props.activeDateFilter,
@@ -3669,27 +3427,27 @@ const ExpenseClipperScreen = (props)=>{
                         handleResetFilters: props.handleResetFilters
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                        lineNumber: 25,
+                        lineNumber: 23,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$StatisticsView$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         ...props
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                        lineNumber: 26,
+                        lineNumber: 24,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         ...props
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                        lineNumber: 27,
+                        lineNumber: 25,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 24,
+                lineNumber: 22,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$DailyExpenseModal$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DailyExpenseModal"], {
@@ -3701,7 +3459,7 @@ const ExpenseClipperScreen = (props)=>{
                 setSelectedDailyDate: props.setSelectedDailyDate
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 29,
+                lineNumber: 27,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$EditExpenseModal$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["EditExpenseModal"], {
@@ -3712,7 +3470,7 @@ const ExpenseClipperScreen = (props)=>{
                 CATEGORIES: props.CATEGORIES
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 30,
+                lineNumber: 28,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$DeleteExpenseModal$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DeleteExpenseModal"], {
@@ -3722,7 +3480,7 @@ const ExpenseClipperScreen = (props)=>{
                 handleConfirmDelete: props.handleConfirmDelete
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 31,
+                lineNumber: 29,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Toaster"], {
@@ -3735,13 +3493,13 @@ const ExpenseClipperScreen = (props)=>{
                 }
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 32,
+                lineNumber: 30,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-        lineNumber: 22,
+        lineNumber: 20,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -3973,14 +3731,12 @@ __turbopack_context__.s([
     ()=>useExpenseClipper
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hot-toast/dist/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$expenseData$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/data/expenseData.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$dateUtils$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/dateUtils.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$categoryStyles$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/categoryStyles.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$storageUtils$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/storageUtils.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/expenseCalculations.js [app-client] (ecmascript)");
 var _s = __turbopack_context__.k.signature();
-;
 ;
 ;
 ;
@@ -4119,7 +3875,7 @@ const useExpenseClipper = ()=>{
     const handleAddExpense = async (e)=>{
         e.preventDefault();
         if (!addAmount || !addDescription.trim()) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("Please fill in the Amount and Description fields.");
+            alert("Please fill in the Amount and Description fields.");
             return;
         }
         const newExpense = {
@@ -4143,13 +3899,9 @@ const useExpenseClipper = ()=>{
                         savedExpense,
                         ...current
                     ]);
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success("Expense added successfully!");
-            } else {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("Failed to add expense.");
             }
         } catch (error) {
             console.error("Failed to add expense", error);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("An error occurred while adding expense.");
         }
         setAddAmount("");
         setAddDescription("");
@@ -4160,7 +3912,7 @@ const useExpenseClipper = ()=>{
     const handleSaveEdit = async (e)=>{
         e.preventDefault();
         if (!editingExpense.description.trim() || !editingExpense.amount) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("Description and Amount are required.");
+            alert("Description and Amount are required.");
             return;
         }
         const expenseToUpdate = {
@@ -4179,13 +3931,9 @@ const useExpenseClipper = ()=>{
             if (res.ok) {
                 const updatedExpense = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["normalizeExpenseRecord"])(await res.json());
                 setExpenses((current)=>current.map((exp)=>exp.id === updatedExpense.id ? updatedExpense : exp));
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success("Expense updated successfully!");
-            } else {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("Failed to update expense.");
             }
         } catch (error) {
             console.error("Failed to update expense", error);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("An error occurred while updating expense.");
         }
         setEditingExpense(null);
     };
@@ -4197,13 +3945,9 @@ const useExpenseClipper = ()=>{
             });
             if (res.ok) {
                 setExpenses((current)=>current.filter((exp)=>exp.id !== deletingExpense.id));
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success("Expense deleted successfully!");
-            } else {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("Failed to delete expense.");
             }
         } catch (error) {
             console.error("Failed to delete expense", error);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("An error occurred while deleting expense.");
         }
         setDeletingExpense(null);
     };
@@ -4220,11 +3964,11 @@ const useExpenseClipper = ()=>{
     };
     const handleApplyCustomRange = ()=>{
         if (!customStart || !customEnd) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("Please select both Start and End dates.");
+            alert("Please select both Start and End dates.");
             return;
         }
         if (new Date(customStart) > new Date(customEnd)) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("Start Date cannot be after End Date.");
+            alert("Start Date cannot be after End Date.");
             return;
         }
         setAppliedCustomRange({
@@ -4254,10 +3998,8 @@ const useExpenseClipper = ()=>{
             });
             setUser(null);
             setExpenses([]);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success("Logged out successfully!");
         } catch (error) {
             console.error("Logout failed:", error);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("Failed to log out.");
         }
     };
     return {
@@ -4402,4 +4144,4 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 }),
 ]);
 
-//# sourceMappingURL=src_07go1bc._.js.map
+//# sourceMappingURL=src_0p2eeur._.js.map

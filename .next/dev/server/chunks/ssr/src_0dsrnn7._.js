@@ -3232,6 +3232,8 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hot-toast/dist/index.mjs [app-ssr] (ecmascript)");
+;
 ;
 ;
 const AuthModal = ({ setUser, darkMode })=>{
@@ -3242,7 +3244,7 @@ const AuthModal = ({ setUser, darkMode })=>{
     const handleLogin = async (e)=>{
         e.preventDefault();
         if (!username.trim() || !password) {
-            setError('Username and password are required');
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error('Username and password are required');
             return;
         }
         setIsLoading(true);
@@ -3260,14 +3262,15 @@ const AuthModal = ({ setUser, darkMode })=>{
             });
             const data = await res.json();
             if (res.ok && data.success) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].success('Successfully logged in!');
                 setUser(data.user);
                 // Reload page to fetch expenses for this user
                 window.location.reload();
             } else {
-                setError(data.error || 'Login failed');
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error(data.error || 'Login failed');
             }
         } catch (err) {
-            setError('An error occurred during login');
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error('An error occurred during login');
         } finally{
             setIsLoading(false);
         }
@@ -3294,17 +3297,17 @@ const AuthModal = ({ setUser, darkMode })=>{
                                     d: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 48,
+                                    lineNumber: 50,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/Components/AuthModal.jsx",
-                                lineNumber: 47,
+                                lineNumber: 49,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 46,
+                            lineNumber: 48,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3312,7 +3315,7 @@ const AuthModal = ({ setUser, darkMode })=>{
                             children: "Welcome to FinVue"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 51,
+                            lineNumber: 53,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3320,13 +3323,13 @@ const AuthModal = ({ setUser, darkMode })=>{
                             children: "Enter your username and password to access your ledger"
                         }, void 0, false, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 52,
+                            lineNumber: 54,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/AuthModal.jsx",
-                    lineNumber: 45,
+                    lineNumber: 47,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -3341,7 +3344,7 @@ const AuthModal = ({ setUser, darkMode })=>{
                                     children: "Username"
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 57,
+                                    lineNumber: 59,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3353,13 +3356,13 @@ const AuthModal = ({ setUser, darkMode })=>{
                                     className: `w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors ${darkMode ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:bg-slate-700' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white border'}`
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 60,
+                                    lineNumber: 62,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 56,
+                            lineNumber: 58,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3370,7 +3373,7 @@ const AuthModal = ({ setUser, darkMode })=>{
                                     children: "Password"
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 75,
+                                    lineNumber: 77,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3382,21 +3385,13 @@ const AuthModal = ({ setUser, darkMode })=>{
                                     className: `w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors ${darkMode ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:bg-slate-700' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white border'}`
                                 }, void 0, false, {
                                     fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 78,
+                                    lineNumber: 80,
                                     columnNumber: 25
-                                }, ("TURBOPACK compile-time value", void 0)),
-                                error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "mt-2 text-sm text-red-500 font-medium",
-                                    children: error
-                                }, void 0, false, {
-                                    fileName: "[project]/src/Components/AuthModal.jsx",
-                                    lineNumber: 90,
-                                    columnNumber: 35
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 74,
+                            lineNumber: 76,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3418,7 +3413,7 @@ const AuthModal = ({ setUser, darkMode })=>{
                                         strokeWidth: "4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/AuthModal.jsx",
-                                        lineNumber: 104,
+                                        lineNumber: 105,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -3427,24 +3422,24 @@ const AuthModal = ({ setUser, darkMode })=>{
                                         d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                     }, void 0, false, {
                                         fileName: "[project]/src/Components/AuthModal.jsx",
-                                        lineNumber: 105,
+                                        lineNumber: 106,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/Components/AuthModal.jsx",
-                                lineNumber: 103,
+                                lineNumber: 104,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)) : 'Enter Your Ledger'
                         }, void 0, false, {
                             fileName: "[project]/src/Components/AuthModal.jsx",
-                            lineNumber: 93,
+                            lineNumber: 94,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/Components/AuthModal.jsx",
-                    lineNumber: 55,
+                    lineNumber: 57,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3452,18 +3447,18 @@ const AuthModal = ({ setUser, darkMode })=>{
                     children: "If the username doesn't exist, a new account will be created automatically."
                 }, void 0, false, {
                     fileName: "[project]/src/Components/AuthModal.jsx",
-                    lineNumber: 111,
+                    lineNumber: 112,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/Components/AuthModal.jsx",
-            lineNumber: 44,
+            lineNumber: 46,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/Components/AuthModal.jsx",
-        lineNumber: 43,
+        lineNumber: 45,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -3486,6 +3481,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$Expense
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$EditExpenseModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/Components/ExpenseModals/EditExpenseModal.jsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$DeleteExpenseModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/Components/ExpenseModals/DeleteExpenseModal.jsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$AuthModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/Components/AuthModal.jsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hot-toast/dist/index.mjs [app-ssr] (ecmascript)");
+;
 ;
 ;
 ;
@@ -3501,12 +3498,12 @@ const ExpenseClipperScreen = (props)=>{
                 className: "w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 12,
+                lineNumber: 13,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-            lineNumber: 11,
+            lineNumber: 12,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -3516,7 +3513,7 @@ const ExpenseClipperScreen = (props)=>{
             darkMode: props.darkMode
         }, void 0, false, {
             fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-            lineNumber: 18,
+            lineNumber: 19,
             columnNumber: 16
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -3532,7 +3529,7 @@ const ExpenseClipperScreen = (props)=>{
                 handleLogout: props.handleLogout
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 22,
+                lineNumber: 23,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -3546,27 +3543,27 @@ const ExpenseClipperScreen = (props)=>{
                         handleResetFilters: props.handleResetFilters
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                        lineNumber: 24,
+                        lineNumber: 25,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$StatisticsView$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                         ...props
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                        lineNumber: 25,
+                        lineNumber: 26,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$LedgerView$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                         ...props
                     }, void 0, false, {
                         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                        lineNumber: 26,
+                        lineNumber: 27,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 23,
+                lineNumber: 24,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$DailyExpenseModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DailyExpenseModal"], {
@@ -3578,7 +3575,7 @@ const ExpenseClipperScreen = (props)=>{
                 setSelectedDailyDate: props.setSelectedDailyDate
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 28,
+                lineNumber: 29,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$EditExpenseModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditExpenseModal"], {
@@ -3589,7 +3586,7 @@ const ExpenseClipperScreen = (props)=>{
                 CATEGORIES: props.CATEGORIES
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 29,
+                lineNumber: 30,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Components$2f$ExpenseModals$2f$DeleteExpenseModal$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DeleteExpenseModal"], {
@@ -3599,13 +3596,26 @@ const ExpenseClipperScreen = (props)=>{
                 handleConfirmDelete: props.handleConfirmDelete
             }, void 0, false, {
                 fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-                lineNumber: 30,
+                lineNumber: 31,
+                columnNumber: 13
+            }, ("TURBOPACK compile-time value", void 0)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Toaster"], {
+                position: "bottom-right",
+                toastOptions: {
+                    style: {
+                        background: props.darkMode ? '#1e293b' : '#fff',
+                        color: props.darkMode ? '#fff' : '#1e293b'
+                    }
+                }
+            }, void 0, false, {
+                fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
+                lineNumber: 32,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/Components/ExpenseClipperScreen.jsx",
-        lineNumber: 21,
+        lineNumber: 22,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -3820,11 +3830,13 @@ __turbopack_context__.s([
     ()=>useExpenseClipper
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hot-toast/dist/index.mjs [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$expenseData$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/data/expenseData.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$dateUtils$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/dateUtils.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$categoryStyles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/categoryStyles.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$storageUtils$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/storageUtils.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/expenseCalculations.js [app-ssr] (ecmascript)");
+;
 ;
 ;
 ;
@@ -3936,7 +3948,7 @@ const useExpenseClipper = ()=>{
     const handleAddExpense = async (e)=>{
         e.preventDefault();
         if (!addAmount || !addDescription.trim()) {
-            alert("Please fill in the Amount and Description fields.");
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("Please fill in the Amount and Description fields.");
             return;
         }
         const newExpense = {
@@ -3960,9 +3972,13 @@ const useExpenseClipper = ()=>{
                         savedExpense,
                         ...current
                     ]);
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].success("Expense added successfully!");
+            } else {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("Failed to add expense.");
             }
         } catch (error) {
             console.error("Failed to add expense", error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("An error occurred while adding expense.");
         }
         setAddAmount("");
         setAddDescription("");
@@ -3973,7 +3989,7 @@ const useExpenseClipper = ()=>{
     const handleSaveEdit = async (e)=>{
         e.preventDefault();
         if (!editingExpense.description.trim() || !editingExpense.amount) {
-            alert("Description and Amount are required.");
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("Description and Amount are required.");
             return;
         }
         const expenseToUpdate = {
@@ -3992,9 +4008,13 @@ const useExpenseClipper = ()=>{
             if (res.ok) {
                 const updatedExpense = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$expenseCalculations$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["normalizeExpenseRecord"])(await res.json());
                 setExpenses((current)=>current.map((exp)=>exp.id === updatedExpense.id ? updatedExpense : exp));
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].success("Expense updated successfully!");
+            } else {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("Failed to update expense.");
             }
         } catch (error) {
             console.error("Failed to update expense", error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("An error occurred while updating expense.");
         }
         setEditingExpense(null);
     };
@@ -4006,9 +4026,13 @@ const useExpenseClipper = ()=>{
             });
             if (res.ok) {
                 setExpenses((current)=>current.filter((exp)=>exp.id !== deletingExpense.id));
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].success("Expense deleted successfully!");
+            } else {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("Failed to delete expense.");
             }
         } catch (error) {
             console.error("Failed to delete expense", error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("An error occurred while deleting expense.");
         }
         setDeletingExpense(null);
     };
@@ -4025,11 +4049,11 @@ const useExpenseClipper = ()=>{
     };
     const handleApplyCustomRange = ()=>{
         if (!customStart || !customEnd) {
-            alert("Please select both Start and End dates.");
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("Please select both Start and End dates.");
             return;
         }
         if (new Date(customStart) > new Date(customEnd)) {
-            alert("Start Date cannot be after End Date.");
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("Start Date cannot be after End Date.");
             return;
         }
         setAppliedCustomRange({
@@ -4055,8 +4079,10 @@ const useExpenseClipper = ()=>{
             });
             setUser(null);
             setExpenses([]);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].success("Logged out successfully!");
         } catch (error) {
             console.error("Logout failed:", error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("Failed to log out.");
         }
     };
     return {

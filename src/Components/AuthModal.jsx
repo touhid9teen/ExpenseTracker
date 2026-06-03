@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const AuthModal = ({ setUser, darkMode }) => {
     const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ const AuthModal = ({ setUser, darkMode }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         if (!username.trim() || !password) {
-            setError('Username and password are required');
+            toast.error('Username and password are required');
             return;
         }
 
@@ -26,14 +27,15 @@ const AuthModal = ({ setUser, darkMode }) => {
             const data = await res.json();
 
             if (res.ok && data.success) {
+                toast.success('Successfully logged in!');
                 setUser(data.user);
                 // Reload page to fetch expenses for this user
                 window.location.reload();
             } else {
-                setError(data.error || 'Login failed');
+                toast.error(data.error || 'Login failed');
             }
         } catch (err) {
-            setError('An error occurred during login');
+            toast.error('An error occurred during login');
         } finally {
             setIsLoading(false);
         }
@@ -87,7 +89,6 @@ const AuthModal = ({ setUser, darkMode }) => {
                                 : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white border'
                             }`}
                         />
-                        {error && <p className="mt-2 text-sm text-red-500 font-medium">{error}</p>}
                     </div>
 
                     <button

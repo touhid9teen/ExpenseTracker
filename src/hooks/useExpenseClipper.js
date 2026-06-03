@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import toast from 'react-hot-toast';
 import { CATEGORIES } from "../data/expenseData";
 import { formatDate, getDashboardDateLabels, getTodayInputValue } from "../utils/dateUtils";
 import { getCategoryStyles } from "../utils/categoryStyles";
@@ -116,7 +117,7 @@ export const useExpenseClipper = () => {
     const handleAddExpense = async (e) => {
         e.preventDefault();
         if (!addAmount || !addDescription.trim()) {
-            alert("Please fill in the Amount and Description fields.");
+            toast.error("Please fill in the Amount and Description fields.");
             return;
         }
 
@@ -137,9 +138,13 @@ export const useExpenseClipper = () => {
             if (res.ok) {
                 const savedExpense = normalizeExpenseRecord(await res.json());
                 setExpenses((current) => [savedExpense, ...current]);
+                toast.success("Expense added successfully!");
+            } else {
+                toast.error("Failed to add expense.");
             }
         } catch (error) {
             console.error("Failed to add expense", error);
+            toast.error("An error occurred while adding expense.");
         }
 
         setAddAmount("");
@@ -152,7 +157,7 @@ export const useExpenseClipper = () => {
     const handleSaveEdit = async (e) => {
         e.preventDefault();
         if (!editingExpense.description.trim() || !editingExpense.amount) {
-            alert("Description and Amount are required.");
+            toast.error("Description and Amount are required.");
             return;
         }
 
@@ -173,9 +178,13 @@ export const useExpenseClipper = () => {
                 setExpenses((current) =>
                     current.map((exp) => (exp.id === updatedExpense.id ? updatedExpense : exp))
                 );
+                toast.success("Expense updated successfully!");
+            } else {
+                toast.error("Failed to update expense.");
             }
         } catch (error) {
             console.error("Failed to update expense", error);
+            toast.error("An error occurred while updating expense.");
         }
 
         setEditingExpense(null);
@@ -192,9 +201,13 @@ export const useExpenseClipper = () => {
                 setExpenses((current) =>
                     current.filter((exp) => exp.id !== deletingExpense.id)
                 );
+                toast.success("Expense deleted successfully!");
+            } else {
+                toast.error("Failed to delete expense.");
             }
         } catch (error) {
             console.error("Failed to delete expense", error);
+            toast.error("An error occurred while deleting expense.");
         }
 
         setDeletingExpense(null);
@@ -214,11 +227,11 @@ export const useExpenseClipper = () => {
 
     const handleApplyCustomRange = () => {
         if (!customStart || !customEnd) {
-            alert("Please select both Start and End dates.");
+            toast.error("Please select both Start and End dates.");
             return;
         }
         if (new Date(customStart) > new Date(customEnd)) {
-            alert("Start Date cannot be after End Date.");
+            toast.error("Start Date cannot be after End Date.");
             return;
         }
         setAppliedCustomRange({ start: customStart, end: customEnd });
@@ -240,8 +253,10 @@ export const useExpenseClipper = () => {
             await fetch("/api/auth/logout", { method: "POST" });
             setUser(null);
             setExpenses([]);
+            toast.success("Logged out successfully!");
         } catch (error) {
             console.error("Logout failed:", error);
+            toast.error("Failed to log out.");
         }
     };
 

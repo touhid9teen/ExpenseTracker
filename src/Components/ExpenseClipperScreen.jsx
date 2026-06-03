@@ -4,6 +4,7 @@ import StatisticsView from "./StatisticsView";
 import LedgerView from "./LedgerView";
 import { DailyExpenseModal, EditExpenseModal, DeleteExpenseModal } from "./ExpenseModals";
 import AuthModal from "./AuthModal";
+import { Toaster } from 'react-hot-toast';
 
 const ExpenseClipperScreen = (props) => {
     if (props.isAuthLoading) {
@@ -28,6 +29,15 @@ const ExpenseClipperScreen = (props) => {
             <DailyExpenseModal selectedDailyDate={props.selectedDailyDate} dailyModalDetails={props.dailyModalDetails} darkMode={props.darkMode} formatDate={props.formatDate} getCategoryStyles={props.getCategoryStylesForTheme} setSelectedDailyDate={props.setSelectedDailyDate} />
             <EditExpenseModal editingExpense={props.editingExpense} setEditingExpense={props.setEditingExpense} darkMode={props.darkMode} handleSaveEdit={props.handleSaveEdit} CATEGORIES={props.CATEGORIES} />
             <DeleteExpenseModal deletingExpense={props.deletingExpense} setDeletingExpense={props.setDeletingExpense} darkMode={props.darkMode} handleConfirmDelete={props.handleConfirmDelete} />
+            <Toaster 
+                position="bottom-right" 
+                toastOptions={{
+                    style: {
+                        background: props.darkMode ? '#1e293b' : '#fff',
+                        color: props.darkMode ? '#fff' : '#1e293b',
+                    }
+                }} 
+            />
         </div>
     );
 };

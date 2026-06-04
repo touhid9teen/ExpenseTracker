@@ -1,6 +1,6 @@
 # FinVue - Modern Expense Tracker
 
-FinVue is a modern, full-stack Expense Tracker application built with Next.js and React. It helps you manage your personal finances by tracking daily expenses, visualizing spending habits, and categorizing transactions. 
+FinVue is a modern, full-stack Expense Tracker application built with Next.js and React. It helps you manage your personal finances by tracking daily expenses, visualizing spending habits, and categorizing transactions.
 
 ## ✨ Features
 
@@ -24,24 +24,29 @@ FinVue is a modern, full-stack Expense Tracker application built with Next.js an
 
 ### Prerequisites
 
-Ensure you have [Node.js](https://nodejs.org/) installed on your machine. 
+Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
 
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone <repository-url>
    cd ExpenseTracker
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables:**
    Create a `.env.local` file in the root directory and add the following keys:
+
    ```env
+   APP_ENV=development or production      
+   GEMINI_API_KEY=your-GEMINI_API_KEY
    DATABASE_URL="your-neon-postgres-database-url"
    JWT_SECRET="your-secure-jwt-secret"
    ```

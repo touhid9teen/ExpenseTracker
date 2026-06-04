@@ -1,6 +1,6 @@
 import { SignJWT, jwtVerify } from 'jose';
 
-const secretKey = process.env.JWT_SECRET || 'super-secret-key-for-expense-tracker';
+const secretKey = process.env.JWT_SECRET
 const key = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload) {

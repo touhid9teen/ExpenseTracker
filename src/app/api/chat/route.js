@@ -69,6 +69,9 @@ ACTION BLOCK FORMAT (only include this if modifying data):
 [ACTION: {"type": "DELETE_EXPENSE", "payload": {"id": "expense_id"}}]
 [ACTION: {"type": "UPDATE_EXPENSE", "payload": {"id": "expense_id", "amount": 100, "category": "Food", "description": "lunch", "date": "2026-06-03"}}]
 
+- IMPORTANT: You can output MULTIPLE action blocks one after another for batch operations. For example, if the user asks to add 3 expenses, output 3 separate [ACTION: ...] blocks.
+- Each action block must be on its own separate line.
+- Process ALL tasks the user asked for — do not stop after the first one.
 - If you don't need to modify data, just answer normally without the action block.
 - If the user asks to add an expense but doesn't provide enough details (e.g., missing amount or description), politely ask for the missing details before outputting the action block.
 - If the user doesn't specify a date for a new expense, use today's date.

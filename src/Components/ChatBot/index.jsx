@@ -77,28 +77,33 @@ const ChatBot = ({
 
       if (res.ok) {
         let aiResponseText = data.response;
-        const actionRegex = /\[ACTION:\s*({.*?})\s*\]/s;
-        const match = aiResponseText.match(actionRegex);
+        const actionRegex = /\[ACTION:\s*({.*?})\s*\]/gs;
+        const matches = [...aiResponseText.matchAll(actionRegex)];
 
-        if (match) {
-          try {
-            const actionData = JSON.parse(match[1]);
-            aiResponseText = aiResponseText.replace(actionRegex, "").trim();
+        if (matches.length > 0) {
+          // Remove all action blocks from the response text
+          aiResponseText = aiResponseText.replace(actionRegex, "").trim();
 
-            if (actionData.type === "ADD_EXPENSE") {
-              await addExpenseDirect(actionData.payload);
-            } else if (actionData.type === "UPDATE_EXPENSE") {
-              await updateExpenseDirect(actionData.payload);
-            } else if (actionData.type === "DELETE_EXPENSE") {
-              await deleteExpenseDirect(actionData.payload.id);
+          // Process actions sequentially
+          for (const match of matches) {
+            try {
+              const actionData = JSON.parse(match[1]);
+
+              if (actionData.type === "ADD_EXPENSE") {
+                await addExpenseDirect(actionData.payload);
+              } else if (actionData.type === "UPDATE_EXPENSE") {
+                await updateExpenseDirect(actionData.payload);
+              } else if (actionData.type === "DELETE_EXPENSE") {
+                await deleteExpenseDirect(actionData.payload.id);
+              }
+            } catch (e) {
+              console.error("Failed to parse action JSON", e);
             }
-          } catch (e) {
-            console.error("Failed to parse action JSON", e);
           }
         }
 
         if (!aiResponseText)
-          aiResponseText = "Done! I've updated your expenses.";
+          aiResponseText = `Done! I've processed ${matches.length} expense operation${matches.length !== 1 ? "s" : ""}.`;
 
         setMessages((prev) => [
           ...prev,

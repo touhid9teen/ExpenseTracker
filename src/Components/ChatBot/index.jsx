@@ -20,9 +20,11 @@ const ChatBot = ({
   addExpenseDirect,
   updateExpenseDirect,
   deleteExpenseDirect,
+  setActiveTab,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [tooltipDismissed, setTooltipDismissed] = useState(false);
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -100,6 +102,10 @@ const ChatBot = ({
               console.error("Failed to parse action JSON", e);
             }
           }
+
+          // Auto-close chat and switch to ledger tab after action is completed
+          setIsOpen(false);
+          if (setActiveTab) setActiveTab("ledger");
         }
 
         if (!aiResponseText)
@@ -159,6 +165,8 @@ const ChatBot = ({
         isOpen={isOpen}
         onToggle={() => setIsOpen(!isOpen)}
         darkMode={darkMode}
+        tooltipDismissed={tooltipDismissed}
+        onDismissTooltip={() => setTooltipDismissed(true)}
       />
 
       {isOpen && (

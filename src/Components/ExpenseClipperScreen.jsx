@@ -187,6 +187,7 @@ const ExpenseClipperScreen = (props) => {
         addExpenseDirect={props.addExpenseDirect} 
         updateExpenseDirect={props.updateExpenseDirect} 
         deleteExpenseDirect={props.deleteExpenseDirect} 
+        setActiveTab={props.setActiveTab}
       />
       {toaster}
     </div>

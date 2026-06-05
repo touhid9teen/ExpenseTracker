@@ -16,9 +16,9 @@ export const PaginationBar = ({
                 <span className={`block text-sm font-extrabold ${darkMode ? "text-emerald-400" : "text-emerald-700"}`}>Current table total: ৳{Math.round(currentTableTotal).toLocaleString()}</span>
             </div>
             <div className="flex gap-2">
-                <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed ${darkMode ? "bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-350" : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650"}`}>Prev</button>
+                <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed ${darkMode ? "bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-350" : "bg-white hover:bg-slate-100 border-slate-300 text-slate-650"}`}>Prev</button>
                 <span className={`px-3.5 py-1.5 text-xs font-extrabold rounded-lg ${darkMode ? "bg-slate-800 text-emerald-400" : "bg-slate-100 text-emerald-700"}`}>Page {currentPage} of {totalPages}</span>
-                <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed ${darkMode ? "bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-350" : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650"}`}>Next</button>
+                <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed ${darkMode ? "bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-350" : "bg-white hover:bg-slate-100 border-slate-300 text-slate-650"}`}>Next</button>
             </div>
         </div>
     );

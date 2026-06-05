@@ -1,5 +1,5 @@
 const SummaryCard = ({ darkMode, title, value = 0, icon, accentClass, note }) => (
-    <div className={`p-4 sm:p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 shadow-sm ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`}>
+    <div className={`p-4 sm:p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 shadow-md ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/15" : "bg-white border-slate-200 shadow-slate-200/50"}`}>
         <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2">
             <span className={`text-[9px] sm:text-xs font-bold uppercase tracking-wider truncate ${darkMode ? "text-slate-400" : "text-slate-550"}`}>{title}</span>
             <div className={`w-7.5 h-7.5 sm:w-8 sm:h-8 rounded-lg ${accentClass} flex items-center justify-center shrink-0`}>{icon}</div>

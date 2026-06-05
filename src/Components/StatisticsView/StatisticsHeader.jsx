@@ -2,7 +2,7 @@ export const StatisticsHeader = ({ darkMode, setActiveTab, dateLabels }) => {
     const safeDateLabels = dateLabels ?? { today: "" };
 
     return (
-        <div className="flex flex-col md:flex-row md:items-center justify-between border-b pb-4 border-slate-200/50 dark:border-slate-800/50">
+        <div className="flex flex-col md:flex-row md:items-center justify-between border-b pb-4 border-slate-300/60 dark:border-slate-800/50">
             <div>
                 <h1 className="text-2xl font-black tracking-tight">Statistics Analytics</h1>
                 <p className={`text-sm ${darkMode ? "text-slate-400" : "text-slate-550"}`}>Real-time visual breakdown of active dashboard expenditures</p>

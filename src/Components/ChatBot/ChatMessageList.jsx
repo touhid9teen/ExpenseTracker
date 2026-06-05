@@ -41,9 +41,7 @@ const ChatMessageList = ({ messages, isLoading, darkMode, messagesEndRef }) => (
         <div
           className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm rounded-bl-none border ${
             darkMode
-              ? "bg-slate-800 border-slate-700"
-              : "bg-slate-100 border-slate-200"
-          }`}
+              ? "bg-slate-800 border-slate-700": "bg-slate-100 border-slate-300"}`}
         >
           <div className="flex gap-1.5 items-center h-4">
             <div

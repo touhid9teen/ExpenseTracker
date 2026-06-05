@@ -182,9 +182,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
               key={index}
               className={`group relative p-5 sm:p-6 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-[1.02] ${
                 darkMode
-                  ? "bg-slate-800/50 border-slate-700/60 hover:border-emerald-500/30 hover:bg-slate-800/80"
-                  : "bg-white border-slate-200 hover:border-emerald-400/30 hover:shadow-lg hover:shadow-emerald-500/5"
-              }`}
+                  ? "bg-slate-800/50 border-slate-700/60 hover:border-emerald-500/30 hover:bg-slate-800/80": "bg-white border-slate-300 hover:border-emerald-400/30 hover:shadow-lg hover:shadow-emerald-500/5"}`}
             >
               {/* Top accent line */}
               <div
@@ -291,9 +289,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
                 <div
                   className={`flex-1 mt-2 sm:mt-0 p-5 sm:p-6 rounded-xl sm:rounded-2xl border transition-all duration-300 ${
                     darkMode
-                      ? "bg-slate-800/30 border-slate-700/50 hover:border-sky-500/20"
-                      : "bg-white border-slate-200 hover:border-sky-400/20 hover:shadow-md"
-                  }`}
+                      ? "bg-slate-800/30 border-slate-700/50 hover:border-sky-500/20": "bg-white border-slate-300 hover:border-sky-400/20 hover:shadow-md"}`}
                 >
                   <div className="flex items-center gap-3 mb-2">
                     <div
@@ -359,9 +355,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
         <div
           className={`p-6 sm:p-8 rounded-xl sm:rounded-2xl border ${
             darkMode
-              ? "bg-slate-800/40 border-slate-700/60"
-              : "bg-white border-slate-200"
-          }`}
+              ? "bg-slate-800/40 border-slate-700/60": "bg-white border-slate-300"}`}
         >
           {/* Chat illustration */}
           <div
@@ -413,9 +407,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
                 key={index}
                 className={`flex items-start gap-3 p-4 rounded-xl border transition-all duration-200 ${
                   darkMode
-                    ? "bg-slate-800/30 border-slate-700/50 hover:border-violet-500/20"
-                    : "bg-slate-50 border-slate-200 hover:border-violet-400/20"
-                }`}
+                    ? "bg-slate-800/30 border-slate-700/50 hover:border-violet-500/20": "bg-slate-50 border-slate-300 hover:border-violet-400/20"}`}
               >
                 <div
                   className={`mt-0.5 w-6 h-6 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold ${
@@ -483,9 +475,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
               key={index}
               className={`p-5 rounded-xl border text-center transition-all duration-200 hover:scale-[1.02] ${
                 darkMode
-                  ? "bg-slate-800/30 border-slate-700/60 hover:border-emerald-500/20"
-                  : "bg-white border-slate-200 hover:border-emerald-400/20 hover:shadow-sm"
-              }`}
+                  ? "bg-slate-800/30 border-slate-700/60 hover:border-emerald-500/20": "bg-white border-slate-300 hover:border-emerald-400/20 hover:shadow-sm"}`}
             >
               <div className={`w-9 h-9 rounded-lg flex items-center justify-center mx-auto mb-3 ${darkMode ? "bg-emerald-500/10 text-emerald-400" : "bg-emerald-100 text-emerald-600"}`}>
                 {item.icon}
@@ -504,8 +494,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
       {/* ── Footer ── */}
       <div
         className={`text-center py-6 border-t ${
-          darkMode ? "border-slate-800" : "border-slate-200"
-        }`}
+          darkMode ? "border-slate-800": "border-slate-300"}`}
       >
         <p
           className={`text-xs sm:text-sm ${

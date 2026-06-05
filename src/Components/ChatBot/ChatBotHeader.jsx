@@ -12,9 +12,7 @@ const ChatBotHeader = ({ darkMode, onClose }) => (
   <div
     className={`px-5 py-4 border-b flex items-center justify-between gap-3 flex-shrink-0 ${
       darkMode
-        ? "bg-slate-800/80 border-slate-700"
-        : "bg-slate-50 border-slate-200"
-    }`}
+        ? "bg-slate-800/80 border-slate-700": "bg-slate-50 border-slate-300"}`}
   >
     <div className="flex items-center gap-3">
       <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center shadow-lg flex-shrink-0">

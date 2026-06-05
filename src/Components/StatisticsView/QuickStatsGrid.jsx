@@ -19,7 +19,7 @@ export const QuickStatsGrid = ({ darkMode = true, quickStats = {}, formatDate = 
     };
 
     return (
-        <div className={`p-6 rounded-2xl border shadow-sm ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`}>
+        <div className={`p-6 rounded-2xl border shadow-md ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/15" : "bg-white border-slate-200 shadow-slate-200/50"}`}>
             <h2 className="text-base font-bold tracking-tight mb-4 flex items-center gap-2">
                 <ChartBarSquareIcon className="w-5 h-5 text-emerald-500" />
                 Core Spending Statistics

@@ -179,9 +179,7 @@ const ChatBot = ({
             transition-all duration-300 animate-fadeIn
             ${
               darkMode
-                ? "bg-slate-900 border-slate-700/80 shadow-2xl shadow-black/60"
-                : "bg-white border-slate-200 shadow-2xl shadow-slate-300/60"
-            }
+                ? "bg-slate-900 border-slate-700/80 shadow-2xl shadow-black/60": "bg-white border-slate-300 shadow-2xl shadow-slate-300/60"}
           `}
         >
           <ChatBotHeader darkMode={darkMode} onClose={() => setIsOpen(false)} />

@@ -29,11 +29,9 @@ export const LedgerFilters = ({
     appliedCustomRange;
   return (
     <div
-      className={`p-6 rounded-2xl border transition-all duration-300 shadow-sm ${
+      className={`p-6 rounded-2xl border transition-all duration-300 shadow-md ${
         darkMode
-          ? "bg-slate-900/60 border-slate-800/80 shadow-black/10"
-          : "bg-white border-slate-100 shadow-slate-100/30"
-      }`}
+          ? "bg-slate-900/60 border-slate-800/80 shadow-black/15": "bg-white border-slate-200 shadow-slate-200/50"}`}
     >
       <div className="flex flex-col lg:flex-row gap-4 items-center justify-between border-b pb-5 border-slate-200/50 dark:border-slate-800/50">
         <div>
@@ -83,9 +81,7 @@ export const LedgerFilters = ({
               onChange={(e) => setSearchQuery(e.target.value)}
               className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${
                 darkMode
-                  ? "bg-[#182235] border-slate-750 text-slate-150 placeholder-slate-500"
-                  : "bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400"
-              }`}
+                  ? "bg-[#182235] border-slate-750 text-slate-150 placeholder-slate-500": "bg-slate-50 border-slate-300 text-slate-800 placeholder-slate-400"}`}
             />
           </div>
           <div className="w-full sm:w-44">
@@ -94,9 +90,7 @@ export const LedgerFilters = ({
               onChange={(e) => setCategoryFilter(e.target.value)}
               className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${
                 darkMode
-                  ? "bg-[#182235] border-slate-750 text-slate-150"
-                  : "bg-slate-50 border-slate-200 text-slate-800"
-              }`}
+                  ? "bg-[#182235] border-slate-750 text-slate-150": "bg-slate-50 border-slate-300 text-slate-800"}`}
             >
               <option value="All">All Categories</option>
               {CATEGORIES.map((cat) => (
@@ -118,9 +112,7 @@ export const LedgerFilters = ({
                 activeDateFilter === filter
                   ? "bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/10"
                   : darkMode
-                  ? "bg-[#182235] hover:bg-slate-750 border-slate-750 text-slate-350 hover:text-slate-200"
-                  : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650 hover:text-slate-850"
-              }`}
+                  ? "bg-[#182235] hover:bg-slate-750 border-slate-750 text-slate-350 hover:text-slate-200": "bg-white hover:bg-slate-100 border-slate-300 text-slate-650 hover:text-slate-850"}`}
             >
               {filter === "today"
                 ? "Today"

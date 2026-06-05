@@ -15,15 +15,12 @@ const QuickActionsPopover = ({ darkMode, onClose, onSelectAction }) => (
   <div
     className={`absolute bottom-full left-0 right-0 mb-2 rounded-2xl border overflow-hidden shadow-xl ${
       darkMode
-        ? "bg-slate-800 border-slate-700 shadow-black/40"
-        : "bg-white border-slate-200 shadow-slate-200/80"
-    }`}
+        ? "bg-slate-800 border-slate-700 shadow-black/40": "bg-white border-slate-300 shadow-slate-300/80"}`}
   >
     {/* Popover header */}
     <div
       className={`px-4 py-2.5 border-b flex items-center justify-between ${
-        darkMode ? "border-slate-700" : "border-slate-100"
-      }`}
+        darkMode ? "border-slate-700": "border-slate-200"}`}
     >
       <span
         className={`text-[11px] font-semibold uppercase tracking-widest ${

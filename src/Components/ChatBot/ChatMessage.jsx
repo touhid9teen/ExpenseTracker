@@ -72,9 +72,7 @@ const ChatMessage = ({ msg, darkMode }) => {
         msg.sender === "user"
           ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-br-none shadow-md shadow-emerald-500/20"
           : darkMode
-            ? "bg-slate-800 text-slate-200 rounded-bl-none border border-slate-700"
-            : "bg-slate-100 text-slate-700 rounded-bl-none border border-slate-200"
-      }`}
+            ? "bg-slate-800 text-slate-200 rounded-bl-none border border-slate-700": "bg-slate-100 text-slate-700 rounded-bl-none border border-slate-300"}`}
     >
       <div className="whitespace-pre-wrap">{msg.text}</div>
     </div>

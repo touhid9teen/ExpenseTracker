@@ -2,7 +2,7 @@ import { ChartPieIcon } from "../Icons";
 
 export const CategoryBreakdown = ({ darkMode = true, categoryBreakdown = [], getCategoryStyles = () => ({ bullet: "bg-slate-400" }) }) => {
     return (
-        <div className={`p-6 rounded-2xl border shadow-sm ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`}>
+        <div className={`p-6 rounded-2xl border shadow-md ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/15" : "bg-white border-slate-200 shadow-slate-200/50"}`}>
             <h2 className="text-base font-bold tracking-tight mb-4 flex items-center gap-2">
                 <ChartPieIcon className="w-5 h-5 text-purple-500" />
                 Category Weight

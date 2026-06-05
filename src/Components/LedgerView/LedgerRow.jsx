@@ -15,7 +15,7 @@ const LedgerRow = ({
   const isMenuOpen = openMenuId === exp.id;
   return (
     <tr
-      className={`transition-colors duration-150 border-b ${darkMode ? "border-slate-800/60 hover:bg-slate-800/40" : "border-slate-100 hover:bg-slate-50/80"}`}
+      className={`transition-colors duration-150 border-b ${darkMode ? "border-slate-800/60 hover:bg-slate-800/40" : "border-slate-200 hover:bg-slate-50/80"}`}
     >
       {/* Date — short format on mobile, full on desktop */}
       <td className="px-2 sm:px-4 py-3 whitespace-nowrap">
@@ -97,7 +97,7 @@ const LedgerRow = ({
                 Edit Expense
               </button>
               <div
-                className={`my-1 mx-3 border-t ${darkMode ? "border-slate-800" : "border-slate-100"}`}
+                className={`my-1 mx-3 border-t ${darkMode ? "border-slate-800" : "border-slate-200"}`}
               ></div>
               <button
                 onClick={() => {

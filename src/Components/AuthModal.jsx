@@ -42,7 +42,7 @@ const AuthModal = ({ setUser, darkMode }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-            <div className={`w-full max-w-md rounded-2xl p-8 shadow-2xl ${darkMode ? 'bg-slate-900 border border-slate-800' : 'bg-white border border-slate-200'}`}>
+            <div className={`w-full max-w-md rounded-2xl p-8 shadow-2xl ${darkMode ? 'bg-slate-900 border border-slate-800 shadow-black/40' : 'bg-white border border-slate-200 shadow-slate-200/40'}`}>
                 <div className="text-center mb-8">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20">
                         <FinVueLogoIcon className="w-8 h-8 text-white" />
@@ -65,7 +65,7 @@ const AuthModal = ({ setUser, darkMode }) => {
                             className={`w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors ${
                                 darkMode 
                                 ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:bg-slate-700' 
-                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white border'
+                                : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:bg-white border'
                             }`}
                         />
                     </div>
@@ -83,7 +83,7 @@ const AuthModal = ({ setUser, darkMode }) => {
                             className={`w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors ${
                                 darkMode 
                                 ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:bg-slate-700' 
-                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white border'
+                                : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:bg-white border'
                             }`}
                         />
                     </div>

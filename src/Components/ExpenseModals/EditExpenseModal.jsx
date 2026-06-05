@@ -11,7 +11,7 @@ export const EditExpenseModal = ({
         <>
             {editingExpense && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/65 backdrop-blur-sm transition-opacity duration-300">
-                    <div className={`w-full max-w-lg rounded-2xl border shadow-2xl p-6 transform scale-100 transition-transform ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-slate-100"}`}>
+                    <div className={`w-full max-w-lg rounded-2xl border shadow-2xl p-6 transform scale-100 transition-transform ${darkMode ? "bg-slate-900 border-slate-800 shadow-black/30" : "bg-white border-slate-200 shadow-slate-200/40"}`}>
                         <div className="flex items-center justify-between border-b pb-4 mb-4 border-slate-200 dark:border-slate-800">
                             <h3 className="text-lg font-bold tracking-tight">Edit Transaction Details</h3>
                             <button
@@ -30,7 +30,7 @@ export const EditExpenseModal = ({
                                     required
                                     value={editingExpense.date}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, date: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-200 text-slate-850"}`}
+                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
                                 />
                             </div>
 
@@ -39,7 +39,7 @@ export const EditExpenseModal = ({
                                 <select
                                     value={editingExpense.category}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, category: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-200 text-slate-850"}`}
+                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
                                 >
                                     {CATEGORIES.map((cat) => (
                                         <option key={cat} value={cat}>
@@ -56,7 +56,7 @@ export const EditExpenseModal = ({
                                     required
                                     value={editingExpense.description}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, description: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-200 text-slate-850"}`}
+                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
                                 />
                             </div>
 
@@ -69,7 +69,7 @@ export const EditExpenseModal = ({
                                     step="0.01"
                                     value={editingExpense.amount}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, amount: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-200 text-slate-850"}`}
+                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
                                 />
                             </div>
 
@@ -77,7 +77,7 @@ export const EditExpenseModal = ({
                                 <button
                                     type="button"
                                     onClick={() => setEditingExpense(null)}
-                                    className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-slate-100 border-slate-200 text-slate-650"}`}
+                                    className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-slate-100 border-slate-300 text-slate-650"}`}
                                 >
                                     Cancel
                                 </button>

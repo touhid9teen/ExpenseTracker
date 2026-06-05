@@ -88,7 +88,7 @@ const ExpenseClipperScreen = (props) => {
 
       {/* Mobile Bottom Navigation Bar */}
       <div
-        className={`sm:hidden fixed bottom-0 left-0 right-0 z-40 px-6 py-2 flex justify-around items-center border-t backdrop-blur-lg shadow-lg ${props.darkMode ? "bg-slate-950/90 border-slate-800/80 text-slate-400" : "bg-white/85 border-slate-200/80 text-slate-500"}`}
+        className={`sm:hidden fixed bottom-0 left-0 right-0 z-40 px-6 py-2 flex justify-around items-center border-t backdrop-blur-lg shadow-lg ${props.darkMode ? "bg-slate-950/90 border-slate-800/80 text-slate-400" : "bg-white/85 border-slate-300/80 text-slate-500"}`}
       >
         <button
           onClick={() => props.setActiveTab("statistics")}

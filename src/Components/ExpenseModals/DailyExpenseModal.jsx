@@ -12,7 +12,7 @@ export const DailyExpenseModal = ({
         <>
             {selectedDailyDate && dailyModalDetails && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/65 backdrop-blur-sm transition-opacity duration-300">
-                    <div className={`w-full max-w-xl rounded-2xl border shadow-2xl p-6 transform scale-100 transition-transform ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-slate-100"}`}>
+                    <div className={`w-full max-w-xl rounded-2xl border shadow-2xl p-6 transform scale-100 transition-transform ${darkMode ? "bg-slate-900 border-slate-800 shadow-black/30" : "bg-white border-slate-200 shadow-slate-200/40"}`}>
                         <div className="flex items-center justify-between border-b pb-4 mb-4 border-slate-200 dark:border-slate-800">
                             <div>
                                 <h3 className="text-lg font-bold tracking-tight text-emerald-500 font-black">
@@ -59,7 +59,7 @@ export const DailyExpenseModal = ({
                         <div className="mt-6 flex justify-end">
                             <button
                                 onClick={() => setSelectedDailyDate(null)}
-                                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 border-slate-700 text-slate-250 hover:bg-slate-750" : "bg-slate-100 border-slate-200 text-slate-650 hover:bg-slate-200"}`}
+                                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 border-slate-700 text-slate-250 hover:bg-slate-750" : "bg-slate-100 border-slate-300 text-slate-650 hover:bg-slate-200"}`}
                             >
                                 Close View
                             </button>

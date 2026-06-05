@@ -17,13 +17,13 @@ export const ExpenseTable = ({
 }) => {
   return (
     <div
-      className={`rounded-2xl border overflow-hidden transition-all duration-300 shadow-sm ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`}
+      className={`rounded-2xl border overflow-hidden transition-all duration-300 shadow-md ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/15" : "bg-white border-slate-200 shadow-slate-200/50"}`}
     >
       <div className="w-full overflow-x-auto max-h-[520px] overflow-y-auto">
         <table className="w-full text-left border-collapse">
           <thead className="sticky top-0 z-10">
             <tr
-              className={`border-b text-xs font-bold uppercase tracking-wider ${darkMode ? "bg-slate-900 border-slate-800 text-slate-400" : "bg-slate-50 border-slate-200 text-slate-500"}`}
+              className={`border-b text-xs font-bold uppercase tracking-wider ${darkMode ? "bg-slate-900 border-slate-800 text-slate-400" : "bg-slate-50 border-slate-300 text-slate-500"}`}
             >
               {/* Date — always visible */}
               <th className="px-2 sm:px-4 py-3 whitespace-nowrap">

@@ -43,7 +43,11 @@ export const useExpenseClipper = () => {
     const [specificDate, setSpecificDate] = useState("");
 
     useEffect(() => {
-        const handleClickOutside = () => setOpenMenuId(null);
+        const handleClickOutside = (e) => {
+            if (!e.target?.closest?.('[data-menu-area]')) {
+                setOpenMenuId(null);
+            }
+        };
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
     }, []);

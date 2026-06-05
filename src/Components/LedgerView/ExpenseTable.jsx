@@ -68,9 +68,9 @@ const LedgerRow = ({
       <td className="px-1 sm:px-4 py-3 text-center w-8 sm:w-10">
         <div className="relative inline-block text-left">
           <button
+            data-menu-area="true"
             onClick={(e) => {
               e.preventDefault();
-              e.stopPropagation();
               setOpenMenuId(isMenuOpen ? null : exp.id);
             }}
             className={`p-1 sm:p-1.5 rounded-lg transition-all focus:outline-none ${isMenuOpen ? (darkMode ? "bg-slate-700 text-emerald-400" : "bg-slate-200 text-emerald-600") : darkMode ? "text-slate-400 hover:bg-slate-700 hover:text-slate-200" : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"}`}
@@ -84,7 +84,7 @@ const LedgerRow = ({
           </button>
           {isMenuOpen && (
             <div
-              onClick={(e) => e.stopPropagation()}
+              data-menu-area="true"
               className={`absolute right-0 z-20 w-40 rounded-xl border shadow-xl py-1.5 ${darkMode ? "bg-slate-900 border-slate-700 shadow-black/40" : "bg-white border-slate-200 shadow-slate-200/60"}`}
               style={{ top: "100%", marginTop: "0.25rem" }}
             >

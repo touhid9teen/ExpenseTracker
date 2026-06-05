@@ -41,8 +41,13 @@ const AuthModal = ({ setUser, darkMode }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-            <div className={`w-full max-w-md rounded-2xl p-8 shadow-2xl ${darkMode ? 'bg-slate-900 border border-slate-800 shadow-black/40' : 'bg-white border border-slate-200 shadow-slate-200/40'}`}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden">
+            {/* Auth pattern background */}
+            <div className={`absolute inset-0 auth-pattern ${darkMode ? 'dark auth-pattern-dark' : ''}`} />
+            {/* Soft overlay for card readability */}
+            <div className={`absolute inset-0 backdrop-blur-[2px] transition-colors duration-500 ${darkMode ? 'bg-black/30' : 'bg-white/10'}`} />
+
+            <div className={`relative w-full max-w-md rounded-2xl p-8 shadow-2xl ${darkMode ? 'bg-slate-900/90 border border-slate-800/80 shadow-black/40' : 'bg-white/90 border border-slate-200/80 shadow-slate-200/40'}`}>
                 <div className="text-center mb-8">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20">
                         <FinVueLogoIcon className="w-8 h-8 text-white" />

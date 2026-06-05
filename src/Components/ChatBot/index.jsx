@@ -21,8 +21,14 @@ const ChatBot = ({
   updateExpenseDirect,
   deleteExpenseDirect,
   setActiveTab,
+  chatOpen,
+  setChatOpen,
+  pendingAction,
+  setPendingAction,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isOpen = chatOpen !== undefined ? chatOpen : internalOpen;
+  const setIsOpen = setChatOpen || setInternalOpen;
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [tooltipDismissed, setTooltipDismissed] = useState(false);
   const [messages, setMessages] = useState([
@@ -52,6 +58,24 @@ const ChatBot = ({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showQuickActions]);
+
+  // ── Handle pending quick action from nav ──
+  useEffect(() => {
+    if (pendingAction) {
+      setPendingAction(null);
+      if (pendingAction.action === "send") {
+        // Small delay to let chat open first
+        setTimeout(() => handleSend(null, pendingAction.text), 100);
+      } else {
+        setInput(pendingAction.text);
+        setTimeout(() => {
+          const len = pendingAction.text.length;
+          inputRef.current?.focus();
+          inputRef.current?.setSelectionRange(len, len);
+        }, 200);
+      }
+    }
+  }, [pendingAction]);
 
   // ── Send handler ──
   const handleSend = async (e, directText = null) => {

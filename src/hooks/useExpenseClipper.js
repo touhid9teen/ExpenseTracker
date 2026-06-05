@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import toast from 'react-hot-toast';
 import { CATEGORIES } from "../data/expenseData";
+import SUGGESTIONS from "../Components/ChatBot/suggestions";
 import { formatDate, getDashboardDateLabels, getTodayInputValue } from "../utils/dateUtils";
 import { getCategoryStyles } from "../utils/categoryStyles";
 import { loadThemePreference, saveThemePreference } from "../utils/storageUtils";
@@ -41,11 +42,17 @@ export const useExpenseClipper = () => {
     const [addCategory, setAddCategory] = useState("Food");
     const [addDescription, setAddDescription] = useState("");
     const [specificDate, setSpecificDate] = useState("");
+    const [chatOpen, setChatOpen] = useState(false);
+    const [pendingAction, setPendingAction] = useState(null);
+    const [showQuickActionsNav, setShowQuickActionsNav] = useState(false);
 
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (!e.target?.closest?.('[data-menu-area]')) {
                 setOpenMenuId(null);
+            }
+            if (!e.target?.closest?.('[data-quick-actions-nav]')) {
+                setShowQuickActionsNav(false);
             }
         };
         document.addEventListener("click", handleClickOutside);
@@ -391,6 +398,13 @@ export const useExpenseClipper = () => {
         setAddDescription,
         specificDate,
         setSpecificDate,
+        chatOpen,
+        setChatOpen,
+        pendingAction,
+        setPendingAction,
+        showQuickActionsNav,
+        setShowQuickActionsNav,
+        quickActionSuggestions: SUGGESTIONS,
         toggleTheme,
         getCategoryStylesForTheme,
         getCategoryStyles: getCategoryStylesForTheme,

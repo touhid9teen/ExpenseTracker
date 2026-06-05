@@ -73,34 +73,26 @@ const FloatingTrigger = ({ isOpen, onToggle, darkMode, tooltipDismissed, onDismi
       </div>
     )}
 
-    <div className="relative">
-      {!isOpen && (
+    {!isOpen && (
+      <div className="relative">
         <span
           className="pointer-events-none absolute inset-[-4px] rounded-full
                           border-[1.5px] border-violet-400/40
                           animate-[ringPulse_3s_ease-in-out_infinite]"
         />
-      )}
-      <button
-        onClick={onToggle}
-        type="button"
-        className={`relative z-10 w-14 h-14 rounded-full flex items-center justify-center
-                    transition-transform duration-200 hover:scale-105 active:scale-95
-                    ${
-                      isOpen
-                        ? "bg-rose-600 hover:bg-rose-700"
-                        : "bg-violet-600 hover:bg-violet-700"
-                    }`}
-        aria-label="Toggle AI chat"
-      >
-        {isOpen ? <FloatingXIcon /> : <ChatIcon />}
-      </button>
-    </div>
+        <button
+          onClick={onToggle}
+          type="button"
+          className="relative z-10 w-14 h-14 rounded-full flex items-center justify-center
+                      transition-transform duration-200 hover:scale-105 active:scale-95
+                      bg-violet-600 hover:bg-violet-700"
+          aria-label="Toggle AI chat"
+        >
+          <ChatIcon />
+        </button>
+      </div>
+    )}
   </div>
-);
-
-const FloatingXIcon = () => (
-  <XIcon className="w-6 h-6 text-white" strokeWidth={2.5} />
 );
 
 const ChatIcon = () => (

@@ -8,6 +8,7 @@ import {
 } from "./ExpenseModals";
 import LedgerView from "./LedgerView";
 import StatisticsView from "./StatisticsView";
+import AboutView from "./AboutView";
 import ChatBot from "./ChatBot";
 
 const ExpenseClipperScreen = (props) => {
@@ -79,6 +80,9 @@ const ExpenseClipperScreen = (props) => {
         {/* <FilterAlert searchQuery={props.searchQuery} categoryFilter={props.categoryFilter} activeDateFilter={props.activeDateFilter} darkMode={props.darkMode} handleResetFilters={props.handleResetFilters} /> */}
         <StatisticsView {...props} />
         <LedgerView {...props} />
+        {props.activeTab === "about" && (
+          <AboutView darkMode={props.darkMode} setActiveTab={props.setActiveTab} />
+        )}
       </main>
 
       {/* Mobile Bottom Navigation Bar */}
@@ -156,6 +160,27 @@ const ExpenseClipperScreen = (props) => {
             />
           </svg>
           <span className="text-[10px] font-bold">Ledger</span>
+        </button>
+
+        {/* About Nav Button */}
+        <button
+          onClick={() => props.setActiveTab("about")}
+          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all ${props.activeTab === "about" ? (props.darkMode ? "text-emerald-400" : "text-emerald-600") : ""}`}
+        >
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span className="text-[10px] font-bold">About</span>
         </button>
       </div>
 

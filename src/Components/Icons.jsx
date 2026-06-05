@@ -8,6 +8,17 @@ export const DollarIcon = ({ className = "w-6 h-6", strokeWidth = 2.5 }) => (
   </svg>
 );
 
+export const FinVueLogoIcon = ({ className = "w-6 h-6" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none">
+    {/* Ring */}
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
+    {/* Stylized 'F' */}
+    <path d="M8.5 7h7M8.5 7v10M8.5 12h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    {/* Chart accent - small bar */}
+    <path d="M17 14l-2.5-3-2 1.5L10 9l-2 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+  </svg>
+);
+
 export const ChartPieIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />

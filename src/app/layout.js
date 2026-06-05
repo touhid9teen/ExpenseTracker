@@ -3,6 +3,9 @@ import './globals.css';
 export const metadata = {
   title: 'FinVue - Premium Expense Tracker',
   description: 'Interactive and responsive financial management dashboard.',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({ children }) {

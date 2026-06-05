@@ -1,4 +1,4 @@
-import { DollarIcon, ChartPieIcon, ClipboardListIcon, InfoCircleIcon, SunIcon, MoonIcon } from "./Icons";
+import { FinVueLogoIcon, ChartPieIcon, ClipboardListIcon, InfoCircleIcon, SunIcon, MoonIcon } from "./Icons";
 
 const AppHeader = ({ darkMode, activeTab, setActiveTab, toggleTheme, user, handleLogout }) => {
     return (
@@ -7,7 +7,7 @@ const AppHeader = ({ darkMode, activeTab, setActiveTab, toggleTheme, user, handl
                     {/* Logo Area */}
                     <div className="flex min-w-0 flex-1 sm:flex-none items-center gap-3">
                         <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                            <DollarIcon className="w-6 h-6 text-white" />
+                            <FinVueLogoIcon className="w-6 h-6 text-white" />
                         </div>
                         <div className="min-w-0">
                             <span className="block truncate font-extrabold text-xl tracking-tight bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent">FinVue</span>

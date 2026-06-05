@@ -30,6 +30,9 @@ export async function POST(request) {
 
     const { message, expenses, user } = await request.json();
 
+    const today = new Date();
+    const todayStr = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
+
     const safeExpenses = expenses || [];
     const expensesText = safeExpenses
       .map(
@@ -74,7 +77,7 @@ ACTION BLOCK FORMAT (only include this if modifying data):
 - Process ALL tasks the user asked for — do not stop after the first one.
 - If you don't need to modify data, just answer normally without the action block.
 - If the user asks to add an expense but doesn't provide enough details (e.g., missing amount or description), politely ask for the missing details before outputting the action block.
-- If the user doesn't specify a date for a new expense, use today's date.
+- If the user doesn't specify a date for a new expense, you MUST use today's date which is: ${todayStr}. Always use this exact date string (YYYY-MM-DD format) for today.
 - For updating/deleting, find the correct ID from the CURRENT EXPENSES LIST based on their description/amount/date. If multiple match, ask for clarification.
 `;
 

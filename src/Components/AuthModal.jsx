@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { FinVueLogoIcon, SpinnerIcon } from './Icons';
 
@@ -43,7 +44,7 @@ const AuthModal = ({ setUser, darkMode }) => {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden">
             {/* Auth pattern background */}
-            <div className={`absolute inset-0 auth-pattern ${darkMode ? 'dark auth-pattern-dark' : ''}`} />
+            <div className="absolute inset-0 auth-pattern" />
             {/* Soft overlay for card readability */}
             <div className={`absolute inset-0 backdrop-blur-[2px] transition-colors duration-500 ${darkMode ? 'bg-black/30' : 'bg-white/10'}`} />
 
@@ -110,6 +111,11 @@ const AuthModal = ({ setUser, darkMode }) => {
                 
                 <p className={`text-center mt-6 text-xs ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>
                     If the username doesn't exist, a new account will be created automatically.
+                </p>
+                <p className="text-center mt-4 text-[10px]">
+                    <Link href="/terms" className={`hover:underline transition-colors ${darkMode ? 'text-slate-500 hover:text-emerald-400' : 'text-slate-400 hover:text-emerald-600'}`}>
+                        Terms &amp; Conditions
+                    </Link>
                 </p>
             </div>
         </div>

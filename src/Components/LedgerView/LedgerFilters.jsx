@@ -1,3 +1,5 @@
+import { XIcon, SearchIcon } from "../Icons";
+
 export const LedgerFilters = ({
     darkMode,
     filteredExpenses,
@@ -31,14 +33,14 @@ export const LedgerFilters = ({
                             onClick={handleResetFilters}
                             className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-dotted text-[10px] font-bold uppercase tracking-wide transition-colors ${darkMode ? "border-red-500/60 text-red-300 hover:border-red-400 hover:text-red-200 hover:bg-red-950/20" : "border-red-300 text-red-500 hover:border-red-400 hover:text-red-600 hover:bg-red-50"}`}
                         >
-                            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                            <XIcon className="w-3 h-3" strokeWidth={2.5} />
                             Reset
                         </button>
                     </div>
                 </div>
                 <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-3 items-center">
                     <div className="relative w-full sm:w-60">
-                        <svg className={`w-4 h-4 absolute left-3.5 top-3.5 ${darkMode ? "text-slate-500" : "text-slate-400"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        <SearchIcon className={`w-4 h-4 absolute left-3.5 top-3.5 ${darkMode ? "text-slate-500" : "text-slate-400"}`} />
                         <input type="text" placeholder="Search description/item..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-[#182235] border-slate-750 text-slate-150 placeholder-slate-500" : "bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400"}`} />
                     </div>
                     <div className="w-full sm:w-44">

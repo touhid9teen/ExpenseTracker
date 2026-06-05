@@ -1,4 +1,5 @@
 import { Toaster } from "react-hot-toast";
+import { ChartPieIcon, PlusIcon, ClipboardListIcon, InfoCircleIcon } from "./Icons";
 import AppHeader from "./AppHeader";
 import AuthModal from "./AuthModal";
 import {
@@ -93,24 +94,7 @@ const ExpenseClipperScreen = (props) => {
           onClick={() => props.setActiveTab("statistics")}
           className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all ${props.activeTab === "statistics" ? (props.darkMode ? "text-emerald-400" : "text-emerald-600") : ""}`}
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2.5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
-            />
-          </svg>
+          <ChartPieIcon className="w-5 h-5" strokeWidth={2.5} />
           <span className="text-[10px] font-bold">Analytics</span>
         </button>
 
@@ -127,38 +111,14 @@ const ExpenseClipperScreen = (props) => {
           }}
           className="relative -top-4 w-12 h-12 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-450 text-white flex items-center justify-center shadow-lg shadow-emerald-500/35 hover:scale-105 active:scale-95 transition-all"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="3"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
+          <PlusIcon className="w-6 h-6" strokeWidth={3} />
         </button>
 
         <button
           onClick={() => props.setActiveTab("ledger")}
           className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all ${props.activeTab === "ledger" ? (props.darkMode ? "text-emerald-400" : "text-emerald-600") : ""}`}
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2.5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-            />
-          </svg>
+          <ClipboardListIcon className="w-5 h-5" strokeWidth={2.5} />
           <span className="text-[10px] font-bold">Ledger</span>
         </button>
 
@@ -167,19 +127,7 @@ const ExpenseClipperScreen = (props) => {
           onClick={() => props.setActiveTab("about")}
           className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all ${props.activeTab === "about" ? (props.darkMode ? "text-emerald-400" : "text-emerald-600") : ""}`}
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2.5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
+          <InfoCircleIcon className="w-5 h-5" strokeWidth={2.5} />
           <span className="text-[10px] font-bold">About</span>
         </button>
       </div>

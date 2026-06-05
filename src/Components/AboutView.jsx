@@ -1,127 +1,39 @@
 "use client";
+import { ClipboardListIcon, ChartPieIcon, ChatBubbleIcon, SettingsSlidersIcon, ShieldCheckIcon, MoonIcon, PlusIcon, FilterFunnelIcon, EditPencilIcon, ChartBarIcon, BookGuideIcon, SparklesIcon, XIcon } from "./Icons";
 
 const features = [
   {
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-        />
-      </svg>
-    ),
+    icon: <ClipboardListIcon className="w-6 h-6" />,
     title: "Transaction Ledger",
     description:
       "View, filter, sort, and manage all your expenses in a clean, paginated table with powerful search and category filtering.",
   },
   {
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
-        />
-      </svg>
-    ),
+    icon: <ChartPieIcon className="w-6 h-6" />,
     title: "Analytics & Insights",
     description:
       "Track spending patterns with summary cards, daily trends, category breakdowns, and quick stats — all updated in real time.",
   },
   {
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-        />
-      </svg>
-    ),
+    icon: <ChatBubbleIcon className="w-6 h-6" />,
     title: "AI-Powered Chat",
     description:
       "Manage expenses using natural language. Add, edit, delete, or query your finances by simply chatting with the FinVue AI assistant.",
   },
   {
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-        />
-      </svg>
-    ),
+    icon: <SettingsSlidersIcon className="w-6 h-6" />,
     title: "Customizable Filters",
     description:
       "Filter by category, date range, search keywords, and sort by amount or date to quickly find exactly what you need.",
   },
   {
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-        />
-      </svg>
-    ),
+    icon: <ShieldCheckIcon className="w-6 h-6" />,
     title: "Secure Authentication",
     description:
       "Your financial data is protected with JWT-based authentication. Register, log in, and access your data securely from anywhere.",
   },
   {
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-        />
-      </svg>
-    ),
+    icon: <MoonIcon className="w-6 h-6" />,
     title: "Dark & Light Themes",
     description:
       "Switch between dark and light modes with a single click. Choose the theme that's easiest on your eyes, day or night.",
@@ -134,80 +46,28 @@ const manualSteps = [
     title: "Add an Expense",
     description:
       'Go to the Transactions Ledger tab. Click the "Add Expense" button to open the quick-add form. Enter the amount, category, date, and description, then hit save.',
-    icon: (
-      <svg
-        className="w-5 h-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2.5"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-      </svg>
-    ),
+    icon: <PlusIcon className="w-5 h-5" strokeWidth={2.5} />,
   },
   {
     step: 2,
     title: "Browse & Filter",
     description:
       "Use the search bar to find expenses by description, filter by category or date range, and sort by amount or date. Every change updates your view instantly.",
-    icon: (
-      <svg
-        className="w-5 h-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2.5"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-        />
-      </svg>
-    ),
+    icon: <FilterFunnelIcon className="w-5 h-5" strokeWidth={2.5} />,
   },
   {
     step: 3,
     title: "Edit or Delete",
     description:
       "Click the three-dot menu on any expense row to edit or delete it. The Statistics Hub automatically reflects your changes.",
-    icon: (
-      <svg
-        className="w-5 h-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2.5"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-        />
-      </svg>
-    ),
+    icon: <EditPencilIcon className="w-5 h-5" strokeWidth={2.5} />,
   },
   {
     step: 4,
     title: "Track Your Stats",
     description:
       "Switch to the Statistics Hub to see summary cards, category breakdowns, daily spending trends, and quick stats at a glance.",
-    icon: (
-      <svg
-        className="w-5 h-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2.5"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-        />
-      </svg>
-    ),
+    icon: <ChartBarIcon className="w-5 h-5" strokeWidth={2.5} />,
   },
 ];
 
@@ -278,19 +138,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
                 onClick={() => setActiveTab("ledger")}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
               >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                  />
-                </svg>
+                <ClipboardListIcon className="w-4 h-4" strokeWidth={2.5} />
                 Go to Ledger
               </button>
               <button
@@ -301,19 +149,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
                     : "border-slate-300 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                 }`}
               >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
-                  />
-                </svg>
+                <ChartPieIcon className="w-4 h-4" strokeWidth={2.5} />
                 View Analytics
               </button>
             </div>
@@ -393,19 +229,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
                 : "bg-sky-100 text-sky-700 border border-sky-200"
             }`}
           >
-            <svg
-              className="w-3.5 h-3.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
+            <BookGuideIcon className="w-3.5 h-3.5" strokeWidth={2.5} />
             Manual Mode
           </div>
           <h2
@@ -513,19 +337,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
                 : "bg-violet-100 text-violet-700 border border-violet-200"
             }`}
           >
-            <svg
-              className="w-3.5 h-3.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"
-              />
-            </svg>
+            <SparklesIcon className="w-3.5 h-3.5" strokeWidth={2.5} />
             AI-Powered
           </div>
           <h2
@@ -564,19 +376,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
                   : "bg-violet-100 text-violet-600"
               }`}
             >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                />
-              </svg>
+              <ChatBubbleIcon className="w-5 h-5" />
             </div>
             <div>
               <h3

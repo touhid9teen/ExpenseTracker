@@ -1,3 +1,5 @@
+import { PlusIcon } from "../Icons";
+
 export const LedgerHeaderActions = ({ darkMode, setActiveTab, showQuickAdd, setShowQuickAdd }) => {
     return (
         <div className="flex flex-col md:flex-row md:items-center justify-between border-b pb-4 border-slate-200/50 dark:border-slate-800/50">
@@ -10,9 +12,7 @@ export const LedgerHeaderActions = ({ darkMode, setActiveTab, showQuickAdd, setS
                     onClick={() => setShowQuickAdd(!showQuickAdd)}
                     className="flex items-center gap-1.5 px-4.5 py-2 rounded-xl text-xs font-extrabold text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-all duration-200 shadow-md focus:outline-none"
                 >
-                    <svg className={`w-4 h-4 transition-transform duration-300 ${showQuickAdd ? "rotate-45" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                    </svg>
+                    <PlusIcon className={`w-4 h-4 transition-transform duration-300 ${showQuickAdd ? "rotate-45" : ""}`} strokeWidth={2.5} />
                     {showQuickAdd ? "Collapse Form" : "Log New Expense"}
                 </button>
                 <button

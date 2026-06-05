@@ -1,4 +1,5 @@
 import React from "react";
+import { XIcon, ChatBubbleIcon } from "../Icons";
 
 /**
  * FloatingTrigger – the FAB button and "Ask AI" tooltip bubble.
@@ -42,9 +43,7 @@ const FloatingTrigger = ({ isOpen, onToggle, darkMode, tooltipDismissed, onDismi
               }
             `}
           >
-            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <XIcon className="w-3 h-3" strokeWidth={2.5} />
           </button>
 
           <span className="w-2 h-2 rounded-full bg-violet-600 animate-pulse" />
@@ -94,42 +93,18 @@ const FloatingTrigger = ({ isOpen, onToggle, darkMode, tooltipDismissed, onDismi
                     }`}
         aria-label="Toggle AI chat"
       >
-        {isOpen ? <XIcon /> : <ChatIcon />}
+        {isOpen ? <FloatingXIcon /> : <ChatIcon />}
       </button>
     </div>
   </div>
 );
 
-const XIcon = () => (
-  <svg
-    className="w-6 h-6 text-white"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth="2.5"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M6 18L18 6M6 6l12 12"
-    />
-  </svg>
+const FloatingXIcon = () => (
+  <XIcon className="w-6 h-6 text-white" strokeWidth={2.5} />
 );
 
 const ChatIcon = () => (
-  <svg
-    className="w-6 h-6 text-white"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth="2.5"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-5l-5 5v-5z"
-    />
-  </svg>
+  <ChatBubbleIcon className="w-6 h-6 text-white" strokeWidth={2.5} />
 );
 
 export default FloatingTrigger;

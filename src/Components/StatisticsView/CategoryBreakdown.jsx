@@ -1,8 +1,10 @@
+import { ChartPieIcon } from "../Icons";
+
 export const CategoryBreakdown = ({ darkMode = true, categoryBreakdown = [], getCategoryStyles = () => ({ bullet: "bg-slate-400" }) }) => {
     return (
         <div className={`p-6 rounded-2xl border shadow-sm ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`}>
             <h2 className="text-base font-bold tracking-tight mb-4 flex items-center gap-2">
-                <svg className="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /></svg>
+                <ChartPieIcon className="w-5 h-5 text-purple-500" />
                 Category Weight
             </h2>
             <div className="space-y-4 max-h-[250px] overflow-y-auto pr-1">

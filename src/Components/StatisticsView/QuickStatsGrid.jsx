@@ -7,6 +7,8 @@ const StatCard = ({ darkMode, title, value = "", valueClass, note, children }) =
     </div>
 );
 
+import { ChartBarSquareIcon } from "../Icons";
+
 export const QuickStatsGrid = ({ darkMode = true, quickStats = {}, formatDate = (value) => value || "" }) => {
     const safeQuickStats = {
         highest: { date: "N/A", amount: 0 },
@@ -19,7 +21,7 @@ export const QuickStatsGrid = ({ darkMode = true, quickStats = {}, formatDate = 
     return (
         <div className={`p-6 rounded-2xl border shadow-sm ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/10" : "bg-white border-slate-100 shadow-slate-100/30"}`}>
             <h2 className="text-base font-bold tracking-tight mb-4 flex items-center gap-2">
-                <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                <ChartBarSquareIcon className="w-5 h-5 text-emerald-500" />
                 Core Spending Statistics
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

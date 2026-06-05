@@ -1,3 +1,5 @@
+import { XIcon } from "../Icons";
+
 export const QuickAddExpenseForm = ({
     showQuickAdd,
     darkMode,
@@ -26,9 +28,7 @@ export const QuickAddExpenseForm = ({
                     onClick={() => setShowQuickAdd(false)}
                     className={`p-1 rounded-lg transition-colors ${darkMode ? "hover:bg-slate-800 text-slate-400 hover:text-slate-200" : "hover:bg-slate-100 text-slate-500 hover:text-slate-700"}`}
                 >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    <XIcon className="w-5 h-5" />
                 </button>
             </div>
             <form onSubmit={handleAddExpense} className="grid grid-cols-1 md:grid-cols-4 gap-4">

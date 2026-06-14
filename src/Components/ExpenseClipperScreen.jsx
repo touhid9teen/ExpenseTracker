@@ -1,4 +1,4 @@
-import { Toaster } from "react-hot-toast";
+import ToastProvider from "./ToastProvider";
 import { ChartPieIcon, PlusIcon, ClipboardListIcon, InfoCircleIcon, XIcon, LightningBoltIcon } from "./Icons";
 import AppHeader from "./AppHeader";
 import AuthModal from "./AuthModal";
@@ -13,37 +13,7 @@ import AboutView from "./AboutView";
 import ChatBot from "./ChatBot";
 
 const ExpenseClipperScreen = (props) => {
-  const toaster = (
-    <Toaster
-      position="top-center"
-      containerStyle={{ zIndex: 99999 }}
-      toastOptions={{
-        duration: 5000,
-        style: {
-          background: props.darkMode ? "#1e293b" : "#ffffff",
-          color: props.darkMode ? "#f1f5f9" : "#1e293b",
-          border: props.darkMode ? "1px solid #334155" : "1px solid #e2e8f0",
-          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.2)",
-          padding: "12px 16px",
-          fontSize: "14px",
-          fontWeight: "500",
-          borderRadius: "12px",
-        },
-        success: {
-          iconTheme: {
-            primary: "#10b981",
-            secondary: "#fff",
-          },
-        },
-        error: {
-          iconTheme: {
-            primary: "#ef4444",
-            secondary: "#fff",
-          },
-        },
-      }}
-    />
-  );
+  const toaster = <ToastProvider darkMode={props.darkMode} />;
 
   if (props.isAuthLoading) {
     return (

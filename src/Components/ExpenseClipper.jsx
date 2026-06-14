@@ -1,4 +1,4 @@
-"use client";
+
 
 import ExpenseClipperScreen from "./ExpenseClipperScreen";
 import { useExpenseClipper } from "../hooks/useExpenseClipper";

@@ -1,4 +1,3 @@
-"use client";
 
 import ExpenseClipper from "../Components/ExpenseClipper";
 

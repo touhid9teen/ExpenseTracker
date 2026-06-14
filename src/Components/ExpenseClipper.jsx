@@ -1,12 +1,18 @@
 
 
+import ToastProvider from "./ToastProvider";
 import ExpenseClipperScreen from "./ExpenseClipperScreen";
 import { useExpenseClipper } from "../hooks/useExpenseClipper";
 
 const ExpenseClipper = () => {
     const clipper = useExpenseClipper();
 
-    return <ExpenseClipperScreen {...clipper} />;
+    return (
+        <>
+            <ToastProvider darkMode={clipper.darkMode} />
+            <ExpenseClipperScreen {...clipper} />
+        </>
+    );
 };
 
 export default ExpenseClipper;

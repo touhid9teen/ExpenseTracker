@@ -1,4 +1,4 @@
-
+"use client";
 
 import ToastProvider from "./ToastProvider";
 import ExpenseClipperScreen from "./ExpenseClipperScreen";

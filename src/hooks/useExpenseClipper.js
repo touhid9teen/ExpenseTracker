@@ -45,6 +45,7 @@ export const useExpenseClipper = () => {
     const [chatOpen, setChatOpen] = useState(false);
     const [pendingAction, setPendingAction] = useState(null);
     const [showQuickActionsNav, setShowQuickActionsNav] = useState(false);
+    const [isExpensesLoading, setIsExpensesLoading] = useState(false);
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -81,6 +82,7 @@ export const useExpenseClipper = () => {
     useEffect(() => {
         const fetchExpenses = async () => {
             if (!user) return;
+            setIsExpensesLoading(true);
             try {
                 const response = await fetch("/api/expenses");
                 if (response.ok) {
@@ -97,6 +99,8 @@ export const useExpenseClipper = () => {
                 }
             } catch (error) {
                 console.error("Failed to fetch expenses:", error);
+            } finally {
+                setIsExpensesLoading(false);
             }
         };
 
@@ -352,6 +356,7 @@ export const useExpenseClipper = () => {
         user,
         setUser,
         isAuthLoading,
+        isExpensesLoading,
         handleLogout,
         expenses,
         setExpenses,

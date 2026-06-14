@@ -1,3 +1,7 @@
+"use client";
+
+import StatisticsSkeleton from "./StatisticsSkeleton";
+import LedgerSkeleton from "./LedgerSkeleton";
 import MobileBottomNav from "./MobileBottomNav";
 import AppHeader from "./AppHeader";
 import AuthModal from "./AuthModal";
@@ -14,10 +18,10 @@ import ChatBot from "./ChatBot";
 const ExpenseClipperScreen = (props) => {
   if (props.isAuthLoading) {
     return (
-      <div
-        className={`min-h-screen flex items-center justify-center ${props.darkMode ? "bg-[#0b0f19]" : "bg-[#f8fafc]"}`}
-      >
-        <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+      <div className={`min-h-screen ${props.darkMode ? "bg-[#0b0f19]" : "bg-[#f8fafc]"}`}>
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+          <StatisticsSkeleton darkMode={props.darkMode} />
+        </main>
       </div>
     );
   }
@@ -44,8 +48,14 @@ const ExpenseClipperScreen = (props) => {
       />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* <FilterAlert searchQuery={props.searchQuery} categoryFilter={props.categoryFilter} activeDateFilter={props.activeDateFilter} darkMode={props.darkMode} handleResetFilters={props.handleResetFilters} /> */}
-        <StatisticsView {...props} />
-        <LedgerView {...props} />
+        {props.isExpensesLoading && props.activeTab === "statistics" && (
+          <StatisticsSkeleton darkMode={props.darkMode} />
+        )}
+        {props.isExpensesLoading && props.activeTab === "ledger" && (
+          <LedgerSkeleton darkMode={props.darkMode} />
+        )}
+        {!props.isExpensesLoading && <StatisticsView {...props} />}
+        {!props.isExpensesLoading && <LedgerView {...props} />}
         {props.activeTab === "about" && (
           <AboutView darkMode={props.darkMode} setActiveTab={props.setActiveTab} />
         )}

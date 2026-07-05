@@ -1,6 +1,6 @@
 import sql from '../../../../lib/db';
 import { NextResponse } from 'next/server';
-import { decrypt } from '../../../../lib/jwt';
+import { authenticateUser } from '../../../../lib/jwt';
 
 export const runtime = 'edge';
 
@@ -12,13 +12,7 @@ const normalizeAmount = (amount) => {
 
 export async function PUT(request, props) {
   const params = await props.params;
-  const token = request.cookies.get('auth_token')?.value;
-  let user = null;
-  if (token) {
-    user = await decrypt(token);
-  } else if (process.env.APP_ENV === 'development') {
-    user = { id: 'dev-user-id', username: 'dev-user' };
-  }
+  const user = await authenticateUser(request);
 
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -56,13 +50,7 @@ export async function PUT(request, props) {
 
 export async function DELETE(request, props) {
   const params = await props.params;
-  const token = request.cookies.get('auth_token')?.value;
-  let user = null;
-  if (token) {
-    user = await decrypt(token);
-  } else if (process.env.APP_ENV === 'development') {
-    user = { id: 'dev-user-id', username: 'dev-user' };
-  }
+  const user = await authenticateUser(request);
 
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

@@ -14,9 +14,9 @@ const normalizeAmount = (amount) => {
 export async function GET(request) {
   const token = request.cookies.get('auth_token')?.value;
   let user = null;
-  if (token) {
+  if (token) {  
     user = await decrypt(token);
-  } else if (process.env.APP_ENV === 'development' || process.env.NODE_ENV === 'development') {
+  } else if (process.env.APP_ENV === 'development') {
     user = { id: 'dev-user-id', username: 'dev-user' };
   }
 
@@ -41,7 +41,7 @@ export async function POST(request) {
   let user = null;
   if (token) {
     user = await decrypt(token);
-  } else if (process.env.APP_ENV === 'development' || process.env.NODE_ENV === 'development') {
+  } else if (process.env.APP_ENV === 'development') {
     user = { id: 'dev-user-id', username: 'dev-user' };
   }
 

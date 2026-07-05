@@ -1,5 +1,6 @@
 "use client";
 
+import AppLoader from "./AppLoader";
 import StatisticsSkeleton from "./StatisticsSkeleton";
 import LedgerSkeleton from "./LedgerSkeleton";
 import MobileBottomNav from "./MobileBottomNav";
@@ -17,13 +18,7 @@ import ChatBot from "./ChatBot";
 
 const ExpenseClipperScreen = (props) => {
   if (props.isAuthLoading) {
-    return (
-      <div className={`min-h-screen ${props.darkMode ? "bg-[#0b0f19]" : "bg-[#f8fafc]"}`}>
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
-          <StatisticsSkeleton darkMode={props.darkMode} />
-        </main>
-      </div>
-    );
+    return <AppLoader darkMode={props.darkMode} />;
   }
 
   if (!props.user) {

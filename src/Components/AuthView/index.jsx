@@ -97,24 +97,26 @@ const AuthView = ({ setUser }) => {
           <div className="relative rounded-2xl p-8 sm:p-10 bg-slate-900/90 border border-slate-800/80 shadow-2xl shadow-black/40 transition-all duration-300">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" />
             <Header step={step} />
-            <UsernameStep
-              ref={usernameRef}
-              username={username}
-              setUsername={setUsername}
-              onSubmit={handleUsernameSubmit}
-              visible={step === 1}
-            />
-            <PasswordStep
-              ref={passwordRef}
-              password={password}
-              setPassword={setPassword}
-              onSubmit={handleLogin}
-              onBack={handleBack}
-              username={username}
-              visible={step === 2}
-              isLoading={isLoading}
-            />
-            <Footer />
+            <div className="pt-8">
+              <UsernameStep
+                ref={usernameRef}
+                username={username}
+                setUsername={setUsername}
+                onSubmit={handleUsernameSubmit}
+                visible={step === 1}
+              />
+              <PasswordStep
+                ref={passwordRef}
+                password={password}
+                setPassword={setPassword}
+                onSubmit={handleLogin}
+                onBack={handleBack}
+                username={username}
+                visible={step === 2}
+                isLoading={isLoading}
+              />
+              <Footer />
+            </div>
           </div>
         </div>
       </div>

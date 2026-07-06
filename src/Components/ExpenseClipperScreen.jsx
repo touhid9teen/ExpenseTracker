@@ -5,7 +5,7 @@ import StatisticsSkeleton from "./StatisticsSkeleton";
 import LedgerSkeleton from "./LedgerSkeleton";
 import MobileBottomNav from "./MobileBottomNav";
 import AppHeader from "./AppHeader";
-import AuthModal from "./AuthModal";
+import AuthView from "./AuthView";
 import {
   DailyExpenseModal,
   DeleteExpenseModal,
@@ -24,14 +24,18 @@ const ExpenseClipperScreen = (props) => {
   if (!props.user) {
     return (
       <>
-        <AuthModal setUser={props.setUser} darkMode={props.darkMode} />
+        <AuthView setUser={props.setUser} darkMode={props.darkMode} />
       </>
     );
   }
 
   return (
     <div
-      className={`min-h-screen font-sans transition-colors duration-300 pb-20 sm:pb-0 ${props.darkMode ? "bg-[#0b0f19] text-slate-100" : "bg-[#f8fafc] text-slate-800"}`}
+      className={`min-h-screen font-sans transition-colors duration-300 pb-20 sm:pb-0 ${
+        props.darkMode
+          ? "bg-[#0b0f19] text-slate-100"
+          : "bg-[#f8fafc] text-slate-800"
+      }`}
     >
       <AppHeader
         darkMode={props.darkMode}
@@ -52,7 +56,10 @@ const ExpenseClipperScreen = (props) => {
         {!props.isExpensesLoading && <StatisticsView {...props} />}
         {!props.isExpensesLoading && <LedgerView {...props} />}
         {props.activeTab === "about" && (
-          <AboutView darkMode={props.darkMode} setActiveTab={props.setActiveTab} />
+          <AboutView
+            darkMode={props.darkMode}
+            setActiveTab={props.setActiveTab}
+          />
         )}
       </main>
 
@@ -90,13 +97,13 @@ const ExpenseClipperScreen = (props) => {
         darkMode={props.darkMode}
         handleConfirmDelete={props.handleConfirmDelete}
       />
-      <ChatBot 
-        darkMode={props.darkMode} 
-        user={props.user} 
-        expenses={props.expenses} 
-        addExpenseDirect={props.addExpenseDirect} 
-        updateExpenseDirect={props.updateExpenseDirect} 
-        deleteExpenseDirect={props.deleteExpenseDirect} 
+      <ChatBot
+        darkMode={props.darkMode}
+        user={props.user}
+        expenses={props.expenses}
+        addExpenseDirect={props.addExpenseDirect}
+        updateExpenseDirect={props.updateExpenseDirect}
+        deleteExpenseDirect={props.deleteExpenseDirect}
         setActiveTab={props.setActiveTab}
         chatOpen={props.chatOpen}
         setChatOpen={props.setChatOpen}

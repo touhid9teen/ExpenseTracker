@@ -6,6 +6,7 @@ import Header from './Header';
 import UsernameStep from './UsernameStep';
 import PasswordStep from './PasswordStep';
 import Footer from './Footer';
+import SuccessModal from './SuccessModal';
 
 const AuthView = ({ setUser }) => {
   const [step, setStep] = useState(1);
@@ -14,6 +15,8 @@ const AuthView = ({ setUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [animating, setAnimating] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [pendingUser, setPendingUser] = useState(null);
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -51,8 +54,14 @@ const AuthView = ({ setUser }) => {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        toast.success('Welcome back!');
-        setUser(data.user);
+        if (data.isNewUser) {
+          setPendingUser(data.user);
+          setShowSuccess(true);
+          setIsLoading(false);
+        } else {
+          toast.success('Welcome back!');
+          setUser(data.user);
+        }
       } else {
         toast.error(data.error || 'Login failed');
         setIsLoading(false);
@@ -60,6 +69,13 @@ const AuthView = ({ setUser }) => {
     } catch {
       toast.error('An error occurred during login');
       setIsLoading(false);
+    }
+  };
+
+  const handleContinue = () => {
+    setShowSuccess(false);
+    if (pendingUser) {
+      setUser(pendingUser);
     }
   };
 
@@ -74,33 +90,38 @@ const AuthView = ({ setUser }) => {
   };
 
   return (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden transition-opacity duration-700 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
-      <Background />
-      <div className={`relative w-full max-w-md transform transition-all duration-500 ${mounted ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'}`}>
-        <div className="relative rounded-2xl p-8 sm:p-10 bg-slate-900/90 border border-slate-800/80 shadow-2xl shadow-black/40 transition-all duration-300">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" />
-          <Header step={step} username={username} />
-          <UsernameStep
-            ref={usernameRef}
-            username={username}
-            setUsername={setUsername}
-            onSubmit={handleUsernameSubmit}
-            visible={step === 1}
-          />
-          <PasswordStep
-            ref={passwordRef}
-            password={password}
-            setPassword={setPassword}
-            onSubmit={handleLogin}
-            onBack={handleBack}
-            username={username}
-            visible={step === 2}
-            isLoading={isLoading}
-          />
-          <Footer step={step} />
+    <>
+      <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden transition-opacity duration-700 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+        <Background />
+        <div className={`relative w-full max-w-md transform transition-all duration-500 ${mounted ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'}`}>
+          <div className="relative rounded-2xl p-8 sm:p-10 bg-slate-900/90 border border-slate-800/80 shadow-2xl shadow-black/40 transition-all duration-300">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" />
+            <Header step={step} />
+            <UsernameStep
+              ref={usernameRef}
+              username={username}
+              setUsername={setUsername}
+              onSubmit={handleUsernameSubmit}
+              visible={step === 1}
+            />
+            <PasswordStep
+              ref={passwordRef}
+              password={password}
+              setPassword={setPassword}
+              onSubmit={handleLogin}
+              onBack={handleBack}
+              username={username}
+              visible={step === 2}
+              isLoading={isLoading}
+            />
+            <Footer />
+          </div>
         </div>
       </div>
-    </div>
+      {showSuccess && (
+        <SuccessModal username={username} onContinue={handleContinue} />
+      )}
+    </>
   );
 };
 

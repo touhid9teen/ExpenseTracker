@@ -253,7 +253,7 @@ export const LedgerFilters = ({
               />
             </div>
             <button
-              onClick={handleApplyCustomRange}
+              onClick={handleApplyCustomRange}  
               className="px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-emerald-500 hover:bg-emerald-600 transition-colors"
             >
               Apply Filter

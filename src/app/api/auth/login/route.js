@@ -14,6 +14,7 @@ export async function POST(request) {
     }
     
     let user;
+    let isNewUser = false;
     
     if (sql) {
       const users = await sql`SELECT * FROM users WHERE username = ${username}`;
@@ -21,6 +22,7 @@ export async function POST(request) {
         const hashedPassword = await bcrypt.hash(password, 10);
         const inserted = await sql`INSERT INTO users (username, password_hash) VALUES (${username}, ${hashedPassword}) RETURNING *`;
         user = inserted[0];
+        isNewUser = true;
       } else {
         user = users[0];
         const isDevelopment = process.env.APP_ENV === 'development';
@@ -34,13 +36,14 @@ export async function POST(request) {
     } else {
       // Mock user for development
       user = { id: 'mock-user-id', username };
+      isNewUser = true;
     }
     
     // Create JWT
     const token = await encrypt({ id: user.id, username: user.username });
     
     // Set cookie
-    const response = NextResponse.json({ success: true, user });
+    const response = NextResponse.json({ success: true, user, isNewUser });
     response.cookies.set({
       name: 'auth_token',
       value: token,

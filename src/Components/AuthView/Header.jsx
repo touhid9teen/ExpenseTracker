@@ -1,6 +1,6 @@
 import { FinVueLogoIcon } from '../Icons';
 
-const Header = ({ step, username }) => (
+const Header = ({ step }) => (
   <div className="text-center mb-8">
     <div className="relative w-16 h-16 mx-auto mb-5">
       <div className="absolute inset-0 rounded-2xl bg-emerald-500/20 blur-xl animate-pulse" style={{ animationDuration: '3s' }} />
@@ -8,10 +8,22 @@ const Header = ({ step, username }) => (
         <FinVueLogoIcon className="w-8 h-8 text-white" />
       </div>
     </div>
-    <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Welcome to FinVue</h2>
-    <p className="mt-2 text-sm text-slate-400">
-      {step === 1 ? 'Enter your username to get started' : `Welcome back, ${username}`}
-    </p>
+    {step === 1 ? (
+      <>
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Welcome to FinVue</h2>
+        <p className="mt-2 text-base text-emerald-300 leading-relaxed max-w-xs mx-auto">
+          Your account will be created{" "}
+          <span className="font-semibold text-emerald-200">automatically</span>{" "}
+          if it doesn&apos;t exist.
+        </p>
+      </>
+    ) : (
+      <p className="text-base text-emerald-300 leading-relaxed max-w-xs mx-auto">
+        New here? Enter any password<br />
+        to{" "}
+        <span className="font-semibold text-emerald-200">create your account</span>.
+      </p>
+    )}
   </div>
 );
 

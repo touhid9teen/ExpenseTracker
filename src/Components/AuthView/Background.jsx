@@ -6,7 +6,7 @@ const Background = () => (
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-400/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }} />
     </div>
     <div className="absolute inset-0 auth-pattern" />
-    <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" />
+    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
   </>
 );
 

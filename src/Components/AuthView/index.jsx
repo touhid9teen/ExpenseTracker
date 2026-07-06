@@ -94,7 +94,7 @@ const AuthView = ({ setUser }) => {
       <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden transition-opacity duration-700 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
         <Background />
         <div className={`relative w-full max-w-md transform transition-all duration-500 ${mounted ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'}`}>
-          <div className="relative rounded-2xl p-8 sm:p-10 bg-slate-900/90 border border-slate-800/80 shadow-2xl shadow-black/40 transition-all duration-300">
+          <div className="relative rounded-2xl p-8 sm:p-10 bg-slate-900/90 border border-slate-800/80 shadow-[0_0_60px_rgba(0,0,0,0.6)] transition-all duration-300">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" />
             <Header step={step} />
             <div className="pt-8">

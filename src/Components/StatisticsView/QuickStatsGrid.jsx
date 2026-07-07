@@ -59,7 +59,7 @@ export const QuickStatsGrid = ({
 
   return (
     <div>
-      <h2 className="text-base font-bold tracking-tight mb-4 flex items-center gap-2 text-slate-100">
+      <h2 className={`text-base font-bold tracking-tight mb-4 flex items-center gap-2 ${darkMode ? "text-slate-100" : "text-slate-800"}`}>
         <ChartBarSquareIcon className="w-5 h-5 text-emerald-500" />
         Core Spending Statistics
       </h2>

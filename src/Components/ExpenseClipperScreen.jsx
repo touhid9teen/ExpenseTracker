@@ -12,7 +12,10 @@ import {
   EditExpenseModal,
 } from "./ExpenseModals";
 import LedgerView from "./LedgerView";
-import StatisticsView from "./StatisticsView";
+import dynamic from "next/dynamic";
+const StatisticsView = dynamic(() => import("./StatisticsView"), {
+    loading: () => <StatisticsSkeleton darkMode={true} />
+});
 import AboutView from "./AboutView";
 import ChatBot from "./ChatBot";
 

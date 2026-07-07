@@ -1,8 +1,10 @@
-import { StatisticsHeader } from "./StatisticsView/StatisticsHeader";
-import { SummaryCardsGrid } from "./StatisticsView/SummaryCardsGrid";
-import { QuickStatsGrid } from "./StatisticsView/QuickStatsGrid";
-import { CategoryBreakdown } from "./StatisticsView/CategoryBreakdown";
-import { DailyTrendChart } from "./StatisticsView/DailyTrendChart";
+import dynamic from "next/dynamic";
+
+const StatisticsHeader = dynamic(() => import("./StatisticsView/StatisticsHeader").then(m => m.StatisticsHeader));
+const SummaryCardsGrid = dynamic(() => import("./StatisticsView/SummaryCardsGrid").then(m => m.SummaryCardsGrid));
+const QuickStatsGrid = dynamic(() => import("./StatisticsView/QuickStatsGrid").then(m => m.QuickStatsGrid));
+const CategoryBreakdown = dynamic(() => import("./StatisticsView/CategoryBreakdown").then(m => m.CategoryBreakdown));
+const DailyTrendChart = dynamic(() => import("./StatisticsView/DailyTrendChart").then(m => m.DailyTrendChart));
 
 const StatisticsView = (props) => {
     const {

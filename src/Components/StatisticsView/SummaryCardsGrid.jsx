@@ -1,13 +1,31 @@
-const SummaryCard = ({ darkMode, title, value = 0, icon, accentClass, note }) => (
-    <div className={`p-4 sm:p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 shadow-md ${darkMode ? "bg-slate-900/60 border-slate-800/80 shadow-black/15" : "bg-white border-slate-200 shadow-slate-200/50"}`}>
-        <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2">
-            <span className={`text-[9px] sm:text-xs font-bold uppercase tracking-wider truncate ${darkMode ? "text-slate-400" : "text-slate-550"}`}>{title}</span>
-            <div className={`w-7.5 h-7.5 sm:w-8 sm:h-8 rounded-lg ${accentClass} flex items-center justify-center shrink-0`}>{icon}</div>
+const cardColors = [
+    "bg-[#FBD5E4]",
+    "bg-[#C9F2D8]",
+    "bg-[#DCD3F7]",
+    "bg-[#C9E4F9]",
+];
+
+const SummaryCard = ({ darkMode, title, value = 0, icon, note, bgClass, accentClass }) => (
+    <div className={`
+        flex flex-col items-center justify-center text-center
+        p-6 rounded-tl-[48px] rounded-br-[48px] min-h-[155px]
+        transition-all duration-200
+        hover:scale-[1.02]
+        ${bgClass}
+        ${darkMode ? "shadow-md shadow-black/15" : "shadow-md"}
+    `}>
+        <div className="text-slate-800 mb-3">
+            {icon}
         </div>
-        <div className="flex items-baseline gap-1">
-            <span className="text-xl sm:text-3xl font-extrabold tracking-tight truncate">৳{Math.round(value).toLocaleString()}</span>
-        </div>
-        <p className={`text-[10px] sm:text-xs font-medium mt-2 truncate ${darkMode ? "text-slate-500" : "text-slate-400"}`}>{note}</p>
+        <span className="text-base font-medium text-slate-800 leading-tight">
+            {title}
+        </span>
+        <span className="text-2xl font-bold text-slate-800 mt-1 tracking-tight">
+            ৳{Math.round(value).toLocaleString()}
+        </span>
+        <span className="text-xs text-slate-600 mt-1 leading-tight">
+            {note}
+        </span>
     </div>
 );
 
@@ -30,10 +48,10 @@ export const SummaryCardsGrid = ({ darkMode = true, summaryCards = {}, dateLabel
 
     return (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            <SummaryCard darkMode={darkMode} title="All-Time" value={safeSummaryCards.total} note="Filtered dataset" accentClass="bg-emerald-500/10 text-emerald-500" icon={<TrendingUpIcon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />} />
-            <SummaryCard darkMode={darkMode} title="Today" value={safeSummaryCards.today} note={safeDateLabels.today} accentClass="bg-teal-500/10 text-teal-500" icon={<CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />} />
-            <SummaryCard darkMode={darkMode} title="This Week" value={safeSummaryCards.week} note={safeDateLabels.week} accentClass="bg-cyan-500/10 text-cyan-500" icon={<ChartBarIcon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />} />
-            <SummaryCard darkMode={darkMode} title="This Month" value={safeSummaryCards.month} note={safeDateLabels.month} accentClass="bg-purple-500/10 text-purple-500" icon={<ChartPieIcon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />} />
+            <SummaryCard darkMode={darkMode} title="All-Time" value={safeSummaryCards.total} note="Filtered dataset" bgClass={cardColors[0]} icon={<TrendingUpIcon className="w-8 h-8" strokeWidth={2.5} />} />
+            <SummaryCard darkMode={darkMode} title="Today" value={safeSummaryCards.today} note={safeDateLabels.today} bgClass={cardColors[1]} icon={<CalendarIcon className="w-8 h-8" strokeWidth={2.5} />} />
+            <SummaryCard darkMode={darkMode} title="This Week" value={safeSummaryCards.week} note={safeDateLabels.week} bgClass={cardColors[2]} icon={<ChartBarIcon className="w-8 h-8" strokeWidth={2.5} />} />
+            <SummaryCard darkMode={darkMode} title="This Month" value={safeSummaryCards.month} note={safeDateLabels.month} bgClass={cardColors[3]} icon={<ChartPieIcon className="w-8 h-8" strokeWidth={2.5} />} />
         </div>
     );
 };

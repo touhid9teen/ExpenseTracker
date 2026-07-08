@@ -1,5 +1,3 @@
-"use client";
-
 const AppLoader = ({ darkMode = true }) => {
   return (
     <div

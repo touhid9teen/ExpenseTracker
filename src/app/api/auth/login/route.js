@@ -29,7 +29,7 @@ export async function POST(request) {
         if (!isDevelopment) {
           const isPasswordValid = await bcrypt.compare(password, user.password_hash);
           if (!isPasswordValid) {
-            return NextResponse.json({ error: 'Invalid username or password' }, { status: 401 });
+            return NextResponse.json({ error: 'A user is already using this username or you entered a wrong password' }, { status: 401 });
           }
         }
       }

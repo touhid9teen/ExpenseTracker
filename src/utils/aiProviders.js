@@ -25,26 +25,42 @@ export async function callAIModel(config, instruction, userMessage) {
     headers.Authorization = `Bearer ${apiKey}`;
   }
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), config.timeout ?? 15000);
 
-  if (!response.ok) {
-    const errorBody = await response.text();
-    throw new Error(
-      `${config.name} API error ${response.status}: ${errorBody}`
-    );
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      throw new Error(
+        `${config.name} API error ${response.status}: ${errorBody}`
+      );
+    }
+
+    const data = await response.json();
+
+    if (config.parseResponse) {
+      return config.parseResponse(data);
+    }
+
+    return data.choices?.[0]?.message?.content || "";
+  } catch (error) {
+    clearTimeout(timeoutId);
+
+    if (error.name === "AbortError") {
+      throw new Error(`${config.name} timed out after ${(config.timeout ?? 15000) / 1000}s`);
+    }
+
+    throw error;
   }
-
-  const data = await response.json();
-
-  if (config.parseResponse) {
-    return config.parseResponse(data);
-  }
-
-  return data.choices?.[0]?.message?.content || "";
 }
 
 // ─── Error helpers ────────────────────────────────────────

@@ -1,10 +1,10 @@
 import dynamic from "next/dynamic";
 
-const StatisticsHeader = dynamic(() => import("./StatisticsView/StatisticsHeader").then(m => m.StatisticsHeader));
-const SummaryCardsGrid = dynamic(() => import("./StatisticsView/SummaryCardsGrid").then(m => m.SummaryCardsGrid));
-const QuickStatsGrid = dynamic(() => import("./StatisticsView/QuickStatsGrid").then(m => m.QuickStatsGrid));
-const CategoryBreakdown = dynamic(() => import("./StatisticsView/CategoryBreakdown").then(m => m.CategoryBreakdown));
-const DailyTrendChart = dynamic(() => import("./StatisticsView/DailyTrendChart").then(m => m.DailyTrendChart));
+const StatisticsHeader = dynamic(() => import("./StatisticsHeader").then(m => m.StatisticsHeader));
+const SummaryCardsGrid = dynamic(() => import("./SummaryCardsGrid").then(m => m.SummaryCardsGrid));
+const QuickStatsGrid = dynamic(() => import("./QuickStatsGrid").then(m => m.QuickStatsGrid));
+const CategoryBreakdown = dynamic(() => import("./CategoryBreakdown").then(m => m.CategoryBreakdown));
+const DailyTrendChart = dynamic(() => import("./DailyTrendChart").then(m => m.DailyTrendChart));
 
 const StatisticsView = (props) => {
     const {

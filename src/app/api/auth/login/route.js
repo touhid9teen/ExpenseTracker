@@ -8,7 +8,7 @@ export const runtime = 'edge';
 
 export async function POST(request) {
   try {
-    const { username, password } = await request.json();
+    const { username, password, securityQuestion, securityAnswer } = await request.json();
     if (!username || !password) {
       return NextResponse.json({ error: 'Username and password are required' }, { status: 400 });
     }
@@ -20,7 +20,14 @@ export async function POST(request) {
       const users = await sql`SELECT * FROM users WHERE username = ${username}`;
       if (users.length === 0) {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const inserted = await sql`INSERT INTO users (username, password_hash) VALUES (${username}, ${hashedPassword}) RETURNING *`;
+        const hashedAnswer = securityQuestion && securityAnswer
+          ? await bcrypt.hash(securityAnswer.toLowerCase().trim(), 10)
+          : '';
+        const inserted = await sql`
+          INSERT INTO users (username, password_hash, security_question, security_answer_hash)
+          VALUES (${username}, ${hashedPassword}, ${securityQuestion || ''}, ${hashedAnswer})
+          RETURNING *
+        `;
         user = inserted[0];
         isNewUser = true;
       } else {

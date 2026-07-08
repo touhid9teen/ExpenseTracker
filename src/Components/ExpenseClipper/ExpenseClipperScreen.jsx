@@ -1,23 +1,23 @@
 "use client";
 
-import AppLoader from "./AppLoader";
-import StatisticsSkeleton from "./StatisticsSkeleton";
-import LedgerSkeleton from "./LedgerSkeleton";
-import MobileBottomNav from "./MobileBottomNav";
-import AppHeader from "./AppHeader";
-import AuthView from "./AuthView";
+import AppLoader from "./AppLoader/AppLoader";
+import StatisticsSkeleton from "./StatisticsSkeleton/StatisticsSkeleton";
+import LedgerSkeleton from "./LedgerSkeleton/LedgerSkeleton";
+import MobileBottomNav from "./MobileBottomNav/MobileBottomNav";
+import AppHeader from "./AppHeader/AppHeader";
+import AuthView from "./AuthView/AuthView";
 import {
   DailyExpenseModal,
   DeleteExpenseModal,
   EditExpenseModal,
-} from "./ExpenseModals";
-import LedgerView from "./LedgerView";
+} from "./ExpenseModals/ExpenseModals";
+import LedgerView from "./LedgerView/LedgerView";
 import dynamic from "next/dynamic";
-const StatisticsView = dynamic(() => import("./StatisticsView"), {
+const StatisticsView = dynamic(() => import("./StatisticsView/StatisticsView"), {
     loading: () => <StatisticsSkeleton darkMode={true} />
 });
-import AboutView from "./AboutView";
-import ChatBot from "./ChatBot";
+import AboutView from "./AboutView/AboutView";
+import ChatBot from "./ChatBot/ChatBot";
 
 const ExpenseClipperScreen = (props) => {
   if (props.isAuthLoading) {

@@ -1,7 +1,7 @@
 "use client";
 
-import ToastProvider from "./ToastProvider";
-import ExpenseClipperScreen from "./ExpenseClipperScreen";
+import ToastProvider from "./ToastProvider/ToastProvider";
+import ExpenseClipperScreen from "./ExpenseClipperScreen/ExpenseClipperScreen";
 import { useExpenseClipper } from "../hooks/useExpenseClipper";
 
 const ExpenseClipper = () => {

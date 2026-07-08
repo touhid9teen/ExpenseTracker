@@ -1,9 +1,9 @@
 import { normalizeExpenseAmount } from "../utils/expenseCalculations";
-import { LedgerHeaderActions } from "./LedgerView/LedgerHeaderActions";
-import { QuickAddExpenseForm } from "./LedgerView/QuickAddExpenseForm";
-import { LedgerFilters } from "./LedgerView/LedgerFilters";
-import { ExpenseTable } from "./LedgerView/ExpenseTable";
-import { PaginationBar } from "./LedgerView/PaginationBar";
+import { LedgerHeaderActions } from "./LedgerHeaderActions";
+import { QuickAddExpenseForm } from "./QuickAddExpenseForm";
+import { LedgerFilters } from "./LedgerFilters";
+import { ExpenseTable } from "./ExpenseTable";
+import { PaginationBar } from "./PaginationBar";
 
 const LedgerView = (props) => {
     const filteredExpenses = props.filteredExpenses ?? [];

@@ -1,4 +1,11 @@
-import { ChartPieIcon, PlusIcon, ClipboardListIcon, InfoCircleIcon, XIcon, LightningBoltIcon } from "./Icons";
+import {
+  ChartPieIcon,
+  PlusIcon,
+  ClipboardListIcon,
+  InfoCircleIcon,
+  XIcon,
+  LightningBoltIcon,
+} from "./Icons";
 
 const QuickActionsPopover = ({ darkMode, suggestions, onSelect, onClose }) => {
   if (!suggestions?.length) return null;
@@ -73,15 +80,18 @@ const QuickActionsPopover = ({ darkMode, suggestions, onSelect, onClose }) => {
   );
 };
 
-const NavButton = ({ icon: Icon, label, isActive, darkMode, onClick, strokeWidth = 2.5 }) => (
+const NavButton = ({
+  icon: Icon,
+  label,
+  isActive,
+  darkMode,
+  onClick,
+  strokeWidth = 2.5,
+}) => (
   <button
     onClick={onClick}
     className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all ${
-      isActive
-        ? darkMode
-          ? "text-emerald-400"
-          : "text-emerald-600"
-        : ""
+      isActive ? (darkMode ? "text-emerald-400" : "text-emerald-600") : ""
     }`}
   >
     <Icon className="w-5 h-5" strokeWidth={strokeWidth} />

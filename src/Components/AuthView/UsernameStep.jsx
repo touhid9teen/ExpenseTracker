@@ -1,9 +1,9 @@
 import { forwardRef } from "react";
 import { ArrowRightIcon } from "../Icons";
-import Button from "../Button";
+import Button from "../common/Button";
 
 const UsernameStep = (
-  { username, setUsername, onSubmit, visible },
+  { username, setUsername, onSubmit, visible, isLoading },
   ref
 ) => (
   <div
@@ -21,11 +21,13 @@ const UsernameStep = (
         onChange={(e) => setUsername(e.target.value)}
         placeholder="Enter your username"
         autoComplete="username"
-        className="w-full px-5 py-4 rounded-xl bg-slate-800 border-2 border-slate-500/50 text-white placeholder-slate-300 hover:border-slate-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-slate-700/80 transition-all duration-200 text-base"
+        disabled={isLoading}
+        className="w-full px-5 py-4 rounded-xl bg-slate-800 border-2 border-slate-500/50 text-white placeholder-slate-300 hover:border-slate-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-slate-700/80 transition-all duration-200 text-base disabled:opacity-50"
       />
       <div className="mt-5">
         <Button
           type="submit"
+          loading={isLoading}
           icon={<ArrowRightIcon className="w-4 h-4" strokeWidth={2.5} />}
         >
           Continue

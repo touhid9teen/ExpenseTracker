@@ -63,7 +63,7 @@ export const useExpenseClipper = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const authRes = await fetch("/api/auth/me");
+                const authRes = await fetch("/api/auth/profile");
                 if (authRes.ok) {
                     const { user } = await authRes.json();
                     setUser(user);

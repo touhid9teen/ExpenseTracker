@@ -1,4 +1,4 @@
-import AppLoader from "../Components/AppLoader";
+import AppLoader from "../Components/common/AppLoader";
 
 export default function Loading() {
   return <AppLoader darkMode={true} />;

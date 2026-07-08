@@ -20,10 +20,20 @@ export async function GET() {
           id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
           username VARCHAR(255) UNIQUE NOT NULL,
           password_hash VARCHAR(255) NOT NULL,
+          security_question VARCHAR(255) NOT NULL DEFAULT '',
+          security_answer_hash VARCHAR(255) NOT NULL DEFAULT '',
           created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
         )
       `;
     } catch (e) { console.log('2', e) }
+
+    // 2.b Add security columns to existing users table
+    try {
+      await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS security_question VARCHAR(255) NOT NULL DEFAULT ''`;
+    } catch (e) { console.log('2b', e.message) }
+    try {
+      await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS security_answer_hash VARCHAR(255) NOT NULL DEFAULT ''`;
+    } catch (e) { console.log('2c', e.message) }
 
     // 3. Create users index
     try { await sql`CREATE INDEX IF NOT EXISTS idx_users_username ON users(username)`; } catch (e) { console.log('3', e) }

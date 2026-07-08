@@ -6,10 +6,20 @@ import {
   EyeOffIcon,
   LogInIcon,
 } from "../Icons";
-import Button from "../Button";
+import Button from "../common/Button";
 
 const PasswordStep = (
-  { password, setPassword, onSubmit, onBack, username, visible, isLoading },
+  {
+    password,
+    setPassword,
+    onSubmit,
+    onBack,
+    username,
+    visible,
+    isLoading,
+    isExistingUser,
+    onForgotPassword,
+  },
   ref
 ) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -60,7 +70,21 @@ const PasswordStep = (
           )}
         </div>
 
-        <div className="mt-5">
+        {isExistingUser ? (
+          <button
+            type="button"
+            onClick={onForgotPassword}
+            className="block mx-auto mt-3 text-xs text-slate-500 hover:text-emerald-400 transition-colors"
+          >
+            Forgot password?
+          </button>
+        ) : (
+          <p className="mt-3 text-xs text-slate-500 text-center leading-relaxed px-2">
+            Remember this password — you&apos;ll need it to sign in later.
+          </p>
+        )}
+
+        <div className="mt-3">
           <Button
             type="submit"
             loading={isLoading}

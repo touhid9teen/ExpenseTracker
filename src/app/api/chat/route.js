@@ -1,12 +1,6 @@
 import { NextResponse } from "next/server";
-import {
-  callGemini,
-  callDeepSeek,
-  callGroq,
-  callOpenAI,
-  getRetryDelaySeconds,
-  isRateLimitError,
-} from "@/utils/aiProviders";
+import { callAIModel, getRetryDelaySeconds, isRateLimitError } from "@/utils/aiProviders";
+import { AI_MODELS } from "@/config/aiModels";
 import { buildSystemInstruction } from "@/utils/promptBuilder";
 
 // ─── Main handler ────────────────────────────────────────
@@ -15,12 +9,11 @@ export async function POST(request) {
   try {
     const { message, expenses, user } = await request.json();
     const instruction = buildSystemInstruction({ user, expenses });
-    const models = [
-      { name: "Gemini", call: () => callGemini(instruction, message) },
-      { name: "DeepSeek", call: () => callDeepSeek(instruction, message) },
-      { name: "Groq", call: () => callGroq(instruction, message) },
-      { name: "OpenAI", call: () => callOpenAI(instruction, message) },
-    ];
+
+    const models = AI_MODELS.map((config) => ({
+      name: config.name,
+      call: () => callAIModel(config, instruction, message),
+    }));
 
     let lastError = null;
 

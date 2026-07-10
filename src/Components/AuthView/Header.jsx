@@ -1,4 +1,4 @@
-import { FinVueLogoIcon } from '../Icons';
+import { FinVueLogoIcon } from '../common/Icons';
 
 const Header = ({ step, isExistingUser }) => (
   <div className="text-center -mx-8 sm:-mx-10 -mt-8 sm:-mt-10 px-8 sm:px-10 pt-8 sm:pt-10 pb-8 rounded-t-2xl bg-gradient-to-br from-emerald-500 to-teal-600">

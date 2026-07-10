@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
-import { XIcon, CheckIcon, ArrowRightIcon, LockIcon } from "../Icons";
+import { XIcon, CheckIcon, ArrowRightIcon, LockIcon } from "../common/Icons";
 import Button from "../common/Button";
 
 const STEPS = {

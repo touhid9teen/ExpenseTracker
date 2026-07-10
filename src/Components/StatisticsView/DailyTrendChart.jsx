@@ -1,4 +1,4 @@
-import { ChartTrendDownIcon } from "../Icons";
+import { ChartTrendDownIcon } from "../common/Icons";
 
 export const DailyTrendChart = ({ darkMode = true, dailySpendingTrend = [] }) => {
     return (

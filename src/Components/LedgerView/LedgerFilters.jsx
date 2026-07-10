@@ -1,4 +1,4 @@
-import { XIcon, SearchIcon } from "../Icons";
+import { XIcon, SearchIcon } from "../common/Icons";
 
 export const LedgerFilters = ({
   darkMode,

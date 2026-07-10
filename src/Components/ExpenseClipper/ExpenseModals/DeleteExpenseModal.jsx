@@ -1,4 +1,4 @@
-import { WarningTriangleIcon } from "../Icons";
+import { WarningTriangleIcon } from "../../common/Icons";
 
 export const DeleteExpenseModal = ({
     deletingExpense,

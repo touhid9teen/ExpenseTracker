@@ -1,4 +1,4 @@
-import { PlusIcon } from "../Icons";
+import { PlusIcon } from "../common/Icons";
 
 export const LedgerHeaderActions = ({ darkMode, setActiveTab, showQuickAdd, setShowQuickAdd }) => {
     return (

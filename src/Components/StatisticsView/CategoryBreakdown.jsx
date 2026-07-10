@@ -1,4 +1,4 @@
-import { ChartPieIcon } from "../Icons";
+import { ChartPieIcon } from "../common/Icons";
 
 export const CategoryBreakdown = ({ darkMode = true, categoryBreakdown = [], getCategoryStyles = () => ({ bullet: "bg-slate-400" }) }) => {
     return (

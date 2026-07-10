@@ -5,7 +5,7 @@ import {
   EyeIcon,
   EyeOffIcon,
   LogInIcon,
-} from "../Icons";
+} from "../common/Icons";
 import Button from "../common/Button";
 
 const PasswordStep = (

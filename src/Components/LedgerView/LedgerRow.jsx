@@ -1,4 +1,4 @@
-import { KebabIcon, EditPencilIcon, TrashIcon } from "../Icons";
+import { KebabIcon, EditPencilIcon, TrashIcon } from "../common/Icons";
 
 const LedgerRow = ({
   exp,

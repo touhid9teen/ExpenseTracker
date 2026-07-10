@@ -1,5 +1,5 @@
 import React from "react";
-import { XIcon } from "../Icons";
+import { XIcon } from "../common/Icons";
 import SUGGESTIONS from "./suggestions";
 
 /**

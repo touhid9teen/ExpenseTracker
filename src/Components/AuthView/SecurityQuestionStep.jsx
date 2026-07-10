@@ -1,6 +1,6 @@
 "use client";
 import { forwardRef } from "react";
-import { ChevronLeftIcon, ShieldCheckIcon, XIcon } from "../Icons";
+import { ChevronLeftIcon, ShieldCheckIcon, XIcon } from "../common/Icons";
 import Button from "../common/Button";
 
 const SecurityQuestionStep = (

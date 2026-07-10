@@ -1,5 +1,5 @@
 import React from "react";
-import { XIcon, ChatBubbleIcon } from "../Icons";
+import { XIcon, ChatBubbleIcon } from "../common/Icons";
 
 /**
  * FloatingTrigger – the FAB button and "Ask AI" tooltip bubble.

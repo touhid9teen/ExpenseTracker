@@ -1,4 +1,4 @@
-import { CheckIcon } from "../Icons";
+import { CheckIcon } from "../common/Icons";
 import Button from "../common/Button";
 
 const SuccessModal = ({ username, onContinue }) => (

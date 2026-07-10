@@ -1,5 +1,5 @@
 import React from "react";
-import { XIcon, MenuHamburgerIcon, SendIcon } from "../Icons";
+import { XIcon, MenuHamburgerIcon, SendIcon } from "../common/Icons";
 import QuickActionsPopover from "./QuickActionsPopover";
 
 /**

@@ -1,5 +1,5 @@
 import React from "react";
-import { LightningBoltIcon, XIcon } from "../Icons";
+import { LightningBoltIcon, XIcon } from "../common/Icons";
 
 /**
  * ChatBotHeader – avatar, title, online status dot, and close button.

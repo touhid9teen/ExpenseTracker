@@ -1,5 +1,5 @@
 import { TrendingUp, TrendingDown, PieChart, Calculator } from "lucide-react";
-import { ChartBarSquareIcon } from "../Icons";
+import { ChartBarSquareIcon } from "../common/Icons";
 
 const cardColors = [
   "bg-[#C9E4F9]",

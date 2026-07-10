@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { ArrowRightIcon } from "../Icons";
+import { ArrowRightIcon } from "../common/Icons";
 import Button from "../common/Button";
 
 const UsernameStep = (

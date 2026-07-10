@@ -36,7 +36,7 @@ const SummaryCard = ({ darkMode, title, value = 0, icon, note, bgClass, valueCla
     </div>
 );
 
-import { TrendingUpIcon, CalendarIcon, ChartBarIcon, ChartPieIcon } from "../Icons";
+import { TrendingUpIcon, CalendarIcon, ChartBarIcon, ChartPieIcon } from "../common/Icons";
 
 export const SummaryCardsGrid = ({ darkMode = true, summaryCards = {}, dateLabels = {} }) => {
     const safeSummaryCards = {

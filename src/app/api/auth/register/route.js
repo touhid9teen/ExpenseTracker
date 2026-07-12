@@ -7,6 +7,24 @@ export const runtime = 'edge';
 
 export async function POST(request) {
   try {
+    // ── Auto-migrate schema if needed (idempotent, safe to run every time) ──
+    if (sql) {
+      try { await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(255) NOT NULL DEFAULT ''`; } catch (e) { console.error('Schema migration (email column):', e?.message); }
+      try { await sql`CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email_unique ON users(email) WHERE email != ''`; } catch (e) { console.error('Schema migration (email index):', e?.message); }
+      try {
+        await sql`
+          CREATE TABLE IF NOT EXISTS password_reset_tokens (
+            id SERIAL PRIMARY KEY,
+            user_id UUID REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+            token VARCHAR(255) UNIQUE NOT NULL,
+            expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+            used BOOLEAN DEFAULT FALSE,
+            created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+          )
+        `;
+      } catch (e) { console.error('Schema migration (reset tokens table):', e?.message); }
+    }
+
     const { username, email, password } = await request.json();
 
     if (!username || !email || !password) {

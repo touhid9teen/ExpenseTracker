@@ -20,16 +20,16 @@ const SuccessModal = ({ username, onContinue }) => (
         </div>
 
         <h2 className="text-2xl font-extrabold text-white tracking-tight">
-          Account Created!
+          Welcome to FinVue!
         </h2>
         <p className="mt-3 text-base text-slate-300 leading-relaxed">
           Your account{" "}
           <span className="font-semibold text-emerald-300">@{username}</span>{" "}
-          has been created successfully.
+          has been created successfully. Start tracking your expenses now!
         </p>
 
         <div className="mt-8">
-          <Button onClick={onContinue}>Continue</Button>
+          <Button onClick={onContinue}>Get Started</Button>
         </div>
       </div>
     </div>

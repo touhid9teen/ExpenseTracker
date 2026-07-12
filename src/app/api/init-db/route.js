@@ -19,6 +19,7 @@ export async function GET() {
         CREATE TABLE IF NOT EXISTS users (
           id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
           username VARCHAR(255) UNIQUE NOT NULL,
+          email VARCHAR(255) UNIQUE NOT NULL DEFAULT '',
           password_hash VARCHAR(255) NOT NULL,
           security_question VARCHAR(255) NOT NULL DEFAULT '',
           security_answer_hash VARCHAR(255) NOT NULL DEFAULT '',
@@ -27,7 +28,12 @@ export async function GET() {
       `;
     } catch (e) { console.log('2', e) }
 
-    // 2.b Add security columns to existing users table
+    // Add email column to existing users table if missing
+    try {
+      await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(255) UNIQUE NOT NULL DEFAULT ''`;
+    } catch (e) { console.log('2a', e.message) }
+
+    // Add security columns to existing users table
     try {
       await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS security_question VARCHAR(255) NOT NULL DEFAULT ''`;
     } catch (e) { console.log('2b', e.message) }
@@ -35,10 +41,25 @@ export async function GET() {
       await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS security_answer_hash VARCHAR(255) NOT NULL DEFAULT ''`;
     } catch (e) { console.log('2c', e.message) }
 
-    // 3. Create users index
+    // 3. Create users indexes
     try { await sql`CREATE INDEX IF NOT EXISTS idx_users_username ON users(username)`; } catch (e) { console.log('3', e) }
+    try { await sql`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)`; } catch (e) { console.log('3b', e) }
 
-    // 4. Create expenses table
+    // 4. Create password_reset_tokens table
+    try {
+      await sql`
+        CREATE TABLE IF NOT EXISTS password_reset_tokens (
+          id SERIAL PRIMARY KEY,
+          user_id UUID REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+          token VARCHAR(255) UNIQUE NOT NULL,
+          expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+          used BOOLEAN DEFAULT FALSE,
+          created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+        )
+      `;
+    } catch (e) { console.log('4', e) }
+
+    // 5. Create expenses table
     try {
       await sql`
         CREATE TABLE IF NOT EXISTS expenses (
@@ -51,22 +72,25 @@ export async function GET() {
           created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
         )
       `;
-    } catch (e) { console.log('4', e) }
+    } catch (e) { console.log('5', e) }
 
-    // 4.b Add user_id column to expenses if it doesn't exist
+    // 5.b Add user_id column to expenses if it doesn't exist
     try {
       await sql`ALTER TABLE expenses ADD COLUMN user_id UUID REFERENCES users(id) ON DELETE CASCADE`;
     } catch (e) { 
-      // This will fail if the column already exists, which is fine
-      console.log('4b', e.message);
+      console.log('5b', e.message);
     }
 
-    // 5. Create expenses index
+    // 6. Create expenses index
     try {
       await sql`CREATE INDEX IF NOT EXISTS idx_expenses_user_id_date ON expenses(user_id, date DESC)`;
     } catch (e) {
-      console.log('5', e.message);
+      console.log('6', e.message);
     }
+
+    // 7. Create password_reset_tokens indexes
+    try { await sql`CREATE INDEX IF NOT EXISTS idx_reset_tokens_token ON password_reset_tokens(token)`; } catch (e) { console.log('7', e) }
+    try { await sql`CREATE INDEX IF NOT EXISTS idx_reset_tokens_user_id ON password_reset_tokens(user_id)`; } catch (e) { console.log('7b', e) }
 
     return NextResponse.json({ success: true, message: 'Database initialized successfully!' });
   } catch (error) {

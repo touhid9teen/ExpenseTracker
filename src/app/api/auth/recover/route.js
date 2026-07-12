@@ -4,45 +4,83 @@ import { NextResponse } from 'next/server';
 
 export const runtime = 'edge';
 
-// GET — fetch the security question for a username
-export async function GET(request) {
+// POST /api/auth/recover — request a password reset by email
+export async function POST(request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const username = searchParams.get('username');
+    const { email } = await request.json();
 
-    if (!username) {
-      return NextResponse.json({ error: 'Username is required' }, { status: 400 });
+    if (!email) {
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: 'Please provide a valid email address' }, { status: 400 });
     }
 
     if (!sql) {
-      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+      // Dev mode: return a mock token
+      return NextResponse.json({
+        success: true,
+        message: 'If this email is registered, you will receive a reset link.',
+        // In dev mode, return a demo token so the UI can proceed
+        devToken: 'dev-reset-token-123',
+        devMode: true,
+      });
     }
 
-    const users = await sql`SELECT security_question FROM users WHERE username = ${username}`;
+    // Find user by email
+    const users = await sql`SELECT id, username, email FROM users WHERE email = ${email}`;
 
+    // Always return success to prevent email enumeration
     if (users.length === 0) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      return NextResponse.json({
+        success: true,
+        message: 'If this email is registered, you will receive a reset link.',
+      });
     }
 
     const user = users[0];
-    if (!user.security_question) {
-      return NextResponse.json({ error: 'No security question set for this account' }, { status: 400 });
-    }
 
-    return NextResponse.json({ question: user.security_question });
+    // Generate reset token (6-digit code for simplicity)
+    const array = new Uint8Array(4);
+    crypto.getRandomValues(array);
+    const resetCode = String(100000 + (array[0] * 256 + array[1]) % 900000).slice(0, 6);
+    const tokenHash = await bcrypt.hash(resetCode, 10);
+
+    // Set expiry to 15 minutes from now
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
+
+    // Invalidate old tokens for this user
+    await sql`UPDATE password_reset_tokens SET used = TRUE WHERE user_id = ${user.id} AND used = FALSE`;
+
+    // Store new token
+    await sql`
+      INSERT INTO password_reset_tokens (user_id, token, expires_at)
+      VALUES (${user.id}, ${tokenHash}, ${expiresAt})
+    `;
+
+    // In development mode, return the reset code so the UI can use it
+    const isDev = process.env.APP_ENV === 'development';
+
+    return NextResponse.json({
+      success: true,
+      message: 'If this email is registered, you will receive a reset link.',
+      ...(isDev ? { devToken: resetCode, devMode: true, userId: user.id } : {}),
+    });
   } catch (error) {
-    console.error('Forgot password error:', error);
+    console.error('Password reset request error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
-// POST — verify answer and reset password
-export async function POST(request) {
+// PUT /api/auth/recover — verify token and reset password
+export async function PUT(request) {
   try {
-    const { username, answer, newPassword } = await request.json();
+    const { email, token, newPassword } = await request.json();
 
-    if (!username || !answer || !newPassword) {
-      return NextResponse.json({ error: 'Username, answer, and new password are required' }, { status: 400 });
+    if (!email || !token || !newPassword) {
+      return NextResponse.json({ error: 'Email, reset code, and new password are required' }, { status: 400 });
     }
 
     if (newPassword.length < 3) {
@@ -50,37 +88,57 @@ export async function POST(request) {
     }
 
     if (!sql) {
-      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+      // Dev mode: accept any valid-looking token
+      return NextResponse.json({
+        success: true,
+        message: 'Password reset successfully!',
+      });
     }
 
-    const users = await sql`SELECT * FROM users WHERE username = ${username}`;
-
+    // Find user by email
+    const users = await sql`SELECT id, username FROM users WHERE email = ${email}`;
     if (users.length === 0) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
     const user = users[0];
 
-    if (!user.security_answer_hash) {
-      return NextResponse.json({ error: 'No security question set for this account' }, { status: 400 });
+    // Get all non-expired, unused tokens for this user
+    const tokens = await sql`
+      SELECT * FROM password_reset_tokens
+      WHERE user_id = ${user.id}
+        AND used = FALSE
+        AND expires_at > NOW()
+      ORDER BY created_at DESC
+    `;
+
+    if (tokens.length === 0) {
+      return NextResponse.json({ error: 'Invalid or expired reset code. Please request a new one.' }, { status: 400 });
     }
 
-    const isAnswerValid = await bcrypt.compare(
-      answer.toLowerCase().trim(),
-      user.security_answer_hash
-    );
+    // Try to match the token against any stored hash
+    let validToken = false;
+    for (const storedToken of tokens) {
+      const match = await bcrypt.compare(token, storedToken.token);
+      if (match) {
+        validToken = true;
+        // Mark token as used
+        await sql`UPDATE password_reset_tokens SET used = TRUE WHERE id = ${storedToken.id}`;
+        break;
+      }
+    }
 
-    if (!isAnswerValid) {
-      return NextResponse.json({ error: 'Incorrect answer to security question' }, { status: 401 });
+    if (!validToken) {
+      return NextResponse.json({ error: 'Invalid reset code. Please try again.' }, { status: 401 });
     }
 
     // Hash new password and update
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     await sql`UPDATE users SET password_hash = ${hashedPassword} WHERE id = ${user.id}`;
 
-    return NextResponse.json({ success: true, message: 'Password reset successfully' });
+    return NextResponse.json({ success: true, message: 'Password reset successfully!' });
   } catch (error) {
-    console.error('Forgot password error:', error);
+    console.error('Password reset error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

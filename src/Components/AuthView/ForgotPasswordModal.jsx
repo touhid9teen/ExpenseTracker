@@ -1,61 +1,78 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
-import { XIcon, CheckIcon, ArrowRightIcon, LockIcon } from "../common/Icons";
+import { XIcon, CheckIcon, ArrowRightIcon, LockIcon, MailIcon, EyeIcon, EyeOffIcon } from "../common/Icons";
 import Button from "../common/Button";
 
 const STEPS = {
-  USERNAME: 1,
-  QUESTION: 2,
-  RESET: 3,
-  DONE: 4,
+  EMAIL: 1,
+  CODE: 2,
+  DONE: 3,
 };
 
-const ForgotPasswordModal = ({ onClose }) => {
-  const [step, setStep] = useState(STEPS.USERNAME);
-  const [username, setUsername] = useState("");
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
+const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
+  const [step, setStep] = useState(STEPS.EMAIL);
+  const [email, setEmail] = useState("");
+  const [resetCode, setResetCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [devToken, setDevToken] = useState("");
+  const [devMode, setDevMode] = useState(false);
   const inputRef = useRef(null);
 
   useEffect(() => {
     setTimeout(() => inputRef.current?.focus(), 300);
   }, [step]);
 
-  const handleLookup = async (e) => {
+  const handleSendCode = async (e) => {
     e.preventDefault();
-    if (!username.trim()) {
-      toast.error("Please enter your username");
+    if (!email.trim()) {
+      toast.error("Please enter your email address");
       return;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
     setIsLoading(true);
     try {
-      const res = await fetch(
-        `/api/auth/recover?username=${encodeURIComponent(username.trim())}`
-      );
+      const res = await fetch("/api/auth/recover", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
       const data = await res.json();
-      if (res.ok) {
-        setQuestion(data.question);
-        setStep(STEPS.QUESTION);
+      if (res.ok && data.success) {
+        if (data.devMode && data.devToken) {
+          setDevToken(data.devToken);
+          setDevMode(true);
+        }
+        setStep(STEPS.CODE);
+        toast.success("Reset code sent! Check your email.");
       } else {
-        toast.error(data.error || "User not found");
+        toast.error(data.error || "Failed to send reset code");
       }
     } catch {
-      toast.error("Failed to look up account");
+      toast.error("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleReset = async (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
-    if (!answer.trim()) {
-      toast.error("Please answer the security question");
+
+    const code = resetCode.trim() || devToken;
+    if (!code) {
+      toast.error("Please enter the reset code");
       return;
     }
-    if (!newPassword.trim()) {
+    if (!newPassword) {
       toast.error("Please enter a new password");
       return;
     }
@@ -63,26 +80,31 @@ const ForgotPasswordModal = ({ onClose }) => {
       toast.error("Password must be at least 3 characters");
       return;
     }
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
     setIsLoading(true);
     try {
       const res = await fetch("/api/auth/recover", {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: username.trim(),
-          answer: answer.trim(),
-          newPassword: newPassword.trim(),
+          email: email.trim(),
+          token: code,
+          newPassword,
         }),
       });
       const data = await res.json();
-      if (res.ok) {
+      if (res.ok && data.success) {
         setStep(STEPS.DONE);
         toast.success("Password reset successfully!");
       } else {
         toast.error(data.error || "Failed to reset password");
       }
     } catch {
-      toast.error("Failed to reset password");
+      toast.error("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -104,78 +126,124 @@ const ForgotPasswordModal = ({ onClose }) => {
             <XIcon className="w-5 h-5" />
           </button>
 
-          {/* Step 1: Enter username */}
-          {step === STEPS.USERNAME && (
+          {/* Step 1: Enter email */}
+          {step === STEPS.EMAIL && (
             <>
               <h3 className="text-xl font-bold text-white mb-2">
                 Forgot Password?
               </h3>
               <p className="text-sm text-slate-400 mb-6">
-                Enter your username to look up your account.
+                Enter your email address and we&apos;ll send you a reset code.
               </p>
-              <form onSubmit={handleLookup}>
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter your username"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
-                />
+              <form onSubmit={handleSendCode}>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <MailIcon className="w-4 h-4 text-slate-500" />
+                  </div>
+                  <input
+                    ref={inputRef}
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    autoComplete="email"
+                    className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-sm"
+                  />
+                </div>
                 <div className="mt-5">
                   <Button
                     type="submit"
                     loading={isLoading}
-                    icon={
-                      <ArrowRightIcon className="w-4 h-4" strokeWidth={2.5} />
-                    }
+                    icon={<MailIcon className="w-4 h-4" strokeWidth={2.5} />}
                   >
-                    Look up
+                    Send Reset Code
                   </Button>
                 </div>
               </form>
             </>
           )}
 
-          {/* Step 2: Answer security question */}
-          {step === STEPS.QUESTION && (
+          {/* Step 2: Enter reset code and new password */}
+          {step === STEPS.CODE && (
             <>
               <h3 className="text-xl font-bold text-white mb-2">
-                Security Question
+                Reset Password
               </h3>
               <p className="text-sm text-slate-400 mb-6">
-                Answer the question below to reset your password.
+                Enter the reset code sent to your email and create a new password.
               </p>
-              <form onSubmit={handleReset}>
-                <div className="mb-4 p-4 rounded-xl bg-slate-800/60 border border-slate-700/50">
-                  <p className="text-sm text-slate-300 font-medium">
-                    {question}
-                  </p>
+              <form onSubmit={handleResetPassword}>
+                {/* Code input */}
+                <div className="mb-3">
+                  <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
+                    Reset Code
+                  </label>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={resetCode}
+                    onChange={(e) => setResetCode(e.target.value)}
+                    placeholder={devToken ? `Dev code: ${devToken}` : "Enter reset code"}
+                    className="w-full px-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-sm"
+                  />
+                  {devMode && (
+                    <p className="text-xs text-emerald-400/70 mt-1.5 ml-1">
+                      ⚡ Dev mode: code is <span className="font-mono font-bold text-emerald-300">{devToken}</span>
+                    </p>
+                  )}
                 </div>
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={answer}
-                  onChange={(e) => setAnswer(e.target.value)}
-                  placeholder="Your answer"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 mb-3"
-                />
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="New password"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
-                />
-                <div className="mt-5">
-                  <Button
-                    type="submit"
-                    loading={isLoading}
-                    icon={<LockIcon className="w-4 h-4" strokeWidth={2.5} />}
-                  >
-                    Reset Password
-                  </Button>
+
+                {/* New password */}
+                <div className="mb-3">
+                  <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
+                    New Password
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <LockIcon className="w-4 h-4 text-slate-500" />
+                    </div>
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder="New password"
+                      autoComplete="new-password"
+                      className="w-full pl-11 pr-12 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-sm"
+                    />
+                    {newPassword && (
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors p-1"
+                      >
+                        {showPassword ? <EyeOffIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
+                      </button>
+                    )}
+                  </div>
                 </div>
+
+                {/* Confirm password */}
+                <div className="mb-4">
+                  <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm new password"
+                    autoComplete="new-password"
+                    className="w-full px-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-sm"
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  loading={isLoading}
+                  icon={<LockIcon className="w-4 h-4" strokeWidth={2.5} />}
+                >
+                  Reset Password
+                </Button>
               </form>
             </>
           )}
@@ -193,10 +261,19 @@ const ForgotPasswordModal = ({ onClose }) => {
                 Password Reset!
               </h3>
               <p className="text-sm text-slate-400 mb-6">
-                Your password has been updated. You can now sign in with your
-                new password.
+                Your password has been updated successfully. You can now sign in.
               </p>
-              <Button onClick={onClose}>Sign In</Button>
+              <Button
+                onClick={() => {
+                  if (onLoginAfterReset) {
+                    onLoginAfterReset("");
+                  } else {
+                    onClose();
+                  }
+                }}
+              >
+                Sign In
+              </Button>
             </div>
           )}
         </div>

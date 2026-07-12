@@ -13,9 +13,11 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Username, email, and password are required' }, { status: 400 });
     }
 
+    const normalizedEmail = email.toLowerCase().trim();
+
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(normalizedEmail)) {
       return NextResponse.json({ error: 'Please provide a valid email address' }, { status: 400 });
     }
 
@@ -48,8 +50,8 @@ export async function POST(request) {
       return NextResponse.json({ error: 'This username is already taken' }, { status: 409 });
     }
 
-    // Check if email already exists
-    const existingEmail = await sql`SELECT id FROM users WHERE email = ${email}`;
+    // Check if email already exists (using the registered email, ignoring empty defaults)
+    const existingEmail = await sql`SELECT id FROM users WHERE email = ${normalizedEmail} AND email != ''`;
     if (existingEmail.length > 0) {
       return NextResponse.json({ error: 'This email is already registered' }, { status: 409 });
     }
@@ -58,7 +60,7 @@ export async function POST(request) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const inserted = await sql`
       INSERT INTO users (username, email, password_hash)
-      VALUES (${username}, ${email}, ${hashedPassword})
+      VALUES (${username}, ${normalizedEmail}, ${hashedPassword})
       RETURNING id, username, email, created_at
     `;
 

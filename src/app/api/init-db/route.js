@@ -29,9 +29,16 @@ export async function GET() {
     } catch (e) { console.log('2', e) }
 
     // Add email column to existing users table if missing
+    // Note: We add WITHOUT UNIQUE constraint first to avoid conflicts with existing rows.
+    // Uniqueness is enforced via a partial unique index that ignores empty strings.
     try {
-      await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(255) UNIQUE NOT NULL DEFAULT ''`;
+      await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(255) NOT NULL DEFAULT ''`;
     } catch (e) { console.log('2a', e.message) }
+
+    // Create unique index on email (separate from column definition to avoid migration issues)
+    try {
+      await sql`CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email_unique ON users(email) WHERE email != ''`;
+    } catch (e) { console.log('2a-unique', e.message) }
 
     // Add security columns to existing users table
     try {

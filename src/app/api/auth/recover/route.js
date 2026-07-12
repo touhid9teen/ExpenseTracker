@@ -8,13 +8,14 @@ export const runtime = 'edge';
 export async function POST(request) {
   try {
     const { email } = await request.json();
+    const normalizedEmail = email?.toLowerCase().trim() || '';
 
-    if (!email) {
+    if (!normalizedEmail) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(normalizedEmail)) {
       return NextResponse.json({ error: 'Please provide a valid email address' }, { status: 400 });
     }
 
@@ -29,8 +30,8 @@ export async function POST(request) {
       });
     }
 
-    // Find user by email
-    const users = await sql`SELECT id, username, email FROM users WHERE email = ${email}`;
+    // Find user by email (case-insensitive matching using normalized email)
+    const users = await sql`SELECT id, username, email FROM users WHERE LOWER(email) = ${normalizedEmail}`;
 
     // Always return success to prevent email enumeration
     if (users.length === 0) {
@@ -78,8 +79,9 @@ export async function POST(request) {
 export async function PUT(request) {
   try {
     const { email, token, newPassword } = await request.json();
+    const normalizedEmail = email?.toLowerCase().trim() || '';
 
-    if (!email || !token || !newPassword) {
+    if (!normalizedEmail || !token || !newPassword) {
       return NextResponse.json({ error: 'Email, reset code, and new password are required' }, { status: 400 });
     }
 
@@ -95,8 +97,8 @@ export async function PUT(request) {
       });
     }
 
-    // Find user by email
-    const users = await sql`SELECT id, username FROM users WHERE email = ${email}`;
+    // Find user by email (case-insensitive matching)
+    const users = await sql`SELECT id, username FROM users WHERE LOWER(email) = ${normalizedEmail}`;
     if (users.length === 0) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }

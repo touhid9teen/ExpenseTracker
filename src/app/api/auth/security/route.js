@@ -7,10 +7,15 @@ export const runtime = 'edge';
 
 export async function POST(request) {
   try {
-    const { username, securityQuestion, securityAnswer } = await request.json();
+    const user = await authenticateUser(request);
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
-    if (!username || !securityQuestion || !securityAnswer) {
-      return NextResponse.json({ error: 'Username, question, and answer are required' }, { status: 400 });
+    const { securityQuestion, securityAnswer } = await request.json();
+
+    if (!securityQuestion || !securityAnswer) {
+      return NextResponse.json({ error: 'Question and answer are required' }, { status: 400 });
     }
 
     if (!sql) {
@@ -18,11 +23,11 @@ export async function POST(request) {
     }
 
     const hashedAnswer = await bcrypt.hash(securityAnswer.toLowerCase().trim(), 10);
-    
+
     await sql`
       UPDATE users
       SET security_question = ${securityQuestion}, security_answer_hash = ${hashedAnswer}
-      WHERE username = ${username}
+      WHERE id = ${user.id}
     `;
 
     return NextResponse.json({ success: true });

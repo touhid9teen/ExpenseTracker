@@ -33,14 +33,14 @@ export async function POST(request) {
     const users = await sql`SELECT * FROM users WHERE username = ${username}`;
 
     if (users.length === 0) {
-      return NextResponse.json({ error: 'User not found. Please check your username or create a new account.' }, { status: 401 });
+      return NextResponse.json({ error: 'Invalid username or password.' }, { status: 401 });
     }
 
     const user = users[0];
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
 
     if (!isPasswordValid) {
-      return NextResponse.json({ error: 'Invalid password. Please try again.' }, { status: 401 });
+      return NextResponse.json({ error: 'Invalid username or password.' }, { status: 401 });
     }
 
     // Create JWT

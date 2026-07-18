@@ -6,16 +6,14 @@ import Header from './Header';
 import Footer from './Footer';
 import SuccessModal from './SuccessModal';
 import ForgotPasswordModal from './ForgotPasswordModal';
+import AuthInput from './AuthInput';
 import Button from '../common/Button';
 import {
   ArrowRightIcon,
   LogInIcon,
-  EyeIcon,
-  EyeOffIcon,
   MailIcon,
   UserIcon,
   LockIcon,
-  CheckIcon,
 } from '../common/Icons';
 
 const AuthView = ({ setUser }) => {
@@ -154,252 +152,164 @@ const AuthView = ({ setUser }) => {
   return (
     <>
       <div
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden transition-opacity duration-700 ${
+        className={`fixed inset-0 z-50 overflow-y-auto transition-opacity duration-700 ${
           mounted ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <Background />
-        <div
-          className={`relative w-full max-w-md transform transition-all duration-500 ${
-            mounted ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'
-          }`}
-        >
-          <div className="relative rounded-2xl p-8 sm:p-10 bg-slate-900/90 border border-slate-800/80 shadow-[0_0_60px_rgba(0,0,0,0.6)] transition-all duration-300">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" />
-            <Header mode={mode} />
+        <div className="fixed inset-0">
+          <Background />
+        </div>
+        <div className="relative min-h-full flex items-center justify-center p-3 py-6 sm:p-4 sm:py-8">
+          <div
+            className={`relative w-full max-w-[26rem] transform transition-all duration-500 ${
+              mounted ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'
+            }`}
+          >
+            <div className="relative rounded-2xl p-5 sm:p-8 bg-slate-900/90 border border-slate-800/80 shadow-[0_0_60px_rgba(0,0,0,0.6)] transition-all duration-300">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" />
+              <Header mode={mode} />
 
-            {/* Mode toggle pills */}
-            <div className="flex mt-8 bg-slate-800/60 rounded-xl p-1 border border-slate-700/50">
-              <button
-                type="button"
-                onClick={() => mode !== 'login' && toggleMode()}
-                className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
-                  mode === 'login'
-                    ? 'bg-emerald-500/20 text-emerald-300 shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                Sign In
-              </button>
-              <button
-                type="button"
-                onClick={() => mode !== 'register' && toggleMode()}
-                className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
-                  mode === 'register'
-                    ? 'bg-emerald-500/20 text-emerald-300 shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                Sign Up
-              </button>
-            </div>
+              {/* Mode toggle pills */}
+              <div className="flex mt-5 sm:mt-6 bg-slate-800/60 rounded-xl p-1 border border-slate-700/50">
+                <button
+                  type="button"
+                  onClick={() => mode !== 'login' && toggleMode()}
+                  className={`flex-1 py-2 sm:py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
+                    mode === 'login'
+                      ? 'bg-emerald-500/20 text-emerald-300 shadow-sm'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  Sign In
+                </button>
+                <button
+                  type="button"
+                  onClick={() => mode !== 'register' && toggleMode()}
+                  className={`flex-1 py-2 sm:py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
+                    mode === 'register'
+                      ? 'bg-emerald-500/20 text-emerald-300 shadow-sm'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  Sign Up
+                </button>
+              </div>
 
-            <div className="pt-6">
-              {/* ─── Login Form ─── */}
-              {mode === 'login' && (
-                <form onSubmit={handleLogin} className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
-                      Username
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <UserIcon className="w-4 h-4 text-slate-500" />
-                      </div>
-                      <input
-                        ref={usernameRef}
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Your username"
-                        autoComplete="username"
-                        disabled={isLoading}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 hover:border-slate-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-slate-700/80 transition-all duration-200 text-sm disabled:opacity-50"
-                      />
-                    </div>
-                  </div>
+              <div className="pt-4 sm:pt-5">
+                {/* ─── Login Form ─── */}
+                {mode === 'login' && (
+                  <form onSubmit={handleLogin} className="space-y-3 sm:space-y-4">
+                    <AuthInput
+                      label="Username"
+                      icon={UserIcon}
+                      inputRef={usernameRef}
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      placeholder="Your username"
+                      autoComplete="username"
+                      disabled={isLoading}
+                    />
 
-                  <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
-                      Password
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <LockIcon className="w-4 h-4 text-slate-500" />
-                      </div>
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Your password"
-                        autoComplete="current-password"
-                        disabled={isLoading}
-                        className="w-full pl-11 pr-12 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 hover:border-slate-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-slate-700/80 transition-all duration-200 text-sm disabled:opacity-50"
-                      />
-                      {password && (
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors p-1"
-                        >
-                          {showPassword ? (
-                            <EyeOffIcon className="w-4 h-4" />
-                          ) : (
-                            <EyeIcon className="w-4 h-4" />
-                          )}
-                        </button>
-                      )}
-                    </div>
-                  </div>
+                    <AuthInput
+                      label="Password"
+                      icon={LockIcon}
+                      isPassword
+                      showPassword={showPassword}
+                      onToggleShow={() => setShowPassword(!showPassword)}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Your password"
+                      autoComplete="current-password"
+                      disabled={isLoading}
+                    />
 
-                  {/* Forgot password link */}
-                  <button
-                    type="button"
-                    onClick={() => setShowForgotPassword(true)}
-                    className="block text-xs text-slate-500 hover:text-emerald-400 transition-colors ml-1"
-                  >
-                    Forgot password?
-                  </button>
-
-                  <div className="pt-2">
-                    <Button
-                      type="submit"
-                      loading={isLoading}
-                      icon={<LogInIcon className="w-5 h-5" strokeWidth={2.5} />}
+                    {/* Forgot password link */}
+                    <button
+                      type="button"
+                      onClick={() => setShowForgotPassword(true)}
+                      className="block text-xs text-slate-500 hover:text-emerald-400 transition-colors ml-1"
                     >
-                      Sign In
-                    </Button>
-                  </div>
-                </form>
-              )}
+                      Forgot password?
+                    </button>
 
-              {/* ─── Register Form ─── */}
-              {mode === 'register' && (
-                <form onSubmit={handleRegister} className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
-                      Username
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <UserIcon className="w-4 h-4 text-slate-500" />
-                      </div>
-                      <input
-                        ref={usernameRef}
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Choose a username"
-                        autoComplete="username"
-                        disabled={isLoading}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 hover:border-slate-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-slate-700/80 transition-all duration-200 text-sm disabled:opacity-50"
-                      />
+                    <div className="pt-1 sm:pt-2">
+                      <Button
+                        type="submit"
+                        loading={isLoading}
+                        icon={<LogInIcon className="w-5 h-5" strokeWidth={2.5} />}
+                      >
+                        Sign In
+                      </Button>
                     </div>
-                  </div>
+                  </form>
+                )}
 
-                  <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
-                      Email
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <MailIcon className="w-4 h-4 text-slate-500" />
-                      </div>
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="your@email.com"
-                        autoComplete="email"
-                        disabled={isLoading}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 hover:border-slate-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-slate-700/80 transition-all duration-200 text-sm disabled:opacity-50"
-                      />
+                {/* ─── Register Form ─── */}
+                {mode === 'register' && (
+                  <form onSubmit={handleRegister} className="space-y-3 sm:space-y-4">
+                    <AuthInput
+                      label="Username"
+                      icon={UserIcon}
+                      inputRef={usernameRef}
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      placeholder="Choose a username"
+                      autoComplete="username"
+                      disabled={isLoading}
+                    />
+
+                    <AuthInput
+                      label="Email"
+                      icon={MailIcon}
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      autoComplete="email"
+                      disabled={isLoading}
+                    />
+
+                    <AuthInput
+                      label="Password"
+                      icon={LockIcon}
+                      isPassword
+                      showPassword={showPassword}
+                      onToggleShow={() => setShowPassword(!showPassword)}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Create a password"
+                      autoComplete="new-password"
+                      disabled={isLoading}
+                    />
+
+                    <AuthInput
+                      label="Confirm Password"
+                      icon={LockIcon}
+                      isPassword
+                      showPassword={showConfirmPassword}
+                      onToggleShow={() => setShowConfirmPassword(!showConfirmPassword)}
+                      showSuccessIcon={Boolean(confirmPassword) && password === confirmPassword}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="Confirm your password"
+                      autoComplete="new-password"
+                      disabled={isLoading}
+                    />
+
+                    <div className="pt-1 sm:pt-2">
+                      <Button
+                        type="submit"
+                        loading={isLoading}
+                        icon={<ArrowRightIcon className="w-4 h-4" strokeWidth={2.5} />}
+                      >
+                        Create Account
+                      </Button>
                     </div>
-                  </div>
+                  </form>
+                )}
 
-                  <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
-                      Password
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <LockIcon className="w-4 h-4 text-slate-500" />
-                      </div>
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Create a password"
-                        autoComplete="new-password"
-                        disabled={isLoading}
-                        className="w-full pl-11 pr-12 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 hover:border-slate-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-slate-700/80 transition-all duration-200 text-sm disabled:opacity-50"
-                      />
-                      {password && (
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors p-1"
-                        >
-                          {showPassword ? (
-                            <EyeOffIcon className="w-4 h-4" />
-                          ) : (
-                            <EyeIcon className="w-4 h-4" />
-                          )}
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
-                      Confirm Password
-                    </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        {confirmPassword && password === confirmPassword ? (
-                          <CheckIcon className="w-4 h-4 text-emerald-400" strokeWidth={3} />
-                        ) : (
-                          <LockIcon className="w-4 h-4 text-slate-500" />
-                        )}
-                      </div>
-                      <input
-                        type={showConfirmPassword ? 'text' : 'password'}
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="Confirm your password"
-                        autoComplete="new-password"
-                        disabled={isLoading}
-                        className="w-full pl-11 pr-12 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 hover:border-slate-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-slate-700/80 transition-all duration-200 text-sm disabled:opacity-50"
-                      />
-                      {confirmPassword && (
-                        <button
-                          type="button"
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors p-1"
-                        >
-                          {showConfirmPassword ? (
-                            <EyeOffIcon className="w-4 h-4" />
-                          ) : (
-                            <EyeIcon className="w-4 h-4" />
-                          )}
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <Button
-                      type="submit"
-                      loading={isLoading}
-                      icon={<ArrowRightIcon className="w-4 h-4" strokeWidth={2.5} />}
-                    >
-                      Create Account
-                    </Button>
-                  </div>
-                </form>
-              )}
-
-              <Footer />
+                <Footer />
+              </div>
             </div>
           </div>
         </div>

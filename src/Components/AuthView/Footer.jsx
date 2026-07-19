@@ -1,9 +1,10 @@
 import Link from 'next/link';
 
 const Footer = () => (
-  <p className="text-center mt-4 text-xs">
-    <Link href="/terms" className="hover:underline transition-colors text-slate-400 hover:text-emerald-400">
-      Terms &amp; Conditions
+  <p className="text-center mt-5 text-xs text-slate-400">
+    Copyright &copy; {new Date().getFullYear()} FinVue{'  '}|{'  '}
+    <Link href="/terms" className="hover:underline transition-colors hover:text-amber-600">
+      Privacy Policy
     </Link>
   </p>
 );

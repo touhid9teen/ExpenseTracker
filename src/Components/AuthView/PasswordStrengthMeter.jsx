@@ -14,7 +14,7 @@ const PasswordStrengthMeter = ({ password = '' }) => {
           <div
             key={i}
             className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
-              i < score ? color : 'bg-slate-700'
+              i < score ? color : 'bg-slate-200'
             }`}
           />
         ))}

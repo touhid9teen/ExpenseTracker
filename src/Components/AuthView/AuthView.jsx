@@ -1,14 +1,16 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
-import Background from './Background';
+import Image from 'next/image';
 import Header from './Header';
 import Footer from './Footer';
 import SuccessModal from './SuccessModal';
 import ForgotPasswordModal from './ForgotPasswordModal';
 import AuthInput from './AuthInput';
 import PasswordStrengthMeter from './PasswordStrengthMeter';
+import SocialButtons from './SocialButtons';
 import Button from '../common/Button';
+import loginArt from '../../assets/login-view.jpg';
 import { getPasswordStrength } from '../../utils/passwordStrength';
 import {
   ArrowRightIcon,
@@ -182,103 +184,114 @@ const AuthView = ({ setUser }) => {
   return (
     <>
       <div
-        className={`fixed inset-0 z-50 overflow-y-auto transition-opacity duration-700 ${
+        className={`fixed inset-0 z-50 overflow-y-auto bg-white transition-opacity duration-700 ${
           mounted ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <div className="fixed inset-0">
-          <Background />
-        </div>
-        <div className="relative min-h-full flex items-center justify-center p-3 py-6 sm:p-4 sm:py-8">
+        <div className="relative min-h-full flex items-center justify-center gap-8 xl:gap-16 px-4 py-10 sm:px-8">
+          {/* ─── Illustration ─── */}
           <div
-            className={`relative w-full max-w-[26rem] transform transition-all duration-500 ${
-              mounted ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'
+            className={`hidden lg:block w-[22rem] xl:w-[26rem] aspect-[4/3] shrink-0 transition-all duration-700 ${
+              mounted ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'
             }`}
           >
-            <div className="relative rounded-2xl p-5 sm:p-8 bg-slate-900/90 border border-slate-800/80 shadow-[0_0_60px_rgba(0,0,0,0.6)] transition-all duration-300">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" />
-              <Header mode={mode} />
+            <div className="relative w-full h-full">
+              <Image
+                src={loginArt}
+                alt="FinVue expense tracking illustration"
+                fill
+                priority
+                sizes="(max-width: 1024px) 0px, (max-width: 1280px) 22rem, 26rem"
+                className="object-contain select-none pointer-events-none"
+              />
+            </div>
+          </div>
 
-              {/* Mode toggle pills */}
-              <div className="flex mt-5 sm:mt-6 bg-slate-800/60 rounded-xl p-1 border border-slate-700/50">
-                <button
-                  type="button"
-                  onClick={() => mode !== 'login' && toggleMode()}
-                  className={`flex-1 py-2 sm:py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
-                    mode === 'login'
-                      ? 'bg-emerald-500/20 text-emerald-300 shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200'
-                  }`}
-                >
-                  Sign In
-                </button>
-                <button
-                  type="button"
-                  onClick={() => mode !== 'register' && toggleMode()}
-                  className={`flex-1 py-2 sm:py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
-                    mode === 'register'
-                      ? 'bg-emerald-500/20 text-emerald-300 shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200'
-                  }`}
-                >
-                  Sign Up
-                </button>
-              </div>
+          {/* ─── Form ─── */}
+          <div className="flex items-center justify-center">
+            <div
+              className={`relative w-full max-w-md transform transition-all duration-500 ${
+                mounted ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'
+              }`}
+            >
+              <div className="relative px-2 sm:px-4">
+                <Header mode={mode} />
 
-              <div className="pt-4 sm:pt-5">
-                {/* ─── Login Form ─── */}
-                {mode === 'login' && (
-                  <form onSubmit={handleLogin} className="space-y-3 sm:space-y-4">
-                    <AuthInput
-                      label="Username"
-                      icon={UserIcon}
-                      inputRef={usernameRef}
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      placeholder="Your username"
-                      autoComplete="username"
-                      disabled={isLoading}
-                    />
+                <div className="pt-6">
+                  {/* ─── Login Form ─── */}
+                  {mode === 'login' && (
+                    <form onSubmit={handleLogin} className="space-y-4">
+                      <AuthInput
+                        label="Username"
+                        icon={UserIcon}
+                        inputRef={usernameRef}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Your username"
+                        autoComplete="username"
+                        disabled={isLoading}
+                      />
 
-                    <AuthInput
-                      label="Password"
-                      icon={LockIcon}
-                      isPassword
-                      detectCapsLock
-                      showPassword={showPassword}
-                      onToggleShow={() => setShowPassword(!showPassword)}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Your password"
-                      autoComplete="current-password"
-                      disabled={isLoading}
-                    />
+                      <AuthInput
+                        label="Password"
+                        icon={LockIcon}
+                        isPassword
+                        detectCapsLock
+                        showPassword={showPassword}
+                        onToggleShow={() => setShowPassword(!showPassword)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Your password"
+                        autoComplete="current-password"
+                        disabled={isLoading}
+                      />
 
-                    {/* Forgot password link */}
-                    <button
-                      type="button"
-                      onClick={() => setShowForgotPassword(true)}
-                      className="block text-xs text-slate-500 hover:text-emerald-400 transition-colors ml-1"
-                    >
-                      Forgot password?
-                    </button>
-
-                    <div className="pt-1 sm:pt-2">
-                      <Button
-                        type="submit"
-                        loading={isLoading}
-                        disabled={!isLoginValid}
-                        icon={<LogInIcon className="w-5 h-5" strokeWidth={2.5} />}
+                      {/* Forgot password link */}
+                      <button
+                        type="button"
+                        onClick={() => setShowForgotPassword(true)}
+                        className="block text-xs font-medium text-slate-500 hover:text-amber-600 transition-colors ml-1"
                       >
-                        {isLoading ? 'Signing in…' : 'Sign In'}
-                      </Button>
-                    </div>
-                  </form>
-                )}
+                        Having trouble signing in?
+                      </button>
+
+                      <div className="pt-1">
+                        <Button
+                          type="submit"
+                          variant="amber"
+                          loading={isLoading}
+                          disabled={!isLoginValid}
+                          icon={<LogInIcon className="w-5 h-5" strokeWidth={2.5} />}
+                        >
+                          {isLoading ? 'Signing in…' : 'Sign In'}
+                        </Button>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="flex items-center gap-3 py-1">
+                        <span className="h-px flex-1 bg-slate-200" />
+                        <span className="text-xs font-medium text-slate-400">Or sign in with</span>
+                        <span className="h-px flex-1 bg-slate-200" />
+                      </div>
+
+                      <SocialButtons disabled={isLoading} />
+
+                      <p className="text-center text-sm text-slate-500">
+                        Don&apos;t have an account?{' '}
+                        <button
+                          type="button"
+                          onClick={() => mode !== 'register' && toggleMode()}
+                          className="font-bold text-slate-900 hover:text-amber-600 transition-colors"
+                        >
+                          Register Now
+                        </button>
+                      </p>
+                    </form>
+                  )}
 
                 {/* ─── Register Form ─── */}
                 {mode === 'register' && (
-                  <form onSubmit={handleRegister} className="space-y-3 sm:space-y-4">
+                  <form onSubmit={handleRegister} className="space-y-4">
                     <AuthInput
                       label="Username"
                       icon={UserIcon}
@@ -342,6 +355,7 @@ const AuthView = ({ setUser }) => {
                     <div className="pt-1 sm:pt-2">
                       <Button
                         type="submit"
+                        variant="amber"
                         loading={isLoading}
                         disabled={!isRegisterValid}
                         icon={<ArrowRightIcon className="w-4 h-4" strokeWidth={2.5} />}
@@ -349,8 +363,20 @@ const AuthView = ({ setUser }) => {
                         {isLoading ? 'Creating account…' : 'Create Account'}
                       </Button>
                     </div>
+
+                    <p className="text-center text-sm text-slate-500">
+                      Already have an account?{' '}
+                      <button
+                        type="button"
+                        onClick={() => mode !== 'login' && toggleMode()}
+                        className="font-bold text-slate-900 hover:text-amber-600 transition-colors"
+                      >
+                        Login
+                      </button>
+                    </p>
                   </form>
-                )}
+                  )}
+                </div>
 
                 <Footer />
               </div>

@@ -6,6 +6,11 @@ const variants = {
     glow: "from-emerald-500/30 to-teal-500/30",
     loading: "bg-emerald-500/70",
   },
+  amber: {
+    base: "bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-white",
+    glow: "from-amber-400/30 to-orange-500/30",
+    loading: "bg-amber-400/70",
+  },
 };
 
 const sizes = {

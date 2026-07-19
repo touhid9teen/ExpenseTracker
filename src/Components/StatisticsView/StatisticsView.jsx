@@ -5,6 +5,7 @@ const SummaryCardsGrid = dynamic(() => import("./SummaryCardsGrid").then(m => m.
 const QuickStatsGrid = dynamic(() => import("./QuickStatsGrid").then(m => m.QuickStatsGrid));
 const CategoryBreakdown = dynamic(() => import("./CategoryBreakdown").then(m => m.CategoryBreakdown));
 const DailyTrendChart = dynamic(() => import("./DailyTrendChart").then(m => m.DailyTrendChart));
+const SpendingOverviewChart = dynamic(() => import("./SpendingOverviewChart").then(m => m.SpendingOverviewChart));
 
 const StatisticsView = (props) => {
     const {
@@ -17,7 +18,8 @@ const StatisticsView = (props) => {
         categoryBreakdown = [],
         getCategoryStyles = () => ({ bullet: "bg-slate-400" }),
         dailySpendingTrend = [],
-        dateLabels = { today: "", week: "", month: "" }
+        dateLabels = { today: "", week: "", month: "" },
+        expenses = []
     } = props;
 
     return activeTab === "statistics" ? (
@@ -27,6 +29,7 @@ const StatisticsView = (props) => {
                 setActiveTab={setActiveTab}
                 dateLabels={dateLabels}
             />
+            <SpendingOverviewChart darkMode={darkMode} expenses={expenses} />
             <SummaryCardsGrid darkMode={darkMode} summaryCards={summaryCards} dateLabels={dateLabels} />
             <QuickStatsGrid darkMode={darkMode} quickStats={quickStats} formatDate={formatDate} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -180,6 +180,66 @@ export const calculateDailySpendingTrend = (expenses) => {
     }));
 };
 
+const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const WEEKDAY_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+/**
+ * Aggregates spending into evenly spaced buckets for the hero overview chart.
+ * period: "week" → last 7 days, "month" → last 6 months, "year" → last 6 years.
+ * Returns { points: [{ key, label, fullLabel, amount }], total, period }.
+ */
+export const calculateSpendingOverview = (expenses = [], period = "month") => {
+    const now = new Date();
+    const buckets = [];
+    const index = new Map();
+
+    const pushBucket = (key, label, fullLabel) => {
+        const bucket = { key, label, fullLabel, amount: 0 };
+        buckets.push(bucket);
+        index.set(key, bucket);
+    };
+
+    if (period === "week") {
+        for (let i = 6; i >= 0; i--) {
+            const d = new Date(now);
+            d.setDate(now.getDate() - i);
+            const key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+            pushBucket(key, WEEKDAY_SHORT[d.getDay()], `${MONTH_SHORT[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`);
+        }
+    } else if (period === "year") {
+        for (let i = 5; i >= 0; i--) {
+            const year = now.getFullYear() - i;
+            pushBucket(`${year}`, `${year}`, `${year}`);
+        }
+    } else {
+        for (let i = 5; i >= 0; i--) {
+            const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+            const key = `${d.getFullYear()}-${d.getMonth()}`;
+            pushBucket(key, MONTH_SHORT[d.getMonth()], `${MONTH_SHORT[d.getMonth()]} ${d.getFullYear()}`);
+        }
+    }
+
+    let total = 0;
+    expenses.forEach((exp) => {
+        const amount = normalizeExpenseAmount(exp.amount);
+        const d = new Date(exp.date);
+        if (Number.isNaN(d.getTime())) return;
+
+        let key;
+        if (period === "week") key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+        else if (period === "year") key = `${d.getFullYear()}`;
+        else key = `${d.getFullYear()}-${d.getMonth()}`;
+
+        const bucket = index.get(key);
+        if (bucket) {
+            bucket.amount += amount;
+            total += amount;
+        }
+    });
+
+    return { points: buckets, total, period };
+};
+
 export const calculateCustomRangeSum = (expenses, customStart, customEnd) => {
     if (!customStart || !customEnd) return 0;
 

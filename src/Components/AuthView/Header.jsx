@@ -10,15 +10,15 @@ const Header = ({ mode }) => (
     </div>
     {mode === 'login' ? (
       <>
-        <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Welcome Back</h2>
-        <p className="mt-1.5 text-xs sm:text-sm font-bold text-slate-800 leading-relaxed max-w-xs mx-auto">
+        <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Welcome Back</h2>
+        <p className="mt-1.5 text-xs sm:text-sm font-medium text-white/85 leading-relaxed max-w-xs mx-auto">
           Sign in to manage your expenses.
         </p>
       </>
     ) : (
       <>
-        <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Create Account</h2>
-        <p className="mt-1.5 text-xs sm:text-sm font-bold text-slate-800 leading-relaxed max-w-xs mx-auto">
+        <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Create Account</h2>
+        <p className="mt-1.5 text-xs sm:text-sm font-medium text-white/85 leading-relaxed max-w-xs mx-auto">
           Track your finances with style.
         </p>
       </>

@@ -7,7 +7,9 @@ import Footer from './Footer';
 import SuccessModal from './SuccessModal';
 import ForgotPasswordModal from './ForgotPasswordModal';
 import AuthInput from './AuthInput';
+import PasswordStrengthMeter from './PasswordStrengthMeter';
 import Button from '../common/Button';
+import { getPasswordStrength } from '../../utils/passwordStrength';
 import {
   ArrowRightIcon,
   LogInIcon,
@@ -29,7 +31,10 @@ const AuthView = ({ setUser }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [createdUser, setCreatedUser] = useState(null);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [touched, setTouched] = useState({});
   const usernameRef = useRef(null);
+
+  const markTouched = (field) => setTouched((prev) => ({ ...prev, [field]: true }));
 
   useEffect(() => {
     setMounted(true);
@@ -46,11 +51,36 @@ const AuthView = ({ setUser }) => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+    setTouched({});
   };
 
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
+
+  // ─── Derived, per-field validation ───
+  const trimmedUsername = username.trim();
+  const trimmedEmail = email.trim();
+
+  const usernameError =
+    mode === 'register' && trimmedUsername && trimmedUsername.length < 3
+      ? 'Username must be at least 3 characters'
+      : '';
+  const emailError =
+    trimmedEmail && !validateEmail(trimmedEmail)
+      ? 'Enter a valid email address'
+      : '';
+  const confirmError =
+    confirmPassword && password !== confirmPassword
+      ? 'Passwords do not match'
+      : '';
+
+  const isLoginValid = Boolean(trimmedUsername && password);
+  const isRegisterValid =
+    trimmedUsername.length >= 3 &&
+    validateEmail(trimmedEmail) &&
+    getPasswordStrength(password).score >= 2 &&
+    password === confirmPassword;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -214,6 +244,7 @@ const AuthView = ({ setUser }) => {
                       label="Password"
                       icon={LockIcon}
                       isPassword
+                      detectCapsLock
                       showPassword={showPassword}
                       onToggleShow={() => setShowPassword(!showPassword)}
                       value={password}
@@ -236,9 +267,10 @@ const AuthView = ({ setUser }) => {
                       <Button
                         type="submit"
                         loading={isLoading}
+                        disabled={!isLoginValid}
                         icon={<LogInIcon className="w-5 h-5" strokeWidth={2.5} />}
                       >
-                        Sign In
+                        {isLoading ? 'Signing in…' : 'Sign In'}
                       </Button>
                     </div>
                   </form>
@@ -253,6 +285,8 @@ const AuthView = ({ setUser }) => {
                       inputRef={usernameRef}
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
+                      onBlur={() => markTouched('username')}
+                      error={touched.username ? usernameError : ''}
                       placeholder="Choose a username"
                       autoComplete="username"
                       disabled={isLoading}
@@ -264,33 +298,42 @@ const AuthView = ({ setUser }) => {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      onBlur={() => markTouched('email')}
+                      error={touched.email ? emailError : ''}
                       placeholder="your@email.com"
                       autoComplete="email"
                       disabled={isLoading}
                     />
 
-                    <AuthInput
-                      label="Password"
-                      icon={LockIcon}
-                      isPassword
-                      showPassword={showPassword}
-                      onToggleShow={() => setShowPassword(!showPassword)}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Create a password"
-                      autoComplete="new-password"
-                      disabled={isLoading}
-                    />
+                    <div>
+                      <AuthInput
+                        label="Password"
+                        icon={LockIcon}
+                        isPassword
+                        detectCapsLock
+                        showPassword={showPassword}
+                        onToggleShow={() => setShowPassword(!showPassword)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Create a password"
+                        autoComplete="new-password"
+                        disabled={isLoading}
+                      />
+                      <PasswordStrengthMeter password={password} />
+                    </div>
 
                     <AuthInput
                       label="Confirm Password"
                       icon={LockIcon}
                       isPassword
+                      detectCapsLock
                       showPassword={showConfirmPassword}
                       onToggleShow={() => setShowConfirmPassword(!showConfirmPassword)}
                       showSuccessIcon={Boolean(confirmPassword) && password === confirmPassword}
+                      error={touched.confirmPassword ? confirmError : ''}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
+                      onBlur={() => markTouched('confirmPassword')}
                       placeholder="Confirm your password"
                       autoComplete="new-password"
                       disabled={isLoading}
@@ -300,9 +343,10 @@ const AuthView = ({ setUser }) => {
                       <Button
                         type="submit"
                         loading={isLoading}
+                        disabled={!isRegisterValid}
                         icon={<ArrowRightIcon className="w-4 h-4" strokeWidth={2.5} />}
                       >
-                        Create Account
+                        {isLoading ? 'Creating account…' : 'Create Account'}
                       </Button>
                     </div>
                   </form>

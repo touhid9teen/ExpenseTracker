@@ -34,7 +34,9 @@ const Button = ({
       type={type}
       onClick={onClick}
       disabled={disabled || loading}
-      className={`relative w-full font-bold text-white overflow-hidden group transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.98] disabled:cursor-not-allowed ${sizes[size]} ${className}`}
+      className={`relative w-full font-bold text-white overflow-hidden group transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.98] disabled:cursor-not-allowed ${
+        disabled && !loading ? 'opacity-50 hover:scale-100' : ''
+      } ${sizes[size]} ${className}`}
     >
       <div
         className={`absolute inset-0 transition-opacity duration-300 ${

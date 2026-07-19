@@ -1,3 +1,18 @@
+// Raw hex values for each category, used by SVG charts (donut) where
+// Tailwind classes can't apply. Keep in sync with the bullet colors below.
+export const CATEGORY_HEX = {
+    Food: "#10b981",
+    Transport: "#f59e0b",
+    Utilities: "#06b6d4",
+    Entertainment: "#a855f7",
+    Healthcare: "#f43f5e",
+    Shopping: "#ec4899",
+    Education: "#6366f1",
+    Others: "#94a3b8"
+};
+
+export const getCategoryHex = (category) => CATEGORY_HEX[category] || CATEGORY_HEX.Others;
+
 export const getCategoryStyles = (category, darkMode) => {
     switch (category) {
         case "Food":

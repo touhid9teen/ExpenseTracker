@@ -188,6 +188,55 @@ const WEEKDAY_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
  * period: "week" → last 7 days, "month" → last 6 months, "year" → last 6 years.
  * Returns { points: [{ key, label, fullLabel, amount }], total, period }.
  */
+// Returns the inclusive [start, end] Date range for a rolling period ending today.
+// week → last 7 days, month → current calendar month, year → current calendar year.
+export const getPeriodRange = (period = "month", now = new Date()) => {
+    const end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+    let start;
+
+    if (period === "week") {
+        start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6);
+    } else if (period === "year") {
+        start = new Date(now.getFullYear(), 0, 1);
+    } else {
+        start = new Date(now.getFullYear(), now.getMonth(), 1);
+    }
+
+    return { start, end };
+};
+
+const isWithinRange = (dateStr, start, end) => {
+    const t = new Date(dateStr).getTime();
+    return !Number.isNaN(t) && t >= start.getTime() && t <= end.getTime();
+};
+
+/**
+ * Category breakdown scoped to a rolling period. Returns
+ * { slices: [{ category, amount, percentage }], total, range: {start,end} }.
+ */
+export const calculatePeriodCategoryBreakdown = (expenses = [], period = "month") => {
+    const range = getPeriodRange(period);
+    const totals = {};
+    let grandTotal = 0;
+
+    expenses.forEach((exp) => {
+        if (!isWithinRange(exp.date, range.start, range.end)) return;
+        const amount = normalizeExpenseAmount(exp.amount);
+        totals[exp.category] = (totals[exp.category] || 0) + amount;
+        grandTotal += amount;
+    });
+
+    const slices = Object.entries(totals)
+        .map(([category, amount]) => ({
+            category,
+            amount,
+            percentage: grandTotal > 0 ? (amount / grandTotal) * 100 : 0
+        }))
+        .sort((a, b) => b.amount - a.amount);
+
+    return { slices, total: grandTotal, range };
+};
+
 export const calculateSpendingOverview = (expenses = [], period = "month") => {
     const now = new Date();
     const buckets = [];

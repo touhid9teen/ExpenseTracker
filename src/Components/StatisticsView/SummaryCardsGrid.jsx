@@ -1,42 +1,29 @@
-const cardColors = [
-    "bg-[#FBD5E4]",
-    "bg-[#C9F2D8]",
-    "bg-[#DCD3F7]",
-    "bg-[#C9E4F9]",
-];
+import { TrendingUpIcon, CalendarIcon, ChartBarIcon, ChartPieIcon } from "../common/Icons";
+import { cardSurface, accentText } from "./cardStyles";
 
-const valueColors = [
-    "text-rose-700",
-    "text-emerald-700",
-    "text-purple-700",
-    "text-sky-700",
-];
+const accents = ["rose", "emerald", "purple", "sky"];
 
-const SummaryCard = ({ darkMode, title, value = 0, icon, note, bgClass, valueClass, accentClass }) => (
+const SummaryCard = ({ darkMode, title, value = 0, icon, note, accent }) => (
     <div className={`
         flex flex-col items-center justify-center text-center
         p-6 rounded-tl-[48px] rounded-br-[48px] min-h-[155px]
-        transition-all duration-200
-        hover:scale-[1.02]
-        ${bgClass}
-        ${darkMode ? "shadow-md shadow-black/15" : "shadow-md"}
+        transition-all duration-200 hover:scale-[1.02]
+        ${cardSurface(accent, darkMode)}
     `}>
-        <div className="text-slate-800 mb-3">
+        <div className={accentText(accent, darkMode) + " mb-3"}>
             {icon}
         </div>
-        <span className="text-base font-bold text-slate-800 leading-tight">
+        <span className={`text-base font-bold leading-tight ${darkMode ? "text-slate-200" : "text-slate-700"}`}>
             {title}
         </span>
-        <span className={`text-2xl font-bold mt-1 tracking-tight ${valueClass || "text-slate-800"}`}>
+        <span className={`text-2xl font-bold mt-1 tracking-tight ${accentText(accent, darkMode)}`}>
             ৳{Math.round(value).toLocaleString()}
         </span>
-        <span className="text-xs text-slate-600 mt-1 leading-tight">
+        <span className={`text-xs mt-1 leading-tight ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
             {note}
         </span>
     </div>
 );
-
-import { TrendingUpIcon, CalendarIcon, ChartBarIcon, ChartPieIcon } from "../common/Icons";
 
 export const SummaryCardsGrid = ({ darkMode = true, summaryCards = {}, dateLabels = {} }) => {
     const safeSummaryCards = {
@@ -55,10 +42,10 @@ export const SummaryCardsGrid = ({ darkMode = true, summaryCards = {}, dateLabel
 
     return (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            <SummaryCard darkMode={darkMode} title="All-Time" value={safeSummaryCards.total} note="Filtered dataset" bgClass={cardColors[0]} valueClass={valueColors[0]} icon={<TrendingUpIcon className="w-8 h-8" strokeWidth={2.5} />} />
-            <SummaryCard darkMode={darkMode} title="Today" value={safeSummaryCards.today} note={safeDateLabels.today} bgClass={cardColors[1]} valueClass={valueColors[1]} icon={<CalendarIcon className="w-8 h-8" strokeWidth={2.5} />} />
-            <SummaryCard darkMode={darkMode} title="This Week" value={safeSummaryCards.week} note={safeDateLabels.week} bgClass={cardColors[2]} valueClass={valueColors[2]} icon={<ChartBarIcon className="w-8 h-8" strokeWidth={2.5} />} />
-            <SummaryCard darkMode={darkMode} title="This Month" value={safeSummaryCards.month} note={safeDateLabels.month} bgClass={cardColors[3]} valueClass={valueColors[3]} icon={<ChartPieIcon className="w-8 h-8" strokeWidth={2.5} />} />
+            <SummaryCard darkMode={darkMode} title="All-Time" value={safeSummaryCards.total} note="Filtered dataset" accent={accents[0]} icon={<TrendingUpIcon className="w-8 h-8" strokeWidth={2.5} />} />
+            <SummaryCard darkMode={darkMode} title="Today" value={safeSummaryCards.today} note={safeDateLabels.today} accent={accents[1]} icon={<CalendarIcon className="w-8 h-8" strokeWidth={2.5} />} />
+            <SummaryCard darkMode={darkMode} title="This Week" value={safeSummaryCards.week} note={safeDateLabels.week} accent={accents[2]} icon={<ChartBarIcon className="w-8 h-8" strokeWidth={2.5} />} />
+            <SummaryCard darkMode={darkMode} title="This Month" value={safeSummaryCards.month} note={safeDateLabels.month} accent={accents[3]} icon={<ChartPieIcon className="w-8 h-8" strokeWidth={2.5} />} />
         </div>
     );
 };

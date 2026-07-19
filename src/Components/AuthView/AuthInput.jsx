@@ -58,7 +58,7 @@ const AuthInput = ({
           aria-describedby={describedBy}
           onKeyUp={detectCapsLock ? handleKey : undefined}
           onKeyDown={detectCapsLock ? handleKey : undefined}
-          className={`w-full pl-11 ${isPassword ? 'pr-12' : 'pr-4'} py-3 rounded-xl bg-slate-50 border-2 ${borderClass} text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:bg-white transition-all duration-200 text-sm disabled:opacity-50`}
+          className={`w-full pl-11 ${isPassword ? 'pr-12' : 'pr-4'} py-2.5 rounded-xl bg-slate-50 border-2 ${borderClass} text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:bg-white transition-all duration-200 text-sm disabled:opacity-50`}
           {...inputProps}
         />
         {isPassword && inputProps.value && (

@@ -188,7 +188,7 @@ const AuthView = ({ setUser }) => {
           mounted ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <div className="relative min-h-full flex items-center justify-center gap-8 xl:gap-16 px-4 py-10 sm:px-8">
+        <div className="relative min-h-full flex items-center justify-center gap-8 xl:gap-16 px-4 py-6 sm:px-8">
           {/* ─── Illustration ─── */}
           <div
             className={`hidden lg:block w-[22rem] xl:w-[26rem] aspect-[4/3] shrink-0 transition-all duration-700 ${
@@ -217,10 +217,10 @@ const AuthView = ({ setUser }) => {
               <div className="relative px-2 sm:px-4">
                 <Header mode={mode} />
 
-                <div className="pt-6">
+                <div className="pt-4">
                   {/* ─── Login Form ─── */}
                   {mode === 'login' && (
-                    <form onSubmit={handleLogin} className="space-y-4">
+                    <form onSubmit={handleLogin} className="space-y-3">
                       <AuthInput
                         label="Username"
                         icon={UserIcon}
@@ -291,7 +291,7 @@ const AuthView = ({ setUser }) => {
 
                 {/* ─── Register Form ─── */}
                 {mode === 'register' && (
-                  <form onSubmit={handleRegister} className="space-y-4">
+                  <form onSubmit={handleRegister} className="space-y-3">
                     <AuthInput
                       label="Username"
                       icon={UserIcon}
@@ -352,7 +352,7 @@ const AuthView = ({ setUser }) => {
                       disabled={isLoading}
                     />
 
-                    <div className="pt-1 sm:pt-2">
+                    <div className="pt-1">
                       <Button
                         type="submit"
                         variant="amber"

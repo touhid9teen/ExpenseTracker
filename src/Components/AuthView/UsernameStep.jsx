@@ -22,7 +22,7 @@ const UsernameStep = (
         placeholder="Enter your username"
         autoComplete="username"
         disabled={isLoading}
-        className="w-full px-5 py-4 rounded-xl bg-slate-800 border-2 border-slate-500/50 text-white placeholder-slate-300 hover:border-slate-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-slate-700/80 transition-all duration-200 text-base disabled:opacity-50"
+        className="w-full px-5 py-4 rounded-xl bg-slate-800 border-2 border-slate-500/50 text-white placeholder-slate-300 hover:border-slate-400/60 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-slate-700/80 transition-all duration-200 text-base disabled:opacity-50"
       />
       <div className="mt-5">
         <Button

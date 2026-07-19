@@ -91,7 +91,7 @@ const NavButton = ({
   <button
     onClick={onClick}
     className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all ${
-      isActive ? (darkMode ? "text-emerald-400" : "text-emerald-600") : ""
+      isActive ? (darkMode ? "text-amber-400" : "text-amber-600") : ""
     }`}
   >
     <Icon className="w-5 h-5" strokeWidth={strokeWidth} />
@@ -153,7 +153,7 @@ const MobileBottomNav = ({
       {/* Floating Action Button (FAB) for Quick Add */}
       <button
         onClick={handleQuickAdd}
-        className="relative -top-4 w-12 h-12 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-450 text-white flex items-center justify-center shadow-lg shadow-emerald-500/35 hover:scale-105 active:scale-95 transition-all"
+        className="relative -top-4 w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-orange-400 text-white flex items-center justify-center shadow-lg shadow-amber-500/35 hover:scale-105 active:scale-95 transition-all"
       >
         <PlusIcon className="w-6 h-6" strokeWidth={3} />
       </button>

@@ -83,19 +83,19 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
     const active = coords[activeIndex] || coords[coords.length - 1];
     const tooltipLeftPct = active ? (active.x / VIEW_W) * 100 : 50;
 
-    const lineColor = darkMode ? "#34d399" : "#059669";
+    const lineColor = darkMode ? "#fbbf24" : "#d97706";
 
     return (
         <div
             className={`rounded-3xl p-5 sm:p-6 border transition-colors duration-300 ${
                 darkMode
-                    ? "bg-slate-800 border-emerald-500/40 shadow-lg shadow-emerald-500/5"
-                    : "bg-white border-emerald-400 shadow-lg shadow-emerald-500/10"
+                    ? "bg-slate-800 border-amber-500/40 shadow-lg shadow-amber-500/5"
+                    : "bg-white border-amber-400 shadow-lg shadow-amber-500/10"
             }`}
         >
             {/* Total + current selection date */}
             <div className="text-center">
-                <p className={`text-3xl sm:text-4xl font-black tracking-tight ${darkMode ? "text-emerald-400" : "text-emerald-600"}`}>
+                <p className={`text-3xl sm:text-4xl font-black tracking-tight ${darkMode ? "text-amber-400" : "text-amber-600"}`}>
                     {formatCurrency(total)}
                 </p>
                 <p className={`mt-1 text-xs sm:text-sm font-medium ${darkMode ? "text-slate-400" : "text-slate-400"}`}>
@@ -120,11 +120,11 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                             className={`flex-1 py-2 text-xs sm:text-sm font-bold rounded-full transition-all duration-200 ${
                                 selected
                                     ? darkMode
-                                        ? "bg-emerald-500 text-white shadow shadow-emerald-500/20"
-                                        : "bg-emerald-500 text-white shadow shadow-emerald-500/25"
+                                        ? "bg-amber-500 text-white shadow shadow-amber-500/20"
+                                        : "bg-amber-500 text-white shadow shadow-amber-500/25"
                                     : darkMode
-                                        ? "text-slate-400 hover:text-emerald-300"
-                                        : "text-slate-500 hover:text-emerald-600"
+                                        ? "text-slate-400 hover:text-amber-300"
+                                        : "text-slate-500 hover:text-amber-600"
                             }`}
                         >
                             {p.label}
@@ -144,8 +144,8 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                         <div
                             className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shadow-lg border ${
                                 darkMode
-                                    ? "bg-slate-900 text-emerald-400 border-emerald-500/40"
-                                    : "bg-white text-emerald-600 border-emerald-400"
+                                    ? "bg-slate-900 text-amber-400 border-amber-500/40"
+                                    : "bg-white text-amber-600 border-amber-400"
                             }`}
                         >
                             {formatCurrency(active.amount)}

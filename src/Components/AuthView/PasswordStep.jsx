@@ -42,7 +42,7 @@ const PasswordStep = (
             <ChevronLeftIcon className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2 bg-slate-800/60 rounded-lg px-3 py-1.5">
-            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center">
+            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center">
               <CheckIcon className="w-3 h-3 text-white" />
             </div>
             <span className="text-sm text-slate-300">{username}</span>
@@ -57,7 +57,7 @@ const PasswordStep = (
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
             autoComplete="current-password"
-            className="w-full px-5 py-4 rounded-xl bg-slate-800 border-2 border-slate-500/50 text-white placeholder-slate-300 hover:border-slate-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-slate-700/80 transition-all duration-200 text-base pr-12"
+            className="w-full px-5 py-4 rounded-xl bg-slate-800 border-2 border-slate-500/50 text-white placeholder-slate-300 hover:border-slate-400/60 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-slate-700/80 transition-all duration-200 text-base pr-12"
           />
           {password && (
             <button
@@ -74,7 +74,7 @@ const PasswordStep = (
           <button
             type="button"
             onClick={onForgotPassword}
-            className="block mx-auto mt-3 text-xs text-slate-500 hover:text-emerald-400 transition-colors"
+            className="block mx-auto mt-3 text-xs text-slate-500 hover:text-amber-400 transition-colors"
           >
             Forgot password?
           </button>

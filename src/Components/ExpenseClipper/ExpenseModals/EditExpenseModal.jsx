@@ -30,7 +30,7 @@ export const EditExpenseModal = ({
                                     required
                                     value={editingExpense.date}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, date: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
+                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
                                 />
                             </div>
 
@@ -39,7 +39,7 @@ export const EditExpenseModal = ({
                                 <select
                                     value={editingExpense.category}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, category: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
+                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
                                 >
                                     {CATEGORIES.map((cat) => (
                                         <option key={cat} value={cat}>
@@ -56,7 +56,7 @@ export const EditExpenseModal = ({
                                     required
                                     value={editingExpense.description}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, description: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
+                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
                                 />
                             </div>
 
@@ -69,7 +69,7 @@ export const EditExpenseModal = ({
                                     step="0.01"
                                     value={editingExpense.amount}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, amount: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
+                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
                                 />
                             </div>
 
@@ -83,7 +83,7 @@ export const EditExpenseModal = ({
                                 </button>
                                 <button
                                     type="submit"
-                                    className="px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-all shadow-md focus:outline-none"
+                                    className="px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all shadow-md focus:outline-none"
                                 >
                                     Save Changes
                                 </button>

@@ -15,7 +15,7 @@ export const DailyExpenseModal = ({
                     <div className={`w-full max-w-xl rounded-2xl border shadow-2xl p-6 transform scale-100 transition-transform ${darkMode ? "bg-slate-900 border-slate-800 shadow-black/30" : "bg-white border-slate-200 shadow-slate-200/40"}`}>
                         <div className="flex items-center justify-between border-b pb-4 mb-4 border-slate-200 dark:border-slate-800">
                             <div>
-                                <h3 className="text-lg font-bold tracking-tight text-emerald-500 font-black">
+                                <h3 className="text-lg font-bold tracking-tight text-amber-500 font-black">
                                     {formatDate(dailyModalDetails.date)}
                                 </h3>
                                 <span className={`text-xs font-medium block ${darkMode ? "text-slate-400" : "text-slate-555"}`}>
@@ -43,7 +43,7 @@ export const DailyExpenseModal = ({
                                                 {item.category}
                                             </span>
                                         </div>
-                                        <span className="font-black text-sm text-emerald-500 flex-shrink-0">
+                                        <span className="font-black text-sm text-amber-500 flex-shrink-0">
                                             ৳{Math.round(item.amount).toLocaleString()}
                                         </span>
                                     </div>
@@ -53,7 +53,7 @@ export const DailyExpenseModal = ({
 
                         <div className="border-t pt-4 border-slate-200 dark:border-slate-800 flex items-center justify-between">
                             <span className={`font-bold text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Total Expense of Day:</span>
-                            <span className="text-xl font-extrabold text-emerald-500">৳{Math.round(dailyModalDetails.total).toLocaleString()}</span>
+                            <span className="text-xl font-extrabold text-amber-500">৳{Math.round(dailyModalDetails.total).toLocaleString()}</span>
                         </div>
 
                         <div className="mt-6 flex justify-end">

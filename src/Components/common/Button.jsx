@@ -2,9 +2,9 @@ import { SpinnerIcon } from "./Icons";
 
 const variants = {
   primary: {
-    base: "bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white",
-    glow: "from-emerald-500/30 to-teal-500/30",
-    loading: "bg-emerald-500/70",
+    base: "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white",
+    glow: "from-amber-500/30 to-orange-500/30",
+    loading: "bg-amber-500/70",
   },
   amber: {
     base: "bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-white",

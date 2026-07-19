@@ -26,11 +26,11 @@ const AppHeader = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-3 sm:py-0 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
         {/* Logo Area */}
         <div className="flex min-w-0 flex-1 sm:flex-none items-center gap-3">
-          <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+          <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center shadow-lg shadow-amber-500/20">
             <FinVueLogoIcon className="w-6 h-6 text-white" />
           </div>
           <div className="min-w-0">
-            <span className="block truncate font-extrabold text-xl tracking-tight bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent">
+            <span className="block truncate font-extrabold text-xl tracking-tight bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent">
               FinVue
             </span>
             <span
@@ -57,8 +57,8 @@ const AppHeader = ({
               className={`px-3 sm:px-4 py-2 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 activeTab === "statistics"
                   ? darkMode
-                    ? "bg-slate-800 text-emerald-400 shadow-sm shadow-black/5"
-                    : "bg-white text-emerald-600 shadow-sm shadow-slate-200/20"
+                    ? "bg-slate-800 text-amber-400 shadow-sm shadow-black/5"
+                    : "bg-white text-amber-600 shadow-sm shadow-slate-200/20"
                   : darkMode
                   ? "text-slate-400 hover:text-slate-200"
                   : "text-slate-500 hover:text-slate-850"
@@ -73,8 +73,8 @@ const AppHeader = ({
               className={`px-3 sm:px-4 py-2 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 activeTab === "ledger"
                   ? darkMode
-                    ? "bg-slate-800 text-emerald-400 shadow-sm shadow-black/5"
-                    : "bg-white text-emerald-600 shadow-sm shadow-slate-200/20"
+                    ? "bg-slate-800 text-amber-400 shadow-sm shadow-black/5"
+                    : "bg-white text-amber-600 shadow-sm shadow-slate-200/20"
                   : darkMode
                   ? "text-slate-400 hover:text-slate-200"
                   : "text-slate-500 hover:text-slate-850"
@@ -89,8 +89,8 @@ const AppHeader = ({
               className={`px-3 sm:px-4 py-2 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 activeTab === "about"
                   ? darkMode
-                    ? "bg-slate-800 text-emerald-400 shadow-sm shadow-black/5"
-                    : "bg-white text-emerald-600 shadow-sm shadow-slate-200/20"
+                    ? "bg-slate-800 text-amber-400 shadow-sm shadow-black/5"
+                    : "bg-white text-amber-600 shadow-sm shadow-slate-200/20"
                   : darkMode
                   ? "text-slate-400 hover:text-slate-200"
                   : "text-slate-500 hover:text-slate-850"
@@ -128,8 +128,8 @@ const AppHeader = ({
               <div
                 className={`hidden sm:flex items-center justify-center w-8 h-8 rounded-full font-bold text-xs ${
                   darkMode
-                    ? "bg-emerald-500/20 text-emerald-400"
-                    : "bg-emerald-100 text-emerald-700"
+                    ? "bg-amber-500/20 text-amber-400"
+                    : "bg-amber-100 text-amber-700"
                 }`}
               >
                 {user.username.charAt(0).toUpperCase()}

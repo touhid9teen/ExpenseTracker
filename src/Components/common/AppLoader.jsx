@@ -8,7 +8,7 @@ const AppLoader = ({ darkMode = true }) => {
       {/* Logo */}
       <div className="relative mb-6">
         <svg
-          className="w-16 h-16 text-emerald-400"
+          className="w-16 h-16 text-amber-400"
           viewBox="0 0 24 24"
           fill="none"
         >
@@ -29,8 +29,8 @@ const AppLoader = ({ darkMode = true }) => {
         </svg>
         {/* Spinning ring */}
         <div
-          className={`absolute -inset-2 rounded-full border-2 border-transparent border-t-emerald-400 animate-spin ${
-            darkMode ? "border-t-emerald-400" : "border-t-emerald-500"
+          className={`absolute -inset-2 rounded-full border-2 border-transparent border-t-amber-400 animate-spin ${
+            darkMode ? "border-t-amber-400" : "border-t-amber-500"
           }`}
         />
       </div>

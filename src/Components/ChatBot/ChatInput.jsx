@@ -70,7 +70,7 @@ const ChatInput = ({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about your expenses..."
-            className={`w-full pl-4 pr-12 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all ${
+            className={`w-full pl-4 pr-12 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all ${
               darkMode
                 ? "bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:bg-slate-800": "bg-slate-100 border border-slate-300 text-slate-800 placeholder-slate-400 focus:bg-white"}`}
             disabled={isLoading}
@@ -83,7 +83,7 @@ const ChatInput = ({
                 ? darkMode
                   ? "text-slate-600"
                   : "text-slate-400"
-                : "text-emerald-500 hover:bg-emerald-500/10"
+                : "text-amber-500 hover:bg-amber-500/10"
             }`}
           >
             <SendIcon className="w-5 h-5 transform rotate-90" />

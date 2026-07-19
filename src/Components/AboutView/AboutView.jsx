@@ -17,19 +17,19 @@ const AboutView = ({ darkMode, setActiveTab }) => {
         <div
           className={`absolute inset-0 ${
             darkMode
-              ? "bg-gradient-to-br from-slate-900 via-emerald-950/30 to-slate-900"
-              : "bg-gradient-to-br from-emerald-50 via-teal-50 to-white"
+              ? "bg-gradient-to-br from-slate-900 via-amber-950/30 to-slate-900"
+              : "bg-gradient-to-br from-amber-50 via-orange-50 to-white"
           }`}
         />
 
         {/* Decorative blobs */}
-        <div className="absolute -top-20 -right-20 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl" />
+        <div className="absolute -top-20 -right-20 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl" />
 
         <div className="relative px-6 sm:px-10 lg:px-16 py-10 sm:py-16 lg:py-20">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 bg-amber-500/10 text-amber-500 border border-amber-500/20">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
               Version 1.0.0
             </div>
             <h1
@@ -38,7 +38,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
               }`}
             >
               Welcome to{" "}
-              <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent">
                 FinVue
               </span>
             </h1>
@@ -54,7 +54,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
             <div className="flex flex-wrap gap-3 mt-6 sm:mt-8">
               <button
                 onClick={() => setActiveTab("ledger")}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
               >
                 <ClipboardListIcon className="w-4 h-4" strokeWidth={2.5} />
                 Go to Ledger
@@ -100,20 +100,20 @@ const AboutView = ({ darkMode, setActiveTab }) => {
               key={index}
               className={`group relative p-5 sm:p-6 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-[1.02] ${
                 darkMode
-                  ? "bg-slate-800/50 border-slate-700/60 hover:border-emerald-500/30 hover:bg-slate-800/80"
-                  : "bg-white border-slate-300 hover:border-emerald-400/30 hover:shadow-lg hover:shadow-emerald-500/5"
+                  ? "bg-slate-800/50 border-slate-700/60 hover:border-amber-500/30 hover:bg-slate-800/80"
+                  : "bg-white border-slate-300 hover:border-amber-400/30 hover:shadow-lg hover:shadow-amber-500/5"
               }`}
             >
               {/* Top accent line */}
               <div
-                className={`absolute inset-x-0 top-0 h-0.5 rounded-t-xl sm:rounded-t-2xl bg-gradient-to-r from-emerald-500 to-teal-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`}
+                className={`absolute inset-x-0 top-0 h-0.5 rounded-t-xl sm:rounded-t-2xl bg-gradient-to-r from-amber-500 to-orange-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`}
               />
 
               <div
                 className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${
                   darkMode
-                    ? "bg-emerald-500/10 text-emerald-400"
-                    : "bg-emerald-100 text-emerald-600"
+                    ? "bg-amber-500/10 text-amber-400"
+                    : "bg-amber-100 text-amber-600"
                 }`}
               >
                 {feature.icon}
@@ -188,8 +188,8 @@ const AboutView = ({ darkMode, setActiveTab }) => {
                   <div
                     className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center font-extrabold text-lg border-2 transition-all duration-300 ${
                       darkMode
-                        ? "bg-slate-800 border-emerald-500/40 text-emerald-400"
-                        : "bg-white border-emerald-400 text-emerald-600"
+                        ? "bg-slate-800 border-amber-500/40 text-amber-400"
+                        : "bg-white border-amber-400 text-amber-600"
                     }`}
                   >
                     <span className="sm:hidden">{step.icon}</span>
@@ -217,8 +217,8 @@ const AboutView = ({ darkMode, setActiveTab }) => {
                     <div
                       className={`sm:hidden w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm ${
                         darkMode
-                          ? "bg-emerald-500/10 text-emerald-400"
-                          : "bg-emerald-100 text-emerald-600"
+                          ? "bg-amber-500/10 text-amber-400"
+                          : "bg-amber-100 text-amber-600"
                       }`}
                     >
                       {step.step}
@@ -401,9 +401,9 @@ const AboutView = ({ darkMode, setActiveTab }) => {
               key={index}
               className={`p-5 rounded-xl border text-center transition-all duration-200 hover:scale-[1.02] ${
                 darkMode
-                  ? "bg-slate-800/30 border-slate-700/60 hover:border-emerald-500/20": "bg-white border-slate-300 hover:border-emerald-400/20 hover:shadow-sm"}`}
+                  ? "bg-slate-800/30 border-slate-700/60 hover:border-amber-500/20": "bg-white border-slate-300 hover:border-amber-400/20 hover:shadow-sm"}`}
             >
-              <div className={`w-9 h-9 rounded-lg flex items-center justify-center mx-auto mb-3 ${darkMode ? "bg-emerald-500/10 text-emerald-400" : "bg-emerald-100 text-emerald-600"}`}>
+              <div className={`w-9 h-9 rounded-lg flex items-center justify-center mx-auto mb-3 ${darkMode ? "bg-amber-500/10 text-amber-400" : "bg-amber-100 text-amber-600"}`}>
                 {item.icon}
               </div>
               <p className={`text-xs font-medium uppercase tracking-wider ${darkMode ? "text-slate-500" : "text-slate-400"}`}>

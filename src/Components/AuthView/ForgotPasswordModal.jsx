@@ -147,7 +147,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     autoComplete="email"
-                    className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-sm"
+                    className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 text-sm"
                   />
                 </div>
                 <div className="mt-5">
@@ -184,11 +184,11 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     value={resetCode}
                     onChange={(e) => setResetCode(e.target.value)}
                     placeholder={devToken ? `Dev code: ${devToken}` : "Enter reset code"}
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 text-sm"
                   />
                   {devMode && (
-                    <p className="text-xs text-emerald-400/70 mt-1.5 ml-1">
-                      ⚡ Dev mode: code is <span className="font-mono font-bold text-emerald-300">{devToken}</span>
+                    <p className="text-xs text-amber-400/70 mt-1.5 ml-1">
+                      ⚡ Dev mode: code is <span className="font-mono font-bold text-amber-300">{devToken}</span>
                     </p>
                   )}
                 </div>
@@ -208,7 +208,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                       onChange={(e) => setNewPassword(e.target.value)}
                       placeholder="New password"
                       autoComplete="new-password"
-                      className="w-full pl-11 pr-12 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-sm"
+                      className="w-full pl-11 pr-12 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 text-sm"
                     />
                     {newPassword && (
                       <button
@@ -233,7 +233,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm new password"
                     autoComplete="new-password"
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 text-sm"
                   />
                 </div>
 
@@ -252,8 +252,8 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
           {step === STEPS.DONE && (
             <div className="text-center py-4">
               <div className="relative w-16 h-16 mx-auto mb-4">
-                <div className="absolute inset-0 rounded-full bg-emerald-500/20 blur-xl" />
-                <div className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center mx-auto">
+                <div className="absolute inset-0 rounded-full bg-amber-500/20 blur-xl" />
+                <div className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center mx-auto">
                   <CheckIcon className="w-8 h-8 text-white" strokeWidth={3} />
                 </div>
               </div>

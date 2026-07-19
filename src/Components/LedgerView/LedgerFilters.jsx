@@ -35,7 +35,7 @@ export const LedgerFilters = ({
     >
       <div className="flex flex-col lg:flex-row gap-4 items-center justify-between border-b pb-5 border-slate-200/50 dark:border-slate-800/50">
         <div>
-          <span className="text-xs uppercase font-extrabold tracking-widest text-emerald-500 block mb-1">
+          <span className="text-xs uppercase font-extrabold tracking-widest text-amber-500 block mb-1">
             Interactive Filter Toolbar
           </span>          <div className="flex flex-wrap items-center gap-2">
             <h3 className="text-lg font-bold tracking-tight">
@@ -44,8 +44,8 @@ export const LedgerFilters = ({
             <span
               className={`inline-flex items-center text-[10px] px-2.5 py-1.5 rounded-lg font-bold border ${
                 darkMode
-                  ? "bg-emerald-950/40 border-emerald-800/40 text-emerald-300"
-                  : "bg-emerald-50 border-emerald-100 text-emerald-700"
+                  ? "bg-amber-950/40 border-amber-800/40 text-amber-300"
+                  : "bg-amber-50 border-amber-100 text-amber-700"
               }`}
             >
               {filteredExpenses.length} record
@@ -79,7 +79,7 @@ export const LedgerFilters = ({
               placeholder="Search description/item..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${
+              className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all ${
                 darkMode
                   ? "bg-[#182235] border-slate-750 text-slate-150 placeholder-slate-500": "bg-slate-50 border-slate-300 text-slate-800 placeholder-slate-400"}`}
             />
@@ -88,7 +88,7 @@ export const LedgerFilters = ({
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all ${
+              className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all ${
                 darkMode
                   ? "bg-[#182235] border-slate-750 text-slate-150": "bg-slate-50 border-slate-300 text-slate-800"}`}
             >
@@ -110,7 +110,7 @@ export const LedgerFilters = ({
               onClick={() => setActiveDateFilter(filter)}
               className={`px-4 py-2 shrink-0 rounded-xl text-xs font-bold transition-all border ${
                 activeDateFilter === filter
-                  ? "bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/10"
+                  ? "bg-amber-500 text-white border-amber-500 shadow-md shadow-amber-500/10"
                   : darkMode
                   ? "bg-[#182235] hover:bg-slate-750 border-slate-750 text-slate-350 hover:text-slate-200": "bg-white hover:bg-slate-100 border-slate-300 text-slate-650 hover:text-slate-850"}`}
             >
@@ -132,7 +132,7 @@ export const LedgerFilters = ({
             }}
             className={`px-4 py-2 shrink-0 rounded-xl text-xs font-bold transition-all border ${
               activeDateFilter === "specific"
-                ? "bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/10"
+                ? "bg-amber-500 text-white border-amber-500 shadow-md shadow-amber-500/10"
                 : darkMode
                 ? "bg-[#182235] hover:bg-slate-750 border-slate-750 text-slate-350 hover:text-slate-200"
                 : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650 hover:text-slate-850"
@@ -151,7 +151,7 @@ export const LedgerFilters = ({
             }}
             className={`px-4 py-2 shrink-0 rounded-xl text-xs font-bold transition-all border ${
               activeDateFilter === "custom"
-                ? "bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/10"
+                ? "bg-amber-500 text-white border-amber-500 shadow-md shadow-amber-500/10"
                 : darkMode
                 ? "bg-[#182235] hover:bg-slate-750 border-slate-750 text-slate-350 hover:text-slate-200"
                 : "bg-white hover:bg-slate-100 border-slate-200 text-slate-650 hover:text-slate-850"
@@ -254,7 +254,7 @@ export const LedgerFilters = ({
             </div>
             <button
               onClick={handleApplyCustomRange}  
-              className="px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-emerald-500 hover:bg-emerald-600 transition-colors"
+              className="px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-amber-500 hover:bg-amber-600 transition-colors"
             >
               Apply Filter
             </button>

@@ -21,7 +21,7 @@ const LedgerRow = ({
       <td className="px-2 sm:px-4 py-3 whitespace-nowrap">
         <button
           onClick={() => setSelectedDailyDate(exp.date)}
-          className="font-bold text-[10px] sm:text-xs border-b border-dashed border-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all focus:outline-none whitespace-nowrap"
+          className="font-bold text-[10px] sm:text-xs border-b border-dashed border-slate-400 hover:border-amber-500 hover:text-amber-500 transition-all focus:outline-none whitespace-nowrap"
           title="Click to view all expenses for this day"
         >
           <span className="hidden sm:inline">{formatDate(exp.date)}</span>
@@ -75,7 +75,7 @@ const LedgerRow = ({
               e.preventDefault();
               setOpenMenuId(isMenuOpen ? null : exp.id);
             }}
-            className={`p-1 sm:p-1.5 rounded-lg transition-all focus:outline-none ${isMenuOpen ? (darkMode ? "bg-slate-700 text-emerald-400" : "bg-slate-200 text-emerald-600") : darkMode ? "text-slate-400 hover:bg-slate-700 hover:text-slate-200" : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"}`}
+            className={`p-1 sm:p-1.5 rounded-lg transition-all focus:outline-none ${isMenuOpen ? (darkMode ? "bg-slate-700 text-amber-400" : "bg-slate-200 text-amber-600") : darkMode ? "text-slate-400 hover:bg-slate-700 hover:text-slate-200" : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"}`}
             aria-label="Row actions"
           >
             <KebabIcon className="w-4 h-4" />
@@ -91,7 +91,7 @@ const LedgerRow = ({
                   setEditingExpense(exp);
                   setOpenMenuId(null);
                 }}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-bold transition-colors ${darkMode ? "text-slate-300 hover:bg-slate-800 hover:text-emerald-400" : "text-slate-700 hover:bg-emerald-50 hover:text-emerald-700"}`}
+                className={`w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-bold transition-colors ${darkMode ? "text-slate-300 hover:bg-slate-800 hover:text-amber-400" : "text-slate-700 hover:bg-amber-50 hover:text-amber-700"}`}
               >
                 <EditPencilIcon className="w-3.5 h-3.5" />
                 Edit Expense

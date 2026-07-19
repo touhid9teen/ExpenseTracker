@@ -36,7 +36,7 @@ export const ExpenseTable = ({
                       setSortOrder("desc");
                     }
                   }}
-                  className="flex items-center gap-1 hover:text-emerald-500 transition-colors focus:outline-none font-bold uppercase"
+                  className="flex items-center gap-1 hover:text-amber-500 transition-colors focus:outline-none font-bold uppercase"
                 >
                   Date{" "}
                   <span className="text-[10px]">
@@ -64,7 +64,7 @@ export const ExpenseTable = ({
                       setSortOrder("desc");
                     }
                   }}
-                  className="flex items-center gap-1 hover:text-emerald-500 transition-colors focus:outline-none font-bold uppercase"
+                  className="flex items-center gap-1 hover:text-amber-500 transition-colors focus:outline-none font-bold uppercase"
                 >
                   Amount{" "}
                   <span className="text-[10px]">

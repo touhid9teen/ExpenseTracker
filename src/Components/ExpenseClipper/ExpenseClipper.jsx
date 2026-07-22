@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import ToastProvider from "../common/ToastProvider";
 import InstallPWAPrompt from "../common/InstallPWAPrompt";
+import OfflineBanner from "../common/OfflineBanner";
 import ExpenseClipperScreen from "./ExpenseClipperScreen";
 import { useExpenseClipper } from "../../hooks/useExpenseClipper";
 
@@ -19,6 +20,11 @@ const ExpenseClipper = () => {
     return (
         <>
             <ToastProvider darkMode={clipper.darkMode} />
+            <OfflineBanner
+                isOnline={clipper.isOnline}
+                pendingSyncCount={clipper.pendingSyncCount}
+                darkMode={clipper.darkMode}
+            />
             <ExpenseClipperScreen {...clipper} />
             <InstallPWAPrompt darkMode={clipper.darkMode} />
         </>

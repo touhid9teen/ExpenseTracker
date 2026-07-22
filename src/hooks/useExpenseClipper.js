@@ -10,6 +10,7 @@ import { useExpenses } from "./useExpenses";
 import { useExpenseFilters } from "./useExpenseFilters";
 import { useUIState } from "./useUIState";
 import { useExpenseForm } from "./useExpenseForm";
+import { useOnlineStatus } from "./useOnlineStatus";
 
 /**
  * Composition layer that wires the focused hooks together and exposes
@@ -24,9 +25,10 @@ import { useExpenseForm } from "./useExpenseForm";
 export const useExpenseClipper = () => {
     const theme = useTheme();
     const ui = useUIState();
+    const isOnline = useOnlineStatus();
 
     const auth = useAuth({ onLogout: () => expensesApi.setExpenses([]) });
-    const expensesApi = useExpenses(auth.user);
+    const expensesApi = useExpenses(auth.user, isOnline);
     const filters = useExpenseFilters(expensesApi.expenses);
 
     const form = useExpenseForm(async (formValues) => {
@@ -88,6 +90,9 @@ export const useExpenseClipper = () => {
         dailyModalDetails,
         formatDate,
         CATEGORIES,
-        quickActionSuggestions: SUGGESTIONS
+        quickActionSuggestions: SUGGESTIONS,
+
+        // Connectivity
+        isOnline
     };
 };

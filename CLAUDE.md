@@ -19,7 +19,15 @@ Required env vars in `.env.local`: `DATABASE_URL` (Neon Postgres), `JWT_SECRET`,
 
 ### Single-page client app driven by one hook
 
-The whole UI is a single client-side page: [src/app/page.js](src/app/page.js) renders `ExpenseClipper`, which calls the central hook [src/hooks/useExpenseClipper.js](src/hooks/useExpenseClipper.js). That hook owns virtually all app state (auth, expenses, filters, pagination, theme, modals, chat) and passes it down via prop-spreading (`<ExpenseClipperScreen {...clipper} />`). `ExpenseClipperScreen` switches between tab views: `StatisticsView`, `LedgerView`, `AboutView`, plus `AuthView` when logged out and the `ChatBot` overlay.
+The whole UI is a single client-side page: [src/app/page.js](src/app/page.js) renders `ExpenseClipper`, which calls the central hook [src/hooks/useExpenseClipper.js](src/hooks/useExpenseClipper.js). That hook is a thin **composition layer** — it doesn't own state directly but wires together six focused sub-hooks and merges their return values (via object-spread) into one props object that's passed down by prop-spreading (`<ExpenseClipperScreen {...clipper} />`). Each sub-hook owns one slice of state:
+  - [useAuth](src/hooks/useAuth.js) — user session (its `onLogout` clears expenses)
+  - [useTheme](src/hooks/useTheme.js) — dark mode + category style resolution
+  - [useExpenses](src/hooks/useExpenses.js) — expense data + CRUD (keyed off `auth.user`)
+  - [useExpenseFilters](src/hooks/useExpenseFilters.js) — filters, sorting, pagination, derived stats
+  - [useUIState](src/hooks/useUIState.js) — tabs, modals, menus, chat overlay
+  - [useExpenseForm](src/hooks/useExpenseForm.js) — quick-add form fields
+
+  When changing behavior, edit the relevant sub-hook, not the composition layer. `ExpenseClipperScreen` switches between tab views: `StatisticsView`, `LedgerView`, `AboutView`, plus `AuthView` when logged out and the `ChatBot` overlay.
 
 - Derived data (summary cards, category breakdown, daily trend, filtered/paginated lists) is computed client-side in [src/utils/expenseCalculations.js](src/utils/expenseCalculations.js) — the API only returns raw rows.
 - Component folders under [src/Components/](src/Components/) group by view (`LedgerView/`, `StatisticsView/`, `AuthView/`, `ChatBot/`, `ExpenseClipper/`, `Skeleton/`, `common/`). Icons come from [src/Components/common/Icons.jsx](src/Components/common/Icons.jsx).

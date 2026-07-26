@@ -2,11 +2,20 @@ import { NextResponse } from "next/server";
 import { callAIModel, getRetryDelaySeconds, isRateLimitError } from "@/utils/aiProviders";
 import { AI_MODELS } from "@/config/aiModels";
 import { buildSystemInstruction } from "@/utils/promptBuilder";
+import { checkRateLimit, getClientId } from "@/utils/rateLimiter";
 
 // ─── Main handler ────────────────────────────────────────
 
 export async function POST(request) {
   try {
+    // Rate limit: 20 chat messages per minute per IP (prevent cost explosion)
+    const clientId = getClientId(request);
+    const rateLimited = checkRateLimit(request, `chat:${clientId}`, {
+      maxRequests: 20,
+      errorMessage: 'Too many requests. Please slow down and try again later.'
+    });
+    if (rateLimited) return rateLimited;
+
     const { message, expenses, user } = await request.json();
     const instruction = buildSystemInstruction({ user, expenses });
 

@@ -22,7 +22,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
     }
 
-    const hashedAnswer = await bcrypt.hash(securityAnswer.toLowerCase().trim(), 10);
+    const hashedAnswer = await bcrypt.hash(securityAnswer, 12);
 
     await sql`
       UPDATE users

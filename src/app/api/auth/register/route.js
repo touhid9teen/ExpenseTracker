@@ -2,11 +2,20 @@ import sql from '../../../../lib/db';
 import { encrypt } from '../../../../lib/jwt';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
+import { checkRateLimit, getClientId } from '../../../../utils/rateLimiter';
 
 export const runtime = 'edge';
 
 export async function POST(request) {
   try {
+    // Rate limit: 5 registrations per minute per IP
+    const clientId = getClientId(request);
+    const rateLimited = checkRateLimit(request, `register:${clientId}`, {
+      maxRequests: 5,
+      errorMessage: 'Too many registration attempts. Please try again later.'
+    });
+    if (rateLimited) return rateLimited;
+
     // ── Auto-migrate schema if needed (idempotent, safe to run every time) ──
     if (sql) {
       try { await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(255) NOT NULL DEFAULT ''`; } catch (e) { console.error('Schema migration (email column):', e?.message); }
@@ -39,8 +48,19 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Please provide a valid email address' }, { status: 400 });
     }
 
-    if (password.length < 3) {
-      return NextResponse.json({ error: 'Password must be at least 3 characters' }, { status: 400 });
+    if (password.length < 8) {
+      return NextResponse.json({ error: 'Password must be at least 8 characters' }, { status: 400 });
+    }
+
+    // Require password complexity
+    if (!/[A-Z]/.test(password)) {
+      return NextResponse.json({ error: 'Password must contain at least one uppercase letter' }, { status: 400 });
+    }
+    if (!/[a-z]/.test(password)) {
+      return NextResponse.json({ error: 'Password must contain at least one lowercase letter' }, { status: 400 });
+    }
+    if (!/\d/.test(password)) {
+      return NextResponse.json({ error: 'Password must contain at least one number' }, { status: 400 });
     }
 
     if (!sql) {
@@ -56,6 +76,7 @@ export async function POST(request) {
         value: token,
         httpOnly: true,
         secure: process.env.APP_ENV === 'production',
+        sameSite: 'lax',
         maxAge: 60 * 60 * 24 * 30,
         path: '/',
       });
@@ -75,7 +96,7 @@ export async function POST(request) {
     }
 
     // Create user
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 12);
     const inserted = await sql`
       INSERT INTO users (username, email, password_hash)
       VALUES (${username}, ${normalizedEmail}, ${hashedPassword})
@@ -98,6 +119,7 @@ export async function POST(request) {
       value: token,
       httpOnly: true,
       secure: process.env.APP_ENV === 'production',
+      sameSite: 'lax',
       maxAge: 60 * 60 * 24 * 30,
       path: '/',
     });

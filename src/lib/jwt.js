@@ -1,6 +1,9 @@
 import { SignJWT, jwtVerify } from 'jose';
 
-const secretKey = process.env.JWT_SECRET
+const secretKey = process.env.JWT_SECRET;
+if (!secretKey || secretKey.length < 16) {
+  throw new Error('JWT_SECRET environment variable must be set to a strong secret (min 16 characters)');
+}
 const key = new TextEncoder().encode(secretKey);
 
 export async function authenticateUser(request) {
@@ -8,9 +11,6 @@ export async function authenticateUser(request) {
   if (token) {
     const user = await decrypt(token);
     if (user) return user;
-  }
-  if (process.env.APP_ENV === 'development') {
-    return { id: 'dev-user-id', username: 'dev-user' };
   }
   return null;
 }

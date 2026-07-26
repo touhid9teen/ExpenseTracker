@@ -1,12 +1,21 @@
 import sql from '../../../../lib/db';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
+import { checkRateLimit, getClientId } from '../../../../utils/rateLimiter';
 
 export const runtime = 'edge';
 
 // POST /api/auth/recover — request a password reset by email
 export async function POST(request) {
   try {
+    // Rate limit: 3 reset requests per minute per IP
+    const clientId = getClientId(request);
+    const rateLimited = checkRateLimit(request, `recover:${clientId}`, {
+      maxRequests: 3,
+      errorMessage: 'Too many password reset requests. Please try again later.'
+    });
+    if (rateLimited) return rateLimited;
+
     // ── Auto-migrate schema if needed (idempotent) ──
     if (sql) {
       try { await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(255) NOT NULL DEFAULT ''`; } catch (e) { console.error('Schema migration (email column):', e?.message); }
@@ -38,12 +47,14 @@ export async function POST(request) {
     }
 
     if (!sql) {
-      // Dev mode: return a mock token
+      // Dev mode: return a randomly generated mock token
+      const devArray = new Uint8Array(3);
+      crypto.getRandomValues(devArray);
+      const devToken = String(100000 + ((devArray[0] << 16 | devArray[1] << 8 | devArray[2]) % 900000)).slice(0, 6);
       return NextResponse.json({
         success: true,
         message: 'If this email is registered, you will receive a reset link.',
-        // In dev mode, return a demo token so the UI can proceed
-        devToken: 'dev-reset-token-123',
+        devToken,
         devMode: true,
       });
     }
@@ -61,11 +72,13 @@ export async function POST(request) {
 
     const user = users[0];
 
-    // Generate reset token (6-digit code for simplicity)
-    const array = new Uint8Array(4);
+    // Generate cryptographically secure 6-digit reset code
+    const array = new Uint8Array(3);
     crypto.getRandomValues(array);
-    const resetCode = String(100000 + (array[0] * 256 + array[1]) % 900000).slice(0, 6);
-    const tokenHash = await bcrypt.hash(resetCode, 10);
+    // 3 random bytes → 0..16_777_215 → modulo 900_000 → add 100_000 → always exactly 6 digits
+    const numericCode = 100000 + ((array[0] << 16 | array[1] << 8 | array[2]) % 900000);
+    const resetCode = String(numericCode);
+    const tokenHash = await bcrypt.hash(resetCode, 12);
 
     // Set expiry to 15 minutes from now
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
@@ -79,13 +92,12 @@ export async function POST(request) {
       VALUES (${user.id}, ${tokenHash}, ${expiresAt})
     `;
 
-    // In development mode, return the reset code so the UI can use it
     const isDev = process.env.APP_ENV === 'development';
 
     return NextResponse.json({
       success: true,
       message: 'If this email is registered, you will receive a reset link.',
-      ...(isDev ? { devToken: resetCode, devMode: true, userId: user.id } : {}),
+      ...(isDev ? { devToken: resetCode, devMode: true } : {}),
     });
   } catch (error) {
     console.error('Password reset request error:', error);
@@ -96,6 +108,14 @@ export async function POST(request) {
 // PUT /api/auth/recover — verify token and reset password
 export async function PUT(request) {
   try {
+    // Rate limit: 5 reset attempts per minute per IP
+    const clientId = getClientId(request);
+    const rateLimited = checkRateLimit(request, `recover-verify:${clientId}`, {
+      maxRequests: 5,
+      errorMessage: 'Too many reset attempts. Please try again later.'
+    });
+    if (rateLimited) return rateLimited;
+
     const { email, token, newPassword } = await request.json();
     const normalizedEmail = email?.toLowerCase().trim() || '';
 
@@ -103,8 +123,17 @@ export async function PUT(request) {
       return NextResponse.json({ error: 'Email, reset code, and new password are required' }, { status: 400 });
     }
 
-    if (newPassword.length < 3) {
-      return NextResponse.json({ error: 'Password must be at least 3 characters' }, { status: 400 });
+    if (newPassword.length < 8) {
+      return NextResponse.json({ error: 'Password must be at least 8 characters' }, { status: 400 });
+    }
+    if (!/[A-Z]/.test(newPassword)) {
+      return NextResponse.json({ error: 'Password must contain at least one uppercase letter' }, { status: 400 });
+    }
+    if (!/[a-z]/.test(newPassword)) {
+      return NextResponse.json({ error: 'Password must contain at least one lowercase letter' }, { status: 400 });
+    }
+    if (!/\d/.test(newPassword)) {
+      return NextResponse.json({ error: 'Password must contain at least one number' }, { status: 400 });
     }
 
     if (!sql) {
@@ -153,7 +182,7 @@ export async function PUT(request) {
     }
 
     // Hash new password and update
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
     await sql`UPDATE users SET password_hash = ${hashedPassword} WHERE id = ${user.id}`;
 
     return NextResponse.json({ success: true, message: 'Password reset successfully!' });

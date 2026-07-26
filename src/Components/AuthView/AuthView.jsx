@@ -82,6 +82,7 @@ const AuthView = ({ setUser }) => {
     trimmedUsername.length >= 3 &&
     validateEmail(trimmedEmail) &&
     getPasswordStrength(password).score >= 2 &&
+    password.length >= 8 &&
     password === confirmPassword;
 
   const handleLogin = async (e) => {
@@ -139,8 +140,20 @@ const AuthView = ({ setUser }) => {
       toast.error('Please enter a password');
       return;
     }
-    if (password.length < 3) {
-      toast.error('Password must be at least 3 characters');
+    if (password.length < 8) {
+      toast.error('Password must be at least 8 characters');
+      return;
+    }
+    if (!/[A-Z]/.test(password)) {
+      toast.error('Password must include at least one uppercase letter');
+      return;
+    }
+    if (!/[a-z]/.test(password)) {
+      toast.error('Password must include at least one lowercase letter');
+      return;
+    }
+    if (!/\d/.test(password)) {
+      toast.error('Password must include at least one number');
       return;
     }
     if (password !== confirmPassword) {

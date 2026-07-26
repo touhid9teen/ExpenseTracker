@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   FinVueLogoIcon,
   ChartPieIcon,
@@ -7,7 +8,7 @@ import {
   MoonIcon,
 } from "./Icons";
 
-const AppHeader = ({
+const AppHeader = memo(({
   darkMode,
   activeTab,
   setActiveTab,
@@ -150,6 +151,6 @@ const AppHeader = ({
       </div>
     </header>
   );
-};
+});
 
 export default AppHeader;

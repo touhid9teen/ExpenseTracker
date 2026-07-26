@@ -1,3 +1,4 @@
+import { memo } from "react";
 import dynamic from "next/dynamic";
 
 const StatisticsHeader = dynamic(() => import("./StatisticsHeader").then(m => m.StatisticsHeader));
@@ -6,7 +7,7 @@ const QuickStatsGrid = dynamic(() => import("./QuickStatsGrid").then(m => m.Quic
 const SpendingDonutChart = dynamic(() => import("./SpendingDonutChart").then(m => m.SpendingDonutChart));
 const SpendingOverviewChart = dynamic(() => import("./SpendingOverviewChart").then(m => m.SpendingOverviewChart));
 
-const StatisticsView = (props) => {
+const StatisticsView = memo((props) => {
     const {
         activeTab,
         darkMode = true,
@@ -31,6 +32,6 @@ const StatisticsView = (props) => {
             <SpendingDonutChart darkMode={darkMode} expenses={expenses} />
         </div>
     ) : null;
-};
+});
 
 export default StatisticsView;

@@ -95,10 +95,22 @@ const ChatBot = ({
     setIsLoading(true);
 
     try {
+      // Send a trimmed expense list to reduce payload size
+      const expensesForChat = Array.isArray(expenses)
+        ? expenses.slice(-50).map(({ id, description, amount, date, category }) => ({
+            id, description, amount, date, category
+          }))
+        : [];
+
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage.text, user, expenses }),
+        body: JSON.stringify({
+          message: userMessage.text,
+          user,
+          expenses: expensesForChat,
+          expenseCount: expenses?.length || 0,
+        }),
       });
 
       const data = await res.json();

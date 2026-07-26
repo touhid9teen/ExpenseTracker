@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   ChartPieIcon,
   PlusIcon,
@@ -7,7 +8,7 @@ import {
   LightningBoltIcon,
 } from "./Icons";
 
-const QuickActionsPopover = ({ darkMode, suggestions, onSelect, onClose }) => {
+const QuickActionsPopover = memo(({ darkMode, suggestions, onSelect, onClose }) => {
   if (!suggestions?.length) return null;
 
   return (
@@ -78,7 +79,7 @@ const QuickActionsPopover = ({ darkMode, suggestions, onSelect, onClose }) => {
       </div>
     </div>
   );
-};
+});
 
 const NavButton = ({
   icon: Icon,
@@ -99,7 +100,7 @@ const NavButton = ({
   </button>
 );
 
-const MobileBottomNav = ({
+const MobileBottomNav = memo(({
   darkMode,
   activeTab,
   setActiveTab,
@@ -187,6 +188,6 @@ const MobileBottomNav = ({
       />
     </div>
   );
-};
+});
 
 export default MobileBottomNav;

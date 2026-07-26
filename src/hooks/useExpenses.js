@@ -102,6 +102,54 @@ export const useExpenses = (user, isOnline = true) => {
         }
     }, [userId, refreshPendingCount]);
 
+    // Unified fetch from the server: syncs queue then fetches fresh data.
+    // Uses AbortController for cancellation and a shared loading guard to
+    // prevent concurrent fetches from the two trigger sources.
+    const fetchAbortRef = useRef(null);
+    const fetchInFlightRef = useRef(false);
+
+    const fetchFromServer = useCallback(async () => {
+        if (!userId || !navigator.onLine || fetchInFlightRef.current) return;
+
+        fetchInFlightRef.current = true;
+        setIsExpensesLoading(true);
+
+        // Cancel any previous in-flight request
+        if (fetchAbortRef.current) {
+            fetchAbortRef.current.abort();
+        }
+        const controller = new AbortController();
+        fetchAbortRef.current = controller;
+
+        try {
+            await syncQueue();
+
+            const response = await fetch("/api/expenses", {
+                signal: controller.signal
+            });
+            if (response.ok) {
+                const data = await response.json();
+                const formattedData = Array.isArray(data)
+                    ? data.map((exp) =>
+                          normalizeExpenseRecord({
+                              ...exp,
+                              date: exp.date ? String(exp.date).split("T")[0] : ""
+                          })
+                      )
+                    : [];
+                setExpenses(formattedData);
+            }
+        } catch (error) {
+            if (error.name === "AbortError") return; // cancelled, ignore
+            console.error("Failed to fetch expenses:", error);
+            if (navigator.onLine) toast.error("Failed to load expenses.");
+        } finally {
+            setIsExpensesLoading(false);
+            fetchInFlightRef.current = false;
+            refreshPendingCount();
+        }
+    }, [userId, syncQueue, setExpenses, refreshPendingCount]);
+
     // Hydrate from cache immediately, then refresh from the API when online.
     useEffect(() => {
         if (!user) {
@@ -114,70 +162,14 @@ export const useExpenses = (user, isOnline = true) => {
         setExpensesState(cached);
         refreshPendingCount();
 
-        const load = async () => {
-            if (!navigator.onLine) return; // stay on cached data, no error toast
-
-            setIsExpensesLoading(true);
-            try {
-                await syncQueue();
-
-                const response = await fetch("/api/expenses");
-                if (response.ok) {
-                    const data = await response.json();
-                    const formattedData = Array.isArray(data)
-                        ? data.map((exp) =>
-                              normalizeExpenseRecord({
-                                  ...exp,
-                                  date: exp.date ? String(exp.date).split("T")[0] : ""
-                              })
-                          )
-                        : [];
-                    setExpenses(formattedData);
-                }
-            } catch (error) {
-                // Offline / network blip: keep cached data silently.
-                console.error("Failed to fetch expenses:", error);
-                if (navigator.onLine) toast.error("Failed to load expenses.");
-            } finally {
-                setIsExpensesLoading(false);
-                refreshPendingCount();
-            }
-        };
-
-        load();
+        fetchFromServer();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
-    // When connectivity returns, drain the queue then reconcile from server.
+    // When connectivity returns, sync queue + refresh.
     useEffect(() => {
         if (!user || !isOnline) return;
-        let cancelled = false;
-        (async () => {
-            const drained = await syncQueue();
-            if (drained && !cancelled) {
-                try {
-                    const response = await fetch("/api/expenses");
-                    if (response.ok) {
-                        const data = await response.json();
-                        const formatted = Array.isArray(data)
-                            ? data.map((exp) =>
-                                  normalizeExpenseRecord({
-                                      ...exp,
-                                      date: exp.date ? String(exp.date).split("T")[0] : ""
-                                  })
-                              )
-                            : [];
-                        if (!cancelled) setExpenses(formatted);
-                    }
-                } catch {
-                    // ignore — will retry on next reconnect
-                }
-            }
-            refreshPendingCount();
-        })();
-        return () => {
-            cancelled = true;
-        };
+        fetchFromServer();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOnline, user]);
 

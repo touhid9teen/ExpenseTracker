@@ -21,9 +21,16 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   const { request } = event;
+  const url = new URL(request.url);
 
-  // Only handle same-origin GET navigations/assets; let the rest pass through.
-  if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) {
+  // Only handle same-origin GET requests.
+  if (request.method !== "GET" || url.origin !== self.location.origin) {
+    return;
+  }
+
+  // Skip API routes — they contain dynamic/sensitive data and should
+  // always hit the network. Also skip Next.js internal routes.
+  if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/_next/")) {
     return;
   }
 

@@ -2,6 +2,7 @@ import sql from '../../../../lib/db';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientId } from '../../../../utils/rateLimiter';
+import { recoverRequestSchema, recoverVerifySchema } from '../../../../lib/validations';
 
 export const runtime = 'edge';
 
@@ -16,21 +17,12 @@ export async function POST(request) {
     });
     if (rateLimited) return rateLimited;
 
-    // ── Schema guard: run migrations at most once per instance ──
-    // Schema changes are handled by src/lib/schema.sql and POST /api/init-db.
-    // We skip inline migrations here for performance.
-
-    const { email } = await request.json();
-    const normalizedEmail = email?.toLowerCase().trim() || '';
-
-    if (!normalizedEmail) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+    const body = await request.json();
+    const parsed = recoverRequestSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
     }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(normalizedEmail)) {
-      return NextResponse.json({ error: 'Please provide a valid email address' }, { status: 400 });
-    }
+    const { email: normalizedEmail } = parsed.data;
 
     if (!sql) {
       // Dev mode: return a randomly generated mock token
@@ -102,25 +94,12 @@ export async function PUT(request) {
     });
     if (rateLimited) return rateLimited;
 
-    const { email, token, newPassword } = await request.json();
-    const normalizedEmail = email?.toLowerCase().trim() || '';
-
-    if (!normalizedEmail || !token || !newPassword) {
-      return NextResponse.json({ error: 'Email, reset code, and new password are required' }, { status: 400 });
+    const body = await request.json();
+    const parsed = recoverVerifySchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
     }
-
-    if (newPassword.length < 8) {
-      return NextResponse.json({ error: 'Password must be at least 8 characters' }, { status: 400 });
-    }
-    if (!/[A-Z]/.test(newPassword)) {
-      return NextResponse.json({ error: 'Password must contain at least one uppercase letter' }, { status: 400 });
-    }
-    if (!/[a-z]/.test(newPassword)) {
-      return NextResponse.json({ error: 'Password must contain at least one lowercase letter' }, { status: 400 });
-    }
-    if (!/\d/.test(newPassword)) {
-      return NextResponse.json({ error: 'Password must contain at least one number' }, { status: 400 });
-    }
+    const { email: normalizedEmail, token, newPassword } = parsed.data;
 
     if (!sql) {
       // Dev mode: accept any valid-looking token

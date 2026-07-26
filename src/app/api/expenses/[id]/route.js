@@ -1,6 +1,7 @@
 import sql from '../../../../lib/db';
 import { NextResponse } from 'next/server';
 import { authenticateUser } from '../../../../lib/jwt';
+import { updateExpenseSchema } from '../../../../lib/validations';
 
 export const runtime = 'edge';
 
@@ -24,8 +25,12 @@ export async function PUT(request, props) {
   }
   
   try {
-    const data = await request.json();
-    const { description, amount, date, category } = data;
+    const body = await request.json();
+    const parsed = updateExpenseSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
+    }
+    const { description, amount, date, category } = parsed.data;
 
     const result = await sql`
       UPDATE expenses

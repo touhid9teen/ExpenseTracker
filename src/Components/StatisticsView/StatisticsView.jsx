@@ -19,8 +19,10 @@ const StatisticsView = memo((props) => {
         expenses = []
     } = props;
 
-    return activeTab === "statistics" ? (
-        <div className="space-y-8 animate-fadeIn">
+    // Use CSS visibility instead of conditional rendering to preserve
+    // chart state (DOM stays mounted, just hidden).
+    return (
+        <div className={activeTab === "statistics" ? "space-y-8 animate-fadeIn" : "hidden"}>
             <StatisticsHeader
                 darkMode={darkMode}
                 setActiveTab={setActiveTab}
@@ -31,7 +33,7 @@ const StatisticsView = memo((props) => {
             <QuickStatsGrid darkMode={darkMode} quickStats={quickStats} formatDate={formatDate} />
             <SpendingDonutChart darkMode={darkMode} expenses={expenses} />
         </div>
-    ) : null;
+    );
 });
 
 export default StatisticsView;

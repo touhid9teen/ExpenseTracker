@@ -3,6 +3,7 @@ import { encrypt } from '../../../../lib/jwt';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientId } from '../../../../utils/rateLimiter';
+import { loginSchema } from '../../../../lib/validations';
 
 export const runtime = 'edge';
 
@@ -16,10 +17,12 @@ export async function POST(request) {
     });
     if (rateLimited) return rateLimited;
 
-    const { username, password } = await request.json();
-    if (!username || !password) {
-      return NextResponse.json({ error: 'Username and password are required' }, { status: 400 });
+    const body = await request.json();
+    const parsed = loginSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
     }
+    const { username, password } = parsed.data;
 
     if (!sql) {
       // Development mock: allow any login

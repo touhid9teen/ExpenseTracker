@@ -2,6 +2,7 @@ import sql from '../../../lib/db';
 import { NextResponse } from 'next/server';
 import { authenticateUser } from '../../../lib/jwt';
 import { SEED_EXPENSES } from '../../../data/expenseData';
+import { createExpenseSchema } from '../../../lib/validations';
 
 export const runtime = 'edge';
 
@@ -42,8 +43,12 @@ export async function POST(request) {
   }
 
   try {
-    const data = await request.json();
-    const { id, description, amount, date, category } = data;
+    const body = await request.json();
+    const parsed = createExpenseSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
+    }
+    const { id, description, amount, date, category } = parsed.data;
 
     const result = await sql`
       INSERT INTO expenses (id, user_id, item, description, amount, date, category)

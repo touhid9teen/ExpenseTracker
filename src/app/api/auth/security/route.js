@@ -2,6 +2,7 @@ import sql from '../../../../lib/db';
 import { authenticateUser } from '../../../../lib/jwt';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
+import { securityQuestionSchema } from '../../../../lib/validations';
 
 export const runtime = 'edge';
 
@@ -12,11 +13,12 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { securityQuestion, securityAnswer } = await request.json();
-
-    if (!securityQuestion || !securityAnswer) {
-      return NextResponse.json({ error: 'Question and answer are required' }, { status: 400 });
+    const body = await request.json();
+    const parsed = securityQuestionSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
     }
+    const { securityQuestion, securityAnswer } = parsed.data;
 
     if (!sql) {
       return NextResponse.json({ error: 'Database not configured' }, { status: 503 });

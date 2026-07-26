@@ -11,8 +11,13 @@ import {
     getQueueLength
 } from "../utils/offlineStore";
 
-const generateExpenseId = () =>
-    `exp-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+const generateExpenseId = () => {
+    // Use crypto.randomUUID() for collision-resistant, non-predictable IDs
+    const uuid = typeof crypto !== 'undefined' && crypto.randomUUID
+        ? crypto.randomUUID().split('-').slice(0, 3).join('')
+        : Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
+    return `exp-${uuid}`;
+};
 
 /**
  * Owns the expense list with offline-first CRUD.

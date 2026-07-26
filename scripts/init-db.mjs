@@ -1,7 +1,6 @@
-import pg from 'pg';
+import { neon } from '@neondatabase/serverless';
 import fs from 'fs';
 import path from 'path';
-const { Client } = pg;
 
 const main = async () => {
     // Manually getting from .env.local
@@ -22,24 +21,17 @@ const main = async () => {
     const dbUrl = dbUrlMatch[1];
     console.log("Found database URL. Connecting...");
 
-    const client = new Client({
-        connectionString: dbUrl,
-    });
+    const sql = neon(dbUrl);
     
     try {
-        await client.connect();
-        console.log("Connected to database successfully.");
-        
         const schemaPath = path.join(process.cwd(), 'src', 'lib', 'schema.sql');
         const schema = fs.readFileSync(schemaPath, 'utf8');
         
         console.log("Executing schema.sql...");
-        await client.query(schema);
+        await sql.unsafe(schema);
         console.log("Database initialized successfully!");
     } catch (err) {
         console.error("Error executing schema:", err);
-    } finally {
-        await client.end();
     }
 };
 

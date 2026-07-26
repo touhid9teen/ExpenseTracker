@@ -6,31 +6,24 @@ import { neon } from '@neondatabase/serverless';
 import 'dotenv/config';
 import { config } from 'dotenv';
 config({ path: '.env.local' });
+import SCHEMA_SQL from './src/lib/schema.mjs';
 
 const sql = neon(process.env.DATABASE_URL);
 
 async function initDB() {
   try {
-    await sql`
-      CREATE TABLE IF NOT EXISTS expenses (
-        id VARCHAR(255) PRIMARY KEY,
-        item VARCHAR(255) NOT NULL,
-        description VARCHAR(255) NOT NULL,
-        amount DOUBLE PRECISION NOT NULL,
-        date DATE NOT NULL,
-        category VARCHAR(100) NOT NULL
-      );
-    `;
+    const statements = SCHEMA_SQL
+      .split(';')
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
 
-    await sql`
-      ALTER TABLE expenses
-      ALTER COLUMN amount TYPE DOUBLE PRECISION
-      USING amount::double precision
-    `;
+    for (const stmt of statements) {
+      await sql.unsafe(stmt + ';');
+    }
 
-    console.log("Database table 'expenses' initialized successfully");
+    console.log('Database initialized successfully from canonical schema.');
   } catch (error) {
-    console.error("Error initializing database:", error);
+    console.error('Error initializing database:', error);
   }
 }
 

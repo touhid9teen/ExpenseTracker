@@ -3,6 +3,7 @@ import { encrypt } from '../../../../lib/jwt';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientId } from '../../../../utils/rateLimiter';
+import { registerSchema } from '../../../../lib/validations';
 
 export const runtime = 'edge';
 
@@ -16,39 +17,12 @@ export async function POST(request) {
     });
     if (rateLimited) return rateLimited;
 
-    // ── Schema guard: run migrations at most once per instance ──
-    // Schema changes are handled by src/lib/schema.sql and POST /api/init-db.
-    // We skip inline migrations here for performance (they added needless
-    // ALTER TABLE / CREATE INDEX overhead on every registration).
-
-    const { username, email, password } = await request.json();
-
-    if (!username || !email || !password) {
-      return NextResponse.json({ error: 'Username, email, and password are required' }, { status: 400 });
+    const body = await request.json();
+    const parsed = registerSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
     }
-
-    const normalizedEmail = email.toLowerCase().trim();
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(normalizedEmail)) {
-      return NextResponse.json({ error: 'Please provide a valid email address' }, { status: 400 });
-    }
-
-    if (password.length < 8) {
-      return NextResponse.json({ error: 'Password must be at least 8 characters' }, { status: 400 });
-    }
-
-    // Require password complexity
-    if (!/[A-Z]/.test(password)) {
-      return NextResponse.json({ error: 'Password must contain at least one uppercase letter' }, { status: 400 });
-    }
-    if (!/[a-z]/.test(password)) {
-      return NextResponse.json({ error: 'Password must contain at least one lowercase letter' }, { status: 400 });
-    }
-    if (!/\d/.test(password)) {
-      return NextResponse.json({ error: 'Password must contain at least one number' }, { status: 400 });
-    }
+    const { username, email: normalizedEmail, password } = parsed.data;
 
     if (!sql) {
       // Mock registration for development

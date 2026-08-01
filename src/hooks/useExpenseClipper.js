@@ -36,6 +36,13 @@ export const useExpenseClipper = () => {
         ui.setShowQuickAdd(false);
     });
 
+    // Close the add-expense wizard and reset it back to the first step so the
+    // next open starts fresh.
+    const closeAddModal = () => {
+        ui.setShowQuickAdd(false);
+        form.resetForm();
+    };
+
     const handleSaveEdit = async (e) => {
         e.preventDefault();
         const { editingExpense, setEditingExpense } = ui;
@@ -81,6 +88,8 @@ export const useExpenseClipper = () => {
 
         // Quick-add form
         ...form,
+        isAddingExpense: form.isSaving,
+        closeAddModal,
         handleSaveEdit,
         handleConfirmDelete,
 

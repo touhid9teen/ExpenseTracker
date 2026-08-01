@@ -182,6 +182,58 @@ export const BookGuideIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
   </svg>
 );
 
+// ─── Expense Categories ───
+
+export const FoodIcon = ({ className = "w-6 h-6", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4 3v7a2 2 0 002 2h0a2 2 0 002-2V3M6 12v9M17 3c-1.657 0-3 2.686-3 6 0 2.21.895 4 2 4v8" />
+  </svg>
+);
+
+export const TransportIcon = ({ className = "w-6 h-6", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 16v2a1 1 0 001 1h1a1 1 0 001-1v-1h8v1a1 1 0 001 1h1a1 1 0 001-1v-2m0 0l-1.5-6.5A2 2 0 0016.05 8H7.95a2 2 0 00-1.95 1.5L4.5 16H19.5zM7 13h.01M17 13h.01" />
+  </svg>
+);
+
+export const UtilitiesIcon = ({ className = "w-6 h-6", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+  </svg>
+);
+
+export const EntertainmentIcon = ({ className = "w-6 h-6", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+  </svg>
+);
+
+export const HealthcareIcon = ({ className = "w-6 h-6", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+  </svg>
+);
+
+export const ShoppingIcon = ({ className = "w-6 h-6", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+  </svg>
+);
+
+export const EducationIcon = ({ className = "w-6 h-6", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 14v7" />
+  </svg>
+);
+
+export const OthersCategoryIcon = ({ className = "w-6 h-6", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+);
+
 // ─── App Info ───
 
 export const TagIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (

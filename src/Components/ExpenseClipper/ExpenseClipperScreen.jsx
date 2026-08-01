@@ -10,6 +10,7 @@ import {
   DailyExpenseModal,
   DeleteExpenseModal,
   EditExpenseModal,
+  AddExpenseModal,
 } from "./ExpenseModals/ExpenseModals";
 import LedgerView from "../LedgerView/LedgerView";
 import dynamic from "next/dynamic";
@@ -79,6 +80,27 @@ const ExpenseClipperScreen = (props) => {
         setChatOpen={props.setChatOpen}
       />
 
+      <AddExpenseModal
+        showQuickAdd={props.showQuickAdd}
+        setShowQuickAdd={props.setShowQuickAdd}
+        closeAddModal={props.closeAddModal}
+        darkMode={props.darkMode}
+        CATEGORIES={props.CATEGORIES}
+        getCategoryStyles={props.getCategoryStylesForTheme}
+        addStep={props.addStep}
+        selectCategory={props.selectCategory}
+        goToCategoryStep={props.goToCategoryStep}
+        goToAmountStep={props.goToAmountStep}
+        addCategory={props.addCategory}
+        addDescription={props.addDescription}
+        setAddDescription={props.setAddDescription}
+        addAmount={props.addAmount}
+        setAddAmount={props.setAddAmount}
+        addDate={props.addDate}
+        setAddDate={props.setAddDate}
+        handleAddExpense={props.handleAddExpense}
+        isAddingExpense={props.isAddingExpense}
+      />
       <DailyExpenseModal
         selectedDailyDate={props.selectedDailyDate}
         dailyModalDetails={props.dailyModalDetails}

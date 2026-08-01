@@ -1,6 +1,5 @@
 import { normalizeExpenseAmount } from "../../utils/expenseCalculations";
 import { LedgerHeaderActions } from "./LedgerHeaderActions";
-import { QuickAddExpenseForm } from "./QuickAddExpenseForm";
 import { LedgerFilters } from "./LedgerFilters";
 import { ExpenseTable } from "./ExpenseTable";
 import { PaginationBar } from "./PaginationBar";
@@ -15,10 +14,8 @@ const LedgerView = (props) => {
             <LedgerHeaderActions
                 darkMode={props.darkMode ?? true}
                 setActiveTab={props.setActiveTab}
-                showQuickAdd={props.showQuickAdd}
                 setShowQuickAdd={props.setShowQuickAdd}
             />
-            <QuickAddExpenseForm {...props} />
             <LedgerFilters {...props} />
             <ExpenseTable {...props} getCategoryStyles={getCategoryStyles} />
             <PaginationBar

@@ -113,12 +113,7 @@ const MobileBottomNav = memo(({
   setChatOpen,
 }) => {
   const handleQuickAdd = () => {
-    setActiveTab("ledger");
     setShowQuickAdd(true);
-    setTimeout(() => {
-      const form = document.querySelector("form");
-      if (form) form.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 100);
   };
 
   const handleQuickActionSelect = (s) => {

@@ -5,7 +5,9 @@ import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientId } from '../../../../utils/rateLimiter';
 import { registerSchema } from '../../../../lib/validations';
 
-export const runtime = 'edge';
+// bcryptjs uses setImmediate (a Node API) internally, which the Edge Runtime
+// does not provide — so this route must run on the Node.js runtime.
+export const runtime = 'nodejs';
 
 export async function POST(request) {
   try {

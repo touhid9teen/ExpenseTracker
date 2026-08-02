@@ -49,9 +49,9 @@ All CRUD in `useExpenses` is **optimistic**: state + cache are updated immediate
 
 The app is PWA-capable with a service worker ([public/sw.js](public/sw.js)) and manifest ([public/manifest.json](public/manifest.json)).
 
-### API routes (all Edge runtime)
+### API routes (Edge runtime, except the bcrypt auth routes)
 
-Every route under [src/app/api/](src/app/api/) declares `export const runtime = 'edge'` and uses `@neondatabase/serverless` via [src/lib/db.js](src/lib/db.js) (a tagged-template `sql` — `null` when `DATABASE_URL` is unset). Keep Edge-compatible: no Node-only APIs in routes.
+Most routes under [src/app/api/](src/app/api/) declare `export const runtime = 'edge'` and use `@neondatabase/serverless` via [src/lib/db.js](src/lib/db.js) (a tagged-template `sql` — `null` when `DATABASE_URL` is unset). Keep Edge-compatible: no Node-only APIs in routes. **Exception:** the four auth routes that call `bcryptjs` — `/api/auth/login`, `/api/auth/register`, `/api/auth/recover`, `/api/auth/security` — declare `export const runtime = 'nodejs'` instead, because `bcryptjs`'s async methods rely on `setImmediate`, which the Edge Runtime does not provide.
 
 - **Auth**: JWT via `jose` (HS256, 30-day expiry) stored in an `auth_token` httpOnly cookie — see [src/lib/jwt.js](src/lib/jwt.js). `authenticateUser(request)` reads the cookie and returns the decoded payload or `null`. There is **no dev-user fallback** — when the DB is unavailable, auth returns `null` and the expenses API falls back to returning `SEED_EXPENSES` as demo data. Passwords and security answers are bcrypt-hashed (cost factor 12). Password recovery uses email + 6-digit reset codes (`password_reset_tokens` table) and a security-question flow (`/api/auth/security`, `/api/auth/recover`). Registration validates with Zod then checks username/email uniqueness server-side (returns 409 on conflict).
 - **Rate limiting**: [src/utils/rateLimiter.js](src/utils/rateLimiter.js) — in-memory sliding window per Edge instance. Applied on `/api/auth/register` (5 req/min per IP), `/api/auth/login`, and `/api/auth/recover`. `checkRateLimit(request, key, config)` returns `null` on pass or a 429 `NextResponse` when exceeded.

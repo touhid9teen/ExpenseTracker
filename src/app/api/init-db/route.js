@@ -19,7 +19,9 @@ export async function GET() {
 
     for (const stmt of statements) {
       try {
-        await sql.unsafe(stmt + ';');
+        // sql.unsafe() returns an interpolation token, not a runnable query —
+        // it must be embedded in a tagged template to execute raw SQL.
+        await sql`${sql.unsafe(stmt)}`;
       } catch (e) {
         console.error('Migration statement failed (may be idempotent):', e?.message);
       }

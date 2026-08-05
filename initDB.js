@@ -1,4 +1,3 @@
-/* global process */
 import dns from 'node:dns';
 dns.setDefaultResultOrder('ipv4first');
 
@@ -18,7 +17,9 @@ async function initDB() {
       .filter((s) => s.length > 0);
 
     for (const stmt of statements) {
-      await sql.unsafe(stmt + ';');
+      // sql.unsafe() returns an interpolation token, not a runnable query —
+      // it must be embedded in a tagged template to execute raw SQL.
+      await sql`${sql.unsafe(stmt)}`;
     }
 
     console.log('Database initialized successfully from canonical schema.');

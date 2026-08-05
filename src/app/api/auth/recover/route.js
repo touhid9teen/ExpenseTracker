@@ -3,13 +3,14 @@ import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientId } from '../../../../utils/rateLimiter';
 import { recoverRequestSchema, recoverVerifySchema } from '../../../../lib/validations';
+import { withApiLog } from '../../../../utils/apiLogger';
 
 // bcryptjs uses setImmediate (a Node API) internally, which the Edge Runtime
 // does not provide — so this route must run on the Node.js runtime.
 export const runtime = 'nodejs';
 
 // POST /api/auth/recover — request a password reset by email
-export async function POST(request) {
+async function postHandler(request) {
   try {
     // Rate limit: 3 reset requests per minute per IP
     const clientId = getClientId(request);
@@ -86,7 +87,7 @@ export async function POST(request) {
 }
 
 // PUT /api/auth/recover — verify token and reset password
-export async function PUT(request) {
+async function putHandler(request) {
   try {
     // Rate limit: 5 reset attempts per minute per IP
     const clientId = getClientId(request);
@@ -158,3 +159,6 @@ export async function PUT(request) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+export const POST = withApiLog(postHandler);
+export const PUT = withApiLog(putHandler);

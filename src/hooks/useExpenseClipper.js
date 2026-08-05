@@ -11,6 +11,7 @@ import { useExpenseFilters } from "./useExpenseFilters";
 import { useUIState } from "./useUIState";
 import { useExpenseForm } from "./useExpenseForm";
 import { useOnlineStatus } from "./useOnlineStatus";
+import { useAdmin } from "./useAdmin";
 
 /**
  * Composition layer that wires the focused hooks together and exposes
@@ -21,6 +22,7 @@ import { useOnlineStatus } from "./useOnlineStatus";
  *  - useExpenseFilters → filters, sorting, pagination, derived stats
  *  - useUIState        → tabs, modals, menus, chat overlay
  *  - useExpenseForm    → quick-add form fields
+ *  - useAdmin          → admin console data + actions
  */
 export const useExpenseClipper = () => {
     const theme = useTheme();
@@ -30,6 +32,7 @@ export const useExpenseClipper = () => {
     const auth = useAuth({ onLogout: () => expensesApi.setExpenses([]) });
     const expensesApi = useExpenses(auth.user, isOnline);
     const filters = useExpenseFilters(expensesApi.expenses);
+    const admin = useAdmin({ user: auth.user, isOnline, activeTab: ui.activeTab });
 
     const form = useExpenseForm(async (formValues) => {
         await expensesApi.addExpense(formValues);
@@ -92,6 +95,9 @@ export const useExpenseClipper = () => {
         closeAddModal,
         handleSaveEdit,
         handleConfirmDelete,
+
+        // Admin console
+        ...admin,
 
         // Derived helpers + static data
         dashboardDateLabels,

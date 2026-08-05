@@ -6,6 +6,7 @@ import {
   InfoCircleIcon,
   XIcon,
   LightningBoltIcon,
+  ShieldCheckIcon,
 } from "./Icons";
 
 const QuickActionsPopover = memo(({ darkMode, suggestions, onSelect, onClose }) => {
@@ -111,6 +112,7 @@ const MobileBottomNav = memo(({
   quickActionSuggestions,
   setPendingAction,
   setChatOpen,
+  isAdmin,
 }) => {
   const handleQuickAdd = () => {
     setShowQuickAdd(true);
@@ -181,6 +183,16 @@ const MobileBottomNav = memo(({
         darkMode={darkMode}
         onClick={() => setActiveTab("about")}
       />
+
+      {isAdmin && (
+        <NavButton
+          icon={ShieldCheckIcon}
+          label="Admin"
+          isActive={activeTab === "admin"}
+          darkMode={darkMode}
+          onClick={() => setActiveTab("admin")}
+        />
+      )}
     </div>
   );
 });

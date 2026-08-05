@@ -15,6 +15,12 @@ export async function authenticateUser(request) {
   return null;
 }
 
+export async function authenticateAdmin(request) {
+  const user = await authenticateUser(request);
+  if (user && user.isAdmin === true) return user;
+  return null;
+}
+
 export async function encrypt(payload) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })

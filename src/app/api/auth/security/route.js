@@ -3,12 +3,13 @@ import { authenticateUser } from '../../../../lib/jwt';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 import { securityQuestionSchema } from '../../../../lib/validations';
+import { withApiLog } from '../../../../utils/apiLogger';
 
 // bcryptjs uses setImmediate (a Node API) internally, which the Edge Runtime
 // does not provide — so this route must run on the Node.js runtime.
 export const runtime = 'nodejs';
 
-export async function POST(request) {
+async function postHandler(request) {
   try {
     const user = await authenticateUser(request);
     if (!user) {
@@ -40,3 +41,5 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+export const POST = withApiLog(postHandler);

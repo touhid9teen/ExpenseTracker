@@ -6,6 +6,8 @@ import {
   InfoCircleIcon,
   SunIcon,
   MoonIcon,
+  ShieldCheckIcon,
+  CrownIcon,
 } from "./Icons";
 
 const AppHeader = memo(({
@@ -16,6 +18,7 @@ const AppHeader = memo(({
   user,
   handleLogout,
 }) => {
+  const isAdmin = !!user?.isAdmin;
   return (
     <header
       className={`sticky top-0 z-30 transition-colors duration-300 border-b ${
@@ -44,10 +47,10 @@ const AppHeader = memo(({
           </div>
         </div>
 
-        {/* THREE-PAGE VIEW SELECTOR (TAB BUTTONS) - Hidden on mobile, shown on sm+ */}
+        {/* TAB BUTTONS - Hidden on mobile, shown on sm+ */}
         <div className="hidden sm:flex order-3 w-full sm:order-none sm:w-auto items-center">
           <div
-            className={`w-full sm:w-auto p-1 rounded-xl grid grid-cols-3 sm:flex gap-1 border ${
+            className={`w-full sm:w-auto p-1 rounded-xl grid ${isAdmin ? "grid-cols-4" : "grid-cols-3"} sm:flex gap-1 border ${
               darkMode
                 ? "bg-slate-900 border-slate-800"
                 : "bg-slate-100 border-slate-300"
@@ -101,6 +104,24 @@ const AppHeader = memo(({
               <InfoCircleIcon className="w-3.5 h-3.5" strokeWidth={2.5} />
               <span className="hidden sm:inline">About</span>
             </button>
+            {isAdmin && (
+              <button
+                onClick={() => setActiveTab("admin")}
+                className={`px-3 sm:px-4 py-2 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 ${
+                  activeTab === "admin"
+                    ? darkMode
+                      ? "bg-slate-800 text-amber-400 shadow-sm shadow-black/5"
+                      : "bg-white text-amber-600 shadow-sm shadow-slate-200/20"
+                    : darkMode
+                    ? "text-slate-400 hover:text-slate-200"
+                    : "text-slate-500 hover:text-slate-850"
+                }`}
+                id="nav-btn-admin"
+              >
+                <ShieldCheckIcon className="w-3.5 h-3.5" strokeWidth={2.5} />
+                <span className="hidden sm:inline">Admin</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -126,14 +147,26 @@ const AppHeader = memo(({
           {/* User Profile & Logout */}
           {user && (
             <div className="flex items-center gap-2 border-l pl-3 ml-1 border-slate-300 dark:border-slate-700">
-              <div
-                className={`hidden sm:flex items-center justify-center w-8 h-8 rounded-full font-bold text-xs ${
-                  darkMode
-                    ? "bg-amber-500/20 text-amber-400"
-                    : "bg-amber-100 text-amber-700"
-                }`}
-              >
-                {user.username.charAt(0).toUpperCase()}
+              <div className="hidden sm:flex items-center gap-1.5">
+                <div
+                  className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-xs ${
+                    darkMode
+                      ? "bg-amber-500/20 text-amber-400"
+                      : "bg-amber-100 text-amber-700"
+                  }`}
+                >
+                  {user.username.charAt(0).toUpperCase()}
+                </div>
+                {isAdmin && (
+                  <span
+                    title="Administrator"
+                    className={`flex items-center justify-center w-6 h-6 rounded-full ${
+                      darkMode ? "bg-amber-500/15 text-amber-400" : "bg-amber-100 text-amber-600"
+                    }`}
+                  >
+                    <CrownIcon className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  </span>
+                )}
               </div>
               <button
                 onClick={handleLogout}

@@ -2,6 +2,7 @@ import sql from '../../../../lib/db';
 import { NextResponse } from 'next/server';
 import { authenticateUser } from '../../../../lib/jwt';
 import { updateExpenseSchema } from '../../../../lib/validations';
+import { withApiLog } from '../../../../utils/apiLogger';
 
 export const runtime = 'edge';
 
@@ -11,7 +12,7 @@ const normalizeAmount = (amount) => {
   return Number.isFinite(parsedAmount) ? parsedAmount : 0;
 };
 
-export async function PUT(request, props) {
+async function putHandler(request, props) {
   const params = await props.params;
   const user = await authenticateUser(request);
 
@@ -53,7 +54,7 @@ export async function PUT(request, props) {
   }
 }
 
-export async function DELETE(request, props) {
+async function deleteHandler(request, props) {
   const params = await props.params;
   const user = await authenticateUser(request);
 
@@ -83,3 +84,6 @@ export async function DELETE(request, props) {
     return NextResponse.json({ error: 'Failed to delete expense' }, { status: 500 });
   }
 }
+
+export const PUT = withApiLog(putHandler);
+export const DELETE = withApiLog(deleteHandler);

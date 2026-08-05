@@ -7,8 +7,12 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash VARCHAR(255) NOT NULL,
   security_question VARCHAR(255) NOT NULL DEFAULT '',
   security_answer_hash VARCHAR(255) NOT NULL DEFAULT '',
+  is_admin BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Ensure the column exists on databases created before is_admin was added.
+ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN NOT NULL DEFAULT FALSE;
 
 CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
@@ -38,3 +42,21 @@ CREATE TABLE IF NOT EXISTS expenses (
 );
 
 CREATE INDEX IF NOT EXISTS idx_expenses_user_id_date ON expenses(user_id, date DESC);
+
+CREATE TABLE IF NOT EXISTS api_logs (
+  id BIGSERIAL PRIMARY KEY,
+  method VARCHAR(10),
+  path VARCHAR(512),
+  status INTEGER,
+  user_id UUID,
+  username VARCHAR(255),
+  ip VARCHAR(64),
+  duration_ms INTEGER,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_api_logs_id_desc ON api_logs(id DESC);
+CREATE INDEX IF NOT EXISTS idx_api_logs_created_at ON api_logs(created_at DESC);
+
+-- Seed the platform owner as an administrator (idempotent).
+UPDATE users SET is_admin = TRUE WHERE username = 'touhid';

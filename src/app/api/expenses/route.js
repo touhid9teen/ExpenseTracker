@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { authenticateUser } from '../../../lib/jwt';
 import { SEED_EXPENSES } from '../../../data/expenseData';
 import { createExpenseSchema } from '../../../lib/validations';
+import { withApiLog } from '../../../utils/apiLogger';
 
 export const runtime = 'edge';
 
@@ -12,7 +13,7 @@ const normalizeAmount = (amount) => {
   return Number.isFinite(parsedAmount) ? parsedAmount : 0;
 };
 
-export async function GET(request) {
+async function getHandler(request) {
   const user = await authenticateUser(request);
 
   if (!sql || !user) {
@@ -31,7 +32,7 @@ export async function GET(request) {
   }
 }
 
-export async function POST(request) {
+async function postHandler(request) {
   const user = await authenticateUser(request);
 
   if (!user) {
@@ -65,3 +66,6 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Failed to add expense' }, { status: 500 });
   }
 }
+
+export const GET = withApiLog(getHandler);
+export const POST = withApiLog(postHandler);

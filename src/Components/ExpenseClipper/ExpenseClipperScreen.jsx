@@ -18,6 +18,7 @@ const StatisticsView = dynamic(() => import("../StatisticsView/StatisticsView"),
     loading: () => <StatisticsSkeleton darkMode={true} />
 });
 import AboutView from "../AboutView/AboutView";
+import AdminView from "../AdminView/AdminView";
 import ChatBot from "../ChatBot/ChatBot";
 
 const ExpenseClipperScreen = (props) => {
@@ -65,6 +66,9 @@ const ExpenseClipperScreen = (props) => {
             setActiveTab={props.setActiveTab}
           />
         )}
+        {!!props.user?.isAdmin && props.activeTab === "admin" && (
+          <AdminView {...props} />
+        )}
       </main>
 
       <MobileBottomNav
@@ -78,6 +82,7 @@ const ExpenseClipperScreen = (props) => {
         quickActionSuggestions={props.quickActionSuggestions}
         setPendingAction={props.setPendingAction}
         setChatOpen={props.setChatOpen}
+        isAdmin={!!props.user?.isAdmin}
       />
 
       <AddExpenseModal

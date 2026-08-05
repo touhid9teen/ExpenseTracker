@@ -86,3 +86,18 @@ export const updateExpenseSchema = z.object({
   date: dateSchema,
   category: categorySchema,
 });
+
+// ─── Admin ────────────────────────────────────────────────
+
+export const adminUserRoleSchema = z.object({
+  id: z.string().min(1, 'User id is required'),
+  isAdmin: z.boolean(),
+});
+
+export const adminIdSchema = z.object({
+  id: z.string().min(1, 'User id is required'),
+});
+
+export const adminExpenseIdSchema = z.object({
+  id: z.string().min(1, 'Expense id is required'),
+});

@@ -3,10 +3,11 @@ import { callAIModel, getRetryDelaySeconds, isRateLimitError } from "@/utils/aiP
 import { AI_MODELS } from "@/config/aiModels";
 import { buildSystemInstruction } from "@/utils/promptBuilder";
 import { checkRateLimit, getClientId } from "@/utils/rateLimiter";
+import { withApiLog } from "@/utils/apiLogger";
 
 // ─── Main handler ────────────────────────────────────────
 
-export async function POST(request) {
+async function postHandler(request) {
   try {
     // Rate limit: 20 chat messages per minute per IP (prevent cost explosion)
     const clientId = getClientId(request);
@@ -77,3 +78,5 @@ export async function POST(request) {
     );
   }
 }
+
+export const POST = withApiLog(postHandler);

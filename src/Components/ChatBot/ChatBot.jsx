@@ -61,24 +61,6 @@ const ChatBot = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showQuickActions]);
 
-  // ── Handle pending quick action from nav ──
-  useEffect(() => {
-    if (pendingAction) {
-      setPendingAction(null);
-      if (pendingAction.action === "send") {
-        // Small delay to let chat open first
-        setTimeout(() => handleSend(null, pendingAction.text), 100);
-      } else {
-        setInput(pendingAction.text);
-        setTimeout(() => {
-          const len = pendingAction.text.length;
-          inputRef.current?.focus();
-          inputRef.current?.setSelectionRange(len, len);
-        }, 200);
-      }
-    }
-  }, [pendingAction, handleSend, setPendingAction]);
-
   // ── Send handler ──
   const handleSend = useCallback(async (e, directText = null) => {
     if (e) e.preventDefault();
@@ -190,6 +172,24 @@ const ChatBot = ({
     setActiveTab,
     setIsOpen,
   ]);
+
+  // ── Handle pending quick action from nav (must run after handleSend is defined) ──
+  useEffect(() => {
+    if (pendingAction) {
+      setPendingAction(null);
+      if (pendingAction.action === "send") {
+        // Small delay to let chat open first
+        setTimeout(() => handleSend(null, pendingAction.text), 100);
+      } else {
+        setInput(pendingAction.text);
+        setTimeout(() => {
+          const len = pendingAction.text.length;
+          inputRef.current?.focus();
+          inputRef.current?.setSelectionRange(len, len);
+        }, 200);
+      }
+    }
+  }, [pendingAction, handleSend, setPendingAction]);
 
   // ── Quick-action handler ──
   const handleSuggestion = (suggestion) => {

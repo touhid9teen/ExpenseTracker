@@ -45,7 +45,7 @@ const TermsPage = () => {
             <section>
               <h2 className={`text-lg font-bold mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>1. Acceptance of Terms</h2>
               <p>
-                By accessing or using FinVue ("the Application"), you agree to be bound by these Terms &amp; Conditions. 
+                By accessing or using FinVue (&quot;the Application&quot;), you agree to be bound by these Terms &amp; Conditions. 
                 If you do not agree with any part of these terms, you must not use the Application.
               </p>
             </section>
@@ -80,7 +80,7 @@ const TermsPage = () => {
             <section>
               <h2 className={`text-lg font-bold mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>5. Limitation of Liability</h2>
               <p>
-                FinVue is provided on an "as is" and "as available" basis without warranties of any kind, either 
+                FinVue is provided on an &quot;as is&quot; and &quot;as available&quot; basis without warranties of any kind, either 
                 express or implied. We shall not be liable for any direct, indirect, incidental, or consequential 
                 damages arising from your use of the Application.
               </p>

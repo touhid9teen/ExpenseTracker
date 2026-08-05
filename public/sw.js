@@ -4,7 +4,7 @@
 
 const CACHE_NAME = "finvue-v1";
 
-self.addEventListener("install", (event) => {
+self.addEventListener("install", () => {
   self.skipWaiting();
 });
 

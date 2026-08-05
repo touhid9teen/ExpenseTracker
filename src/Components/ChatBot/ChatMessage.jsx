@@ -1,5 +1,3 @@
-import React from "react";
-
 /**
  * ChatMessage – renders a single chat bubble.
  *

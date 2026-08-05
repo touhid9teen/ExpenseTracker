@@ -10,7 +10,7 @@ import { WarningTriangleIcon, SpinnerIcon, CheckIcon } from "./Icons";
  *  - queue drained just after being offline → brief "All changes synced"
  * Styling mirrors InstallPWAPrompt (amber/slate, darkMode-aware).
  */
-const OfflineBanner = memo(({ isOnline = true, pendingSyncCount = 0, darkMode = true }) => {
+const OfflineBanner = memo(function OfflineBanner({ isOnline = true, pendingSyncCount = 0, darkMode = true }) {
     const [showSynced, setShowSynced] = useState(false);
 
     // Briefly confirm success when a pending queue finishes draining online.

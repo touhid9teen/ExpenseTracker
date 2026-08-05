@@ -9,7 +9,7 @@ import {
   ShieldCheckIcon,
 } from "./Icons";
 
-const QuickActionsPopover = memo(({ darkMode, suggestions, onSelect, onClose }) => {
+const QuickActionsPopover = memo(function QuickActionsPopover({ darkMode, suggestions, onSelect, onClose }) {
   if (!suggestions?.length) return null;
 
   return (
@@ -101,11 +101,10 @@ const NavButton = ({
   </button>
 );
 
-const MobileBottomNav = memo(({
+const MobileBottomNav = memo(function MobileBottomNav({
   darkMode,
   activeTab,
   setActiveTab,
-  showQuickAdd,
   setShowQuickAdd,
   showQuickActionsNav,
   setShowQuickActionsNav,
@@ -113,7 +112,7 @@ const MobileBottomNav = memo(({
   setPendingAction,
   setChatOpen,
   isAdmin,
-}) => {
+}) {
   const handleQuickAdd = () => {
     setShowQuickAdd(true);
   };

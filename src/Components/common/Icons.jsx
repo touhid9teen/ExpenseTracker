@@ -1,5 +1,3 @@
-import React from "react";
-
 // ─── Navigation & Logo ───
 
 export const DollarIcon = ({ className = "w-6 h-6", strokeWidth = 2.5 }) => (

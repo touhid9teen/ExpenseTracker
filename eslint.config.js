@@ -4,7 +4,7 @@ import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 
 export default [
-  { ignores: ['dist', '.vite', 'node_modules'] },
+  { ignores: ['dist', '.vite', '.next', 'node_modules'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -28,6 +28,23 @@ export default [
       ...reactHooks.configs.recommended.rules,
       'react/jsx-no-target-blank': 'off',
       'react/prop-types': 'off',
+    },
+  },
+  // Server-side files run under Node/Edge runtimes where Next.js provides
+  // `process` — allow it there, but keep client code honest.
+  {
+    files: [
+      'src/app/api/**/*.js',
+      'src/lib/**/*.js',
+      'src/utils/**/*.js',
+      'initDB.js',
+      'next.config.mjs',
+      'tailwind.config.js',
+      'scripts/**/*.js',
+      'scripts/**/*.mjs',
+    ],
+    languageOptions: {
+      globals: { process: 'readonly' },
     },
   },
 ]

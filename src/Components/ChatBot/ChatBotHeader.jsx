@@ -1,4 +1,3 @@
-import React from "react";
 import { LightningBoltIcon, XIcon } from "../common/Icons";
 
 /**

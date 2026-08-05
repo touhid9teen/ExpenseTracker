@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import toast from "react-hot-toast";
 
 import FloatingTrigger from "./FloatingTrigger";
@@ -77,10 +77,10 @@ const ChatBot = ({
         }, 200);
       }
     }
-  }, [pendingAction]);
+  }, [pendingAction, handleSend, setPendingAction]);
 
   // ── Send handler ──
-  const handleSend = async (e, directText = null) => {
+  const handleSend = useCallback(async (e, directText = null) => {
     if (e) e.preventDefault();
     const textToSend = directText || input;
     if (!textToSend.trim()) return;
@@ -180,7 +180,16 @@ const ChatBot = ({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [
+    input,
+    expenses,
+    user,
+    addExpenseDirect,
+    updateExpenseDirect,
+    deleteExpenseDirect,
+    setActiveTab,
+    setIsOpen,
+  ]);
 
   // ── Quick-action handler ──
   const handleSuggestion = (suggestion) => {

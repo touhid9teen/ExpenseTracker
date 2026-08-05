@@ -1,4 +1,3 @@
-import React from "react";
 import { XIcon, ChatBubbleIcon } from "../common/Icons";
 
 /**

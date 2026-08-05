@@ -10,14 +10,14 @@ import {
   CrownIcon,
 } from "./Icons";
 
-const AppHeader = memo(({
+const AppHeader = memo(function AppHeader({
   darkMode,
   activeTab,
   setActiveTab,
   toggleTheme,
   user,
   handleLogout,
-}) => {
+}) {
   const isAdmin = !!user?.isAdmin;
   return (
     <header

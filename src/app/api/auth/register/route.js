@@ -32,7 +32,7 @@ async function postHandler(request) {
       const token = await encrypt({ id: 'mock-user-id', username, isAdmin: false });
       const response = NextResponse.json({
         success: true,
-        user: { id: 'mock-user-id', username, email, isAdmin: false },
+        user: { id: 'mock-user-id', username, email: normalizedEmail, isAdmin: false },
         isNewUser: true,
       });
       response.cookies.set({

@@ -7,7 +7,7 @@ const QuickStatsGrid = dynamic(() => import("./QuickStatsGrid").then(m => m.Quic
 const SpendingDonutChart = dynamic(() => import("./SpendingDonutChart").then(m => m.SpendingDonutChart));
 const SpendingOverviewChart = dynamic(() => import("./SpendingOverviewChart").then(m => m.SpendingOverviewChart));
 
-const StatisticsView = memo((props) => {
+const StatisticsView = memo(function StatisticsView(props) {
     const {
         activeTab,
         darkMode = true,

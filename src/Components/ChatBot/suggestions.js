@@ -1,4 +1,3 @@
-import React from "react";
 import { ChartBarIcon, CalendarIcon, PlusIcon, EditPencilIcon, TrashIcon, ArrowUpIcon, LightbulbIcon } from "../common/Icons";
 
 const iconClass = "w-4 h-4";

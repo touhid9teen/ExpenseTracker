@@ -2,7 +2,7 @@
 // Tailwind classes can't apply. Keep in sync with the bullet colors below.
 export const CATEGORY_HEX = {
     Food: "#10b981",
-    Transport: "#f59e0b",
+    Transport: "#84cc16",
     Utilities: "#06b6d4",
     Entertainment: "#a855f7",
     Healthcare: "#f43f5e",
@@ -23,9 +23,9 @@ export const getCategoryStyles = (category, darkMode) => {
             };
         case "Transport":
             return {
-                bg: darkMode ? "bg-amber-950/60 text-amber-300 border border-amber-800/60" : "bg-amber-50 text-amber-700 border border-amber-200",
-                color: "text-amber-500",
-                bullet: "bg-amber-500"
+                bg: darkMode ? "bg-lime-950/60 text-lime-300 border border-lime-800/60" : "bg-lime-50 text-lime-700 border border-lime-200",
+                color: "text-lime-500",
+                bullet: "bg-lime-500"
             };
         case "Utilities":
             return {

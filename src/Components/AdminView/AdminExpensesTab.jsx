@@ -116,7 +116,7 @@ const AdminExpensesTab = memo(
                     </td>
                     <td
                       className={`px-5 py-3.5 text-right text-sm font-extrabold tabular-nums ${
-                        darkMode ? "text-amber-400" : "text-amber-600"
+                        darkMode ? "text-cyan-400" : "text-cyan-600"
                       }`}
                     >
                       {formatCurrency(expense.amount)}

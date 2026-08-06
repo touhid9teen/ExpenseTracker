@@ -76,7 +76,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
         role="dialog"
         aria-label="Install FinVue"
       >
-        <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/25 flex-shrink-0">
+        <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center shadow-lg shadow-cyan-500/25 flex-shrink-0">
           <FinVueLogoIcon className="w-6 h-6 text-white" />
         </div>
 
@@ -113,7 +113,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
             <div className="flex items-center gap-2 mt-3">
               <button
                 onClick={handleInstall}
-                className="px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all shadow-md shadow-amber-500/25"
+                className="px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 transition-all shadow-md shadow-cyan-500/25"
               >
                 Install
               </button>

@@ -11,7 +11,7 @@ const SummaryCard = ({ darkMode, title, value = 0, icon, note, accent }) => (
         ${cardSurface(accent, darkMode)}
     `}>
         {/* Neon corner glint */}
-        <span className="absolute top-0 left-0 w-10 h-[3px] bg-gradient-to-r from-amber-400 to-transparent" />
+        <span className="absolute top-0 left-0 w-10 h-[3px] bg-gradient-to-r from-cyan-400 to-transparent" />
         <div className={accentText(accent, darkMode) + " mb-3"}>
             {icon}
         </div>

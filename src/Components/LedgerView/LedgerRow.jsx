@@ -67,7 +67,7 @@ const LedgerRow = ({
       {/* Amount — neon Taka */}
       <td
         className={`px-2 sm:px-4 py-3 font-bold whitespace-nowrap text-xs sm:text-sm text-right ${
-          darkMode ? "text-amber-400 neon-taka" : "text-amber-600"
+          darkMode ? "text-cyan-400 neon-taka" : "text-cyan-600"
         }`}
       >
         ৳{Math.round(exp.amount).toLocaleString()}

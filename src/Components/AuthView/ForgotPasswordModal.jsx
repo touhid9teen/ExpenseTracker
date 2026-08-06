@@ -118,7 +118,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
       />
       <div className="relative w-full max-w-sm transition-all duration-300">
         <div className="relative cyber-cut-lg p-8 bg-slate-950 border-2 border-cyan-700/60 cyber-cut-glow">
-          <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-cyan-400 to-amber-400 opacity-70 pointer-events-none" />
+          <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
           {/* Close button */}
           <button
             onClick={onClose}
@@ -188,8 +188,8 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     className="cyber-input w-full px-1 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]"
                   />
                   {devMode && (
-                    <p className="text-xs text-amber-400/70 mt-1.5 ml-1">
-                      ⚡ Dev mode: code is <span className="font-mono font-bold text-amber-300">{devToken}</span>
+                    <p className="text-xs text-cyan-400/70 mt-1.5 ml-1">
+                      ⚡ Dev mode: code is <span className="font-mono font-bold text-cyan-300">{devToken}</span>
                     </p>
                   )}
                 </div>
@@ -253,8 +253,8 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
           {step === STEPS.DONE && (
             <div className="text-center py-4">
               <div className="relative w-16 h-16 mx-auto mb-4">
-                <div className="absolute inset-0 rounded-full bg-amber-500/20 blur-xl" />
-                <div className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center mx-auto">
+                <div className="absolute inset-0 rounded-full bg-cyan-500/20 blur-xl" />
+                <div className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center mx-auto">
                   <CheckIcon className="w-8 h-8 text-white" strokeWidth={3} />
                 </div>
               </div>

@@ -15,7 +15,7 @@ const SortHeader = ({ label, sortKey, sortBy, setSortBy, sortOrder, setSortOrder
         alignRight ? "justify-end w-full" : ""
       } ${
         sortBy === sortKey
-          ? "text-amber-400 neon-taka"
+          ? "text-cyan-400 neon-taka"
           : darkMode ? "text-cyan-300/90 hover:text-cyan-300" : "text-cyan-700 hover:text-cyan-600"
       }`}
     >
@@ -62,7 +62,7 @@ export const ExpenseTable = ({
             >
               {/* Glowing left accent edge */}
               <th className="w-1.5 p-0">
-                <span className="block h-full w-1.5 bg-gradient-to-b from-amber-400 to-cyan-400" />
+                <span className="block h-full w-1.5 bg-gradient-to-b from-cyan-400 to-sky-400" />
               </th>
               <SortHeader
                 label="Date"

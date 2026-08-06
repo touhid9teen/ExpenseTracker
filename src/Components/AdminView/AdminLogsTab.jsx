@@ -4,7 +4,7 @@ import { ServerIcon, TrashIcon } from "../common/Icons";
 
 const METHOD_STYLES = {
   GET: { dark: "bg-sky-500/10 text-sky-400 border border-sky-500/25", light: "bg-sky-100 text-sky-700 border border-sky-200" },
-  POST: { dark: "bg-amber-500/10 text-amber-400 border border-amber-500/25", light: "bg-amber-100 text-amber-700 border border-amber-200" },
+  POST: { dark: "bg-cyan-500/10 text-cyan-400 border border-cyan-500/25", light: "bg-cyan-100 text-cyan-700 border border-cyan-200" },
   PUT: { dark: "bg-violet-500/10 text-violet-400 border border-violet-500/25", light: "bg-violet-100 text-violet-700 border border-violet-200" },
   PATCH: { dark: "bg-violet-500/10 text-violet-400 border border-violet-500/25", light: "bg-violet-100 text-violet-700 border border-violet-200" },
   DELETE: { dark: "bg-rose-500/10 text-rose-400 border border-rose-500/25", light: "bg-rose-100 text-rose-700 border border-rose-200" },
@@ -12,7 +12,7 @@ const METHOD_STYLES = {
 
 const statusStyle = (status, darkMode) => {
   if (status >= 500) return darkMode ? "text-rose-400" : "text-rose-600";
-  if (status >= 400) return darkMode ? "text-amber-400" : "text-amber-600";
+  if (status >= 400) return darkMode ? "text-cyan-400" : "text-cyan-600";
   return darkMode ? "text-emerald-400" : "text-emerald-600";
 };
 

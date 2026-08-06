@@ -15,7 +15,7 @@ export const DeleteExpenseModal = ({
                             ? "bg-slate-950 border-rose-800/70 [filter:drop-shadow(0_0_30px_rgba(244,63,94,0.2))]"
                             : "bg-white border-rose-400 [filter:drop-shadow(0_0_24px_rgba(244,63,94,0.12))]"
                     }`}>
-                        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-rose-400 via-amber-400 to-rose-400 opacity-70 pointer-events-none" />
+                        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-rose-400 via-cyan-400 to-rose-400 opacity-70 pointer-events-none" />
                         <div className="flex items-center gap-3 text-rose-500 mb-4">
                             <div className="w-10 h-10 cyber-cut-sm bg-rose-500/10 flex items-center justify-center border-2 border-rose-500/40">
                                 <WarningTriangleIcon className="w-6 h-6" />

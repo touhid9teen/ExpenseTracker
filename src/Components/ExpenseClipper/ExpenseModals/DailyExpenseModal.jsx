@@ -17,10 +17,10 @@ export const DailyExpenseModal = ({
                             ? "bg-slate-950 border-cyan-700/60 cyber-cut-glow"
                             : "bg-white border-cyan-400 [filter:drop-shadow(0_0_30px_rgba(34,211,238,0.15))]"
                     }`}>
-                        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-cyan-400 to-amber-400 opacity-70 pointer-events-none" />
+                        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
                         <div className="flex items-center justify-between border-b-2 pb-4 mb-4 border-cyan-500/25">
                             <div>
-                                <h3 className="text-lg font-bold tracking-tight text-amber-500 font-black flex items-center gap-2">
+                                <h3 className="text-lg font-bold tracking-tight text-cyan-500 font-black flex items-center gap-2">
                                     {formatDate(dailyModalDetails.date)}
                                     <span className={`inline-block w-1.5 h-5 cyber-cut-sm ${darkMode ? "bg-cyan-400" : "bg-cyan-500"}`} />
                                 </h3>
@@ -51,7 +51,7 @@ export const DailyExpenseModal = ({
                                                 {item.category}
                                             </span>
                                         </div>
-                                        <span className={`font-black text-sm font-mono flex-shrink-0 ${darkMode ? "text-amber-400 neon-taka" : "text-amber-600"}`}>
+                                        <span className={`font-black text-sm font-mono flex-shrink-0 ${darkMode ? "text-cyan-400 neon-taka" : "text-cyan-600"}`}>
                                             ৳{Math.round(item.amount).toLocaleString()}
                                         </span>
                                     </div>
@@ -61,7 +61,7 @@ export const DailyExpenseModal = ({
 
                         <div className="border-t-2 pt-4 border-cyan-500/20 flex items-center justify-between">
                             <span className={`font-bold text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Total Expense of Day:</span>
-                            <span className={`text-xl font-extrabold font-mono ${darkMode ? "text-amber-400 neon-taka" : "text-amber-600"}`}>৳{Math.round(dailyModalDetails.total).toLocaleString()}</span>
+                            <span className={`text-xl font-extrabold font-mono ${darkMode ? "text-cyan-400 neon-taka" : "text-cyan-600"}`}>৳{Math.round(dailyModalDetails.total).toLocaleString()}</span>
                         </div>
 
                         <div className="mt-6 flex justify-end">

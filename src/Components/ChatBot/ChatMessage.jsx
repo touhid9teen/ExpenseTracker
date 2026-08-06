@@ -68,7 +68,7 @@ const ChatMessage = ({ msg, darkMode }) => {
     <div
       className={`max-w-[85%] cyber-cut-sm px-4 py-2.5 text-sm ${
         msg.sender === "user"
-          ? "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow-md shadow-cyan-500/20"
+          ? "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow-md shadow-cyan-500/20"
           : darkMode
             ? "bg-slate-800 text-slate-200 border-2 border-slate-700": "bg-slate-100 text-slate-700 border-2 border-slate-300"}`}
     >

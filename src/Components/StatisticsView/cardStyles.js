@@ -1,7 +1,7 @@
 // Shared accent styling for the Statistics cards/panels.
-// Neo-Cyber Brutalism flavor: cyber-cut corners, dual-tone cyan/amber
-// borders, and offset neon shadows. Class strings are written out in full
-// so Tailwind's JIT keeps them.
+// Neo-Cyber Brutalism flavor: cyber-cut corners, cyan-tone borders, and
+// offset neon shadows. Class strings are written out in full so Tailwind's
+// JIT keeps them.
 //
 // NOTE: these surfaces are always paired with `cyber-cut` (clip-path), and
 // clip-path clips box-shadow — so shadows use `filter: drop-shadow(...)`
@@ -36,13 +36,6 @@ export const ACCENTS = {
         textDark: "text-rose-400",
         textLight: "text-rose-600"
     },
-    amber: {
-        borderDark: "border-amber-600/50",
-        borderLight: "border-amber-400",
-        shadow: "[filter:drop-shadow(5px_5px_0px_rgba(245,158,11,0.3))]",
-        textDark: "text-amber-400",
-        textLight: "text-amber-600"
-    }
 };
 
 // Card surface: theme-default background + accent border + offset neon shadow.

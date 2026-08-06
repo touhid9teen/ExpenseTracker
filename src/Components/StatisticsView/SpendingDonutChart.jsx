@@ -88,7 +88,7 @@ export const SpendingDonutChart = ({ darkMode = true, expenses = [] }) => {
                                 onClick={() => setPeriod(p.key)}
                                 className={`px-3.5 py-1.5 text-xs font-bold cyber-cut-sm transition-all duration-200 ${
                                     selected
-                                        ? "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow shadow-cyan-500/25"
+                                        ? "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow shadow-cyan-500/25"
                                         : darkMode
                                             ? "text-slate-400 hover:text-cyan-300"
                                             : "text-slate-500 hover:text-cyan-600"
@@ -105,7 +105,7 @@ export const SpendingDonutChart = ({ darkMode = true, expenses = [] }) => {
                 onClick={() => setActiveCategory(null)}
                 className={`p-6 sm:p-8 lg:p-10 cyber-cut relative overflow-hidden ${cardSurface("sky", darkMode)}`}
             >
-                <span className="absolute top-0 left-0 w-16 h-[3px] bg-gradient-to-r from-amber-400 to-cyan-400" />
+                <span className="absolute top-0 left-0 w-16 h-[3px] bg-gradient-to-r from-cyan-400 to-sky-400" />
                 {/* Visible date range */}
                 <p className={`text-center text-xs sm:text-sm font-semibold mb-6 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                     {formatRange(range)}

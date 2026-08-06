@@ -4,7 +4,7 @@
 
 const LEVELS = [
   { label: 'Too weak', color: 'bg-red-500', text: 'text-red-400' },
-  { label: 'Weak', color: 'bg-orange-500', text: 'text-orange-400' },
+  { label: 'Weak', color: 'bg-rose-500', text: 'text-rose-400' },
   { label: 'Fair', color: 'bg-yellow-500', text: 'text-yellow-400' },
   { label: 'Good', color: 'bg-lime-500', text: 'text-lime-400' },
   { label: 'Strong', color: 'bg-emerald-500', text: 'text-emerald-400' },

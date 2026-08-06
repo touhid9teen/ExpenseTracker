@@ -20,7 +20,7 @@ export const EditExpenseModal = ({
                             ? "bg-slate-950 border-cyan-700/60 cyber-cut-glow"
                             : "bg-white border-cyan-400 [filter:drop-shadow(0_0_30px_rgba(34,211,238,0.15))]"
                     }`}>
-                        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-cyan-400 to-amber-400 opacity-70 pointer-events-none" />
+                        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
                         <div className="flex items-center justify-between border-b-2 pb-4 mb-4 border-cyan-500/25">
                             <h3 className="text-lg font-bold tracking-tight flex items-center gap-2">
                                 Edit Transaction Details
@@ -84,7 +84,7 @@ export const EditExpenseModal = ({
                                     value={editingExpense.amount}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, amount: e.target.value })}
                                     className={`cyber-input w-full px-1 py-2.5 text-sm font-black font-mono ${
-                                        darkMode ? "text-amber-400" : "text-amber-600"
+                                        darkMode ? "text-cyan-400" : "text-cyan-600"
                                     }`}
                                 />
                             </div>
@@ -99,7 +99,7 @@ export const EditExpenseModal = ({
                                 </button>
                                 <button
                                     type="submit"
-                                    className="px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 transition-all shadow-md focus:outline-none"
+                                    className="px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 transition-all shadow-md focus:outline-none"
                                 >
                                     Save Changes
                                 </button>

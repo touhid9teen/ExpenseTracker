@@ -81,8 +81,8 @@ const AdminUsersTab = memo(
                         className={`w-9 h-9 shrink-0 rounded-full flex items-center justify-center font-extrabold text-xs ${
                           user.isAdmin
                             ? darkMode
-                              ? "bg-amber-500/20 text-amber-400"
-                              : "bg-amber-100 text-amber-700"
+                              ? "bg-cyan-500/20 text-cyan-400"
+                              : "bg-cyan-100 text-cyan-700"
                             : darkMode
                             ? "bg-slate-800 text-slate-300"
                             : "bg-slate-200 text-slate-600"
@@ -98,7 +98,7 @@ const AdminUsersTab = memo(
                         >
                           {user.username}
                           {user.isAdmin && (
-                            <CrownIcon className="w-3.5 h-3.5 text-amber-500" strokeWidth={2.5} />
+                            <CrownIcon className="w-3.5 h-3.5 text-cyan-500" strokeWidth={2.5} />
                           )}
                         </p>
                         <p
@@ -116,8 +116,8 @@ const AdminUsersTab = memo(
                       className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-bold ${
                         user.isAdmin
                           ? darkMode
-                            ? "bg-amber-500/10 text-amber-400 border border-amber-500/25"
-                            : "bg-amber-100 text-amber-700 border border-amber-200"
+                            ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/25"
+                            : "bg-cyan-100 text-cyan-700 border border-cyan-200"
                           : darkMode
                           ? "bg-slate-800 text-slate-400 border border-slate-700"
                           : "bg-slate-100 text-slate-500 border border-slate-200"
@@ -154,8 +154,8 @@ const AdminUsersTab = memo(
                               ? "bg-red-500/10 text-red-400 hover:bg-red-500/20"
                               : "bg-red-50 text-red-600 hover:bg-red-100"
                             : darkMode
-                            ? "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20"
-                            : "bg-amber-100 text-amber-700 hover:bg-amber-200"
+                            ? "bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20"
+                            : "bg-cyan-100 text-cyan-700 hover:bg-cyan-200"
                         }`}
                       >
                         {user.isAdmin ? "Revoke" : "Grant"}

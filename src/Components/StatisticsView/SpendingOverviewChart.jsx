@@ -83,19 +83,19 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
     const active = coords[activeIndex] || coords[coords.length - 1];
     const tooltipLeftPct = active ? (active.x / VIEW_W) * 100 : 50;
 
-    const lineColor = darkMode ? "#fbbf24" : "#d97706";
+    const lineColor = darkMode ? "#22d3ee" : "#d97706";
 
     return (
         <div
             className={`cyber-cut p-5 sm:p-6 border-2 transition-colors duration-300 cyber-cut-glow ${
                 darkMode
-                    ? "bg-slate-900 border-amber-600/40"
-                    : "bg-white border-amber-400"
+                    ? "bg-slate-900 border-cyan-600/40"
+                    : "bg-white border-cyan-400"
             }`}
         >
             {/* Total + current selection date */}
             <div className="text-center">
-                <p className={`text-3xl sm:text-4xl font-black tracking-tight font-mono ${darkMode ? "text-amber-400 neon-taka" : "text-amber-600"}`}>
+                <p className={`text-3xl sm:text-4xl font-black tracking-tight font-mono ${darkMode ? "text-cyan-400 neon-taka" : "text-cyan-600"}`}>
                     {formatCurrency(total)}
                 </p>
                 <p className={`mt-1 text-xs sm:text-sm font-medium ${darkMode ? "text-slate-400" : "text-slate-400"}`}>
@@ -124,8 +124,8 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                             className={`flex-1 py-2 text-xs sm:text-sm font-bold cyber-cut-sm transition-all duration-200 ${
                                 selected
                                     ? darkMode
-                                        ? "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow shadow-cyan-500/20"
-                                        : "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow shadow-cyan-500/25"
+                                        ? "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow shadow-cyan-500/20"
+                                        : "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow shadow-cyan-500/25"
                                     : darkMode
                                         ? "text-slate-400 hover:text-cyan-300"
                                         : "text-slate-500 hover:text-cyan-600"
@@ -148,8 +148,8 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                         <div
                             className={`px-3 py-1.5 cyber-cut-sm text-xs font-black font-mono whitespace-nowrap shadow-lg border-2 ${
                                 darkMode
-                                    ? "bg-slate-950 text-amber-400 neon-taka border-cyan-600/60"
-                                    : "bg-white text-amber-600 border-cyan-400"
+                                    ? "bg-slate-950 text-cyan-400 neon-taka border-cyan-600/60"
+                                    : "bg-white text-cyan-600 border-cyan-400"
                             }`}
                         >
                             {formatCurrency(active.amount)}

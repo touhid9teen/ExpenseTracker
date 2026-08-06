@@ -263,7 +263,7 @@ const AuthView = ({ setUser }) => {
                       <button
                         type="button"
                         onClick={() => setShowForgotPassword(true)}
-                        className="block text-xs font-medium text-slate-500 hover:text-amber-600 transition-colors ml-1"
+                        className="block text-xs font-medium text-slate-500 hover:text-cyan-600 transition-colors ml-1"
                       >
                         Having trouble signing in?
                       </button>
@@ -271,7 +271,7 @@ const AuthView = ({ setUser }) => {
                       <div className="pt-1">
                         <Button
                           type="submit"
-                          variant="amber"
+                          variant="cyan"
                           loading={isLoading}
                           disabled={!isLoginValid}
                           icon={<LogInIcon className="w-5 h-5" strokeWidth={2.5} />}
@@ -294,7 +294,7 @@ const AuthView = ({ setUser }) => {
                         <button
                           type="button"
                           onClick={() => mode !== 'register' && toggleMode()}
-                          className="font-bold text-slate-900 hover:text-amber-600 transition-colors"
+                          className="font-bold text-slate-900 hover:text-cyan-600 transition-colors"
                         >
                           Register Now
                         </button>
@@ -368,7 +368,7 @@ const AuthView = ({ setUser }) => {
                     <div className="pt-1">
                       <Button
                         type="submit"
-                        variant="amber"
+                        variant="cyan"
                         loading={isLoading}
                         disabled={!isRegisterValid}
                         icon={<ArrowRightIcon className="w-4 h-4" strokeWidth={2.5} />}
@@ -382,7 +382,7 @@ const AuthView = ({ setUser }) => {
                       <button
                         type="button"
                         onClick={() => mode !== 'login' && toggleMode()}
-                        className="font-bold text-slate-900 hover:text-amber-600 transition-colors"
+                        className="font-bold text-slate-900 hover:text-cyan-600 transition-colors"
                       >
                         Login
                       </button>

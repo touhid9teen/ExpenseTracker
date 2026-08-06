@@ -50,7 +50,7 @@ const ChatInput = ({
           aria-label="Quick actions"
           className={`flex-shrink-0 p-2.5 cyber-cut-sm border-2 transition-all ${
             showQuickActions
-              ? "bg-gradient-to-r from-amber-500 to-cyan-500 border-cyan-500 text-white shadow-sm shadow-cyan-500/30"
+              ? "bg-gradient-to-r from-cyan-500 to-sky-500 border-cyan-500 text-white shadow-sm shadow-cyan-500/30"
               : darkMode
                 ? "bg-slate-900 border-slate-700 text-slate-400 hover:bg-slate-800 hover:text-cyan-300 hover:border-cyan-800": "bg-slate-100 border-slate-300 text-slate-500 hover:bg-slate-200 hover:text-cyan-600 hover:border-cyan-300"}`}
         >

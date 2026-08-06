@@ -51,7 +51,7 @@ const AdminView = memo(function AdminView(props) {
             }`}
           >
             Platform Administration
-            <span className={`inline-block w-2 h-8 cyber-cut-sm ${darkMode ? "bg-amber-400" : "bg-amber-500"}`} />
+            <span className={`inline-block w-2 h-8 cyber-cut-sm ${darkMode ? "bg-cyan-400" : "bg-cyan-500"}`} />
           </h1>
           <p
             className={`mt-1.5 text-sm ${
@@ -103,8 +103,8 @@ const AdminView = memo(function AdminView(props) {
             className={`px-3 sm:px-4 py-2 cyber-cut-sm text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
               adminTab === id
                 ? darkMode
-                  ? "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow-sm shadow-cyan-500/25"
-                  : "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow-sm shadow-cyan-500/25"
+                  ? "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow-sm shadow-cyan-500/25"
+                  : "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow-sm shadow-cyan-500/25"
                 : darkMode
                 ? "text-slate-400 hover:text-cyan-300"
                 : "text-slate-500 hover:text-cyan-600"
@@ -116,8 +116,8 @@ const AdminView = memo(function AdminView(props) {
               className={`px-1.5 py-0.5 rounded-md text-[10px] font-extrabold leading-none ${
                 adminTab === id
                   ? darkMode
-                    ? "bg-amber-500/15 text-amber-400"
-                    : "bg-amber-100 text-amber-600"
+                    ? "bg-cyan-500/15 text-cyan-400"
+                    : "bg-cyan-100 text-cyan-600"
                   : darkMode
                   ? "bg-slate-800 text-slate-500"
                   : "bg-slate-200 text-slate-500"

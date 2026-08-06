@@ -81,7 +81,7 @@
 
   /* Neon text glow for financial metrics */
   .neon-taka {
-    text-shadow: 0 0 8px rgba(245, 158, 11, 0.55), 0 0 24px rgba(245, 158, 11, 0.25);
+    text-shadow: 0 0 8px rgba(34, 211, 238, 0.55), 0 0 24px rgba(34, 211, 238, 0.25);
   }
   .neon-taka-cyan {
     text-shadow: 0 0 8px rgba(34, 211, 238, 0.55), 0 0 24px rgba(34, 211, 238, 0.25);
@@ -104,8 +104,8 @@
     position: absolute;
     inset: 4px 0;
     border-radius: 999px;
-    background: linear-gradient(90deg, rgba(245, 158, 11, 0.9), rgba(34, 211, 238, 0.9));
-    box-shadow: 0 0 18px rgba(34, 211, 238, 0.5), 0 0 36px rgba(245, 158, 11, 0.25);
+    background: linear-gradient(90deg, rgba(34, 211, 238, 0.9), rgba(34, 211, 238, 0.9));
+    box-shadow: 0 0 18px rgba(34, 211, 238, 0.5), 0 0 36px rgba(34, 211, 238, 0.25);
     transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1), width 0.35s cubic-bezier(0.65, 0, 0.35, 1);
     z-index: 0;
   }
@@ -136,8 +136,8 @@
 
   .auth-pattern {
     --s: 77px;
-    --c1: #fcd34d;
-    --c2: #fbbf24;
+    --c1: #67e8f9;
+    --c2: #22d3ee;
 
     --_g: #0000, #0004 5%,
        var(--c2) 6% 14%, var(--c1) 16% 24%, var(--c2) 26% 34%, var(--c1) 36% 44%,

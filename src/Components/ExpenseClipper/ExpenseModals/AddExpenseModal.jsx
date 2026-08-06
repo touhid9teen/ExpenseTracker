@@ -94,7 +94,7 @@ const AmountStep = ({
                     Amount (৳)
                 </label>
                 <div className="relative">
-                    <span className={`absolute left-0 top-1/2 -translate-y-1/2 text-2xl font-black pointer-events-none ${darkMode ? "text-amber-400 neon-taka" : "text-amber-500"}`}>৳</span>
+                    <span className={`absolute left-0 top-1/2 -translate-y-1/2 text-2xl font-black pointer-events-none ${darkMode ? "text-cyan-400 neon-taka" : "text-cyan-500"}`}>৳</span>
                     <input
                         type="number"
                         required
@@ -106,7 +106,7 @@ const AmountStep = ({
                         onChange={(e) => setAddAmount(e.target.value)}
                         className={`cyber-input w-full pl-9 pr-4 py-3.5 text-2xl font-black font-mono ${
                             darkMode
-                                ? "text-amber-400 placeholder-slate-600"
+                                ? "text-cyan-400 placeholder-slate-600"
                                 : "text-slate-800 placeholder-slate-300"
                         }`}
                     />
@@ -141,7 +141,7 @@ const ModalShell = ({ darkMode, children }) => (
             }`}
         >
             {/* Top neon glint */}
-            <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-cyan-400 to-amber-400 opacity-70 pointer-events-none" />
+            <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
             {children}
         </div>
     </div>
@@ -191,7 +191,7 @@ export const AddExpenseModal = ({
                             {onCategoryStep ? "Add Expense" : "Enter Amount"}
                         </h3>
                         <div className="flex items-center gap-1.5 mt-1.5">
-                            <span className={`h-1.5 w-6 cyber-cut-sm transition-colors ${onCategoryStep ? "bg-amber-500" : darkMode ? "bg-slate-700" : "bg-slate-200"}`} />
+                            <span className={`h-1.5 w-6 cyber-cut-sm transition-colors ${onCategoryStep ? "bg-cyan-500" : darkMode ? "bg-slate-700" : "bg-slate-200"}`} />
                             <span className={`h-1.5 w-6 cyber-cut-sm transition-colors ${!onCategoryStep ? "bg-cyan-500" : darkMode ? "bg-slate-700" : "bg-slate-200"}`} />
                         </div>
                     </div>
@@ -238,7 +238,7 @@ export const AddExpenseModal = ({
                         <button
                             type="submit"
                             disabled={isAddingExpense}
-                            className="flex items-center gap-2 px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 transition-all shadow-md focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
+                            className="flex items-center gap-2 px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 transition-all shadow-md focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
                         >
                             {isAddingExpense ? <SpinnerIcon className="w-4 h-4 text-white" /> : <CheckIcon className="w-4 h-4" strokeWidth={3} />}
                             {isAddingExpense ? "Saving..." : "Save Expense"}
@@ -253,7 +253,7 @@ export const AddExpenseModal = ({
                     <button
                         type="button"
                         onClick={goToAmountStep}
-                        className="px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 transition-all shadow-md focus:outline-none"
+                        className="px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 transition-all shadow-md focus:outline-none"
                     >
                         Continue →
                     </button>

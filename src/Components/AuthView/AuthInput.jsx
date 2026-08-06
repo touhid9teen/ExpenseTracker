@@ -88,7 +88,7 @@ const AuthInput = ({
       ) : null}
 
       {detectCapsLock && capsOn && !hasError && (
-        <p className="mt-1 ml-1 text-xs text-amber-600 flex items-center gap-1">
+        <p className="mt-1 ml-1 text-xs text-cyan-600 flex items-center gap-1">
           <WarningTriangleIcon className="w-3 h-3" />
           Caps Lock is on
         </p>

@@ -8,7 +8,7 @@ import { WarningTriangleIcon, SpinnerIcon, CheckIcon } from "./Icons";
  *  - offline  → persistent "You're offline" notice
  *  - back online with queued changes → transient "Syncing N change(s)…"
  *  - queue drained just after being offline → brief "All changes synced"
- * Styling mirrors InstallPWAPrompt (amber/slate, darkMode-aware).
+ * Styling mirrors InstallPWAPrompt (cyan/slate, darkMode-aware).
  */
 const OfflineBanner = memo(function OfflineBanner({ isOnline = true, pendingSyncCount = 0, darkMode = true }) {
     const [showSynced, setShowSynced] = useState(false);
@@ -53,8 +53,8 @@ const OfflineBanner = memo(function OfflineBanner({ isOnline = true, pendingSync
 
     const toneClasses = {
         offline: darkMode
-            ? "bg-amber-500/15 border-amber-500/40 text-amber-300"
-            : "bg-amber-50 border-amber-300 text-amber-700",
+            ? "bg-cyan-500/15 border-cyan-500/40 text-cyan-300"
+            : "bg-cyan-50 border-cyan-300 text-cyan-700",
         syncing: darkMode
             ? "bg-slate-800 border-slate-700 text-slate-200"
             : "bg-white border-slate-200 text-slate-700",

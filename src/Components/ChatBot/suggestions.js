@@ -48,7 +48,7 @@ const SUGGESTIONS = [
     sub: "Spot high costs",
     text: "What are my largest expenses?",
     action: "send",
-    iconBg: "bg-amber-100 text-amber-600",
+    iconBg: "bg-cyan-100 text-cyan-600",
     icon: <ArrowUpIcon className={iconClass} />,
   },
   {

@@ -11,9 +11,9 @@ export const PaginationBar = ({
         <div className={`px-6 py-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-t-2 border-cyan-500/20 ${darkMode ? "bg-slate-950/40" : "bg-slate-50/60"}`}>
             <div className="space-y-1">
                 <span className={`block text-xs font-semibold ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
-                    Showing <span className="font-bold text-amber-500">{filteredExpenses.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1}</span> to <span className="font-bold text-amber-500">{Math.min(currentPage * itemsPerPage, filteredExpenses.length)}</span> of <span className="font-bold text-amber-500">{filteredExpenses.length}</span> results
+                    Showing <span className="font-bold text-cyan-500">{filteredExpenses.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1}</span> to <span className="font-bold text-cyan-500">{Math.min(currentPage * itemsPerPage, filteredExpenses.length)}</span> of <span className="font-bold text-cyan-500">{filteredExpenses.length}</span> results
                 </span>
-                <span className={`block text-sm font-extrabold ${darkMode ? "text-amber-400 neon-taka" : "text-amber-700"}`}>
+                <span className={`block text-sm font-extrabold ${darkMode ? "text-cyan-400 neon-taka" : "text-cyan-700"}`}>
                     Current table total: ৳{Math.round(currentTableTotal).toLocaleString()}
                 </span>
             </div>
@@ -31,8 +31,8 @@ export const PaginationBar = ({
                 </button>
                 <span className={`px-3.5 py-1.5 text-xs font-extrabold cyber-cut-sm border-2 ${
                     darkMode
-                        ? "bg-slate-900 text-amber-400 border-amber-800/60"
-                        : "bg-slate-100 text-amber-700 border-amber-300"
+                        ? "bg-slate-900 text-cyan-400 border-cyan-800/60"
+                        : "bg-slate-100 text-cyan-700 border-cyan-300"
                 }`}>
                     Page {currentPage} of {totalPages}
                 </span>

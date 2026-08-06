@@ -11,7 +11,7 @@ export const ACCENTS = {
     sky: {
         borderDark: "border-cyan-600/50",
         borderLight: "border-cyan-400",
-        shadow: "[filter:drop-shadow(5px_5px_0px_rgba(34,211,238,0.25))]",
+        shadow: "[filter:drop-shadow(5px_5px_0px_var(--accent-glow))]",
         textDark: "text-cyan-400",
         textLight: "text-cyan-600"
     },

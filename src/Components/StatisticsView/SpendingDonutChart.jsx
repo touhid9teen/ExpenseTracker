@@ -88,7 +88,7 @@ export const SpendingDonutChart = ({ darkMode = true, expenses = [] }) => {
                                 onClick={() => setPeriod(p.key)}
                                 className={`px-3.5 py-1.5 text-xs font-bold cyber-cut-sm transition-all duration-200 ${
                                     selected
-                                        ? "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow shadow-cyan-500/25"
+                                        ? "cyber-btn-accent text-white shadow shadow-cyan-500/25"
                                         : darkMode
                                             ? "text-slate-400 hover:text-cyan-300"
                                             : "text-slate-500 hover:text-cyan-600"

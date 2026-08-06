@@ -15,7 +15,7 @@ export const DailyExpenseModal = ({
                     <div className={`relative w-full max-w-xl cyber-cut-lg border-2 p-6 transform scale-100 transition-transform ${
                         darkMode
                             ? "bg-slate-950 border-cyan-700/60 cyber-cut-glow"
-                            : "bg-white border-cyan-400 [filter:drop-shadow(0_0_30px_rgba(34,211,238,0.15))]"
+                            : "bg-white border-cyan-400 [filter:drop-shadow(0_0_30px_var(--accent-glow-soft))]"
                     }`}>
                         <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
                         <div className="flex items-center justify-between border-b-2 pb-4 mb-4 border-cyan-500/25">

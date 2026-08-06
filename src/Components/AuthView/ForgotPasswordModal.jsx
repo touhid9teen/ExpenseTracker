@@ -148,7 +148,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     autoComplete="email"
-                    className="cyber-input w-full pl-9 pr-4 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]"
+                    className="cyber-input w-full pl-9 pr-4 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_var(--accent-glow-strong)]"
                   />
                 </div>
                 <div className="mt-5">
@@ -185,7 +185,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     value={resetCode}
                     onChange={(e) => setResetCode(e.target.value)}
                     placeholder={devToken ? `Dev code: ${devToken}` : "Enter reset code"}
-                    className="cyber-input w-full px-1 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]"
+                    className="cyber-input w-full px-1 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_var(--accent-glow-strong)]"
                   />
                   {devMode && (
                     <p className="text-xs text-cyan-400/70 mt-1.5 ml-1">
@@ -209,7 +209,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                       onChange={(e) => setNewPassword(e.target.value)}
                       placeholder="New password"
                       autoComplete="new-password"
-                      className="cyber-input w-full pl-9 pr-12 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]"
+                      className="cyber-input w-full pl-9 pr-12 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_var(--accent-glow-strong)]"
                     />
                     {newPassword && (
                       <button
@@ -234,7 +234,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm new password"
                     autoComplete="new-password"
-                    className="cyber-input w-full px-1 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]"
+                    className="cyber-input w-full px-1 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_var(--accent-glow-strong)]"
                   />
                 </div>
 

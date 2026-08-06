@@ -196,7 +196,7 @@ const MobileBottomNav = memo(function MobileBottomNav({
       <button
         onClick={handleQuickAdd}
         aria-label="Add expense"
-        className="relative z-10 mx-1 -my-3 w-12 h-12 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 text-white flex items-center justify-center shadow-[0_0_20px_rgba(34,211,238,0.45)] hover:scale-110 active:scale-95 transition-all"
+        className="relative z-10 mx-1 -my-3 w-12 h-12 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 text-white flex items-center justify-center shadow-[0_0_20px_var(--accent-glow-strong)] hover:scale-110 active:scale-95 transition-all"
       >
         <PlusIcon className="w-6 h-6" strokeWidth={3} />
       </button>

@@ -103,8 +103,8 @@ const AdminView = memo(function AdminView(props) {
             className={`px-3 sm:px-4 py-2 cyber-cut-sm text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
               adminTab === id
                 ? darkMode
-                  ? "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow-sm shadow-cyan-500/25"
-                  : "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow-sm shadow-cyan-500/25"
+                  ? "cyber-btn-accent text-white shadow-sm shadow-cyan-500/25"
+                  : "cyber-btn-accent text-white shadow-sm shadow-cyan-500/25"
                 : darkMode
                 ? "text-slate-400 hover:text-cyan-300"
                 : "text-slate-500 hover:text-cyan-600"

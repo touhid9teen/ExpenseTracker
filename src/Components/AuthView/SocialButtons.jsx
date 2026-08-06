@@ -41,7 +41,7 @@ const SocialButtons = ({ disabled = false }) => {
           type="button"
           disabled={disabled}
           onClick={() => notReady(name)}
-          className="flex items-center justify-center gap-1.5 py-2.5 px-2 cyber-cut-sm border-2 border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 hover:border-cyan-400 hover:shadow-[3px_3px_0px_rgba(34,211,238,0.25)] transition-all duration-200 disabled:opacity-50"
+          className="flex items-center justify-center gap-1.5 py-2.5 px-2 cyber-cut-sm border-2 border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 hover:border-cyan-400 hover:shadow-[3px_3px_0px_var(--accent-glow)] transition-all duration-200 disabled:opacity-50"
         >
           <Glyph className="w-4 h-4 shrink-0" />
           <span className="truncate">{name}</span>

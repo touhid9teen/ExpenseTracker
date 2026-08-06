@@ -24,7 +24,7 @@ const AppHeader = memo(function AppHeader({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-3 sm:py-0 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
         {/* Logo Area */}
         <div className="flex min-w-0 flex-1 sm:flex-none items-center gap-3">
-          <div className="w-10 h-10 shrink-0 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center shadow-[4px_4px_0px_rgba(34,211,238,0.4)]">
+          <div className="w-10 h-10 shrink-0 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center shadow-[4px_4px_0px_var(--accent-glow)]">
             <FinVueLogoIcon className="w-6 h-6 text-white" />
           </div>
           <div className="min-w-0">
@@ -49,8 +49,8 @@ const AppHeader = memo(function AppHeader({
             onClick={toggleTheme}
             className={`p-2.5 cyber-cut-sm border-2 transition-all duration-200 hover:scale-105 ${
               darkMode
-                ? "bg-slate-900 border-cyan-800/60 text-cyan-400 hover:border-cyan-500/70 shadow-[3px_3px_0px_rgba(34,211,238,0.25)]"
-                : "bg-slate-100 border-slate-300 text-cyan-600 hover:border-cyan-400 shadow-[3px_3px_0px_rgba(34,211,238,0.2)]"
+                ? "bg-slate-900 border-cyan-800/60 text-cyan-400 hover:border-cyan-500/70 shadow-[3px_3px_0px_var(--accent-glow)]"
+                : "bg-slate-100 border-slate-300 text-cyan-600 hover:border-cyan-400 shadow-[3px_3px_0px_var(--accent-glow)]"
             }`}
             id="theme-toggler"
             aria-label="Toggle Theme"

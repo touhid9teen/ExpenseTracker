@@ -2,7 +2,7 @@ import { FinVueLogoIcon } from '../common/Icons';
 
 const Header = ({ mode }) => (
   <div className="text-center">
-    <div className="inline-flex items-center justify-center w-11 h-11 cyber-cut bg-gradient-to-br from-cyan-500 to-sky-500 shadow-[4px_4px_0px_rgba(34,211,238,0.35)] mb-3">
+    <div className="inline-flex items-center justify-center w-11 h-11 cyber-cut bg-gradient-to-br from-cyan-500 to-sky-500 shadow-[4px_4px_0px_var(--accent-glow)] mb-3">
       <FinVueLogoIcon className="w-6 h-6 text-white" />
     </div>
     <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight flex items-center justify-center gap-2">

@@ -14,7 +14,7 @@ const ChatBotHeader = ({ darkMode, onClose }) => (
         ? "bg-slate-900/90 border-cyan-900/60": "bg-slate-50 border-cyan-200"}`}
   >
     <div className="flex items-center gap-3">
-      <div className="w-10 h-10 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center shadow-[3px_3px_0px_rgba(34,211,238,0.35)] flex-shrink-0">
+      <div className="w-10 h-10 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center shadow-[3px_3px_0px_var(--accent-glow)] flex-shrink-0">
         <LightningBoltIcon className="w-6 h-6 text-white" />
       </div>
       <div>

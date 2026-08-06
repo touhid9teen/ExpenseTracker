@@ -227,7 +227,7 @@ const AuthView = ({ setUser }) => {
                 mounted ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'
               }`}
             >
-              <div className="relative px-2 sm:px-4 py-6 cyber-cut-lg border-2 border-cyan-500/30 bg-white/80 backdrop-blur-md [filter:drop-shadow(8px_8px_0px_rgba(34,211,238,0.2))]">
+              <div className="relative px-2 sm:px-4 py-6 cyber-cut-lg border-2 border-cyan-500/30 bg-white/80 backdrop-blur-md [filter:drop-shadow(8px_8px_0px_var(--accent-glow))]">
                 <Header mode={mode} />
 
                 <div className="pt-4">

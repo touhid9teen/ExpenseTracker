@@ -29,7 +29,7 @@ const CategoryStep = ({
                         onClick={() => selectCategory(cat)}
                         className={`group flex flex-col items-center justify-center gap-2 py-4 px-2 cyber-cut-sm border-2 transition-all duration-200 hover:scale-[1.03] active:scale-95 focus:outline-none ${
                             isActive
-                                ? "border-cyan-500 shadow-[3px_3px_0px_rgba(34,211,238,0.4)]"
+                                ? "border-cyan-500 shadow-[3px_3px_0px_var(--accent-glow)]"
                                 : darkMode
                                 ? "border-slate-800 hover:border-cyan-800 bg-slate-800/40"
                                 : "border-slate-200 hover:border-cyan-300 bg-slate-50"
@@ -137,7 +137,7 @@ const ModalShell = ({ darkMode, children }) => (
             className={`relative w-full max-w-lg cyber-cut-lg border-2 p-6 transform transition-all animate-fadeIn ${
                 darkMode
                     ? "bg-slate-950 border-cyan-700/60 cyber-cut-glow"
-                    : "bg-white border-cyan-400 [filter:drop-shadow(0_0_30px_rgba(34,211,238,0.15))]"
+                    : "bg-white border-cyan-400 [filter:drop-shadow(0_0_30px_var(--accent-glow-soft))]"
             }`}
         >
             {/* Top neon glint */}
@@ -238,7 +238,7 @@ export const AddExpenseModal = ({
                         <button
                             type="submit"
                             disabled={isAddingExpense}
-                            className="flex items-center gap-2 px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 transition-all shadow-md focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
+                            className="flex items-center gap-2 px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white cyber-btn-accent transition-all shadow-md focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
                         >
                             {isAddingExpense ? <SpinnerIcon className="w-4 h-4 text-white" /> : <CheckIcon className="w-4 h-4" strokeWidth={3} />}
                             {isAddingExpense ? "Saving..." : "Save Expense"}
@@ -253,7 +253,7 @@ export const AddExpenseModal = ({
                     <button
                         type="button"
                         onClick={goToAmountStep}
-                        className="px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 transition-all shadow-md focus:outline-none"
+                        className="px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white cyber-btn-accent transition-all shadow-md focus:outline-none"
                     >
                         Continue →
                     </button>

@@ -15,7 +15,7 @@ const SuccessModal = ({ username, onContinue }) => (
             className="absolute inset-0 cyber-cut bg-cyan-500/20 blur-xl animate-pulse"
             style={{ animationDuration: "3s" }}
           />
-          <div className="relative w-20 h-20 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center shadow-[4px_4px_0px_rgba(34,211,238,0.4)]">
+          <div className="relative w-20 h-20 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center shadow-[4px_4px_0px_var(--accent-glow)]">
             <CheckIcon className="w-10 h-10 text-white" strokeWidth={3} />
           </div>
         </div>

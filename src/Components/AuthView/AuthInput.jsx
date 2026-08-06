@@ -34,7 +34,7 @@ const AuthInput = ({
 
   const borderClass = hasError
     ? 'border-b-red-500 focus:border-b-red-400 focus:shadow-[0_12px_20px_-16px_rgba(244,63,94,0.6)]'
-    : 'border-b-slate-300 hover:border-b-slate-400 focus:border-b-cyan-500 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]';
+    : 'border-b-slate-300 hover:border-b-slate-400 focus:border-b-cyan-500 focus:shadow-[0_12px_20px_-16px_var(--accent-glow-strong)]';
 
   return (
     <div>

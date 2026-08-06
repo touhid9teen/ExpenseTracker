@@ -7,7 +7,7 @@ const variants = {
     loading: "bg-cyan-500/70",
   },
   cyan: {
-    base: "bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-white",
+    base: "cyber-btn-accent text-white",
     glow: "from-cyan-400/30 to-sky-500/30",
     loading: "bg-cyan-500/70",
   },

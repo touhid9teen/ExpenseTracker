@@ -107,7 +107,7 @@ const TermsPage = () => {
           <div className={`mt-10 pt-6 border-t ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 transition-all shadow-lg shadow-cyan-500/20"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white cyber-btn-accent hover:from-cyan-600 hover:to-sky-600 transition-all shadow-lg shadow-cyan-500/20"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />

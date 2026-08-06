@@ -54,7 +54,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
             <div className="flex flex-wrap gap-3 mt-6 sm:mt-8">
               <button
                 onClick={() => setActiveTab("ledger")}
-                className="inline-flex items-center gap-2 px-5 py-2.5 cyber-cut-sm font-bold text-sm bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow-[4px_4px_0px_rgba(34,211,238,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 cyber-cut-sm font-bold text-sm cyber-btn-accent text-white shadow-[4px_4px_0px_var(--accent-glow)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
               >
                 <ClipboardListIcon className="w-4 h-4" strokeWidth={2.5} />
                 Go to Ledger

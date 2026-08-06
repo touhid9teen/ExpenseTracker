@@ -17,7 +17,7 @@ export const LedgerHeaderActions = ({ darkMode, setActiveTab, setShowQuickAdd })
             <div className="mt-3 md:mt-0 flex gap-2">
                 <button
                     onClick={() => setShowQuickAdd(true)}
-                    className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 cyber-cut-sm text-xs sm:text-sm font-extrabold text-white bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 active:scale-[0.97] transition-all duration-200 shadow-[4px_4px_0px_rgba(34,211,238,0.35)] hover:shadow-[2px_2px_0px_rgba(34,211,238,0.55)] focus:outline-none"
+                    className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 cyber-cut-sm text-xs sm:text-sm font-extrabold text-white cyber-btn-accent active:scale-[0.97] transition-all duration-200 shadow-[4px_4px_0px_var(--accent-glow)] hover:shadow-[2px_2px_0px_var(--accent-glow-strong)] focus:outline-none"
                 >
                     <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />
                     Log New Expense

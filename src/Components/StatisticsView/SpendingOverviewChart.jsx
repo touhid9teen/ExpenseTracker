@@ -124,8 +124,8 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                             className={`flex-1 py-2 text-xs sm:text-sm font-bold cyber-cut-sm transition-all duration-200 ${
                                 selected
                                     ? darkMode
-                                        ? "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow shadow-cyan-500/20"
-                                        : "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow shadow-cyan-500/25"
+                                        ? "cyber-btn-accent text-white shadow shadow-cyan-500/20"
+                                        : "cyber-btn-accent text-white shadow shadow-cyan-500/25"
                                     : darkMode
                                         ? "text-slate-400 hover:text-cyan-300"
                                         : "text-slate-500 hover:text-cyan-600"

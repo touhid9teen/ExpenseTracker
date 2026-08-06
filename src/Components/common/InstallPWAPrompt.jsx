@@ -113,7 +113,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
             <div className="flex items-center gap-2 mt-3">
               <button
                 onClick={handleInstall}
-                className="px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 transition-all shadow-md shadow-cyan-500/25"
+                className="px-4 py-1.5 rounded-lg text-xs font-bold text-white cyber-btn-accent hover:from-cyan-600 hover:to-sky-600 transition-all shadow-md shadow-cyan-500/25"
               >
                 Install
               </button>

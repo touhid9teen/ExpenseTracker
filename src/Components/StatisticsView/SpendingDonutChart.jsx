@@ -77,7 +77,7 @@ export const SpendingDonutChart = ({ darkMode = true, expenses = [] }) => {
                 </h2>
 
                 {/* Period toggle */}
-                <div className={`flex rounded-full p-1 ${darkMode ? "bg-slate-900/60" : "bg-slate-100"}`} role="tablist" aria-label="Spending period">
+                <div className={`flex p-1 border-2 ${darkMode ? "bg-slate-950/70 border-cyan-900/60" : "bg-slate-100 border-cyan-300/70"}`} role="tablist" aria-label="Spending period">
                     {PERIODS.map((p) => {
                         const selected = period === p.key;
                         return (
@@ -86,12 +86,12 @@ export const SpendingDonutChart = ({ darkMode = true, expenses = [] }) => {
                                 role="tab"
                                 aria-selected={selected}
                                 onClick={() => setPeriod(p.key)}
-                                className={`px-3.5 py-1.5 text-xs font-bold rounded-full transition-all duration-200 ${
+                                className={`px-3.5 py-1.5 text-xs font-bold cyber-cut-sm transition-all duration-200 ${
                                     selected
-                                        ? "bg-sky-500 text-white shadow shadow-sky-500/25"
+                                        ? "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow shadow-cyan-500/25"
                                         : darkMode
-                                            ? "text-slate-400 hover:text-sky-300"
-                                            : "text-slate-500 hover:text-sky-600"
+                                            ? "text-slate-400 hover:text-cyan-300"
+                                            : "text-slate-500 hover:text-cyan-600"
                                 }`}
                             >
                                 {p.label}
@@ -103,8 +103,9 @@ export const SpendingDonutChart = ({ darkMode = true, expenses = [] }) => {
 
             <div
                 onClick={() => setActiveCategory(null)}
-                className={`p-6 sm:p-8 lg:p-10 rounded-tl-[48px] rounded-br-[48px] ${cardSurface("sky", darkMode)}`}
+                className={`p-6 sm:p-8 lg:p-10 cyber-cut relative overflow-hidden ${cardSurface("sky", darkMode)}`}
             >
+                <span className="absolute top-0 left-0 w-16 h-[3px] bg-gradient-to-r from-amber-400 to-cyan-400" />
                 {/* Visible date range */}
                 <p className={`text-center text-xs sm:text-sm font-semibold mb-6 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                     {formatRange(range)}
@@ -165,11 +166,11 @@ export const SpendingDonutChart = ({ darkMode = true, expenses = [] }) => {
                                     {centerLabel}
                                 </span>
                                 <span
-                                    className={`text-xl sm:text-2xl lg:text-3xl font-black tracking-tight ${
+                                    className={`text-xl sm:text-2xl lg:text-3xl font-black tracking-tight font-mono ${
                                         focused
                                             ? darkMode ? "text-slate-100" : "text-slate-800"
                                             : accentText("sky", darkMode)
-                                    }`}
+                                    } ${darkMode ? "neon-taka-cyan" : ""}`}
                                 >
                                     {formatCurrency(centerValue)}
                                 </span>

@@ -12,13 +12,13 @@ const AboutView = ({ darkMode, setActiveTab }) => {
   return (
     <div className="space-y-8 sm:space-y-12 animate-fadeIn pb-8">
       {/* ── Hero Section ── */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl">
+      <div className="relative overflow-hidden cyber-cut-lg border-2 border-cyan-500/25 cyber-cut-glow">
         {/* Background gradient */}
         <div
-          className={`absolute inset-0 ${
+          className={`absolute inset-0 cyber-scanlines ${
             darkMode
-              ? "bg-gradient-to-br from-slate-900 via-amber-950/30 to-slate-900"
-              : "bg-gradient-to-br from-amber-50 via-orange-50 to-white"
+              ? "bg-gradient-to-br from-slate-950 via-cyan-950/30 to-slate-950"
+              : "bg-gradient-to-br from-amber-50 via-cyan-50 to-white"
           }`}
         />
 
@@ -28,8 +28,8 @@ const AboutView = ({ darkMode, setActiveTab }) => {
 
         <div className="relative px-6 sm:px-10 lg:px-16 py-10 sm:py-16 lg:py-20">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 bg-amber-500/10 text-amber-500 border border-amber-500/20">
-              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 cyber-cut-sm text-xs font-semibold tracking-wider uppercase mb-6 bg-amber-500/10 text-amber-500 border-2 border-amber-500/30">
+              <span className="w-2 h-2 cyber-cut-sm bg-amber-500 animate-pulse" />
               Version 1.0.0
             </div>
             <h1
@@ -38,7 +38,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
               }`}
             >
               Welcome to{" "}
-              <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent">
                 FinVue
               </span>
             </h1>
@@ -54,7 +54,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
             <div className="flex flex-wrap gap-3 mt-6 sm:mt-8">
               <button
                 onClick={() => setActiveTab("ledger")}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 cyber-cut-sm font-bold text-sm bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow-[4px_4px_0px_rgba(34,211,238,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
               >
                 <ClipboardListIcon className="w-4 h-4" strokeWidth={2.5} />
                 Go to Ledger

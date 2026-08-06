@@ -4,17 +4,18 @@ import Button from "../common/Button";
 const SuccessModal = ({ username, onContinue }) => (
   <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 transition-opacity duration-300">
     <div
-      className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+      className="absolute inset-0 bg-black/60 backdrop-blur-xl"
       onClick={onContinue}
     />
     <div className="relative w-full max-w-sm transition-all duration-300">
-      <div className="rounded-2xl p-8 sm:p-10 bg-slate-900 border border-slate-800/80 shadow-2xl shadow-black/40 text-center">
+      <div className="relative cyber-cut-lg p-8 sm:p-10 bg-slate-950 border-2 border-cyan-700/60 cyber-cut-glow text-center">
+        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-cyan-400 to-amber-400 opacity-70 pointer-events-none" />
         <div className="relative w-20 h-20 mx-auto mb-6">
           <div
-            className="absolute inset-0 rounded-full bg-amber-500/20 blur-xl animate-pulse"
+            className="absolute inset-0 cyber-cut bg-amber-500/20 blur-xl animate-pulse"
             style={{ animationDuration: "3s" }}
           />
-          <div className="relative w-20 h-20 rounded-full bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center shadow-lg shadow-amber-500/20">
+          <div className="relative w-20 h-20 cyber-cut bg-gradient-to-tr from-amber-500 to-cyan-500 flex items-center justify-center shadow-[4px_4px_0px_rgba(34,211,238,0.4)]">
             <CheckIcon className="w-10 h-10 text-white" strokeWidth={3} />
           </div>
         </div>

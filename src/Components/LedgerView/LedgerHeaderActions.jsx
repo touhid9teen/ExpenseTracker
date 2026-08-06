@@ -2,22 +2,33 @@ import { PlusIcon } from "../common/Icons";
 
 export const LedgerHeaderActions = ({ darkMode, setActiveTab, setShowQuickAdd }) => {
     return (
-        <div className="flex flex-col md:flex-row md:items-center justify-between border-b pb-4 border-slate-300/60 dark:border-slate-800/50">
+        <div className="flex flex-col md:flex-row md:items-center justify-between border-b-2 pb-4 border-cyan-500/30 relative">
+            {/* Neon accent strip */}
+            <span className="absolute -bottom-[2px] left-0 h-[2px] w-24 bg-gradient-to-r from-amber-400 to-cyan-400" />
             <div>
-                <h1 className="text-2xl font-black tracking-tight">Transactions Ledger</h1>
-                <p className={`mt-1 text-sm ${darkMode ? "text-slate-400" : "text-slate-550"}`}>Log, search, sort, and edit expenditures safely</p>
+                <h1 className="text-2xl font-black tracking-tight flex items-center gap-3">
+                    <span className={`inline-block w-2 h-8 cyber-cut-sm ${darkMode ? "bg-amber-400" : "bg-amber-500"}`} />
+                    Transactions Ledger
+                </h1>
+                <p className={`mt-1 text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
+                    Log, search, sort, and edit expenditures safely
+                </p>
             </div>
             <div className="mt-3 md:mt-0 flex gap-2">
                 <button
                     onClick={() => setShowQuickAdd(true)}
-                    className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-extrabold text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 active:scale-[0.97] transition-all duration-200 shadow-lg shadow-amber-500/20 hover:shadow-xl hover:shadow-amber-500/30 focus:outline-none"
+                    className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 cyber-cut-sm text-xs sm:text-sm font-extrabold text-white bg-gradient-to-r from-amber-500 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 active:scale-[0.97] transition-all duration-200 shadow-[4px_4px_0px_rgba(34,211,238,0.35)] hover:shadow-[2px_2px_0px_rgba(34,211,238,0.55)] focus:outline-none"
                 >
                     <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />
                     Log New Expense
                 </button>
                 <button
                     onClick={() => setActiveTab("statistics")}
-                    className={`hidden sm:inline-block px-4 py-2 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-300" : "bg-white hover:bg-slate-100 border-slate-300 text-slate-650"}`}
+                    className={`hidden sm:inline-block px-4 py-2 cyber-cut-sm text-xs font-bold transition-all border-2 ${
+                        darkMode
+                            ? "bg-slate-900 hover:bg-slate-800 border-cyan-900 text-cyan-300"
+                            : "bg-white hover:bg-slate-100 border-cyan-300 text-cyan-700"
+                    }`}
                 >
                     ← Open Analytics
                 </button>

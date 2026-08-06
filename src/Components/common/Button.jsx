@@ -2,21 +2,26 @@ import { SpinnerIcon } from "./Icons";
 
 const variants = {
   primary: {
-    base: "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white",
-    glow: "from-amber-500/30 to-orange-500/30",
+    base: "bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-cyan-400 text-white",
+    glow: "from-amber-500/30 to-cyan-400/30",
     loading: "bg-amber-500/70",
   },
   amber: {
-    base: "bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-white",
-    glow: "from-amber-400/30 to-orange-500/30",
+    base: "bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-cyan-400 text-white",
+    glow: "from-amber-400/30 to-cyan-400/30",
     loading: "bg-amber-400/70",
+  },
+  cyan: {
+    base: "bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-white",
+    glow: "from-cyan-400/30 to-sky-500/30",
+    loading: "bg-cyan-500/70",
   },
 };
 
 const sizes = {
-  sm: "py-2 px-3 text-sm rounded-lg",
-  md: "py-3 px-4 text-sm rounded-xl",
-  lg: "py-3.5 px-4 rounded-xl",
+  sm: "py-2 px-3 text-sm",
+  md: "py-3 px-4 text-sm",
+  lg: "py-3.5 px-4",
 };
 
 const Button = ({
@@ -39,7 +44,7 @@ const Button = ({
       type={type}
       onClick={onClick}
       disabled={disabled || loading}
-      className={`relative w-full font-bold text-white overflow-hidden group transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.98] disabled:cursor-not-allowed ${
+      className={`relative w-full font-bold text-white overflow-hidden group transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.98] disabled:cursor-not-allowed cyber-cut-sm ${
         disabled && !loading ? 'opacity-50 hover:scale-100' : ''
       } ${sizes[size]} ${className}`}
     >
@@ -48,12 +53,14 @@ const Button = ({
           loading ? v.loading : v.base
         }`}
       />
+      {/* Neon edge strip along the top */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-white/40 to-cyan-400 opacity-80" />
       {!loading && shimmer && (
-        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
       )}
       {!loading && glow && (
         <div
-          className={`absolute -inset-1 bg-gradient-to-r ${v.glow} rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+          className={`absolute -inset-1 bg-gradient-to-r ${v.glow} blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
         />
       )}
       <span className="relative flex items-center justify-center gap-2">

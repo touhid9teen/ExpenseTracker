@@ -82,9 +82,9 @@ const FloatingTrigger = ({ isOpen, onToggle, darkMode, tooltipDismissed, onDismi
         <button
           onClick={onToggle}
           type="button"
-          className="relative z-10 w-14 h-14 rounded-full flex items-center justify-center
+          className="relative z-10 w-14 h-14 cyber-cut flex items-center justify-center
                       transition-transform duration-200 hover:scale-105 active:scale-95
-                      bg-violet-600 hover:bg-violet-700"
+                      bg-gradient-to-tr from-amber-500 to-cyan-500 shadow-[0_0_24px_rgba(34,211,238,0.45)]"
           aria-label="Toggle AI chat"
         >
           <ChatIcon />

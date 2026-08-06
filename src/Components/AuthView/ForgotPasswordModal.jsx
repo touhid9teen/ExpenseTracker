@@ -113,11 +113,12 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-xl"
         onClick={onClose}
       />
       <div className="relative w-full max-w-sm transition-all duration-300">
-        <div className="rounded-2xl p-8 bg-slate-900 border border-slate-800/80 shadow-2xl shadow-black/40">
+        <div className="relative cyber-cut-lg p-8 bg-slate-950 border-2 border-cyan-700/60 cyber-cut-glow">
+          <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-cyan-400 to-amber-400 opacity-70 pointer-events-none" />
           {/* Close button */}
           <button
             onClick={onClose}
@@ -147,7 +148,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     autoComplete="email"
-                    className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 text-sm"
+                    className="cyber-input w-full pl-9 pr-4 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]"
                   />
                 </div>
                 <div className="mt-5">
@@ -184,7 +185,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     value={resetCode}
                     onChange={(e) => setResetCode(e.target.value)}
                     placeholder={devToken ? `Dev code: ${devToken}` : "Enter reset code"}
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 text-sm"
+                    className="cyber-input w-full px-1 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]"
                   />
                   {devMode && (
                     <p className="text-xs text-amber-400/70 mt-1.5 ml-1">
@@ -208,7 +209,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                       onChange={(e) => setNewPassword(e.target.value)}
                       placeholder="New password"
                       autoComplete="new-password"
-                      className="w-full pl-11 pr-12 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 text-sm"
+                      className="cyber-input w-full pl-9 pr-12 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]"
                     />
                     {newPassword && (
                       <button
@@ -233,7 +234,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm new password"
                     autoComplete="new-password"
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-800 border-2 border-slate-600/50 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 text-sm"
+                    className="cyber-input w-full px-1 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]"
                   />
                 </div>
 

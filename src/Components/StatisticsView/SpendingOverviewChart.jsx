@@ -87,15 +87,15 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
 
     return (
         <div
-            className={`rounded-3xl p-5 sm:p-6 border transition-colors duration-300 ${
+            className={`cyber-cut p-5 sm:p-6 border-2 transition-colors duration-300 cyber-cut-glow ${
                 darkMode
-                    ? "bg-slate-800 border-amber-500/40 shadow-lg shadow-amber-500/5"
-                    : "bg-white border-amber-400 shadow-lg shadow-amber-500/10"
+                    ? "bg-slate-900 border-amber-600/40"
+                    : "bg-white border-amber-400"
             }`}
         >
             {/* Total + current selection date */}
             <div className="text-center">
-                <p className={`text-3xl sm:text-4xl font-black tracking-tight ${darkMode ? "text-amber-400" : "text-amber-600"}`}>
+                <p className={`text-3xl sm:text-4xl font-black tracking-tight font-mono ${darkMode ? "text-amber-400 neon-taka" : "text-amber-600"}`}>
                     {formatCurrency(total)}
                 </p>
                 <p className={`mt-1 text-xs sm:text-sm font-medium ${darkMode ? "text-slate-400" : "text-slate-400"}`}>
@@ -105,7 +105,11 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
 
             {/* Period toggle */}
             <div
-                className={`flex mt-4 rounded-full p-1 max-w-xs mx-auto ${darkMode ? "bg-slate-900/60" : "bg-slate-100"}`}
+                className={`flex mt-4 p-1 max-w-xs mx-auto border-2 ${
+                    darkMode
+                        ? "bg-slate-950/70 border-cyan-900/60"
+                        : "bg-slate-100 border-cyan-300/70"
+                }`}
                 role="tablist"
                 aria-label="Spending period"
             >
@@ -117,14 +121,14 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                             role="tab"
                             aria-selected={selected}
                             onClick={() => setPeriod(p.key)}
-                            className={`flex-1 py-2 text-xs sm:text-sm font-bold rounded-full transition-all duration-200 ${
+                            className={`flex-1 py-2 text-xs sm:text-sm font-bold cyber-cut-sm transition-all duration-200 ${
                                 selected
                                     ? darkMode
-                                        ? "bg-amber-500 text-white shadow shadow-amber-500/20"
-                                        : "bg-amber-500 text-white shadow shadow-amber-500/25"
+                                        ? "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow shadow-cyan-500/20"
+                                        : "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow shadow-cyan-500/25"
                                     : darkMode
-                                        ? "text-slate-400 hover:text-amber-300"
-                                        : "text-slate-500 hover:text-amber-600"
+                                        ? "text-slate-400 hover:text-cyan-300"
+                                        : "text-slate-500 hover:text-cyan-600"
                             }`}
                         >
                             {p.label}
@@ -135,17 +139,17 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
 
             {/* Chart */}
             <div className="relative mt-6">
-                {/* Floating tooltip for the active point */}
+                {/* Floating tooltip for the active point — glowing mono ৳ */}
                 {active && (
                     <div
                         className="absolute -top-1 z-10 -translate-x-1/2 transition-all duration-300 pointer-events-none"
                         style={{ left: `${tooltipLeftPct}%` }}
                     >
                         <div
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shadow-lg border ${
+                            className={`px-3 py-1.5 cyber-cut-sm text-xs font-black font-mono whitespace-nowrap shadow-lg border-2 ${
                                 darkMode
-                                    ? "bg-slate-900 text-amber-400 border-amber-500/40"
-                                    : "bg-white text-amber-600 border-amber-400"
+                                    ? "bg-slate-950 text-amber-400 neon-taka border-cyan-600/60"
+                                    : "bg-white text-amber-600 border-cyan-400"
                             }`}
                         >
                             {formatCurrency(active.amount)}

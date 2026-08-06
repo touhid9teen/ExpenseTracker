@@ -7,16 +7,28 @@ export const EditExpenseModal = ({
     handleSaveEdit,
     CATEGORIES
 }) => {
+    const inputClass = `cyber-input w-full px-1 py-2.5 text-sm font-medium ${
+        darkMode ? "text-slate-100" : "text-slate-800"
+    }`;
+
     return (
         <>
             {editingExpense && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/65 backdrop-blur-sm transition-opacity duration-300">
-                    <div className={`w-full max-w-lg rounded-2xl border shadow-2xl p-6 transform scale-100 transition-transform ${darkMode ? "bg-slate-900 border-slate-800 shadow-black/30" : "bg-white border-slate-200 shadow-slate-200/40"}`}>
-                        <div className="flex items-center justify-between border-b pb-4 mb-4 border-slate-200 dark:border-slate-800">
-                            <h3 className="text-lg font-bold tracking-tight">Edit Transaction Details</h3>
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xl transition-opacity duration-300">
+                    <div className={`relative w-full max-w-lg cyber-cut-lg border-2 p-6 transform scale-100 transition-transform ${
+                        darkMode
+                            ? "bg-slate-950 border-cyan-700/60 cyber-cut-glow"
+                            : "bg-white border-cyan-400 [filter:drop-shadow(0_0_30px_rgba(34,211,238,0.15))]"
+                    }`}>
+                        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-cyan-400 to-amber-400 opacity-70 pointer-events-none" />
+                        <div className="flex items-center justify-between border-b-2 pb-4 mb-4 border-cyan-500/25">
+                            <h3 className="text-lg font-bold tracking-tight flex items-center gap-2">
+                                Edit Transaction Details
+                                <span className={`inline-block w-1.5 h-5 cyber-cut-sm ${darkMode ? "bg-cyan-400" : "bg-cyan-500"}`} />
+                            </h3>
                             <button
                                 onClick={() => setEditingExpense(null)}
-                                className={`p-1.5 rounded-lg transition-colors ${darkMode ? "hover:bg-slate-800 text-slate-400 hover:text-slate-200" : "hover:bg-slate-100 text-slate-500 hover:text-slate-700"}`}
+                                className={`p-1.5 cyber-cut-sm transition-colors ${darkMode ? "hover:bg-slate-900 text-slate-400 hover:text-cyan-300" : "hover:bg-slate-100 text-slate-500 hover:text-cyan-600"}`}
                             >
                                 <XIcon className="w-5.5 h-5.5" />
                             </button>
@@ -24,25 +36,27 @@ export const EditExpenseModal = ({
 
                         <form onSubmit={handleSaveEdit} className="space-y-4">
                             <div>
-                                <label className={`block text-xs font-bold uppercase mb-1.5 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Date</label>
+                                <label className={`block text-xs font-bold uppercase mb-1 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Date</label>
                                 <input
                                     type="date"
                                     required
                                     value={editingExpense.date}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, date: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
+                                    className={inputClass}
                                 />
                             </div>
 
                             <div>
-                                <label className={`block text-xs font-bold uppercase mb-1.5 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Category</label>
+                                <label className={`block text-xs font-bold uppercase mb-1 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Category</label>
                                 <select
                                     value={editingExpense.category}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, category: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
+                                    className={`cyber-input w-full px-1 py-2.5 text-sm font-medium ${
+                                        darkMode ? "text-slate-100" : "text-slate-800"
+                                    }`}
                                 >
                                     {CATEGORIES.map((cat) => (
-                                        <option key={cat} value={cat}>
+                                        <option key={cat} value={cat} className={darkMode ? "bg-slate-900" : "bg-white"}>
                                             {cat}
                                         </option>
                                     ))}
@@ -50,18 +64,18 @@ export const EditExpenseModal = ({
                             </div>
 
                             <div>
-                                <label className={`block text-xs font-bold uppercase mb-1.5 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Description</label>
+                                <label className={`block text-xs font-bold uppercase mb-1 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Description</label>
                                 <input
                                     type="text"
                                     required
                                     value={editingExpense.description}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, description: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
+                                    className={inputClass}
                                 />
                             </div>
 
                             <div>
-                                <label className={`block text-xs font-bold uppercase mb-1.5 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Amount (৳)</label>
+                                <label className={`block text-xs font-bold uppercase mb-1 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Amount (৳)</label>
                                 <input
                                     type="number"
                                     required
@@ -69,21 +83,23 @@ export const EditExpenseModal = ({
                                     step="0.01"
                                     value={editingExpense.amount}
                                     onChange={(e) => setEditingExpense({ ...editingExpense, amount: e.target.value })}
-                                    className={`w-full px-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all ${darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-slate-50 border-slate-300 text-slate-850"}`}
+                                    className={`cyber-input w-full px-1 py-2.5 text-sm font-black font-mono ${
+                                        darkMode ? "text-amber-400" : "text-amber-600"
+                                    }`}
                                 />
                             </div>
 
-                            <div className="flex justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                            <div className="flex justify-end gap-3 pt-4 border-t-2 border-cyan-500/20">
                                 <button
                                     type="button"
                                     onClick={() => setEditingExpense(null)}
-                                    className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-slate-100 border-slate-300 text-slate-650"}`}
+                                    className={`px-5 py-2.5 cyber-cut-sm text-xs font-bold transition-all border-2 ${darkMode ? "bg-slate-900 border-slate-700 text-slate-300" : "bg-slate-100 border-slate-300 text-slate-600"}`}
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all shadow-md focus:outline-none"
+                                    className="px-6 py-2.5 cyber-cut-sm text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 transition-all shadow-md focus:outline-none"
                                 >
                                     Save Changes
                                 </button>

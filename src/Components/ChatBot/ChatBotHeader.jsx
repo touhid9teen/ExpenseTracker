@@ -9,12 +9,12 @@ import { LightningBoltIcon, XIcon } from "../common/Icons";
  */
 const ChatBotHeader = ({ darkMode, onClose }) => (
   <div
-    className={`px-5 py-4 border-b flex items-center justify-between gap-3 flex-shrink-0 ${
+    className={`px-5 py-4 border-b-2 flex items-center justify-between gap-3 flex-shrink-0 ${
       darkMode
-        ? "bg-slate-800/80 border-slate-700": "bg-slate-50 border-slate-300"}`}
+        ? "bg-slate-900/90 border-cyan-900/60": "bg-slate-50 border-cyan-200"}`}
   >
     <div className="flex items-center gap-3">
-      <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center shadow-lg flex-shrink-0">
+      <div className="w-10 h-10 cyber-cut bg-gradient-to-tr from-amber-500 to-cyan-500 flex items-center justify-center shadow-[3px_3px_0px_rgba(34,211,238,0.35)] flex-shrink-0">
         <LightningBoltIcon className="w-6 h-6 text-white" />
       </div>
       <div>
@@ -24,7 +24,7 @@ const ChatBotHeader = ({ darkMode, onClose }) => (
           FinVue AI
         </h3>
         <div className="flex items-center gap-1.5 mt-0.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+          <span className="w-1.5 h-1.5 cyber-cut-sm bg-emerald-400 inline-block" />
           <p
             className={`text-xs ${darkMode ? "text-slate-400" : "text-slate-500"}`}
           >
@@ -36,10 +36,10 @@ const ChatBotHeader = ({ darkMode, onClose }) => (
     <button
       onClick={onClose}
       aria-label="Close chat"
-      className={`p-2 rounded-full transition-colors ${
+      className={`p-2 cyber-cut-sm transition-colors border-2 ${
         darkMode
-          ? "hover:bg-slate-700 text-slate-400"
-          : "hover:bg-slate-200 text-slate-500"
+          ? "hover:bg-slate-800 text-slate-400 border-transparent hover:border-cyan-800"
+          : "hover:bg-slate-200 text-slate-500 border-transparent hover:border-cyan-300"
       }`}
     >
       <XIcon className="w-4 h-4" />

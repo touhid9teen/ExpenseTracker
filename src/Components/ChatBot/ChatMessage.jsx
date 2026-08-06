@@ -66,11 +66,11 @@ const ChatMessage = ({ msg, darkMode }) => {
   // ── Plain text bubble ──
   return (
     <div
-      className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
+      className={`max-w-[85%] cyber-cut-sm px-4 py-2.5 text-sm ${
         msg.sender === "user"
-          ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-br-none shadow-md shadow-amber-500/20"
+          ? "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow-md shadow-cyan-500/20"
           : darkMode
-            ? "bg-slate-800 text-slate-200 rounded-bl-none border border-slate-700": "bg-slate-100 text-slate-700 rounded-bl-none border border-slate-300"}`}
+            ? "bg-slate-800 text-slate-200 border-2 border-slate-700": "bg-slate-100 text-slate-700 border-2 border-slate-300"}`}
     >
       <div className="whitespace-pre-wrap">{msg.text}</div>
     </div>

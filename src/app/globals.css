@@ -27,7 +27,113 @@
   }
 }
 
+/* ─── Neo-Cyber Brutalism utilities ─────────────────────────────── */
+
+/* Slanted cut corners (diagonal top-right / bottom-left) */
 @layer utilities {
+  .cyber-cut {
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .cyber-cut-sm {
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+  .cyber-cut-lg {
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+  /* Only the top-right corner cut */
+  .cyber-cut-tr {
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  }
+  .cyber-cut-bl {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+
+  /* Offset neo-brutalist shadow that shifts on hover.
+     NOTE: clip-path clips box-shadow, so elements that are BOTH cyber-cut
+     and shadowed must use the drop-shadow variants below (filter follows
+     the clipped polygon shape). */
+  .cyber-shadow {
+    box-shadow: 6px 6px 0px rgba(6, 182, 212, 0.35);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .cyber-shadow:hover {
+    box-shadow: 3px 3px 0px rgba(6, 182, 212, 0.55);
+    transform: translate(2px, 2px);
+  }
+  .cyber-shadow-sm {
+    box-shadow: 4px 4px 0px rgba(6, 182, 212, 0.3);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .cyber-shadow-sm:hover {
+    box-shadow: 2px 2px 0px rgba(6, 182, 212, 0.5);
+    transform: translate(1px, 1px);
+  }
+  /* drop-shadow versions — safe on cyber-cut (clipped) elements */
+  .cyber-cut-shadow {
+    filter: drop-shadow(6px 6px 0px rgba(6, 182, 212, 0.35));
+  }
+  .cyber-cut-shadow-sm {
+    filter: drop-shadow(4px 4px 0px rgba(6, 182, 212, 0.3));
+  }
+  .cyber-cut-glow {
+    filter: drop-shadow(0 0 40px rgba(34, 211, 238, 0.18));
+  }
+
+  /* Neon text glow for financial metrics */
+  .neon-taka {
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.55), 0 0 24px rgba(245, 158, 11, 0.25);
+  }
+  .neon-taka-cyan {
+    text-shadow: 0 0 8px rgba(34, 211, 238, 0.55), 0 0 24px rgba(34, 211, 238, 0.25);
+  }
+
+  /* Glowing bottom-line input */
+  .cyber-input {
+    background: transparent;
+    border-bottom: 2px solid rgba(100, 116, 139, 0.5);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .cyber-input:focus {
+    outline: none;
+    border-bottom-color: #22d3ee;
+    box-shadow: 0 12px 20px -16px rgba(34, 211, 238, 0.65);
+  }
+
+  /* Animated liquid pill for the cyber dock indicator */
+  .liquid-pill {
+    position: absolute;
+    inset: 4px 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.9), rgba(34, 211, 238, 0.9));
+    box-shadow: 0 0 18px rgba(34, 211, 238, 0.5), 0 0 36px rgba(245, 158, 11, 0.25);
+    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1), width 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 0;
+  }
+
+  /* Subtle cyber grid backdrop */
+  .cyber-grid {
+    background-image:
+      linear-gradient(rgba(34, 211, 238, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Scanline sweep used on hero panels */
+  .cyber-scanlines {
+    background-image: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  }
+
+  /* Slanted "cyber ticker" strip for table headers */
+  .cyber-ticker {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 18px) 100%, 0 100%);
+  }
+
   .auth-pattern {
     --s: 77px;
     --c1: #fcd34d;

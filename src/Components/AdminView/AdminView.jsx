@@ -36,21 +36,22 @@ const AdminView = memo(function AdminView(props) {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
           <div
-            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest mb-3 border ${
+            className={`inline-flex items-center gap-2 px-3 py-1 cyber-cut-sm text-[11px] font-bold uppercase tracking-widest mb-3 border-2 ${
               darkMode
-                ? "bg-amber-500/10 text-amber-400 border-amber-500/25"
-                : "bg-amber-100 text-amber-700 border-amber-200"
+                ? "bg-cyan-950/40 text-cyan-400 border-cyan-800/60"
+                : "bg-cyan-50 text-cyan-700 border-cyan-200"
             }`}
           >
             <ShieldCheckIcon className="w-3.5 h-3.5" strokeWidth={2.5} />
             Admin Console
           </div>
           <h1
-            className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${
+            className={`text-2xl sm:text-3xl font-extrabold tracking-tight flex items-center gap-3 ${
               darkMode ? "text-white" : "text-slate-900"
             }`}
           >
             Platform Administration
+            <span className={`inline-block w-2 h-8 cyber-cut-sm ${darkMode ? "bg-amber-400" : "bg-amber-500"}`} />
           </h1>
           <p
             className={`mt-1.5 text-sm ${
@@ -74,10 +75,10 @@ const AdminView = memo(function AdminView(props) {
           <button
             onClick={refreshAdmin}
             disabled={isAdminLoading}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 active:scale-95 disabled:opacity-60 ${
+            className={`inline-flex items-center gap-2 px-4 py-2 cyber-cut-sm text-xs font-bold transition-all duration-200 active:scale-95 disabled:opacity-60 border-2 ${
               darkMode
-                ? "bg-slate-800 border border-slate-700 text-amber-400 hover:bg-slate-700"
-                : "bg-white border border-slate-300 text-amber-600 hover:bg-slate-50"
+                ? "bg-slate-900 border-cyan-900/70 text-cyan-400 hover:bg-slate-800 hover:border-cyan-700"
+                : "bg-white border-cyan-300 text-cyan-700 hover:bg-slate-50"
             }`}
           >
             <RefreshIcon
@@ -91,22 +92,22 @@ const AdminView = memo(function AdminView(props) {
 
       {/* ── Tab Bar ── */}
       <div
-        className={`inline-flex p-1 rounded-xl border gap-1 ${
-          darkMode ? "bg-slate-900 border-slate-800" : "bg-slate-100 border-slate-300"
+        className={`inline-flex p-1 border-2 gap-1 ${
+          darkMode ? "bg-slate-950/70 border-cyan-900/60" : "bg-slate-100 border-cyan-300/70"
         }`}
       >
         {tabs.map(({ id, label, icon: Icon, count }) => (
           <button
             key={id}
             onClick={() => setAdminTab(id)}
-            className={`px-3 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
+            className={`px-3 sm:px-4 py-2 cyber-cut-sm text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
               adminTab === id
                 ? darkMode
-                  ? "bg-slate-800 text-amber-400 shadow-sm shadow-black/5"
-                  : "bg-white text-amber-600 shadow-sm shadow-slate-200/20"
+                  ? "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow-sm shadow-cyan-500/25"
+                  : "bg-gradient-to-r from-amber-500 to-cyan-500 text-white shadow-sm shadow-cyan-500/25"
                 : darkMode
-                ? "text-slate-400 hover:text-slate-200"
-                : "text-slate-500 hover:text-slate-800"
+                ? "text-slate-400 hover:text-cyan-300"
+                : "text-slate-500 hover:text-cyan-600"
             }`}
           >
             <Icon className="w-3.5 h-3.5" strokeWidth={2.5} />

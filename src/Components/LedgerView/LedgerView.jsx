@@ -7,7 +7,7 @@ import { PaginationBar } from "./PaginationBar";
 const LedgerView = (props) => {
     const filteredExpenses = props.filteredExpenses ?? [];
     const currentTableTotal = filteredExpenses.reduce((sum, expense) => sum + normalizeExpenseAmount(expense.amount), 0);
-    const getCategoryStyles = props.getCategoryStyles ?? props.getCategoryStylesForTheme ?? (() => ({ bg: "bg-slate-100", bullet: "bg-slate-400" }));
+    const getCategoryStyles = props.getCategoryStyles ?? props.getCategoryStylesForTheme ?? (() => ({ bg: "bg-slate-100", bullet: "bg-slate-400", color: "bg-slate-400" }));
 
     return props.activeTab === "ledger" ? (
         <div className="space-y-6 animate-fadeIn">

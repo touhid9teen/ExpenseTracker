@@ -33,8 +33,8 @@ const AuthInput = ({
   };
 
   const borderClass = hasError
-    ? 'border-red-400 focus:ring-red-200 focus:border-red-400'
-    : 'border-slate-200 hover:border-slate-300 focus:ring-amber-200 focus:border-amber-400';
+    ? 'border-b-red-500 focus:border-b-red-400 focus:shadow-[0_12px_20px_-16px_rgba(244,63,94,0.6)]'
+    : 'border-b-slate-300 hover:border-b-slate-400 focus:border-b-cyan-500 focus:shadow-[0_12px_20px_-16px_rgba(34,211,238,0.6)]';
 
   return (
     <div>
@@ -42,7 +42,7 @@ const AuthInput = ({
         {label}
       </label>
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+        <div className="absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
           {showSuccessIcon ? (
             <CheckIcon className="w-4 h-4 text-emerald-500" strokeWidth={3} />
           ) : hasError ? (
@@ -58,7 +58,7 @@ const AuthInput = ({
           aria-describedby={describedBy}
           onKeyUp={detectCapsLock ? handleKey : undefined}
           onKeyDown={detectCapsLock ? handleKey : undefined}
-          className={`w-full pl-11 ${isPassword ? 'pr-12' : 'pr-4'} py-2.5 rounded-xl bg-slate-50 border-2 ${borderClass} text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:bg-white transition-all duration-200 text-sm disabled:opacity-50`}
+          className={`w-full pl-9 ${isPassword ? 'pr-12' : 'pr-2'} py-2.5 bg-transparent border-b-2 ${borderClass} text-slate-800 placeholder-slate-400 focus:outline-none transition-all duration-200 text-sm disabled:opacity-50`}
           {...inputProps}
         />
         {isPassword && inputProps.value && (

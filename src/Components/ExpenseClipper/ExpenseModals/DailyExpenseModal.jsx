@@ -11,20 +11,26 @@ export const DailyExpenseModal = ({
     return (
         <>
             {selectedDailyDate && dailyModalDetails && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/65 backdrop-blur-sm transition-opacity duration-300">
-                    <div className={`w-full max-w-xl rounded-2xl border shadow-2xl p-6 transform scale-100 transition-transform ${darkMode ? "bg-slate-900 border-slate-800 shadow-black/30" : "bg-white border-slate-200 shadow-slate-200/40"}`}>
-                        <div className="flex items-center justify-between border-b pb-4 mb-4 border-slate-200 dark:border-slate-800">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xl transition-opacity duration-300">
+                    <div className={`relative w-full max-w-xl cyber-cut-lg border-2 p-6 transform scale-100 transition-transform ${
+                        darkMode
+                            ? "bg-slate-950 border-cyan-700/60 cyber-cut-glow"
+                            : "bg-white border-cyan-400 [filter:drop-shadow(0_0_30px_rgba(34,211,238,0.15))]"
+                    }`}>
+                        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-cyan-400 to-amber-400 opacity-70 pointer-events-none" />
+                        <div className="flex items-center justify-between border-b-2 pb-4 mb-4 border-cyan-500/25">
                             <div>
-                                <h3 className="text-lg font-bold tracking-tight text-amber-500 font-black">
+                                <h3 className="text-lg font-bold tracking-tight text-amber-500 font-black flex items-center gap-2">
                                     {formatDate(dailyModalDetails.date)}
+                                    <span className={`inline-block w-1.5 h-5 cyber-cut-sm ${darkMode ? "bg-cyan-400" : "bg-cyan-500"}`} />
                                 </h3>
-                                <span className={`text-xs font-medium block ${darkMode ? "text-slate-400" : "text-slate-555"}`}>
+                                <span className={`text-xs font-medium block ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                                     {dailyModalDetails.count} transaction{dailyModalDetails.count !== 1 ? "s" : ""} on this day
                                 </span>
                             </div>
                             <button
                                 onClick={() => setSelectedDailyDate(null)}
-                                className={`p-1.5 rounded-lg transition-colors ${darkMode ? "hover:bg-slate-800 text-slate-400 hover:text-slate-200" : "hover:bg-slate-100 text-slate-500 hover:text-slate-700"}`}
+                                className={`p-1.5 cyber-cut-sm transition-colors ${darkMode ? "hover:bg-slate-900 text-slate-400 hover:text-cyan-300" : "hover:bg-slate-100 text-slate-500 hover:text-cyan-600"}`}
                             >
                                 <XIcon className="w-5.5 h-5.5" />
                             </button>
@@ -34,16 +40,18 @@ export const DailyExpenseModal = ({
                             {dailyModalDetails.items.map((item) => {
                                 const style = getCategoryStyles(item.category);
                                 return (
-                                    <div key={item.id} className={`p-3.5 rounded-xl border flex items-center justify-between gap-4 ${darkMode ? "bg-slate-800/35 border-slate-850" : "bg-slate-50 border-slate-150"}`}>
+                                    <div key={item.id} className={`p-3.5 cyber-cut-sm border-2 flex items-center justify-between gap-4 transition-all hover:translate-x-1 ${
+                                        darkMode ? "bg-slate-900/60 border-slate-800" : "bg-slate-50 border-cyan-200/70"
+                                    }`}>
                                         <div className="space-y-1 truncate max-w-[340px]">
-                                            <p className={`text-sm font-bold truncate ${darkMode ? "text-slate-200" : "text-slate-750"}`}>
+                                            <p className={`text-sm font-bold truncate ${darkMode ? "text-slate-200" : "text-slate-700"}`}>
                                                 {item.description}
                                             </p>
-                                            <span className={`inline-flex items-center gap-1 text-[9px] uppercase font-extrabold px-2 py-0.5 rounded-full border ${style.bg}`}>
+                                            <span className={`inline-flex items-center gap-1 text-[9px] uppercase font-extrabold px-2 py-0.5 cyber-cut-sm border-2 ${style.bg}`}>
                                                 {item.category}
                                             </span>
                                         </div>
-                                        <span className="font-black text-sm text-amber-500 flex-shrink-0">
+                                        <span className={`font-black text-sm font-mono flex-shrink-0 ${darkMode ? "text-amber-400 neon-taka" : "text-amber-600"}`}>
                                             ৳{Math.round(item.amount).toLocaleString()}
                                         </span>
                                     </div>
@@ -51,15 +59,19 @@ export const DailyExpenseModal = ({
                             })}
                         </div>
 
-                        <div className="border-t pt-4 border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                        <div className="border-t-2 pt-4 border-cyan-500/20 flex items-center justify-between">
                             <span className={`font-bold text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Total Expense of Day:</span>
-                            <span className="text-xl font-extrabold text-amber-500">৳{Math.round(dailyModalDetails.total).toLocaleString()}</span>
+                            <span className={`text-xl font-extrabold font-mono ${darkMode ? "text-amber-400 neon-taka" : "text-amber-600"}`}>৳{Math.round(dailyModalDetails.total).toLocaleString()}</span>
                         </div>
 
                         <div className="mt-6 flex justify-end">
                             <button
                                 onClick={() => setSelectedDailyDate(null)}
-                                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all border ${darkMode ? "bg-slate-800 border-slate-700 text-slate-250 hover:bg-slate-750" : "bg-slate-100 border-slate-300 text-slate-650 hover:bg-slate-200"}`}
+                                className={`px-5 py-2.5 cyber-cut-sm text-xs font-bold transition-all border-2 ${
+                                    darkMode
+                                        ? "bg-slate-900 border-slate-700 text-slate-300 hover:bg-slate-800"
+                                        : "bg-slate-100 border-slate-300 text-slate-600 hover:bg-slate-200"
+                                }`}
                             >
                                 Close View
                             </button>

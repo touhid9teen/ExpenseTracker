@@ -9,11 +9,11 @@ const PasswordStrengthMeter = ({ password = '' }) => {
 
   return (
     <div className="mt-2 ml-1" aria-live="polite">
-      <div className="flex gap-1.5">
+      <div className="flex gap-1">
         {Array.from({ length: segments }).map((_, i) => (
           <div
             key={i}
-            className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
+            className={`h-1.5 flex-1 cyber-cut-sm transition-colors duration-300 ${
               i < score ? color : 'bg-slate-200'
             }`}
           />

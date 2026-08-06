@@ -36,7 +36,7 @@ const ExpenseClipperScreen = (props) => {
 
   return (
     <div
-      className={`min-h-screen font-sans transition-colors duration-300 pb-20 sm:pb-0 ${
+      className={`min-h-screen font-sans transition-colors duration-300 pb-28 sm:pb-32 cyber-grid ${
         props.darkMode
           ? "bg-[#0b0f19] text-slate-100"
           : "bg-[#f8fafc] text-slate-800"
@@ -50,7 +50,7 @@ const ExpenseClipperScreen = (props) => {
         user={props.user}
         handleLogout={props.handleLogout}
       />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-28 sm:pb-32">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8">
         {/* <FilterAlert searchQuery={props.searchQuery} categoryFilter={props.categoryFilter} activeDateFilter={props.activeDateFilter} darkMode={props.darkMode} handleResetFilters={props.handleResetFilters} /> */}
         {props.isExpensesLoading && props.activeTab === "statistics" && (
           <StatisticsSkeleton darkMode={props.darkMode} />

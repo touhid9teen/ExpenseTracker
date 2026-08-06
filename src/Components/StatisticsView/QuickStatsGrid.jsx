@@ -9,16 +9,17 @@ const StatCard = ({ darkMode, title, value = "", note, icon: Icon, accent }) => 
   <div
     className={`
         flex flex-col items-center justify-center text-center
-        p-6 rounded-tl-[48px] rounded-br-[48px] min-h-[155px]
-        transition-all duration-200 hover:scale-[1.02]
+        p-6 cyber-cut min-h-[155px] relative overflow-hidden
+        transition-all duration-200 hover:translate-x-[-2px] hover:translate-y-[-2px]
         ${cardSurface(accent, darkMode)}
     `}
   >
+    <span className="absolute top-0 right-0 w-10 h-[3px] bg-gradient-to-l from-cyan-400 to-transparent" />
     <Icon className={`w-8 h-8 mb-3 ${accentText(accent, darkMode)}`} />
     <span className={`text-base font-bold leading-tight ${darkMode ? "text-slate-200" : "text-slate-700"}`}>
       {title}
     </span>
-    <span className={`text-2xl font-bold mt-1 tracking-tight ${accentText(accent, darkMode)}`}>
+    <span className={`text-2xl font-black mt-1 tracking-tight font-mono ${accentText(accent, darkMode)} ${darkMode ? "neon-taka" : ""}`}>
       {value}
     </span>
     <span className={`text-xs mt-1 leading-tight ${darkMode ? "text-slate-400" : "text-slate-500"}`}>{note}</span>
@@ -41,8 +42,9 @@ export const QuickStatsGrid = ({
   return (
     <div>
       <h2 className={`text-base font-bold tracking-tight mb-4 flex items-center gap-2 ${darkMode ? "text-slate-100" : "text-slate-800"}`}>
-        <ChartBarSquareIcon className="w-5 h-5 text-amber-500" />
+        <ChartBarSquareIcon className="w-5 h-5 text-cyan-500" />
         Core Spending Statistics
+        <span className={`inline-block w-1.5 h-4 cyber-cut-sm ${darkMode ? "bg-amber-400" : "bg-amber-500"}`} />
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <StatCard

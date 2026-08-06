@@ -77,7 +77,7 @@ export const SpendingDonutChart = ({ darkMode = true, expenses = [] }) => {
                 </h2>
 
                 {/* Period toggle */}
-                <div className={`flex p-1 border-2 ${darkMode ? "bg-slate-950/70 border-cyan-900/60" : "bg-slate-100 border-cyan-300/70"}`} role="tablist" aria-label="Spending period">
+                <div className={`flex p-1 border-2 cyber-3d-sm ${darkMode ? "bg-slate-950/70 border-cyan-900/60" : "bg-slate-100 border-cyan-300/70"}`} role="tablist" aria-label="Spending period">
                     {PERIODS.map((p) => {
                         const selected = period === p.key;
                         return (
@@ -88,7 +88,7 @@ export const SpendingDonutChart = ({ darkMode = true, expenses = [] }) => {
                                 onClick={() => setPeriod(p.key)}
                                 className={`px-3.5 py-1.5 text-xs font-bold cyber-cut-sm transition-all duration-200 ${
                                     selected
-                                        ? "cyber-btn-accent text-white shadow shadow-cyan-500/25"
+                                        ? "cyber-btn-accent text-white"
                                         : darkMode
                                             ? "text-slate-400 hover:text-cyan-300"
                                             : "text-slate-500 hover:text-cyan-600"

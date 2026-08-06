@@ -24,7 +24,7 @@ const AppHeader = memo(function AppHeader({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-3 sm:py-0 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
         {/* Logo Area */}
         <div className="flex min-w-0 flex-1 sm:flex-none items-center gap-3">
-          <div className="w-10 h-10 shrink-0 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center shadow-[4px_4px_0px_var(--accent-glow)]">
+          <div className="w-10 h-10 shrink-0 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center cyber-3d-sm">
             <FinVueLogoIcon className="w-6 h-6 text-white" />
           </div>
           <div className="min-w-0">

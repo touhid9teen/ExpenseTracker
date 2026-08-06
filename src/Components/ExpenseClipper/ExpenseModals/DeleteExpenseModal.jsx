@@ -10,10 +10,10 @@ export const DeleteExpenseModal = ({
         <>
             {deletingExpense && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xl transition-opacity duration-300">
-                    <div className={`relative w-full max-w-md cyber-cut-lg border-2 p-6 transform scale-100 transition-transform ${
+                    <div className={`relative w-full max-w-md cyber-cut-lg border-2 p-6 transform scale-100 transition-transform cyber-3d-lg [--glow-3d:rgba(244,63,94,0.2)] ${
                         darkMode
-                            ? "bg-slate-950 border-rose-800/70 [filter:drop-shadow(0_0_30px_rgba(244,63,94,0.2))]"
-                            : "bg-white border-rose-400 [filter:drop-shadow(0_0_24px_rgba(244,63,94,0.12))]"
+                            ? "bg-slate-950 border-rose-800/70"
+                            : "bg-white border-rose-400"
                     }`}>
                         <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-rose-400 via-cyan-400 to-rose-400 opacity-70 pointer-events-none" />
                         <div className="flex items-center gap-3 text-rose-500 mb-4">

@@ -31,15 +31,15 @@ export const LedgerFilters = ({
   const chipBase = (active) =>
     `px-4 py-2 shrink-0 cyber-cut-sm text-xs font-bold transition-all border-2 ${
       active
-        ? "text-white cyber-btn-accent border-cyan-500 shadow-[3px_3px_0px_var(--accent-glow)]"
+        ? "text-white cyber-btn-accent border-cyan-500"
         : darkMode
-          ? "bg-slate-900/70 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-cyan-300 hover:border-cyan-800"
-          : "bg-white hover:bg-slate-100 border-slate-300 text-slate-600 hover:text-cyan-700 hover:border-cyan-300"
+          ? "bg-slate-900/70 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-cyan-300 hover:border-cyan-800 cyber-3d-sm"
+          : "bg-white hover:bg-slate-100 border-slate-300 text-slate-600 hover:text-cyan-700 hover:border-cyan-300 cyber-3d-sm"
     }`;
 
   return (
     <div
-      className={`p-6 border-2 transition-all duration-300 cyber-shadow-sm ${
+      className={`p-6 border-2 transition-all duration-300 cyber-3d ${
         darkMode
           ? "bg-slate-900/60 border-cyan-900/50"
           : "bg-white border-cyan-300/70"

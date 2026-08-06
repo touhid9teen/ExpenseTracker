@@ -12,10 +12,10 @@ export const DailyExpenseModal = ({
         <>
             {selectedDailyDate && dailyModalDetails && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xl transition-opacity duration-300">
-                    <div className={`relative w-full max-w-xl cyber-cut-lg border-2 p-6 transform scale-100 transition-transform ${
+                    <div className={`relative w-full max-w-xl cyber-cut-lg border-2 p-6 transform scale-100 transition-transform cyber-3d-lg ${
                         darkMode
-                            ? "bg-slate-950 border-cyan-700/60 cyber-cut-glow"
-                            : "bg-white border-cyan-400 [filter:drop-shadow(0_0_30px_var(--accent-glow-soft))]"
+                            ? "bg-slate-950 border-cyan-700/60"
+                            : "bg-white border-cyan-400"
                     }`}>
                         <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
                         <div className="flex items-center justify-between border-b-2 pb-4 mb-4 border-cyan-500/25">
@@ -40,7 +40,7 @@ export const DailyExpenseModal = ({
                             {dailyModalDetails.items.map((item) => {
                                 const style = getCategoryStyles(item.category);
                                 return (
-                                    <div key={item.id} className={`p-3.5 cyber-cut-sm border-2 flex items-center justify-between gap-4 transition-all hover:translate-x-1 ${
+                                    <div key={item.id} className={`p-3.5 cyber-cut-sm border-2 flex items-center justify-between gap-4 transition-all hover:translate-x-1 cyber-3d-sm ${
                                         darkMode ? "bg-slate-900/60 border-slate-800" : "bg-slate-50 border-cyan-200/70"
                                     }`}>
                                         <div className="space-y-1 truncate max-w-[340px]">

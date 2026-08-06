@@ -8,14 +8,14 @@ const SuccessModal = ({ username, onContinue }) => (
       onClick={onContinue}
     />
     <div className="relative w-full max-w-sm transition-all duration-300">
-      <div className="relative cyber-cut-lg p-8 sm:p-10 bg-slate-950 border-2 border-cyan-700/60 cyber-cut-glow text-center">
+      <div className="relative cyber-cut-lg p-8 sm:p-10 bg-slate-950 border-2 border-cyan-700/60 cyber-3d-lg text-center">
         <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
         <div className="relative w-20 h-20 mx-auto mb-6">
           <div
             className="absolute inset-0 cyber-cut bg-cyan-500/20 blur-xl animate-pulse"
             style={{ animationDuration: "3s" }}
           />
-          <div className="relative w-20 h-20 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center shadow-[4px_4px_0px_var(--accent-glow)]">
+          <div className="relative w-20 h-20 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center cyber-3d-sm">
             <CheckIcon className="w-10 h-10 text-white" strokeWidth={3} />
           </div>
         </div>

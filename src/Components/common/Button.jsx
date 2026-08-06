@@ -7,7 +7,7 @@ const variants = {
     loading: "bg-cyan-500/70",
   },
   cyan: {
-    base: "cyber-btn-accent text-white",
+    base: "bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-white",
     glow: "from-cyan-400/30 to-sky-500/30",
     loading: "bg-cyan-500/70",
   },
@@ -39,8 +39,8 @@ const Button = ({
       type={type}
       onClick={onClick}
       disabled={disabled || loading}
-      className={`relative w-full font-bold text-white overflow-hidden group transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.98] disabled:cursor-not-allowed cyber-cut-sm ${
-        disabled && !loading ? 'opacity-50 hover:scale-100' : ''
+      className={`relative w-full font-bold text-white overflow-hidden group transition-all duration-300 cyber-btn-3d disabled:cursor-not-allowed cyber-cut-sm ${
+        disabled && !loading ? 'opacity-50' : ''
       } ${sizes[size]} ${className}`}
     >
       <div

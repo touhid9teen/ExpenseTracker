@@ -22,7 +22,7 @@ export const StatisticsHeader = ({ darkMode, setActiveTab, dateLabels }) => {
                 </span>
                 <button
                     onClick={() => setActiveTab("ledger")}
-                    className="hidden sm:inline-block px-4 py-1.5 cyber-cut-sm text-xs font-bold text-white cyber-btn-accent shadow-[3px_3px_0px_var(--accent-glow)]"
+                    className="hidden sm:inline-block px-4 py-1.5 cyber-cut-sm text-xs font-bold text-white cyber-btn-accent"
                 >
                     Open Ledger →
                 </button>

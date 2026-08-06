@@ -87,7 +87,7 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
 
     return (
         <div
-            className={`cyber-cut p-5 sm:p-6 border-2 transition-colors duration-300 cyber-cut-glow ${
+            className={`cyber-cut p-5 sm:p-6 border-2 cyber-3d cyber-3d-hover transition-colors duration-300 ${
                 darkMode
                     ? "bg-slate-900 border-cyan-600/40"
                     : "bg-white border-cyan-400"
@@ -105,7 +105,7 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
 
             {/* Period toggle */}
             <div
-                className={`flex mt-4 p-1 max-w-xs mx-auto border-2 ${
+                className={`flex mt-4 p-1 max-w-xs mx-auto border-2 cyber-3d-sm ${
                     darkMode
                         ? "bg-slate-950/70 border-cyan-900/60"
                         : "bg-slate-100 border-cyan-300/70"
@@ -123,9 +123,7 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                             onClick={() => setPeriod(p.key)}
                             className={`flex-1 py-2 text-xs sm:text-sm font-bold cyber-cut-sm transition-all duration-200 ${
                                 selected
-                                    ? darkMode
-                                        ? "cyber-btn-accent text-white shadow shadow-cyan-500/20"
-                                        : "cyber-btn-accent text-white shadow shadow-cyan-500/25"
+                                    ? "cyber-btn-accent text-white"
                                     : darkMode
                                         ? "text-slate-400 hover:text-cyan-300"
                                         : "text-slate-500 hover:text-cyan-600"

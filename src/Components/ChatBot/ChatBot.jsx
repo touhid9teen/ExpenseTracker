@@ -222,11 +222,11 @@ const ChatBot = ({
             fixed inset-0 z-50 flex flex-col overflow-hidden
             sm:inset-auto sm:bottom-28 sm:right-8
             sm:w-[400px] sm:h-[560px]
-            sm:rounded-2xl sm:border
+            sm:rounded-2xl sm:border cyber-raised
             transition-all duration-300 animate-fadeIn
             ${
               darkMode
-                ? "bg-slate-900 border-slate-700/80 shadow-2xl shadow-black/60": "bg-white border-slate-300 shadow-2xl shadow-slate-300/60"}
+                ? "bg-slate-900 border-slate-700/80": "bg-white border-slate-300"}
           `}
         >
           <ChatBotHeader darkMode={darkMode} onClose={() => setIsOpen(false)} />

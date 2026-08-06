@@ -21,7 +21,7 @@ export const PaginationBar = ({
                 <button
                     disabled={currentPage === 1}
                     onClick={() => setCurrentPage(currentPage - 1)}
-                    className={`px-3 py-1.5 cyber-cut-sm border-2 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
+                    className={`px-3 py-1.5 cyber-cut-sm border-2 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed cyber-3d-sm ${
                         darkMode
                             ? "bg-slate-900 hover:bg-slate-800 border-cyan-900 text-cyan-300"
                             : "bg-white hover:bg-slate-100 border-cyan-300 text-cyan-700"
@@ -29,7 +29,7 @@ export const PaginationBar = ({
                 >
                     Prev
                 </button>
-                <span className={`px-3.5 py-1.5 text-xs font-extrabold cyber-cut-sm border-2 ${
+                <span className={`px-3.5 py-1.5 text-xs font-extrabold cyber-cut-sm border-2 cyber-3d-sm ${
                     darkMode
                         ? "bg-slate-900 text-cyan-400 border-cyan-800/60"
                         : "bg-slate-100 text-cyan-700 border-cyan-300"
@@ -39,7 +39,7 @@ export const PaginationBar = ({
                 <button
                     disabled={currentPage === totalPages}
                     onClick={() => setCurrentPage(currentPage + 1)}
-                    className={`px-3 py-1.5 cyber-cut-sm border-2 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
+                    className={`px-3 py-1.5 cyber-cut-sm border-2 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed cyber-3d-sm ${
                         darkMode
                             ? "bg-slate-900 hover:bg-slate-800 border-cyan-900 text-cyan-300"
                             : "bg-white hover:bg-slate-100 border-cyan-300 text-cyan-700"

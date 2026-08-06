@@ -154,13 +154,19 @@
     box-shadow: 0 12px 20px -16px rgba(34, 211, 238, 0.65);
   }
 
-  /* Animated liquid pill for the cyber dock indicator */
+  /* Animated liquid pill for the cyber dock indicator — beveled so it
+     reads as a raised 3D capsule sitting on the dock surface. */
   .liquid-pill {
     position: absolute;
     inset: 4px 0;
     border-radius: 999px;
     background: linear-gradient(90deg, var(--accent), var(--accent-strong));
-    box-shadow: 0 0 18px rgba(34, 211, 238, 0.5), 0 0 36px rgba(34, 211, 238, 0.25);
+    box-shadow:
+      inset 0 2px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -3px 0 rgba(0, 0, 0, 0.35),
+      0 0 18px rgba(34, 211, 238, 0.5),
+      0 0 36px rgba(34, 211, 238, 0.25),
+      0 3px 0 rgb(var(--cyan-900));
     transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1), width 0.35s cubic-bezier(0.65, 0, 0.35, 1);
     z-index: 0;
   }
@@ -206,25 +212,123 @@
   }
 }
 
+/* ─── 3D depth system ────────────────────────────────────────────
+   Real extruded edges built from layered drop-shadow() filters.
+   Unlike box-shadow, filter is NOT clipped by clip-path, so cyber-cut
+   corners render stepped 3D edges. These rules are intentionally
+   unlayered so they always beat Tailwind shadow/filter utilities. */
+.cyber-3d,
+.cyber-3d-sm,
+.cyber-3d-lg {
+  --edge-1: rgb(var(--cyan-900));
+  --edge-2: rgb(var(--cyan-950));
+  --edge-3: rgb(var(--slate-950));
+  /* Comprehensive transition so overriding Tailwind's transition-* utilities
+     here doesn't kill color/border hover transitions (unlayered rules beat
+     layered utilities in the cascade). */
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+.cyber-3d {
+  filter:
+    drop-shadow(0 0 24px var(--glow-3d, var(--accent-glow-soft)))
+    drop-shadow(1px 1px 0 var(--edge-1))
+    drop-shadow(2px 2px 0 var(--edge-2))
+    drop-shadow(3px 3px 0 var(--edge-3))
+    drop-shadow(4px 4px 0 rgb(0 0 0 / 0.45));
+}
+.cyber-3d-sm {
+  filter:
+    drop-shadow(0 0 16px var(--glow-3d, var(--accent-glow-soft)))
+    drop-shadow(1px 1px 0 var(--edge-1))
+    drop-shadow(2px 2px 0 var(--edge-2))
+    drop-shadow(3px 3px 0 rgb(0 0 0 / 0.4));
+}
+.cyber-3d-lg {
+  filter:
+    drop-shadow(0 0 32px var(--glow-3d, var(--accent-glow-soft)))
+    drop-shadow(1px 1px 0 var(--edge-1))
+    drop-shadow(2px 2px 0 var(--edge-2))
+    drop-shadow(3px 3px 0 var(--edge-3))
+    drop-shadow(4px 4px 0 rgb(0 0 0 / 0.5))
+    drop-shadow(5px 5px 0 rgb(0 0 0 / 0.55));
+}
+/* Lift the slab on hover — element rises, the extruded edge stays below */
+.cyber-3d-hover:hover,
+.cyber-3d-sm-hover:hover,
+.cyber-3d-lg-hover:hover {
+  transform: translate(-2px, -2px);
+}
+.cyber-3d-hover:hover {
+  filter:
+    drop-shadow(0 0 36px var(--glow-3d, var(--accent-glow-soft)))
+    drop-shadow(1px 1px 0 var(--edge-1))
+    drop-shadow(2px 2px 0 var(--edge-2))
+    drop-shadow(3px 3px 0 var(--edge-3))
+    drop-shadow(5px 5px 0 rgb(0 0 0 / 0.5));
+}
+.cyber-3d-sm-hover:hover {
+  filter:
+    drop-shadow(0 0 26px var(--glow-3d, var(--accent-glow-soft)))
+    drop-shadow(1px 1px 0 var(--edge-1))
+    drop-shadow(2px 2px 0 var(--edge-2))
+    drop-shadow(4px 4px 0 rgb(0 0 0 / 0.45));
+}
+/* Beveled raised slab for NON-clipped elements (dock, pills) — box-shadow
+   works here because there is no clip-path clipping it. */
+.cyber-raised {
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.35),
+    0 5px 0 rgb(var(--cyan-900)),
+    0 8px 16px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
 /* ─── Reusable component classes ──────────────────────────────────
    High-frequency compound styles used across views. Prefer these over
    repeating long Tailwind chains so the theme stays consistent. */
 @layer components {
-  /* Primary accent gradient button (was: from-cyan-500 to-sky-500) */
+  /* Primary accent gradient button (was: from-cyan-500 to-sky-500).
+     3D: a solid bottom edge via drop-shadow that presses down on click. */
   .cyber-btn-accent {
     background-image: linear-gradient(90deg, var(--accent-strong), rgb(var(--sky-500)));
     color: #fff;
-    transition: filter 0.2s ease, transform 0.2s ease;
+    transition: filter 0.15s ease, transform 0.15s ease;
+    filter: drop-shadow(0 3px 0 rgb(var(--cyan-950))) drop-shadow(0 5px 0 rgb(0 0 0 / 0.4));
   }
   .cyber-btn-accent:hover {
-    filter: brightness(1.08);
+    transform: translateY(-1px);
+    filter: brightness(1.08) drop-shadow(0 3px 0 rgb(var(--cyan-950))) drop-shadow(0 6px 0 rgb(0 0 0 / 0.45));
   }
   .cyber-btn-accent:active {
-    transform: scale(0.97);
+    transform: translateY(2px) scale(0.99);
+    filter: brightness(0.96) drop-shadow(0 1px 0 rgb(0 0 0 / 0.4));
   }
   .cyber-btn-accent:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    filter: none;
+  }
+
+  /* 3D edge + press for the shared Button component — applied to the CLIPPED
+     outer <button> so the drop-shadow follows the cyber-cut silhouette
+     (the accent gradient itself lives on an inner layer in Button.jsx). */
+  .cyber-btn-3d {
+    filter: drop-shadow(0 3px 0 rgb(var(--cyan-950))) drop-shadow(0 5px 0 rgb(0 0 0 / 0.4));
+    transition: filter 0.15s ease, transform 0.15s ease;
+  }
+  .cyber-btn-3d:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06) drop-shadow(0 3px 0 rgb(var(--cyan-950))) drop-shadow(0 6px 0 rgb(0 0 0 / 0.45));
+  }
+  .cyber-btn-3d:active {
+    transform: translateY(2px) scale(0.99);
+    filter: brightness(0.96) drop-shadow(0 1px 0 rgb(0 0 0 / 0.4));
   }
 
 }

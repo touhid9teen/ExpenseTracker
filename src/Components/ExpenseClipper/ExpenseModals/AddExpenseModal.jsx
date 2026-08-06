@@ -29,10 +29,10 @@ const CategoryStep = ({
                         onClick={() => selectCategory(cat)}
                         className={`group flex flex-col items-center justify-center gap-2 py-4 px-2 cyber-cut-sm border-2 transition-all duration-200 hover:scale-[1.03] active:scale-95 focus:outline-none ${
                             isActive
-                                ? "border-cyan-500 shadow-[3px_3px_0px_var(--accent-glow)]"
+                                ? "border-cyan-500 cyber-3d-sm"
                                 : darkMode
-                                ? "border-slate-800 hover:border-cyan-800 bg-slate-800/40"
-                                : "border-slate-200 hover:border-cyan-300 bg-slate-50"
+                                ? "border-slate-800 hover:border-cyan-800 bg-slate-800/40 cyber-3d-sm"
+                                : "border-slate-200 hover:border-cyan-300 bg-slate-50 cyber-3d-sm"
                         }`}
                     >
                         <span className={`w-11 h-11 cyber-cut-sm flex items-center justify-center ${styles.bg}`}>
@@ -79,7 +79,7 @@ const AmountStep = ({
     const styles = getCategoryStyles(addCategory);
     return (
         <div className="animate-fadeIn space-y-5">
-            <div className={`flex items-center gap-3 p-3 cyber-cut-sm border-2 ${darkMode ? "bg-slate-950/50 border-cyan-900/50" : "bg-slate-50 border-cyan-200"}`}>
+            <div className={`flex items-center gap-3 p-3 cyber-cut-sm border-2 cyber-3d-sm ${darkMode ? "bg-slate-950/50 border-cyan-900/50" : "bg-slate-50 border-cyan-200"}`}>
                 <span className={`w-10 h-10 cyber-cut-sm flex items-center justify-center ${styles.bg}`}>
                     <Icon className="w-5 h-5" />
                 </span>
@@ -134,10 +134,10 @@ const AmountStep = ({
 const ModalShell = ({ darkMode, children }) => (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/75 backdrop-blur-xl">
         <div
-            className={`relative w-full max-w-lg cyber-cut-lg border-2 p-6 transform transition-all animate-fadeIn ${
+            className={`relative w-full max-w-lg cyber-cut-lg border-2 p-6 transform transition-all animate-fadeIn cyber-3d-lg ${
                 darkMode
-                    ? "bg-slate-950 border-cyan-700/60 cyber-cut-glow"
-                    : "bg-white border-cyan-400 [filter:drop-shadow(0_0_30px_var(--accent-glow-soft))]"
+                    ? "bg-slate-950 border-cyan-700/60"
+                    : "bg-white border-cyan-400"
             }`}
         >
             {/* Top neon glint */}

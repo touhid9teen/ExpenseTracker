@@ -75,7 +75,7 @@ const AdminView = memo(function AdminView(props) {
           <button
             onClick={refreshAdmin}
             disabled={isAdminLoading}
-            className={`inline-flex items-center gap-2 px-4 py-2 cyber-cut-sm text-xs font-bold transition-all duration-200 active:scale-95 disabled:opacity-60 border-2 ${
+            className={`inline-flex items-center gap-2 px-4 py-2 cyber-cut-sm text-xs font-bold transition-all duration-200 active:scale-95 disabled:opacity-60 border-2 cyber-3d-sm ${
               darkMode
                 ? "bg-slate-900 border-cyan-900/70 text-cyan-400 hover:bg-slate-800 hover:border-cyan-700"
                 : "bg-white border-cyan-300 text-cyan-700 hover:bg-slate-50"
@@ -92,7 +92,7 @@ const AdminView = memo(function AdminView(props) {
 
       {/* ── Tab Bar ── */}
       <div
-        className={`inline-flex p-1 border-2 gap-1 ${
+        className={`inline-flex p-1 border-2 gap-1 cyber-3d-sm ${
           darkMode ? "bg-slate-950/70 border-cyan-900/60" : "bg-slate-100 border-cyan-300/70"
         }`}
       >
@@ -102,9 +102,7 @@ const AdminView = memo(function AdminView(props) {
             onClick={() => setAdminTab(id)}
             className={`px-3 sm:px-4 py-2 cyber-cut-sm text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
               adminTab === id
-                ? darkMode
-                  ? "cyber-btn-accent text-white shadow-sm shadow-cyan-500/25"
-                  : "cyber-btn-accent text-white shadow-sm shadow-cyan-500/25"
+                ? "cyber-btn-accent text-white"
                 : darkMode
                 ? "text-slate-400 hover:text-cyan-300"
                 : "text-slate-500 hover:text-cyan-600"

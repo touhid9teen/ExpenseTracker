@@ -117,7 +117,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
         onClick={onClose}
       />
       <div className="relative w-full max-w-sm transition-all duration-300">
-        <div className="relative cyber-cut-lg p-8 bg-slate-950 border-2 border-cyan-700/60 cyber-cut-glow">
+        <div className="relative cyber-cut-lg p-8 bg-slate-950 border-2 border-cyan-700/60 cyber-3d-lg">
           <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
           {/* Close button */}
           <button

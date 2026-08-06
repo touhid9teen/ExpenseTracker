@@ -7,7 +7,7 @@ const SummaryCard = ({ darkMode, title, value = 0, icon, note, accent }) => (
     <div className={`
         flex flex-col items-center justify-center text-center
         p-6 cyber-cut min-h-[155px] relative overflow-hidden
-        transition-all duration-200 hover:translate-x-[-2px] hover:translate-y-[-2px]
+        cyber-3d-hover
         ${cardSurface(accent, darkMode)}
     `}>
         {/* Neon corner glint */}

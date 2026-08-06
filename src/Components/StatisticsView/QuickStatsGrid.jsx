@@ -5,12 +5,11 @@ import { cardSurface, accentText } from "./cardStyles";
 const accents = ["sky", "purple", "emerald", "rose"];
 const statIcons = [TrendingUp, TrendingDown, PieChart, Calculator];
 
-const StatCard = ({ darkMode, title, value = "", note, icon: Icon, accent }) => (
-  <div
-    className={`
+const StatCard = ({ darkMode, title, value = "", note, icon: Icon, accent }) => (    <div
+      className={`
         flex flex-col items-center justify-center text-center
         p-6 cyber-cut min-h-[155px] relative overflow-hidden
-        transition-all duration-200 hover:translate-x-[-2px] hover:translate-y-[-2px]
+        cyber-3d-hover
         ${cardSurface(accent, darkMode)}
     `}
   >

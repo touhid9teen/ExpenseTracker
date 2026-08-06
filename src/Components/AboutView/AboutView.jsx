@@ -12,7 +12,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
   return (
     <div className="space-y-8 sm:space-y-12 animate-fadeIn pb-8">
       {/* ── Hero Section ── */}
-      <div className="relative overflow-hidden cyber-cut-lg border-2 border-cyan-500/25 cyber-cut-glow">
+      <div className="relative overflow-hidden cyber-cut-lg border-2 border-cyan-500/25 cyber-3d-lg">
         {/* Background gradient */}
         <div
           className={`absolute inset-0 cyber-scanlines ${
@@ -54,7 +54,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
             <div className="flex flex-wrap gap-3 mt-6 sm:mt-8">
               <button
                 onClick={() => setActiveTab("ledger")}
-                className="inline-flex items-center gap-2 px-5 py-2.5 cyber-cut-sm font-bold text-sm cyber-btn-accent text-white shadow-[4px_4px_0px_var(--accent-glow)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 cyber-cut-sm font-bold text-sm cyber-btn-accent text-white"
               >
                 <ClipboardListIcon className="w-4 h-4" strokeWidth={2.5} />
                 Go to Ledger
@@ -98,7 +98,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`group relative p-5 sm:p-6 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-[1.02] ${
+              className={`group relative p-5 sm:p-6 rounded-xl sm:rounded-2xl border cyber-3d-sm transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 ${
                 darkMode
                   ? "bg-slate-800/50 border-slate-700/60 hover:border-cyan-500/30 hover:bg-slate-800/80"
                   : "bg-white border-slate-300 hover:border-cyan-400/30 hover:shadow-lg hover:shadow-cyan-500/5"
@@ -186,7 +186,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
                 {/* Step number */}
                 <div className="flex sm:flex-col items-center gap-4 sm:gap-2 sm:items-center shrink-0">
                   <div
-                    className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center font-extrabold text-lg border-2 transition-all duration-300 ${
+                    className={`relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center font-extrabold text-lg border-2 cyber-3d-sm transition-all duration-300 ${
                       darkMode
                         ? "bg-slate-800 border-cyan-500/40 text-cyan-400"
                         : "bg-white border-cyan-400 text-cyan-600"
@@ -275,7 +275,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
         </div>
 
         <div
-          className={`p-6 sm:p-8 rounded-xl sm:rounded-2xl border ${
+          className={`p-6 sm:p-8 rounded-xl sm:rounded-2xl border cyber-3d ${
             darkMode
               ? "bg-slate-800/40 border-slate-700/60"
               : "bg-white border-slate-300"

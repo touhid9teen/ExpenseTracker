@@ -14,10 +14,10 @@ const QuickActionsPopover = memo(function QuickActionsPopover({ darkMode, sugges
 
   return (
     <div
-      className={`absolute bottom-full right-0 mb-3 w-64 border-2 overflow-hidden shadow-2xl z-50 cyber-cut ${
+      className={`absolute bottom-full right-0 mb-3 w-64 border-2 overflow-hidden z-50 cyber-cut cyber-3d ${
         darkMode
-          ? "bg-slate-950 border-cyan-800/60 shadow-black/60"
-          : "bg-white border-cyan-300 shadow-slate-300/80"
+          ? "bg-slate-950 border-cyan-800/60"
+          : "bg-white border-cyan-300"
       }`}
     >
       <div
@@ -159,10 +159,10 @@ const MobileBottomNav = memo(function MobileBottomNav({
 
   return (
     <div
-      className={`fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 px-2 py-1.5 flex items-center gap-1 border-2 backdrop-blur-xl shadow-2xl ${
+      className={`fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 px-2 py-1.5 flex items-center gap-1 border-2 backdrop-blur-xl cyber-raised ${
         darkMode
-          ? "bg-slate-950/90 border-cyan-900/60 shadow-black/60"
-          : "bg-white/90 border-cyan-300/70 shadow-slate-400/40"
+          ? "bg-slate-950/90 border-cyan-900/60"
+          : "bg-white/90 border-cyan-300/70"
       }`}
       ref={dockRef}
       data-cyber-dock
@@ -196,7 +196,7 @@ const MobileBottomNav = memo(function MobileBottomNav({
       <button
         onClick={handleQuickAdd}
         aria-label="Add expense"
-        className="relative z-10 mx-1 -my-3 w-12 h-12 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 text-white flex items-center justify-center shadow-[0_0_20px_var(--accent-glow-strong)] hover:scale-110 active:scale-95 transition-all"
+        className="relative z-10 mx-1 -my-3 w-12 h-12 cyber-cut bg-gradient-to-tr from-cyan-500 to-sky-500 text-white flex items-center justify-center cyber-3d-sm [--glow-3d:var(--accent-glow-strong)] hover:scale-110 active:scale-95 transition-all"
       >
         <PlusIcon className="w-6 h-6" strokeWidth={3} />
       </button>

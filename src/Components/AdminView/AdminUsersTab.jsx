@@ -46,7 +46,7 @@ const AdminUsersTab = memo(
 
     return (
       <div
-        className={`rounded-2xl border overflow-hidden ${
+        className={`rounded-2xl border overflow-hidden cyber-3d ${
           darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
         }`}
       >
@@ -186,7 +186,7 @@ const AdminUsersTab = memo(
 
 const EmptyState = ({ darkMode, icon, title, hint }) => (
   <div
-    className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center ${
+    className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center cyber-3d ${
       darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
     }`}
   >

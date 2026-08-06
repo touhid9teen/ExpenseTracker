@@ -44,7 +44,7 @@ const LedgerRow = ({
       {/* Category — neon tag pinned overlapping the cell edge */}
       <td className="px-2 sm:px-4 py-3 whitespace-nowrap relative">
         <span
-          className={`inline-flex items-center gap-1 text-[10px] uppercase font-bold px-2.5 py-1 cyber-cut-sm border-2 ${style.bg}`}
+          className={`inline-flex items-center gap-1 text-[10px] uppercase font-bold px-2.5 py-1 cyber-cut-sm border-2 cyber-3d-sm ${style.bg}`}
         >
           <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${style.bullet}`}></span>
           <span className="hidden sm:inline">{exp.category}</span>

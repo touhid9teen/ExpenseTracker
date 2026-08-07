@@ -27,12 +27,12 @@ const CategoryStep = ({
                         key={cat}
                         type="button"
                         onClick={() => selectCategory(cat)}
-                        className={`group flex flex-col items-center justify-center gap-2 py-4 px-2 cyber-cut-sm border-2 transition-all duration-200 hover:scale-[1.03] active:scale-95 focus:outline-none ${
+                        className={`group flex flex-col items-center justify-center gap-2 py-4 px-2 cyber-cut-sm border-2 transition-all duration-200 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-95 focus:outline-none cyber-3d-sm [--glow-3d:var(--accent-glow-soft)] ${
                             isActive
-                                ? "border-cyan-500 cyber-3d-sm"
+                                ? "border-cyan-500 bg-cyan-500/10"
                                 : darkMode
-                                ? "border-slate-800 hover:border-cyan-800 bg-slate-800/40 cyber-3d-sm"
-                                : "border-slate-200 hover:border-cyan-300 bg-slate-50 cyber-3d-sm"
+                                ? "border-slate-800 hover:border-cyan-800 bg-slate-800/40"
+                                : "border-slate-200 hover:border-cyan-300 bg-slate-50"
                         }`}
                     >
                         <span className={`w-11 h-11 cyber-cut-sm flex items-center justify-center ${styles.bg}`}>
@@ -134,14 +134,14 @@ const AmountStep = ({
 const ModalShell = ({ darkMode, children }) => (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/75 backdrop-blur-xl">
         <div
-            className={`relative w-full max-w-lg cyber-cut-lg border-2 p-6 transform transition-all animate-fadeIn cyber-3d-lg ${
+            className={`relative w-full max-w-lg cyber-cut-lg border-2 p-6 transform transition-all animate-fadeIn cyber-3d-lg cyber-inner-edge [--glow-3d-2:var(--violet-glow-soft)] ${
                 darkMode
                     ? "bg-slate-950 border-cyan-700/60"
                     : "bg-white border-cyan-400"
             }`}
         >
             {/* Top neon glint */}
-            <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
+            <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500 opacity-80 pointer-events-none" />
             {children}
         </div>
     </div>

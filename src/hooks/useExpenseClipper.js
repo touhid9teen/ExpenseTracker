@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import toast from "react-hot-toast";
 import { CATEGORIES } from "../data/expenseData";
-import SUGGESTIONS from "../Components/ChatBot/suggestions";
 import { formatDate, getDashboardDateLabels } from "../utils/dateUtils";
 import { getDailyModalDetails } from "../utils/expenseCalculations";
 import { useAuth } from "./useAuth";
@@ -105,7 +104,6 @@ export const useExpenseClipper = () => {
         dailyModalDetails,
         formatDate,
         CATEGORIES,
-        quickActionSuggestions: SUGGESTIONS,
 
         // Connectivity
         isOnline

@@ -12,28 +12,32 @@ const TermsPage = () => {
   });
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-200' : 'bg-slate-50 text-slate-800'}`}>
+    <div className={`relative min-h-screen transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-200' : 'bg-slate-50 text-slate-800'}`}>
+      {/* Ambient aurora backdrop */}
+      <div aria-hidden="true" className={`pointer-events-none fixed inset-0 z-0 ${darkMode ? 'aurora-bg' : 'aurora-bg-light'}`}>
+        <div className="absolute -top-24 -left-24 w-[30rem] h-[30rem] rounded-full bg-cyan-500/10 blur-[110px] aurora-blob" />
+        <div className="absolute -bottom-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-violet-500/10 blur-[110px] aurora-blob" style={{ animationDelay: '-10s' }} />
+      </div>
       {/* Header */}
-      <header className={`sticky top-0 z-30 border-b backdrop-blur-md ${darkMode ? 'bg-slate-950/90 border-slate-800/80' : 'bg-white/95 border-slate-300/85 shadow-sm'}`}>
+      <header className={`sticky top-0 z-30 border-b-2 backdrop-blur-md ${darkMode ? 'bg-slate-950/90 border-cyan-900/40' : 'bg-white/95 border-cyan-200/60'}`}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <Link
             href="/"
-            className={`inline-flex items-center gap-2 text-sm font-bold transition-colors ${darkMode ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-600 hover:text-cyan-600'}`}
+            className={`inline-flex items-center gap-2 text-sm font-bold transition-colors ${darkMode ? 'text-slate-200 hover:text-cyan-400' : 'text-slate-600 hover:text-cyan-600'}`}
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
             Back to Login
           </Link>
-          <span className="text-sm font-bold">
-            <span className="bg-gradient-to-r from-cyan-400 to-sky-400 bg-clip-text text-transparent">FinVue</span>
-          </span>
+          <span className={`text-sm font-bold ${darkMode ? "text-gradient-aurora" : "text-gradient-aurora-deep"}`}>FinVue</span>
         </div>
       </header>
 
       {/* Content */}
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-        <div className={`rounded-2xl border p-8 sm:p-10 shadow-sm ${darkMode ? 'bg-slate-900/60 border-slate-800/80' : 'bg-white border-slate-200'}`}>
+      <main className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 py-12">
+        <div className={`rounded-2xl border p-8 sm:p-10 cyber-3d cyber-inner-edge relative overflow-hidden ${darkMode ? 'bg-slate-900/70 border-slate-800/80' : 'bg-white border-slate-200'}`}>
+          <span className="absolute top-0 left-0 w-32 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500" />
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">
             Terms &amp; Conditions
           </h1>

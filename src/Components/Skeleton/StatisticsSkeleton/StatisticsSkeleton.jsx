@@ -27,7 +27,7 @@ const StatisticsSkeleton = ({ darkMode = true }) => {
 
       {/* Quick stats */}
       <div
-        className={`p-6 rounded-2xl border ${
+        className={`p-6 rounded-2xl border cyber-3d-sm ${
           darkMode ? "border-slate-800/80" : "border-slate-200"
         }`}
       >
@@ -63,7 +63,7 @@ const StatisticsSkeleton = ({ darkMode = true }) => {
       {/* Category & Chart side-by-side */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div
-          className={`p-6 rounded-2xl border ${
+          className={`p-6 rounded-2xl border cyber-3d-sm ${
             darkMode ? "border-slate-800/80" : "border-slate-200"
           }`}
         >

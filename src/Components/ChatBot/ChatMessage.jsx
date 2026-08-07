@@ -28,13 +28,15 @@ const ChatMessage = ({ msg, darkMode }) => {
 
     return (
       <div className="max-w-full overflow-x-auto">
-        <table className="min-w-full border border-gray-300 text-sm">
-          <thead className="bg-gray-100">
+        <table className={`min-w-full text-sm ${darkMode ? "text-slate-200" : "text-slate-700"}`}>
+          <thead className={darkMode ? "bg-slate-800" : "bg-slate-100"}>
             <tr>
               {header.map((h, i) => (
                 <th
                   key={i}
-                  className="px-2 py-1 border border-gray-300 font-medium text-left"
+                  className={`px-2 py-1 border font-bold text-left ${
+                    darkMode ? "border-slate-700" : "border-slate-300"
+                  }`}
                 >
                   {h}
                 </th>
@@ -45,12 +47,14 @@ const ChatMessage = ({ msg, darkMode }) => {
             {rows.map((row, ri) => (
               <tr
                 key={ri}
-                className={ri % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                className={darkMode ? (ri % 2 === 0 ? "bg-slate-900/50" : "bg-slate-900/20") : (ri % 2 === 0 ? "bg-white" : "bg-slate-50")}
               >
                 {row.map((cell, ci) => (
                   <td
                     key={ci}
-                    className="px-2 py-1 border border-gray-300"
+                    className={`px-2 py-1 border ${
+                      darkMode ? "border-slate-700" : "border-slate-300"
+                    }`}
                   >
                     {cell}
                   </td>
@@ -70,7 +74,8 @@ const ChatMessage = ({ msg, darkMode }) => {
         msg.sender === "user"
           ? "cyber-btn-accent text-white shadow-md shadow-cyan-500/20"
           : darkMode
-            ? "bg-slate-800 text-slate-200 border-2 border-slate-700": "bg-slate-100 text-slate-700 border-2 border-slate-300"}`}
+            ? "bg-slate-800 text-slate-100 border-2 border-slate-700 cyber-3d-sm [--glow-3d:var(--accent-glow-soft)]"
+            : "bg-slate-100 text-slate-700 border-2 border-slate-300"}`}
     >
       <div className="whitespace-pre-wrap">{msg.text}</div>
     </div>

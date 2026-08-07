@@ -83,19 +83,20 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
     const active = coords[activeIndex] || coords[coords.length - 1];
     const tooltipLeftPct = active ? (active.x / VIEW_W) * 100 : 50;
 
-    const lineColor = darkMode ? "#22d3ee" : "#d97706";
+    const lineColor = darkMode ? "#22d3ee" : "#0ea5e9";
 
     return (
         <div
-            className={`cyber-cut p-5 sm:p-6 border-2 cyber-3d cyber-3d-hover transition-colors duration-300 ${
+            className={`cyber-cut p-5 sm:p-6 border-2 cyber-3d cyber-3d-hover cyber-inner-edge cyber-shine relative overflow-hidden transition-colors duration-300 ${
                 darkMode
-                    ? "bg-slate-900 border-cyan-600/40"
+                    ? "bg-slate-900 border-cyan-600/70"
                     : "bg-white border-cyan-400"
             }`}
         >
+            <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-400" />
             {/* Total + current selection date */}
-            <div className="text-center">
-                <p className={`text-3xl sm:text-4xl font-black tracking-tight font-mono ${darkMode ? "text-cyan-400 neon-taka" : "text-cyan-600"}`}>
+            <div className="text-center relative z-[2]">
+                <p className={`text-3xl sm:text-4xl font-black tracking-tight font-mono cyber-emboss ${darkMode ? "text-cyan-400 neon-taka" : "text-cyan-600"}`}>
                     {formatCurrency(total)}
                 </p>
                 <p className={`mt-1 text-xs sm:text-sm font-medium ${darkMode ? "text-slate-400" : "text-slate-400"}`}>
@@ -163,9 +164,14 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                     aria-label="Spending trend over time"
                 >
                     <defs>
+                        <linearGradient id="overviewLine" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stopColor={darkMode ? "#22d3ee" : "#0ea5e9"} />
+                            <stop offset="60%" stopColor={darkMode ? "#38bdf8" : "#6366f1"} />
+                            <stop offset="100%" stopColor={darkMode ? "#a78bfa" : "#8b5cf6"} />
+                        </linearGradient>
                         <linearGradient id="overviewArea" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor={lineColor} stopOpacity={darkMode ? 0.28 : 0.18} />
-                            <stop offset="100%" stopColor={lineColor} stopOpacity="0" />
+                            <stop offset="0%" stopColor={darkMode ? "#22d3ee" : "#0ea5e9"} stopOpacity={darkMode ? 0.28 : 0.18} />
+                            <stop offset="100%" stopColor={darkMode ? "#a78bfa" : "#8b5cf6"} stopOpacity="0" />
                         </linearGradient>
                     </defs>
 
@@ -177,7 +183,7 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                         <path
                             d={linePath}
                             fill="none"
-                            stroke={lineColor}
+                            stroke="url(#overviewLine)"
                             strokeWidth="3"
                             strokeLinecap="round"
                             strokeLinejoin="round"

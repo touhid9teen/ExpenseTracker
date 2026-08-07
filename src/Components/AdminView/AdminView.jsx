@@ -51,7 +51,7 @@ const AdminView = memo(function AdminView(props) {
             }`}
           >
             Platform Administration
-            <span className={`inline-block w-2 h-8 cyber-cut-sm ${darkMode ? "bg-cyan-400" : "bg-cyan-500"}`} />
+            <span className={`inline-block w-2 h-8 cyber-cut-sm bg-gradient-to-b ${darkMode ? "from-cyan-400 to-violet-500" : "from-cyan-500 to-violet-600"}`} />
           </h1>
           <p
             className={`mt-1.5 text-sm ${
@@ -75,10 +75,10 @@ const AdminView = memo(function AdminView(props) {
           <button
             onClick={refreshAdmin}
             disabled={isAdminLoading}
-            className={`inline-flex items-center gap-2 px-4 py-2 cyber-cut-sm text-xs font-bold transition-all duration-200 active:scale-95 disabled:opacity-60 border-2 cyber-3d-sm ${
+            className={`inline-flex items-center gap-2 px-4 py-2 cyber-cut-sm text-xs font-bold transition-all duration-200 active:scale-95 disabled:opacity-60 border-2 cyber-3d-sm [--glow-3d:var(--accent-glow-soft)] ${
               darkMode
-                ? "bg-slate-900 border-cyan-900/70 text-cyan-400 hover:bg-slate-800 hover:border-cyan-700"
-                : "bg-white border-cyan-300 text-cyan-700 hover:bg-slate-50"
+                ? "bg-slate-900 border-cyan-900/70 text-cyan-400 hover:bg-slate-800 hover:border-violet-700 hover:text-violet-400"
+                : "bg-white border-cyan-300 text-cyan-700 hover:bg-slate-50 hover:border-violet-400 hover:text-violet-700"
             }`}
           >
             <RefreshIcon
@@ -92,7 +92,7 @@ const AdminView = memo(function AdminView(props) {
 
       {/* ── Tab Bar ── */}
       <div
-        className={`inline-flex p-1 border-2 gap-1 cyber-3d-sm ${
+        className={`inline-flex p-1 border-2 gap-1 cyber-3d-sm cyber-inner-edge ${
           darkMode ? "bg-slate-950/70 border-cyan-900/60" : "bg-slate-100 border-cyan-300/70"
         }`}
       >

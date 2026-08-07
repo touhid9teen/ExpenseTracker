@@ -13,7 +13,7 @@ export const PaginationBar = ({
                 <span className={`block text-xs font-semibold ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                     Showing <span className="font-bold text-cyan-500">{filteredExpenses.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1}</span> to <span className="font-bold text-cyan-500">{Math.min(currentPage * itemsPerPage, filteredExpenses.length)}</span> of <span className="font-bold text-cyan-500">{filteredExpenses.length}</span> results
                 </span>
-                <span className={`block text-sm font-extrabold ${darkMode ? "text-cyan-400 neon-taka" : "text-cyan-700"}`}>
+                <span className={`block text-sm font-extrabold ${darkMode ? "text-cyan-300" : "text-cyan-700"}`}>
                     Current table total: ৳{Math.round(currentTableTotal).toLocaleString()}
                 </span>
             </div>

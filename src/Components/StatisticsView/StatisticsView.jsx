@@ -10,6 +10,7 @@ const SpendingOverviewChart = dynamic(() => import("./SpendingOverviewChart").th
 const StatisticsView = memo(function StatisticsView(props) {
     const {
         activeTab,
+        visible, // explicit override (overview stacks stats + ledger)
         darkMode = true,
         setActiveTab,
         summaryCards = { total: 0, today: 0, week: 0, month: 0 },
@@ -21,8 +22,9 @@ const StatisticsView = memo(function StatisticsView(props) {
 
     // Use CSS visibility instead of conditional rendering to preserve
     // chart state (DOM stays mounted, just hidden).
+    const show = visible !== undefined ? visible : activeTab === "statistics";
     return (
-        <div className={activeTab === "statistics" ? "space-y-8 animate-fadeIn" : "hidden"}>
+        <div className={show ? "space-y-8 animate-fadeIn" : "hidden"}>
             <StatisticsHeader
                 darkMode={darkMode}
                 setActiveTab={setActiveTab}

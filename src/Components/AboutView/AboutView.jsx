@@ -24,12 +24,13 @@ const AboutView = ({ darkMode, setActiveTab }) => {
 
         {/* Decorative blobs */}
         <div className="absolute -top-20 -right-20 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-sky-500/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-violet-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 -left-16 w-56 h-56 bg-indigo-500/10 rounded-full blur-3xl" />
 
         <div className="relative px-6 sm:px-10 lg:px-16 py-10 sm:py-16 lg:py-20">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 cyber-cut-sm text-xs font-semibold tracking-wider uppercase mb-6 bg-cyan-500/10 text-cyan-500 border-2 border-cyan-500/30">
-              <span className="w-2 h-2 cyber-cut-sm bg-cyan-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 cyber-cut-sm text-xs font-semibold tracking-wider uppercase mb-6 bg-cyan-500/10 text-cyan-400 border-2 border-cyan-500/30 cyber-3d-sm">
+              <span className="w-2 h-2 cyber-cut-sm bg-gradient-to-r from-cyan-400 to-violet-500 animate-pulse" />
               Version 1.0.0
             </div>
             <h1
@@ -38,7 +39,7 @@ const AboutView = ({ darkMode, setActiveTab }) => {
               }`}
             >
               Welcome to{" "}
-              <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-sky-400 bg-clip-text text-transparent">
+              <span className={darkMode ? "text-gradient-aurora" : "text-gradient-aurora-deep"}>
                 FinVue
               </span>
             </h1>

@@ -68,7 +68,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
       style={{ animation: "fadeSlideUp 0.3s ease-out" }}
     >
       <div
-        className={`w-full max-w-sm rounded-2xl border shadow-2xl p-4 flex items-start gap-3 ${
+        className={`w-full max-w-sm rounded-2xl border shadow-2xl p-4 flex items-start gap-3 cyber-3d cyber-inner-edge ${
           darkMode
             ? "bg-slate-900 border-slate-800 shadow-black/40"
             : "bg-white border-slate-200 shadow-slate-300/40"
@@ -76,8 +76,8 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
         role="dialog"
         aria-label="Install FinVue"
       >
-        <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center shadow-lg shadow-cyan-500/25 flex-shrink-0">
-          <FinVueLogoIcon className="w-6 h-6 text-white" />
+        <div className="w-11 h-11 cyber-cut bg-gradient-to-tr from-cyan-500 via-sky-500 to-violet-500 flex items-center justify-center cyber-3d-sm [--glow-3d-2:var(--violet-glow)] flex-shrink-0">
+          <FinVueLogoIcon className="w-6 h-6 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
         </div>
 
         <div className="flex-1 min-w-0">

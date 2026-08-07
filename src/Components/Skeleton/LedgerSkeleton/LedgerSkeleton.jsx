@@ -25,7 +25,7 @@ const LedgerSkeleton = ({ darkMode = true }) => {
 
       {/* Quick add form skeleton */}
       <div
-        className={`p-6 rounded-2xl border ${
+        className={`p-6 rounded-2xl border cyber-3d-sm ${
           darkMode ? "border-slate-800/80" : "border-slate-200"
         }`}
       >
@@ -39,7 +39,7 @@ const LedgerSkeleton = ({ darkMode = true }) => {
 
       {/* Filters skeleton */}
       <div
-        className={`p-6 rounded-2xl border ${
+        className={`p-6 rounded-2xl border cyber-3d-sm ${
           darkMode ? "border-slate-800/80" : "border-slate-200"
         }`}
       >
@@ -79,7 +79,7 @@ const LedgerSkeleton = ({ darkMode = true }) => {
 
       {/* Table skeleton */}
       <div
-        className={`rounded-2xl border overflow-hidden ${
+        className={`rounded-2xl border overflow-hidden cyber-3d-sm ${
           darkMode ? "border-slate-800/80" : "border-slate-200"
         }`}
       >

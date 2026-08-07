@@ -18,9 +18,10 @@ import {
   MailIcon,
   UserIcon,
   LockIcon,
+  XIcon,
 } from '../common/Icons';
 
-const AuthView = ({ setUser }) => {
+const AuthView = ({ setUser, onClose }) => {
   const [mode, setMode] = useState('login'); // 'login' | 'register'
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -197,10 +198,23 @@ const AuthView = ({ setUser }) => {
   return (
     <>
       <div
-        className={`fixed inset-0 z-50 overflow-y-auto bg-white cyber-grid transition-opacity duration-700 ${
+        className={`fixed inset-0 z-50 overflow-y-auto bg-[#f5f7fc] aurora-bg-light transition-opacity duration-700 ${
           mounted ? 'opacity-100' : 'opacity-0'
         }`}
       >
+        <div className="pointer-events-none absolute inset-0 cyber-grid opacity-50" />
+
+        {/* Back-to-app button (guest browsing mode) */}
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="fixed top-4 left-4 sm:left-6 z-[60] inline-flex items-center gap-1.5 px-3 py-2 cyber-cut-sm border-2 text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95 bg-white/90 border-cyan-300/70 text-slate-600 hover:border-rose-400 hover:text-rose-600"
+          >
+            <XIcon className="w-4 h-4" />
+            Back to app
+          </button>
+        )}
         <div className="relative min-h-full flex items-center justify-center gap-8 xl:gap-16 px-4 py-6 sm:px-8">
           {/* ─── Illustration ─── */}
           <div

@@ -26,20 +26,20 @@ const AdminExpensesTab = memo(
       }
     };
 
-    if (!isAdminLoading && allExpenses.length === 0) {
-      return (
-        <div
-          className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center cyber-3d ${
-            darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
-          }`}
-        >
-          <div className={`mb-4 ${darkMode ? "text-slate-600" : "text-slate-300"}`}>
+    if (!isAdminLoading && allExpenses.length === 0) {    return (
+      <div
+        className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center cyber-3d cyber-inner-edge relative ${
+          darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
+        }`}
+      >
+          <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500" />
+          <div className={`mb-4 ${darkMode ? "text-slate-500" : "text-slate-300"}`}>
             <EmptyStateIcon className="w-12 h-12" strokeWidth={1.5} />
           </div>
-          <p className={`text-sm font-bold ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
+          <p className={`text-sm font-bold ${darkMode ? "text-slate-200" : "text-slate-600"}`}>
             No expenses recorded
           </p>
-          <p className={`mt-1 text-xs ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
+          <p className={`mt-1 text-xs ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
             Expenses from all users will appear here.
           </p>
         </div>
@@ -48,16 +48,19 @@ const AdminExpensesTab = memo(
 
     return (
       <div
-        className={`rounded-2xl border overflow-hidden cyber-3d ${
+        className={`rounded-2xl border overflow-hidden cyber-3d cyber-inner-edge relative ${
           darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
         }`}
       >
+        <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500 z-10" />
         <div className="overflow-x-auto">
           <table className="w-full text-left min-w-[680px]">
             <thead>
               <tr
-                className={`text-[10px] uppercase tracking-widest font-bold border-b ${
-                  darkMode ? "text-slate-500 border-slate-800" : "text-slate-400 border-slate-200"
+                className={`cyber-ticker text-[10px] uppercase tracking-widest font-bold border-b-2 ${
+                  darkMode
+                    ? "text-cyan-300/90 border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950"
+                    : "text-cyan-700 border-slate-200 bg-gradient-to-r from-slate-100 via-white to-slate-100"
                 }`}
               >
                 <th className="px-5 py-3.5">Owner</th>
@@ -83,8 +86,8 @@ const AdminExpensesTab = memo(
                     <td className="px-5 py-3.5">
                       <span className="inline-flex items-center gap-2">
                         <span
-                          className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-extrabold ${
-                            darkMode ? "bg-slate-800 text-slate-300" : "bg-slate-200 text-slate-600"
+                          className={`w-6 h-6 cyber-cut-sm border flex items-center justify-center text-[10px] font-extrabold ${
+                            darkMode ? "bg-slate-800 text-slate-200 border-slate-700" : "bg-slate-200 text-slate-600 border-slate-300"
                           }`}
                         >
                           {(expense.username || "?").charAt(0).toUpperCase()}
@@ -116,7 +119,7 @@ const AdminExpensesTab = memo(
                     </td>
                     <td
                       className={`px-5 py-3.5 text-right text-sm font-extrabold tabular-nums ${
-                        darkMode ? "text-cyan-400" : "text-cyan-600"
+                        darkMode ? "text-cyan-300" : "text-cyan-700"
                       }`}
                     >
                       {formatCurrency(expense.amount)}
@@ -133,10 +136,10 @@ const AdminExpensesTab = memo(
                         onClick={() => handleDelete(expense)}
                         disabled={isAdminLoading}
                         aria-label="Delete expense"
-                        className={`p-1.5 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 ${
+                        className={`p-1.5 cyber-cut-sm border transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 ${
                           darkMode
-                            ? "text-slate-500 hover:text-red-400 hover:bg-red-500/10"
-                            : "text-slate-400 hover:text-red-600 hover:bg-red-50"
+                            ? "text-slate-400 hover:text-red-400 hover:bg-red-500/10 border-transparent hover:border-red-900/50"
+                            : "text-slate-400 hover:text-red-600 hover:bg-red-50 border-transparent hover:border-red-300"
                         }`}
                       >
                         <TrashIcon className="w-4 h-4" />

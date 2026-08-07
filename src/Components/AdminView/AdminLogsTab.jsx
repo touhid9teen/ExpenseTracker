@@ -72,32 +72,36 @@ const AdminLogsTab = memo(
 
         {!isAdminLoading && logs.length === 0 ? (
           <div
-            className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center cyber-3d ${
+            className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center cyber-3d cyber-inner-edge relative ${
               darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
             }`}
           >
-            <div className={`mb-4 ${darkMode ? "text-slate-600" : "text-slate-300"}`}>
+            <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500" />
+            <div className={`mb-4 ${darkMode ? "text-slate-500" : "text-slate-300"}`}>
               <ServerIcon className="w-12 h-12" strokeWidth={1.5} />
             </div>
-            <p className={`text-sm font-bold ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
+            <p className={`text-sm font-bold ${darkMode ? "text-slate-200" : "text-slate-600"}`}>
               No API activity yet
             </p>
-            <p className={`mt-1 text-xs ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
+            <p className={`mt-1 text-xs ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
               Requests will appear here as they hit the API.
             </p>
           </div>
         ) : (
           <div
-            className={`rounded-2xl border overflow-hidden cyber-3d ${
+            className={`rounded-2xl border overflow-hidden cyber-3d cyber-inner-edge relative ${
               darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
             }`}
           >
+            <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500 z-10" />
             <div className="overflow-x-auto">
               <table className="w-full text-left min-w-[760px]">
                 <thead>
                   <tr
-                    className={`text-[10px] uppercase tracking-widest font-bold border-b ${
-                      darkMode ? "text-slate-500 border-slate-800" : "text-slate-400 border-slate-200"
+                    className={`cyber-ticker text-[10px] uppercase tracking-widest font-bold border-b-2 ${
+                      darkMode
+                        ? "text-cyan-300/90 border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950"
+                        : "text-cyan-700 border-slate-200 bg-gradient-to-r from-slate-100 via-white to-slate-100"
                     }`}
                   >
                     <th className="px-5 py-3.5">Time</th>

@@ -8,14 +8,16 @@ const ToastProvider = ({ darkMode }) => {
       toastOptions={{
         duration: 5000,
         style: {
-          background: darkMode ? "#1e293b" : "#ffffff",
+          background: darkMode ? "#111a30" : "#ffffff",
           color: darkMode ? "#f1f5f9" : "#1e293b",
-          border: darkMode ? "1px solid #334155" : "1px solid #e2e8f0",
-          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.2)",
+          border: darkMode ? "1px solid #1d4ed8" : "1px solid #a5f3fc",
+          boxShadow: darkMode
+            ? "0 10px 30px -5px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(34, 211, 238, 0.12)"
+            : "0 10px 25px -5px rgba(0, 0, 0, 0.2)",
           padding: "12px 16px",
           fontSize: "14px",
           fontWeight: "500",
-          borderRadius: "12px",
+          borderRadius: "10px",
         },
         success: {
           iconTheme: {

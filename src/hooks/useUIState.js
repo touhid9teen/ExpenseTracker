@@ -5,23 +5,20 @@ import { useEffect, useState } from "react";
  * Also handles the global click-outside listener for dismissable menus.
  */
 export const useUIState = () => {
-    const [activeTab, setActiveTab] = useState("statistics");
+    // Single-page command-driven app: sections swap below the command bar.
+    // The app now opens on the AI chat home view (hero Add button + chat).
+    const [activeTab, setActiveTab] = useState("chat");
     const [showQuickAdd, setShowQuickAdd] = useState(false);
     const [selectedDailyDate, setSelectedDailyDate] = useState(null);
     const [editingExpense, setEditingExpense] = useState(null);
     const [deletingExpense, setDeletingExpense] = useState(null);
     const [openMenuId, setOpenMenuId] = useState(null);
-    const [showQuickActionsNav, setShowQuickActionsNav] = useState(false);
-    const [chatOpen, setChatOpen] = useState(false);
     const [pendingAction, setPendingAction] = useState(null);
 
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (!e.target?.closest?.('[data-menu-area]')) {
                 setOpenMenuId(null);
-            }
-            if (!e.target?.closest?.('[data-quick-actions-nav]')) {
-                setShowQuickActionsNav(false);
             }
         };
         document.addEventListener("click", handleClickOutside);
@@ -41,10 +38,6 @@ export const useUIState = () => {
         setDeletingExpense,
         openMenuId,
         setOpenMenuId,
-        showQuickActionsNav,
-        setShowQuickActionsNav,
-        chatOpen,
-        setChatOpen,
         pendingAction,
         setPendingAction
     };

@@ -4,10 +4,10 @@ export const LedgerHeaderActions = ({ darkMode, setActiveTab, setShowQuickAdd })
     return (
         <div className="flex flex-col md:flex-row md:items-center justify-between border-b-2 pb-4 border-cyan-500/30 relative">
             {/* Neon accent strip */}
-            <span className="absolute -bottom-[2px] left-0 h-[2px] w-24 bg-gradient-to-r from-cyan-400 to-sky-400" />
+            <span className="absolute -bottom-[2px] left-0 h-[2px] w-32 bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500" />
             <div>
                 <h1 className="text-2xl font-black tracking-tight flex items-center gap-3">
-                    <span className={`inline-block w-2 h-8 cyber-cut-sm ${darkMode ? "bg-cyan-400" : "bg-cyan-500"}`} />
+                    <span className={`inline-block w-2 h-8 cyber-cut-sm bg-gradient-to-b ${darkMode ? "from-cyan-400 to-violet-500" : "from-cyan-500 to-violet-600"}`} />
                     Transactions Ledger
                 </h1>
                 <p className={`mt-1 text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>

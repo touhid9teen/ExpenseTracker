@@ -9,7 +9,9 @@ const LedgerView = (props) => {
     const currentTableTotal = filteredExpenses.reduce((sum, expense) => sum + normalizeExpenseAmount(expense.amount), 0);
     const getCategoryStyles = props.getCategoryStyles ?? props.getCategoryStylesForTheme ?? (() => ({ bg: "bg-slate-100", bullet: "bg-slate-400", color: "bg-slate-400" }));
 
-    return props.activeTab === "ledger" ? (
+    // Explicit override lets the overview page stack the ledger under stats.
+    const show = props.visible !== undefined ? props.visible : props.activeTab === "ledger";
+    return show ? (
         <div className="space-y-6 animate-fadeIn">
             <LedgerHeaderActions
                 darkMode={props.darkMode ?? true}

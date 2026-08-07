@@ -39,12 +39,13 @@ export const LedgerFilters = ({
 
   return (
     <div
-      className={`p-6 border-2 transition-all duration-300 cyber-3d ${
+      className={`p-6 border-2 transition-all duration-300 cyber-3d cyber-inner-edge cyber-shine relative overflow-hidden ${
         darkMode
           ? "bg-slate-900/60 border-cyan-900/50"
           : "bg-white border-cyan-300/70"
       }`}
     >
+      <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500" />
       <div className="flex flex-col lg:flex-row gap-4 items-center justify-between border-b-2 pb-5 border-cyan-500/20">
         <div>
           <span className="text-xs uppercase font-extrabold tracking-widest text-cyan-500 block mb-1">

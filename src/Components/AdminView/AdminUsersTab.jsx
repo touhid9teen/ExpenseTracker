@@ -46,16 +46,19 @@ const AdminUsersTab = memo(
 
     return (
       <div
-        className={`rounded-2xl border overflow-hidden cyber-3d ${
+        className={`rounded-2xl border overflow-hidden cyber-3d cyber-inner-edge relative ${
           darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
         }`}
       >
+        <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500 z-10" />
         <div className="overflow-x-auto">
           <table className="w-full text-left min-w-[640px]">
             <thead>
               <tr
-                className={`text-[10px] uppercase tracking-widest font-bold border-b ${
-                  darkMode ? "text-slate-500 border-slate-800" : "text-slate-400 border-slate-200"
+                className={`cyber-ticker text-[10px] uppercase tracking-widest font-bold border-b-2 ${
+                  darkMode
+                    ? "text-cyan-300/90 border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950"
+                    : "text-cyan-700 border-slate-200 bg-gradient-to-r from-slate-100 via-white to-slate-100"
                 }`}
               >
                 <th className="px-5 py-3.5">User</th>
@@ -78,14 +81,14 @@ const AdminUsersTab = memo(
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`w-9 h-9 shrink-0 rounded-full flex items-center justify-center font-extrabold text-xs ${
+                        className={`w-9 h-9 shrink-0 cyber-cut-sm border-2 cyber-3d-sm [--glow-3d:var(--accent-glow-soft)] flex items-center justify-center font-extrabold text-xs ${
                           user.isAdmin
                             ? darkMode
-                              ? "bg-cyan-500/20 text-cyan-400"
-                              : "bg-cyan-100 text-cyan-700"
+                              ? "bg-cyan-500/20 text-cyan-400 border-cyan-800/60"
+                              : "bg-cyan-100 text-cyan-700 border-cyan-300"
                             : darkMode
-                            ? "bg-slate-800 text-slate-300"
-                            : "bg-slate-200 text-slate-600"
+                            ? "bg-slate-800 text-slate-200 border-slate-700"
+                            : "bg-slate-200 text-slate-600 border-slate-300"
                         }`}
                       >
                         {user.username.charAt(0).toUpperCase()}
@@ -93,17 +96,17 @@ const AdminUsersTab = memo(
                       <div className="min-w-0">
                         <p
                           className={`text-sm font-bold truncate flex items-center gap-1.5 ${
-                            darkMode ? "text-slate-200" : "text-slate-800"
+                            darkMode ? "text-slate-100" : "text-slate-800"
                           }`}
                         >
                           {user.username}
                           {user.isAdmin && (
-                            <CrownIcon className="w-3.5 h-3.5 text-cyan-500" strokeWidth={2.5} />
+                            <CrownIcon className="w-3.5 h-3.5 text-cyan-400" strokeWidth={2.5} />
                           )}
                         </p>
                         <p
                           className={`text-xs truncate ${
-                            darkMode ? "text-slate-500" : "text-slate-400"
+                            darkMode ? "text-slate-400" : "text-slate-500"
                           }`}
                         >
                           {user.email || "no email"}
@@ -113,14 +116,14 @@ const AdminUsersTab = memo(
                   </td>
                   <td className="px-5 py-3.5">
                     <span
-                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-bold ${
+                      className={`inline-flex items-center gap-1 px-2.5 py-1 cyber-cut-sm border-2 cyber-3d-sm text-[11px] font-bold ${
                         user.isAdmin
                           ? darkMode
-                            ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/25"
-                            : "bg-cyan-100 text-cyan-700 border border-cyan-200"
+                            ? "bg-cyan-500/10 text-cyan-300 border-cyan-800/60"
+                            : "bg-cyan-100 text-cyan-700 border-cyan-300"
                           : darkMode
-                          ? "bg-slate-800 text-slate-400 border border-slate-700"
-                          : "bg-slate-100 text-slate-500 border border-slate-200"
+                          ? "bg-slate-800 text-slate-300 border-slate-700"
+                          : "bg-slate-100 text-slate-500 border-slate-300"
                       }`}
                     >
                       <ShieldCheckIcon className="w-3 h-3" strokeWidth={2.5} />
@@ -148,14 +151,14 @@ const AdminUsersTab = memo(
                       <button
                         onClick={() => handleToggle(user)}
                         disabled={isAdminLoading}
-                        className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 ${
+                        className={`px-2.5 py-1.5 cyber-cut-sm border-2 text-[11px] font-bold transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 cyber-3d-sm ${
                           user.isAdmin
                             ? darkMode
-                              ? "bg-red-500/10 text-red-400 hover:bg-red-500/20"
-                              : "bg-red-50 text-red-600 hover:bg-red-100"
+                              ? "bg-red-500/10 text-red-400 hover:bg-red-500/20 border-red-900/50"
+                              : "bg-red-50 text-red-600 hover:bg-red-100 border-red-200"
                             : darkMode
-                            ? "bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20"
-                            : "bg-cyan-100 text-cyan-700 hover:bg-cyan-200"
+                            ? "bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 border-cyan-800/60"
+                            : "bg-cyan-100 text-cyan-700 hover:bg-cyan-200 border-cyan-300"
                         }`}
                       >
                         {user.isAdmin ? "Revoke" : "Grant"}
@@ -164,10 +167,10 @@ const AdminUsersTab = memo(
                         onClick={() => handleDelete(user)}
                         disabled={isAdminLoading}
                         aria-label={`Delete ${user.username}`}
-                        className={`p-1.5 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 ${
+                        className={`p-1.5 cyber-cut-sm border transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 ${
                           darkMode
-                            ? "text-slate-500 hover:text-red-400 hover:bg-red-500/10"
-                            : "text-slate-400 hover:text-red-600 hover:bg-red-50"
+                            ? "text-slate-400 hover:text-red-400 hover:bg-red-500/10 border-transparent hover:border-red-900/50"
+                            : "text-slate-400 hover:text-red-600 hover:bg-red-50 border-transparent hover:border-red-300"
                         }`}
                       >
                         <TrashIcon className="w-4 h-4" />
@@ -186,21 +189,22 @@ const AdminUsersTab = memo(
 
 const EmptyState = ({ darkMode, icon, title, hint }) => (
   <div
-    className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center cyber-3d ${
+    className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center cyber-3d cyber-inner-edge relative ${
       darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
     }`}
   >
+    <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500" />
     <div
-      className={`mb-4 ${darkMode ? "text-slate-600" : "text-slate-300"}`}
+      className={`mb-4 ${darkMode ? "text-slate-500" : "text-slate-300"}`}
     >
       {icon}
     </div>
     <p
-      className={`text-sm font-bold ${darkMode ? "text-slate-300" : "text-slate-600"}`}
+      className={`text-sm font-bold ${darkMode ? "text-slate-200" : "text-slate-600"}`}
     >
       {title}
     </p>
-    <p className={`mt-1 text-xs ${darkMode ? "text-slate-500" : "text-slate-400"}`}>{hint}</p>
+    <p className={`mt-1 text-xs ${darkMode ? "text-slate-400" : "text-slate-500"}`}>{hint}</p>
   </div>
 );
 

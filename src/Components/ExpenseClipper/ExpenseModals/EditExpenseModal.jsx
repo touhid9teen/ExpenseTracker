@@ -15,16 +15,16 @@ export const EditExpenseModal = ({
         <>
             {editingExpense && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xl transition-opacity duration-300">
-                    <div className={`relative w-full max-w-lg cyber-cut-lg border-2 p-6 transform scale-100 transition-transform cyber-3d-lg ${
+                    <div className={`relative w-full max-w-lg cyber-cut-lg border-2 p-6 transform scale-100 transition-transform cyber-3d-lg cyber-inner-edge [--glow-3d-2:var(--violet-glow-soft)] ${
                         darkMode
                             ? "bg-slate-950 border-cyan-700/60"
                             : "bg-white border-cyan-400"
                     }`}>
-                        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
+                        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500 opacity-80 pointer-events-none" />
                         <div className="flex items-center justify-between border-b-2 pb-4 mb-4 border-cyan-500/25">
                             <h3 className="text-lg font-bold tracking-tight flex items-center gap-2">
                                 Edit Transaction Details
-                                <span className={`inline-block w-1.5 h-5 cyber-cut-sm ${darkMode ? "bg-cyan-400" : "bg-cyan-500"}`} />
+                                <span className={`inline-block w-1.5 h-5 cyber-cut-sm bg-gradient-to-b ${darkMode ? "from-cyan-400 to-violet-500" : "from-cyan-500 to-violet-600"}`} />
                             </h3>
                             <button
                                 onClick={() => setEditingExpense(null)}

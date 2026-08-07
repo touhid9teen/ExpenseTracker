@@ -2,13 +2,13 @@ import { SpinnerIcon } from "./Icons";
 
 const variants = {
   primary: {
-    base: "bg-gradient-to-r from-cyan-500 to-sky-400 hover:from-cyan-400 hover:to-sky-400 text-white",
-    glow: "from-cyan-500/30 to-cyan-400/30",
+    base: "bg-gradient-to-r from-cyan-500 via-sky-500 to-indigo-500 hover:from-cyan-400 hover:via-sky-400 hover:to-violet-400 text-white",
+    glow: "from-cyan-500/30 via-sky-500/25 to-violet-500/30",
     loading: "bg-cyan-500/70",
   },
   cyan: {
-    base: "bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-white",
-    glow: "from-cyan-400/30 to-sky-500/30",
+    base: "bg-gradient-to-r from-cyan-500 via-sky-500 to-indigo-500 hover:from-cyan-400 hover:via-sky-400 hover:to-violet-400 text-white",
+    glow: "from-cyan-400/30 via-sky-500/25 to-violet-500/30",
     loading: "bg-cyan-500/70",
   },
 };
@@ -49,7 +49,7 @@ const Button = ({
         }`}
       />
       {/* Neon edge strip along the top */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-white/40 to-sky-400 opacity-80" />
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-white/50 to-violet-400 opacity-90" />
       {!loading && shimmer && (
         <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
       )}

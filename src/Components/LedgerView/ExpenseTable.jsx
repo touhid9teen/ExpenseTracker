@@ -44,7 +44,7 @@ export const ExpenseTable = ({
 }) => {
   return (
     <div
-      className={`border-2 overflow-hidden transition-all duration-300 cyber-shadow ${
+      className={`border-2 overflow-hidden transition-all duration-300 cyber-3d cyber-inner-edge ${
         darkMode
           ? "bg-slate-900/70 border-cyan-900/60"
           : "bg-white border-cyan-300/80"
@@ -62,7 +62,7 @@ export const ExpenseTable = ({
             >
               {/* Glowing left accent edge */}
               <th className="w-1.5 p-0">
-                <span className="block h-full w-1.5 bg-gradient-to-b from-cyan-400 to-sky-400" />
+                <span className="block h-full w-1.5 bg-gradient-to-b from-cyan-400 via-sky-500 to-violet-500" />
               </th>
               <SortHeader
                 label="Date"
@@ -109,7 +109,9 @@ export const ExpenseTable = ({
               <tr>
                 <td
                   colSpan="6"
-                  className="text-center py-16 text-slate-500 font-medium"
+                  className={`text-center py-16 font-medium ${
+                    darkMode ? "text-slate-400" : "text-slate-500"
+                  }`}
                 >
                   No matching transactions found.
                 </td>

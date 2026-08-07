@@ -15,17 +15,9 @@ const TIP_PROMPT =
   "Suggest ways I can reduce my spending based on my expenses. Give me 3 practical tips with the ৳ amounts involved.";
 
 /**
- * CommandCenter – the "command buttons in the middle of the site".
- * Replaces the old tab dock: every feature is one big button. Clicking a
- * button scrolls to the top and swaps the content below.
- *
- * Props:
- *   - darkMode      : boolean
- *   - activeTab     : string  (current section)
- *   - setActiveTab  : (tab) => void
- *   - setShowQuickAdd : (bool) => void – opens the manual add modal
- *   - setPendingAction : (action) => void – routes AI commands to chat
- *   - isAdmin       : boolean
+ * CommandCenter – the nav cards row shown at the top of the content area
+ * (matches the dashboard mockup): soft rounded cards, with the active card
+ * filled by the violet→indigo gradient.
  */
 const CommandCenter = memo(function CommandCenter({
   darkMode,
@@ -35,18 +27,6 @@ const CommandCenter = memo(function CommandCenter({
   setPendingAction,
   isAdmin = false,
 }) {
-  const base =
-    "relative flex flex-col items-center justify-center gap-1.5 cyber-cut-sm border-2 px-3 sm:px-4 py-3 sm:py-3.5 transition-all duration-200 active:scale-95 focus:outline-none";
-
-  const idle = darkMode
-    ? "bg-slate-900/80 border-slate-700/70 text-slate-300 hover:border-cyan-600/70 hover:text-cyan-300 hover:-translate-y-0.5 cyber-3d-sm [--glow-3d:var(--accent-glow-soft)]"
-    : "bg-white border-slate-300 text-slate-600 hover:border-cyan-400 hover:text-cyan-600 hover:-translate-y-0.5 cyber-3d-sm";
-
-  // NOTE: no cyber-cut-shadow here — it would override cyber-btn-accent's
-  // filter (utilities layer beats components layer in the cascade) and
-  // flatten the button's 3D pressable edge.
-  const active = "cyber-btn-accent text-white border-cyan-400/80";
-
   const handleClick = (cmd) => {
     if (cmd.action === "modal") {
       setShowQuickAdd(true);
@@ -73,61 +53,36 @@ const CommandCenter = memo(function CommandCenter({
       : []),
   ];
 
-  const isCommandActive = (cmd) =>
-    !cmd.action && cmd.key === activeTab;
+  const isCommandActive = (cmd) => !cmd.action && cmd.key === activeTab;
 
   return (
-    <div
-      className={`relative cyber-cut-lg border-2 cyber-3d cyber-inner-edge cyber-shine overflow-hidden ${
-        darkMode
-          ? "bg-slate-900/80 border-cyan-900/50"
-          : "bg-white/90 border-cyan-300/70"
-      }`}
-    >
-      <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500 opacity-80 pointer-events-none" />
-
-      {/* Label */}
-      <div className="flex items-center justify-center gap-2 px-4 pt-3.5 pb-1">
-        <span
-          className={`text-[11px] font-bold uppercase tracking-[0.22em] ${
-            darkMode ? "text-slate-400" : "text-slate-500"
-          }`}
-        >
-          Command Center
-        </span>
-        <span
-          className={`inline-block w-1 h-3 cyber-cut-sm bg-gradient-to-b ${
-            darkMode ? "from-cyan-400 to-violet-500" : "from-cyan-500 to-violet-600"
-          }`}
-        />
-      </div>
-
-      {/* Buttons */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 p-3.5 sm:p-4">
-        {commands.map((cmd) => {
-          const Icon = cmd.icon;
-          const isActive = isCommandActive(cmd);
-          return (
-            <button
-              key={cmd.key}
-              onClick={() => handleClick(cmd)}
-              aria-pressed={isActive}
-              className={`${base} ${isActive ? active : idle}`}
-            >
-              {isActive && (
-                <span className="absolute -top-px left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-300 via-sky-300 to-violet-300 opacity-90" />
-              )}
-              <Icon
-                className="w-5 h-5 sm:w-6 sm:h-6"
-                strokeWidth={2.5}
-              />
-              <span className="text-[11px] sm:text-xs font-bold leading-tight">
-                {cmd.label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 sm:gap-3">
+      {commands.map((cmd) => {
+        const Icon = cmd.icon;
+        const isActive = isCommandActive(cmd);
+        return (
+          <button
+            key={cmd.key}
+            onClick={() => handleClick(cmd)}
+            aria-pressed={isActive}
+            className={`relative flex flex-col items-center justify-center gap-2 rounded-2xl border px-3 py-3.5 sm:py-4 transition-all duration-200 active:scale-95 focus:outline-none ${
+              isActive
+                ? "bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 text-white border-transparent shadow-lg shadow-violet-500/30"
+                : darkMode
+                  ? "bg-slate-900 border-slate-700/70 text-slate-100 hover:-translate-y-0.5 hover:border-violet-500/50 hover:text-violet-300 hover:shadow-lg hover:shadow-violet-500/10"
+                  : "bg-white border-slate-200 text-slate-500 hover:-translate-y-0.5 hover:border-violet-300 hover:text-violet-600 hover:shadow-lg hover:shadow-violet-500/10"
+            }`}
+          >
+            <Icon
+              className={`w-6 h-6 ${isActive ? "drop-shadow" : darkMode ? "text-violet-400" : ""}`}
+              strokeWidth={2.25}
+            />
+            <span className="text-[11px] sm:text-xs font-bold leading-tight">
+              {cmd.label}
+            </span>
+          </button>
+        );
+      })}
     </div>
   );
 });

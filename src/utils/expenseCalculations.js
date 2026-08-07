@@ -1,4 +1,4 @@
-import { formatShortDate, getRelativeInputDate, isThisMonth, isThisWeek, isToday } from "./dateUtils";
+import { formatShortDate, getRelativeInputDate, getTodayInputValue, getWeekRange, isThisMonth, isThisWeek, isToday } from "./dateUtils";
 
 export const normalizeExpenseAmount = (amount) => {
     if (typeof amount === "number" && Number.isFinite(amount)) return amount;
@@ -336,4 +336,253 @@ export const getDailyModalDetails = (expenses, selectedDailyDate) => {
         total,
         count: items.length
     };
+};
+
+// Fixed monthly budget target used by the Statistics "Budget Used" card and
+// the AI Insights rail (the app has no per-user budget feature yet).
+export const MONTHLY_BUDGET = 35000;
+
+// Percentage change from `prev` → `cur`, rounded. Guards divide-by-zero.
+const pctChange = (cur, prev) => {
+    if (!prev) return cur > 0 ? 100 : 0;
+    return Math.round(((cur - prev) / prev) * 100);
+};
+
+const parseYMD = (dateStr) => {
+    if (!dateStr) return null;
+    const [y, m, d] = String(dateStr).split("-").map(Number);
+    if (!y || !m || !d) return null;
+    return { y, m: m - 1, d };
+};
+
+/**
+ * Rich per-period summary for the Statistics stat cards. Every value is real,
+ * derived from `expenses`; only the budget target is a fixed constant.
+ * Returns totals + previous-period comparisons as signed percentages.
+ */
+export const calculateStatisticsSummary = (expenses = [], budget = MONTHLY_BUDGET) => {
+    const now = new Date();
+    const todayStr = getTodayInputValue();
+    const yesterdayStr = getRelativeInputDate(-1);
+    const thisWeek = getWeekRange(now);
+    const lastWeekBase = new Date(now);
+    lastWeekBase.setDate(now.getDate() - 7);
+    const lastWeek = getWeekRange(lastWeekBase);
+    const curMonth = { y: now.getFullYear(), m: now.getMonth() };
+    const prevMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const prevMonth = { y: prevMonthDate.getFullYear(), m: prevMonthDate.getMonth() };
+
+    let allTime = 0, today = 0, yesterday = 0;
+    let week = 0, prevWeek = 0, month = 0, prevMonthTotal = 0;
+
+    for (const exp of expenses) {
+        const amount = normalizeExpenseAmount(exp.amount);
+        allTime += amount;
+        if (exp.date === todayStr) today += amount;
+        if (exp.date === yesterdayStr) yesterday += amount;
+
+        const parts = parseYMD(exp.date);
+        if (parts) {
+            const dt = new Date(parts.y, parts.m, parts.d);
+            if (dt >= thisWeek.start && dt <= thisWeek.end) week += amount;
+            if (dt >= lastWeek.start && dt <= lastWeek.end) prevWeek += amount;
+            if (parts.y === curMonth.y && parts.m === curMonth.m) month += amount;
+            if (parts.y === prevMonth.y && parts.m === prevMonth.m) prevMonthTotal += amount;
+        }
+    }
+
+    return {
+        allTime,
+        today,
+        week,
+        month,
+        deltas: {
+            todayVsYesterday: pctChange(today, yesterday),
+            weekVsLastWeek: pctChange(week, prevWeek),
+            monthVsLastMonth: pctChange(month, prevMonthTotal)
+        },
+        budget: {
+            used: month,
+            target: budget,
+            pct: budget > 0 ? Math.round((month / budget) * 100) : 0
+        }
+    };
+};
+
+/**
+ * Category-level insights for the "Category Spending Insights" cards:
+ * highest/lowest spending category (+ share of total), most-used category
+ * (by count), average daily spend, and an "unusual" spike (highest single
+ * day vs the daily average).
+ */
+export const calculateCategoryInsights = (expenses = []) => {
+    const totals = {};
+    const counts = {};
+    const dayTotals = {};
+    let grandTotal = 0;
+
+    for (const exp of expenses) {
+        const amount = normalizeExpenseAmount(exp.amount);
+        totals[exp.category] = (totals[exp.category] || 0) + amount;
+        counts[exp.category] = (counts[exp.category] || 0) + 1;
+        dayTotals[exp.date] = (dayTotals[exp.date] || 0) + amount;
+        grandTotal += amount;
+    }
+
+    const entries = Object.entries(totals);
+    const share = (amount) => (grandTotal > 0 ? +((amount / grandTotal) * 100).toFixed(1) : 0);
+
+    let highest = { category: "N/A", amount: 0, pct: 0 };
+    let lowest = null;
+    for (const [category, amount] of entries) {
+        if (amount > highest.amount) highest = { category, amount, pct: share(amount) };
+        if (!lowest || amount < lowest.amount) lowest = { category, amount, pct: share(amount) };
+    }
+    if (!lowest) lowest = { category: "N/A", amount: 0, pct: 0 };
+
+    let mostUsed = { category: "N/A", count: 0 };
+    for (const [category, count] of Object.entries(counts)) {
+        if (count > mostUsed.count) mostUsed = { category, count };
+    }
+
+    const days = Object.keys(dayTotals).length || 1;
+    const avgDaily = grandTotal / days;
+    const peakDay = Math.max(0, ...Object.values(dayTotals));
+
+    return {
+        highest,
+        lowest,
+        mostUsed,
+        avgDaily,
+        activeDays: days,
+        unusual: {
+            amount: peakDay,
+            pct: avgDaily > 0 ? Math.max(0, Math.round((peakDay / avgDaily - 1) * 100)) : 0
+        }
+    };
+};
+
+/**
+ * Compact insights for the AI Insights rail: a spending alert (category with
+ * the largest month-over-month jump), a smart saving tip (top category this
+ * month), and budget status. All real except the fixed budget target.
+ */
+export const calculateSpendingInsights = (expenses = [], budget = MONTHLY_BUDGET) => {
+    const now = new Date();
+    const curMonth = { y: now.getFullYear(), m: now.getMonth() };
+    const prevMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const prevMonth = { y: prevMonthDate.getFullYear(), m: prevMonthDate.getMonth() };
+
+    const thisMonthByCat = {};
+    const lastMonthByCat = {};
+    let monthTotal = 0;
+
+    for (const exp of expenses) {
+        const parts = parseYMD(exp.date);
+        if (!parts) continue;
+        const amount = normalizeExpenseAmount(exp.amount);
+        if (parts.y === curMonth.y && parts.m === curMonth.m) {
+            thisMonthByCat[exp.category] = (thisMonthByCat[exp.category] || 0) + amount;
+            monthTotal += amount;
+        } else if (parts.y === prevMonth.y && parts.m === prevMonth.m) {
+            lastMonthByCat[exp.category] = (lastMonthByCat[exp.category] || 0) + amount;
+        }
+    }
+
+    // Alert: category with the largest positive month-over-month change.
+    let alert = null;
+    for (const [category, amount] of Object.entries(thisMonthByCat)) {
+        const prev = lastMonthByCat[category] || 0;
+        const delta = pctChange(amount, prev);
+        if (!alert || Math.abs(delta) > Math.abs(alert.pct)) {
+            alert = { category, pct: delta, higher: delta >= 0 };
+        }
+    }
+
+    // Smart tip: trim the biggest spending category this month by ~15%.
+    let topCategory = null;
+    for (const [category, amount] of Object.entries(thisMonthByCat)) {
+        if (!topCategory || amount > topCategory.amount) topCategory = { category, amount };
+    }
+    const tip = topCategory
+        ? { category: topCategory.category, savings: Math.round(topCategory.amount * 0.15) }
+        : null;
+
+    return {
+        alert,
+        tip,
+        budget: {
+            used: monthTotal,
+            target: budget,
+            pct: budget > 0 ? Math.round((monthTotal / budget) * 100) : 0
+        }
+    };
+};
+
+/**
+ * Even-bucket spending for the Statistics "Expense Trend" bar chart.
+ * granularity: "daily" → last 7 days, "weekly" → last 5 weeks,
+ * "monthly" → last 6 months. Returns [{ key, label, rangeLabel, amount }].
+ */
+export const calculateExpenseTrend = (expenses = [], granularity = "weekly") => {
+    const now = new Date();
+    const buckets = [];
+    const index = new Map();
+    const monthShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const fmt = (dt) => `${monthShort[dt.getMonth()]} ${dt.getDate()}`;
+
+    if (granularity === "daily") {
+        for (let i = 6; i >= 0; i--) {
+            const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+            const key = `${dt.getFullYear()}-${dt.getMonth()}-${dt.getDate()}`;
+            const b = { key, label: fmt(dt), rangeLabel: fmt(dt), amount: 0, start: dt, end: dt };
+            buckets.push(b);
+            index.set(key, b);
+        }
+        for (const exp of expenses) {
+            const p = parseYMD(exp.date);
+            if (!p) continue;
+            const key = `${p.y}-${p.m}-${p.d}`;
+            const b = index.get(key);
+            if (b) b.amount += normalizeExpenseAmount(exp.amount);
+        }
+    } else if (granularity === "monthly") {
+        for (let i = 5; i >= 0; i--) {
+            const dt = new Date(now.getFullYear(), now.getMonth() - i, 1);
+            const key = `${dt.getFullYear()}-${dt.getMonth()}`;
+            const b = { key, label: monthShort[dt.getMonth()], rangeLabel: `${monthShort[dt.getMonth()]} ${dt.getFullYear()}`, amount: 0 };
+            buckets.push(b);
+            index.set(key, b);
+        }
+        for (const exp of expenses) {
+            const p = parseYMD(exp.date);
+            if (!p) continue;
+            const b = index.get(`${p.y}-${p.m}`);
+            if (b) b.amount += normalizeExpenseAmount(exp.amount);
+        }
+    } else {
+        // weekly — last 5 weeks
+        for (let i = 4; i >= 0; i--) {
+            const base = new Date(now);
+            base.setDate(now.getDate() - i * 7);
+            const { start, end } = getWeekRange(base);
+            const key = `${start.getFullYear()}-${start.getMonth()}-${start.getDate()}`;
+            const b = { key, label: `${fmt(start)}`, rangeLabel: `${fmt(start)} – ${fmt(end)}`, amount: 0, start, end };
+            buckets.push(b);
+            index.set(key, b);
+        }
+        for (const exp of expenses) {
+            const p = parseYMD(exp.date);
+            if (!p) continue;
+            const dt = new Date(p.y, p.m, p.d);
+            for (const b of buckets) {
+                if (dt >= b.start && dt <= b.end) {
+                    b.amount += normalizeExpenseAmount(exp.amount);
+                    break;
+                }
+            }
+        }
+    }
+
+    return buckets;
 };

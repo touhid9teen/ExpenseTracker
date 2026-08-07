@@ -8,8 +8,8 @@ import LedgerSkeleton from "../Skeleton/LedgerSkeleton/LedgerSkeleton";
 import AuthView from "../AuthView/AuthView";
 import GoToTopButton from "../common/GoToTopButton";
 import CommandCenter from "../CommandCenter/CommandCenter";
-import FloatingControls from "../common/FloatingControls";
-import { PlusIcon } from "../common/Icons";
+import Sidebar from "../common/Sidebar";
+import AppHeader from "../common/AppHeader";
 import {
   DailyExpenseModal,
   DeleteExpenseModal,
@@ -24,16 +24,18 @@ const StatisticsView = dynamic(() => import("../StatisticsView/StatisticsView"),
 import AboutView from "../AboutView/AboutView";
 import AdminView from "../AdminView/AdminView";
 import AIAssistant from "../AIAssistant/AIAssistant";
+import InsightsRail from "../AIAssistant/InsightsRail";
 
 /**
  * ExpenseClipperScreen – the single-page shell.
  *
- * Layout (no header — everything is a button):
- *  - FloatingControls pins the theme toggle + login/logout to the corners.
- *  - The home (chat) view shows only a hero "Add Expense" button with the
- *    AI chat below it. The nav CommandCenter drops below the chat.
- *  - Other sections (dashboard / table / statistics / about / admin) appear
- *    when navigated to, with the CommandCenter on top.
+ * Layout (dashboard mockup style):
+ *  - A fixed left Sidebar holds the logo, nav links, premium card, dark-mode
+ *    toggle and the user profile (hidden on small screens).
+ *  - The content column has a sticky AppHeader (title + theme/login/logout)
+ *    and the CommandCenter nav-cards row at the top of the content.
+ *  - Sections (chat / dashboard / table / statistics / about / admin) render
+ *    below the CommandCenter.
  *  - Guests can browse the app; adding an expense (or logging in) opens the
  *    AuthView as an overlay instead of replacing the whole page.
  */
@@ -63,15 +65,6 @@ const ExpenseClipperScreen = (props) => {
   };
 
   // Guests can browse (AI chat + layout) but must log in to mutate data.
-  const openAdd = () => {
-    if (!props.user) {
-      toast.error("Please log in to add expenses.");
-      setShowAuth(true);
-      return;
-    }
-    props.setShowQuickAdd(true);
-  };
-
   const guardedSetShowQuickAdd = (next) => {
     if (next && !props.user) {
       toast.error("Please log in to add expenses.");
@@ -92,9 +85,9 @@ const ExpenseClipperScreen = (props) => {
 
   return (
     <div
-      className={`relative min-h-screen font-sans transition-colors duration-300 pb-28 sm:pb-32 overflow-x-clip ${
+      className={`relative min-h-screen font-sans transition-colors duration-300 pb-16 overflow-x-clip ${
         props.darkMode
-          ? "bg-[#060a16] text-slate-100"
+          ? "bg-[#0b0f19] text-slate-100"
           : "bg-[#f5f7fc] text-slate-800"
       }`}
     >
@@ -109,71 +102,36 @@ const ExpenseClipperScreen = (props) => {
         <div className={`absolute inset-0 cyber-grid ${props.darkMode ? "opacity-70" : "opacity-40"}`} />
       </div>
 
-      <div className="relative z-10">
-        {/* Floating action buttons — the header is gone, everything is a button */}
-        <FloatingControls
+      <div className="relative z-10 lg:flex">
+        {/* ── Left sidebar navigation ── */}
+        <Sidebar
           darkMode={props.darkMode}
           toggleTheme={props.toggleTheme}
           user={props.user}
-          handleLogout={handleLogout}
-          onLogin={() => setShowAuth(true)}
+          activeTab={activeTab}
+          setActiveTab={props.setActiveTab}
+          setShowQuickAdd={guardedSetShowQuickAdd}
+          setPendingAction={props.setPendingAction}
+          isAdmin={!!props.user?.isAdmin}
         />
 
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
-          {/* Home view: a single Add button above the AI chat */}
-          {isChat ? (
-            <section className="relative">
-              <div
-                className={`relative cyber-cut-lg border-2 cyber-3d cyber-inner-edge cyber-shine overflow-hidden ${
-                  props.darkMode
-                    ? "bg-slate-900/80 border-cyan-900/50"
-                    : "bg-white/90 border-cyan-300/70"
-                }`}
-              >
-                <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500 opacity-80 pointer-events-none" />
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-5 px-5 sm:px-8 py-7 sm:py-8">
-                  <div className="flex items-center gap-4 min-w-0">
-                    <div className="w-14 h-14 shrink-0 cyber-cut bg-gradient-to-tr from-cyan-500 via-sky-500 to-violet-500 flex items-center justify-center cyber-3d-sm [--glow-3d-2:var(--violet-glow)]">
-                      <PlusIcon
-                        className="w-7 h-7 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
-                        strokeWidth={2.5}
-                      />
-                    </div>
-                    <div className="min-w-0">
-                      <h2
-                        className={`text-xl sm:text-2xl font-black tracking-tight ${
-                          props.darkMode ? "text-white" : "text-slate-800"
-                        }`}
-                      >
-                        Track an expense
-                      </h2>
-                      <p
-                        className={`text-xs sm:text-sm mt-0.5 ${
-                          props.darkMode ? "text-slate-400" : "text-slate-500"
-                        }`}
-                      >
-                        Tap to log it manually — or just ask FinVue AI below.
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={openAdd}
-                    className="group relative inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 cyber-cut-sm text-sm sm:text-base font-black text-white cyber-btn-accent transition-all duration-200 hover:scale-[1.03] active:scale-95"
-                  >
-                    <PlusIcon
-                      className="w-5 h-5 transition-transform duration-200 group-hover:rotate-90"
-                      strokeWidth={3}
-                    />
-                    Add Expense
-                  </button>
-                </div>
-              </div>
-            </section>
-          ) : (
-            <CommandCenter {...commandCenterProps} />
-          )}
+        {/* ── Main content column ── */}
+        <div className="flex-1 min-w-0">
+          <AppHeader
+            darkMode={props.darkMode}
+            toggleTheme={props.toggleTheme}
+            user={props.user}
+            handleLogout={handleLogout}
+            onLogin={() => setShowAuth(true)}
+            activeTab={activeTab}
+          />
 
-          <div className="mt-6 space-y-8 sm:space-y-10">
+          <div className="max-w-6xl xl:max-w-[92rem] mx-auto px-4 sm:px-6 lg:px-8 py-6 xl:flex xl:gap-6 xl:items-start">
+            <main className="min-w-0 xl:flex-1">
+            {/* Nav cards row */}
+            <CommandCenter {...commandCenterProps} />
+
+            <div className="mt-6 space-y-8 sm:space-y-10">
             {isLoading && (isOverview || activeTab === "statistics") && (
               <StatisticsSkeleton darkMode={props.darkMode} />
             )}
@@ -216,17 +174,25 @@ const ExpenseClipperScreen = (props) => {
               setActiveTab={props.setActiveTab}
               pendingAction={props.pendingAction}
               setPendingAction={props.setPendingAction}
+              pushRecentQuery={props.pushRecentQuery}
               visible={isChat}
             />
-          </div>
-
-          {/* Nav buttons move below the chat on the home view */}
-          {isChat && (
-            <div className="mt-6">
-              <CommandCenter {...commandCenterProps} />
             </div>
-          )}
-        </main>
+            </main>
+
+            {/* AI Insights rail — real derived insights + recent queries,
+                visible on every tab from xl up. */}
+            <aside className="hidden xl:block w-80 shrink-0 sticky top-24">
+              <InsightsRail
+                darkMode={props.darkMode}
+                expenses={props.expenses}
+                recentQueries={props.recentQueries}
+                setActiveTab={props.setActiveTab}
+                setPendingAction={props.setPendingAction}
+              />
+            </aside>
+          </div>
+        </div>
 
         <GoToTopButton darkMode={props.darkMode} />
 

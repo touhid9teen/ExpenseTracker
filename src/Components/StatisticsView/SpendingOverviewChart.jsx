@@ -1,11 +1,14 @@
 "use client";
 import { useMemo, useState, useEffect } from "react";
 import { calculateSpendingOverview } from "../../utils/expenseCalculations";
+import { ArrowUpRightIcon, ArrowDownRightIcon } from "../common/Icons";
+import { panelClass, mutedText } from "./panelStyles";
+import { SegmentedToggle } from "./SegmentedToggle";
 
 const PERIODS = [
     { key: "week", label: "Week" },
     { key: "month", label: "Month" },
-    { key: "year", label: "Year" }
+    { key: "year", label: "Year" },
 ];
 
 const VIEW_W = 320;
@@ -14,8 +17,7 @@ const PAD_X = 12;
 const PAD_TOP = 28;
 const PAD_BOTTOM = 18;
 
-const formatCurrency = (value) =>
-    `৳${Number(value || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const formatCurrency = (value) => `৳${Math.round(Number(value) || 0).toLocaleString()}`;
 
 // Builds a smooth SVG path through the points using Catmull-Rom → cubic Bézier.
 const buildSmoothPath = (coords) => {
@@ -39,7 +41,7 @@ const buildSmoothPath = (coords) => {
     return d;
 };
 
-export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
+export const SpendingOverviewChart = ({ darkMode, expenses = [] }) => {
     const [period, setPeriod] = useState("month");
 
     const { points, total } = useMemo(
@@ -47,27 +49,30 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
         [expenses, period]
     );
 
-    const maxAmount = useMemo(
-        () => Math.max(1, ...points.map((p) => p.amount)),
-        [points]
-    );
+    // Period-over-period change: most recent bucket vs the previous one.
+    const delta = useMemo(() => {
+        const n = points.length;
+        if (n < 2) return null;
+        const cur = points[n - 1].amount;
+        const prev = points[n - 2].amount;
+        if (!prev) return cur > 0 ? 100 : 0;
+        return Math.round(((cur - prev) / prev) * 100);
+    }, [points]);
 
-    // Map data points to SVG coordinates.
+    const maxAmount = useMemo(() => Math.max(1, ...points.map((p) => p.amount)), [points]);
+
     const coords = useMemo(() => {
         const usableW = VIEW_W - PAD_X * 2;
         const usableH = VIEW_H - PAD_TOP - PAD_BOTTOM;
         const step = points.length > 1 ? usableW / (points.length - 1) : 0;
-
         return points.map((p, i) => ({
             x: PAD_X + step * i,
             y: PAD_TOP + usableH * (1 - p.amount / maxAmount),
-            ...p
+            ...p,
         }));
     }, [points, maxAmount]);
 
     const [activeIndex, setActiveIndex] = useState(coords.length - 1);
-
-    // Keep the selected point valid when the period (and point count) changes.
     useEffect(() => {
         setActiveIndex(coords.length - 1);
     }, [period, coords.length]);
@@ -82,75 +87,50 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
 
     const active = coords[activeIndex] || coords[coords.length - 1];
     const tooltipLeftPct = active ? (active.x / VIEW_W) * 100 : 50;
-
-    const lineColor = darkMode ? "#22d3ee" : "#0ea5e9";
+    const lineColor = "#8b5cf6";
 
     return (
-        <div
-            className={`cyber-cut p-5 sm:p-6 border-2 cyber-3d cyber-3d-hover cyber-inner-edge cyber-shine relative overflow-hidden transition-colors duration-300 ${
-                darkMode
-                    ? "bg-slate-900 border-cyan-600/70"
-                    : "bg-white border-cyan-400"
-            }`}
-        >
-            <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-400" />
-            {/* Total + current selection date */}
-            <div className="text-center relative z-[2]">
-                <p className={`text-3xl sm:text-4xl font-black tracking-tight font-mono cyber-emboss ${darkMode ? "text-cyan-400 neon-taka" : "text-cyan-600"}`}>
-                    {formatCurrency(total)}
-                </p>
-                <p className={`mt-1 text-xs sm:text-sm font-medium ${darkMode ? "text-slate-400" : "text-slate-400"}`}>
-                    {active?.fullLabel || ""}
-                </p>
+        <div className={`rounded-2xl p-5 sm:p-6 ${panelClass(darkMode)}`}>
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+                <div>
+                    <p className={`text-sm font-semibold ${mutedText(darkMode)}`}>Total Expenses</p>
+                    <div className="flex items-center gap-3 mt-1">
+                        <p className={`text-3xl sm:text-4xl font-black tracking-tight ${darkMode ? "text-white" : "text-slate-900"}`}>
+                            {formatCurrency(total)}
+                        </p>
+                        {delta !== null && (
+                            <span
+                                className={`flex items-center gap-1 text-sm font-bold px-2 py-1 rounded-lg ${
+                                    delta >= 0
+                                        ? "text-rose-600 bg-rose-500/10"
+                                        : "text-emerald-600 bg-emerald-500/10"
+                                }`}
+                            >
+                                {delta >= 0 ? <ArrowUpRightIcon /> : <ArrowDownRightIcon />}
+                                {Math.abs(delta)}%
+                            </span>
+                        )}
+                    </div>
+                    <p className={`text-xs mt-1 ${mutedText(darkMode)}`}>
+                        vs previous {period} · {active?.fullLabel || ""}
+                    </p>
+                </div>
+                <SegmentedToggle
+                    options={PERIODS}
+                    value={period}
+                    onChange={setPeriod}
+                    darkMode={darkMode}
+                    ariaLabel="Spending period"
+                />
             </div>
 
-            {/* Period toggle */}
-            <div
-                className={`flex mt-4 p-1 max-w-xs mx-auto border-2 cyber-3d-sm ${
-                    darkMode
-                        ? "bg-slate-950/70 border-cyan-900/60"
-                        : "bg-slate-100 border-cyan-300/70"
-                }`}
-                role="tablist"
-                aria-label="Spending period"
-            >
-                {PERIODS.map((p) => {
-                    const selected = period === p.key;
-                    return (
-                        <button
-                            key={p.key}
-                            role="tab"
-                            aria-selected={selected}
-                            onClick={() => setPeriod(p.key)}
-                            className={`flex-1 py-2 text-xs sm:text-sm font-bold cyber-cut-sm transition-all duration-200 ${
-                                selected
-                                    ? "cyber-btn-accent text-white"
-                                    : darkMode
-                                        ? "text-slate-400 hover:text-cyan-300"
-                                        : "text-slate-500 hover:text-cyan-600"
-                            }`}
-                        >
-                            {p.label}
-                        </button>
-                    );
-                })}
-            </div>
-
-            {/* Chart */}
             <div className="relative mt-6">
-                {/* Floating tooltip for the active point — glowing mono ৳ */}
                 {active && (
                     <div
                         className="absolute -top-1 z-10 -translate-x-1/2 transition-all duration-300 pointer-events-none"
                         style={{ left: `${tooltipLeftPct}%` }}
                     >
-                        <div
-                            className={`px-3 py-1.5 cyber-cut-sm text-xs font-black font-mono whitespace-nowrap shadow-lg border-2 ${
-                                darkMode
-                                    ? "bg-slate-950 text-cyan-400 neon-taka border-cyan-600/60"
-                                    : "bg-white text-cyan-600 border-cyan-400"
-                            }`}
-                        >
+                        <div className="px-2.5 py-1 rounded-lg text-xs font-bold whitespace-nowrap text-white bg-gradient-to-br from-violet-500 to-indigo-500 shadow-lg shadow-violet-500/30">
                             {formatCurrency(active.amount)}
                         </div>
                     </div>
@@ -165,20 +145,16 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                 >
                     <defs>
                         <linearGradient id="overviewLine" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stopColor={darkMode ? "#22d3ee" : "#0ea5e9"} />
-                            <stop offset="60%" stopColor={darkMode ? "#38bdf8" : "#6366f1"} />
-                            <stop offset="100%" stopColor={darkMode ? "#a78bfa" : "#8b5cf6"} />
+                            <stop offset="0%" stopColor="#8b5cf6" />
+                            <stop offset="100%" stopColor="#6366f1" />
                         </linearGradient>
                         <linearGradient id="overviewArea" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor={darkMode ? "#22d3ee" : "#0ea5e9"} stopOpacity={darkMode ? 0.28 : 0.18} />
-                            <stop offset="100%" stopColor={darkMode ? "#a78bfa" : "#8b5cf6"} stopOpacity="0" />
+                            <stop offset="0%" stopColor="#8b5cf6" stopOpacity={darkMode ? 0.35 : 0.22} />
+                            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
                         </linearGradient>
                     </defs>
 
-                    {/* Filled area under the curve */}
                     {areaPath && <path d={areaPath} fill="url(#overviewArea)" />}
-
-                    {/* The smooth line */}
                     {linePath && (
                         <path
                             d={linePath}
@@ -189,8 +165,6 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                             strokeLinejoin="round"
                         />
                     )}
-
-                    {/* Dashed drop line from active point to the axis */}
                     {active && (
                         <line
                             x1={active.x}
@@ -202,8 +176,6 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                             strokeDasharray="3 3"
                         />
                     )}
-
-                    {/* Invisible hit targets for each point */}
                     {coords.map((c, i) => (
                         <rect
                             key={`hit-${c.key}`}
@@ -217,8 +189,6 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                             onClick={() => setActiveIndex(i)}
                         />
                     ))}
-
-                    {/* Active point marker */}
                     {active && (
                         <circle
                             cx={active.x}
@@ -231,7 +201,6 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                     )}
                 </svg>
 
-                {/* X-axis labels */}
                 <div className="flex justify-between mt-2 px-1">
                     {coords.map((c, i) => (
                         <button
@@ -239,12 +208,8 @@ export const SpendingOverviewChart = ({ darkMode = true, expenses = [] }) => {
                             onClick={() => setActiveIndex(i)}
                             className={`flex-1 text-[10px] sm:text-xs font-medium transition-colors ${
                                 i === activeIndex
-                                    ? darkMode
-                                        ? "text-slate-100 font-bold"
-                                        : "text-slate-900 font-bold"
-                                    : darkMode
-                                        ? "text-slate-500 hover:text-slate-300"
-                                        : "text-slate-400 hover:text-slate-600"
+                                    ? darkMode ? "text-slate-100 font-bold" : "text-slate-900 font-bold"
+                                    : darkMode ? "text-slate-500 hover:text-slate-300" : "text-slate-400 hover:text-slate-600"
                             }`}
                         >
                             {c.label}

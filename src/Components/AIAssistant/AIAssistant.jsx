@@ -8,11 +8,10 @@ import { parseSmartExpense, SMART_CATEGORIES } from "../../utils/smartExpensePar
 import { getTodayInputValue } from "../../utils/dateUtils";
 import {
   XIcon,
-  MenuHamburgerIcon,
   SendIcon,
-  LightningBoltIcon,
   SparklesIcon,
   CheckIcon,
+  ExpandIcon,
 } from "../common/Icons";
 
 const WELCOME_MESSAGE = {
@@ -20,6 +19,10 @@ const WELCOME_MESSAGE = {
   text: "Hi there! I'm FinVue AI. Ask me about your spending, or just type something like “spent 120 on lunch” and I'll add it instantly.",
   sender: "ai",
 };
+
+// Short local time label (e.g. "3:42 PM") for message timestamps.
+const nowTime = () =>
+  new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 
 /**
  * AIAssistant – the modern, full-page AI conversation (ChatGPT/Gemini style).
@@ -45,12 +48,14 @@ const AIAssistant = ({
   setActiveTab,
   pendingAction,
   setPendingAction,
+  pushRecentQuery,
   visible = true,
 }) => {
   const [messages, setMessages] = useState([WELCOME_MESSAGE]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [suggestion, setSuggestion] = useState(null); // quick-confirm chip
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -83,11 +88,12 @@ const AIAssistant = ({
 
       setMessages((prev) => [
         ...prev,
-        { id: Date.now(), text: textToSend, sender: "user" },
+        { id: Date.now(), text: textToSend, sender: "user", time: nowTime() },
       ]);
       setInput("");
       setSuggestion(null);
       setIsLoading(true);
+      pushRecentQuery?.(textToSend);
 
       try {
         const expensesForChat = Array.isArray(expenses)
@@ -144,12 +150,12 @@ const AIAssistant = ({
           }
           setMessages((prev) => [
             ...prev,
-            { id: Date.now() + 1, text: aiText, sender: "ai" },
+            { id: Date.now() + 1, text: aiText, sender: "ai", time: nowTime() },
           ]);
         } else {
           const errorText = data.response || "Sorry, I encountered an error. Please try again.";
           toast.error(errorText);
-          setMessages((prev) => [...prev, { id: Date.now() + 1, text: errorText, sender: "ai" }]);
+          setMessages((prev) => [...prev, { id: Date.now() + 1, text: errorText, sender: "ai", time: nowTime() }]);
         }
       } catch (error) {
         console.error("AI error:", error);
@@ -160,6 +166,7 @@ const AIAssistant = ({
             id: Date.now() + 1,
             text: "Sorry, I couldn't reach the server. Please check your connection.",
             sender: "ai",
+            time: nowTime(),
           },
         ]);
       } finally {
@@ -261,34 +268,35 @@ const AIAssistant = ({
   return (
     <div className={visible ? "block animate-fadeIn" : "hidden"}>
       <div
-        className={`relative cyber-cut-lg border-2 cyber-3d cyber-inner-edge overflow-hidden flex flex-col ${
+        className={`relative rounded-2xl border overflow-hidden flex flex-col shadow-sm ${
           darkMode
-            ? "bg-slate-900/80 border-cyan-900/50"
-            : "bg-white/95 border-cyan-300/70"
+            ? "bg-slate-900/90 border-slate-800"
+            : "bg-white border-slate-200"
         }`}
-        style={{ minHeight: "60vh", maxHeight: "78vh" }}
+        style={{ minHeight: expanded ? "88vh" : "60vh", maxHeight: expanded ? "94vh" : "78vh" }}
       >
-        <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500 opacity-80 pointer-events-none" />
 
         {/* ── Header ── */}
         <div
-          className={`flex items-center justify-between gap-3 px-4 sm:px-6 py-4 border-b-2 flex-shrink-0 ${
-            darkMode ? "border-cyan-900/60" : "border-cyan-200"
+          className={`flex items-center justify-between gap-3 px-4 sm:px-6 py-4 border-b flex-shrink-0 ${
+            darkMode ? "border-slate-800" : "border-slate-100"
           }`}
         >
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 cyber-cut bg-gradient-to-tr from-cyan-500 via-sky-500 to-violet-500 flex items-center justify-center cyber-3d-sm [--glow-3d-2:var(--violet-glow)] flex-shrink-0">
-              <LightningBoltIcon className="w-6 h-6 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/25">
+              <SparklesIcon className="w-5 h-5 text-white" strokeWidth={2.5} />
             </div>
             <div className="min-w-0">
               <h3 className={`font-extrabold text-base ${darkMode ? "text-white" : "text-slate-800"}`}>
                 FinVue AI
               </h3>
-              <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="w-1.5 h-1.5 cyber-cut-sm bg-emerald-400 inline-block" />
-                <p className={`text-xs truncate ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
-                  {isLoading ? "Thinking…" : "On demand · always ready"}
-                </p>
+              <div
+                className={`inline-flex items-center gap-1.5 mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
+                  darkMode ? "bg-emerald-500/15 text-emerald-300" : "bg-slate-100 text-slate-500"
+                }`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                {isLoading ? "Thinking…" : "On demand · always ready"}
               </div>
             </div>
           </div>
@@ -296,27 +304,24 @@ const AIAssistant = ({
           <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={resetConversation}
-              className={`hidden sm:inline-block px-3 py-1.5 cyber-cut-sm text-xs font-bold border-2 cyber-3d-sm transition-all ${
+              className={`hidden sm:inline-block px-4 py-1.5 rounded-full text-xs font-bold border transition-all ${
                 darkMode
-                  ? "bg-slate-900 border-slate-700 text-slate-300 hover:border-cyan-700 hover:text-cyan-300"
-                  : "bg-slate-50 border-slate-300 text-slate-600 hover:border-cyan-400 hover:text-cyan-600"
+                  ? "bg-slate-900 border-slate-700 text-slate-200 hover:border-violet-500/60 hover:text-violet-300"
+                  : "bg-white border-slate-200 text-slate-600 hover:border-violet-300 hover:text-violet-600 shadow-sm"
               }`}
             >
               New chat
             </button>
             <button
-              onClick={() => {
-                setActiveTab("overview");
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-              aria-label="Close assistant"
-              className={`p-2 cyber-cut-sm border-2 cyber-3d-sm transition-colors ${
+              onClick={() => setExpanded((v) => !v)}
+              aria-label={expanded ? "Collapse assistant" : "Expand assistant"}
+              className={`p-2 rounded-xl border transition-all ${
                 darkMode
-                  ? "bg-slate-900 border-slate-700 text-slate-300 hover:border-rose-600/60 hover:text-rose-300"
-                  : "bg-slate-50 border-slate-300 text-slate-500 hover:border-rose-400 hover:text-rose-600"
+                  ? "bg-slate-900 border-slate-700 text-slate-300 hover:border-violet-500/60 hover:text-violet-300"
+                  : "bg-white border-slate-200 text-slate-500 hover:border-violet-300 hover:text-violet-600 shadow-sm"
               }`}
             >
-              <XIcon className="w-4 h-4" />
+              <ExpandIcon className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -324,13 +329,13 @@ const AIAssistant = ({
         {/* ── Body ── */}
         <div
           className={`flex-1 overflow-y-auto px-4 sm:px-6 py-5 flex flex-col gap-4 ${
-            darkMode ? "bg-slate-950/40" : "bg-slate-50/60"
+            darkMode ? "bg-transparent" : "bg-slate-50/50"
           }`}
         >
           {showWelcome ? (
             <div className="my-auto py-6">
               <div className="text-center mb-6">
-                <div className="mx-auto w-14 h-14 cyber-cut bg-gradient-to-tr from-cyan-500 via-sky-500 to-violet-500 flex items-center justify-center cyber-3d-sm [--glow-3d-2:var(--violet-glow)] mb-3">
+                <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-violet-500/30 mb-3">
                   <SparklesIcon className="w-7 h-7 text-white" strokeWidth={2.5} />
                 </div>
                 <h3 className={`text-lg font-black tracking-tight ${darkMode ? "text-white" : "text-slate-800"}`}>
@@ -341,18 +346,18 @@ const AIAssistant = ({
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 max-w-3xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-3xl mx-auto">
                 {SUGGESTIONS.map((s, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleSuggestion(s)}
-                    className={`flex items-center gap-3 px-3.5 py-3 text-left cyber-cut-sm border-2 transition-all duration-200 hover:-translate-y-0.5 cyber-3d-sm ${
+                    className={`flex items-center gap-3 px-3.5 py-3 text-left rounded-xl border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${
                       darkMode
-                        ? "bg-slate-900/80 border-slate-700/70 hover:border-cyan-600/70"
-                        : "bg-white border-slate-300 hover:border-cyan-400"
+                        ? "bg-slate-900/70 border-slate-700/70 hover:border-violet-500/50"
+                        : "bg-white border-slate-200 hover:border-violet-300"
                     }`}
                   >
-                    <span className={`w-8 h-8 cyber-cut-sm flex items-center justify-center flex-shrink-0 ${s.iconBg}`}>
+                    <span className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${s.iconBg}`}>
                       {s.icon}
                     </span>
                     <span className="min-w-0">
@@ -379,10 +384,10 @@ const AIAssistant = ({
 
           {isLoading && (
             <div className="flex justify-start">
-              <div className={`flex gap-1.5 items-center h-4 px-4 py-3 cyber-cut-sm border-2 ${darkMode ? "bg-slate-800 border-slate-700" : "bg-slate-100 border-slate-300"}`}>
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce" />
-                <span className="w-2 h-2 rounded-full bg-sky-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                <span className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+              <div className={`flex gap-1.5 items-center h-4 px-4 py-3 rounded-full border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-slate-100 border-slate-200"}`}>
+                <span className="w-2 h-2 rounded-full bg-violet-500 animate-bounce" />
+                <span className="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: "150ms" }} />
+                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: "300ms" }} />
               </div>
             </div>
           )}
@@ -393,14 +398,14 @@ const AIAssistant = ({
         {suggestion && (
           <div className="px-4 sm:px-6 pt-3 flex-shrink-0">
             <div
-              className={`cyber-cut-sm border-2 cyber-3d-sm cyber-inner-edge p-3 sm:p-4 ${
+              className={`rounded-xl border p-3 sm:p-4 shadow-sm ${
                 darkMode
-                  ? "bg-slate-950 border-cyan-700/70"
-                  : "bg-white border-cyan-400"
+                  ? "bg-slate-900 border-slate-700"
+                  : "bg-white border-slate-200"
               }`}
             >
               <div className="flex items-center justify-between gap-2 mb-2.5">
-                <p className={`text-[11px] font-bold uppercase tracking-widest ${darkMode ? "text-cyan-400" : "text-cyan-700"}`}>
+                <p className={`text-[11px] font-bold uppercase tracking-widest ${darkMode ? "text-violet-300" : "text-violet-600"}`}>
                   ⚡ Quick add expense
                 </p>
                 <button
@@ -421,7 +426,11 @@ const AIAssistant = ({
                     step="0.01"
                     value={suggestion.amount}
                     onChange={(e) => setSuggestion((s) => ({ ...s, amount: e.target.value }))}
-                    className={`cyber-input w-full px-1 py-1.5 text-sm font-black font-mono ${darkMode ? "text-cyan-300" : "text-cyan-700"}`}
+                    className={`w-full px-2.5 py-1.5 rounded-lg border text-sm font-bold outline-none transition-colors ${
+                      darkMode
+                        ? "bg-slate-800 border-slate-700 text-violet-300 focus:border-violet-500"
+                        : "bg-slate-50 border-slate-200 text-violet-700 focus:border-violet-400"
+                    }`}
                   />
                 </label>
                 <label className="block">
@@ -429,7 +438,11 @@ const AIAssistant = ({
                   <select
                     value={suggestion.category}
                     onChange={(e) => setSuggestion((s) => ({ ...s, category: e.target.value }))}
-                    className={`cyber-input w-full px-1 py-1.5 text-sm font-bold bg-transparent ${darkMode ? "text-slate-100" : "text-slate-800"}`}
+                    className={`w-full px-2.5 py-1.5 rounded-lg border text-sm font-semibold outline-none transition-colors cursor-pointer ${
+                      darkMode
+                        ? "bg-slate-800 border-slate-700 text-slate-100 focus:border-violet-500"
+                        : "bg-slate-50 border-slate-200 text-slate-800 focus:border-violet-400"
+                    }`}
                   >
                     {SMART_CATEGORIES.map((c) => (
                       <option key={c} value={c} className={darkMode ? "bg-slate-900" : "bg-white"}>
@@ -444,7 +457,11 @@ const AIAssistant = ({
                     type="text"
                     value={suggestion.description}
                     onChange={(e) => setSuggestion((s) => ({ ...s, description: e.target.value }))}
-                    className={`cyber-input w-full px-1 py-1.5 text-sm font-medium ${darkMode ? "text-slate-100" : "text-slate-800"}`}
+                    className={`w-full px-2.5 py-1.5 rounded-lg border text-sm font-medium outline-none transition-colors ${
+                      darkMode
+                        ? "bg-slate-800 border-slate-700 text-slate-100 focus:border-violet-500"
+                        : "bg-slate-50 border-slate-200 text-slate-800 focus:border-violet-400"
+                    }`}
                   />
                 </label>
                 <label className="block">
@@ -453,7 +470,11 @@ const AIAssistant = ({
                     type="date"
                     value={suggestion.date}
                     onChange={(e) => setSuggestion((s) => ({ ...s, date: e.target.value }))}
-                    className={`cyber-input w-full px-1 py-1.5 text-sm font-medium ${darkMode ? "text-slate-100" : "text-slate-800"}`}
+                    className={`w-full px-2.5 py-1.5 rounded-lg border text-sm font-medium outline-none transition-colors ${
+                      darkMode
+                        ? "bg-slate-800 border-slate-700 text-slate-100 focus:border-violet-500"
+                        : "bg-slate-50 border-slate-200 text-slate-800 focus:border-violet-400"
+                    }`}
                   />
                 </label>
               </div>
@@ -461,13 +482,13 @@ const AIAssistant = ({
               <div className="flex justify-end gap-2 mt-3">
                 <button
                   onClick={() => setSuggestion(null)}
-                  className={`px-3 py-1.5 cyber-cut-sm text-xs font-bold border-2 ${darkMode ? "bg-slate-900 border-slate-700 text-slate-300" : "bg-slate-50 border-slate-300 text-slate-600"}`}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold border transition-colors ${darkMode ? "bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"}`}
                 >
                   Cancel
                 </button>
                 <button
                   onClick={confirmExpense}
-                  className="flex items-center gap-1.5 px-4 py-1.5 cyber-cut-sm text-xs font-bold text-white cyber-btn-accent"
+                  className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-gradient-to-br from-violet-500 to-indigo-500 shadow-sm shadow-violet-500/30 transition-all duration-200 hover:-translate-y-0.5 active:scale-95"
                 >
                   <CheckIcon className="w-3.5 h-3.5" strokeWidth={3} />
                   Add Expense
@@ -478,12 +499,12 @@ const AIAssistant = ({
         )}
 
         {/* ── Composer ── */}
-        <div className={`px-4 sm:px-6 py-4 border-t-2 flex-shrink-0 ${darkMode ? "border-cyan-900/60" : "border-cyan-200"}`}>
+        <div className={`px-4 sm:px-6 py-4 border-t flex-shrink-0 ${darkMode ? "border-slate-800" : "border-slate-100"}`}>
           <div className="relative">
             {showQuickActions && (
               <div
-                className={`absolute bottom-full left-0 right-0 mb-2 cyber-cut border-2 overflow-hidden cyber-3d-sm ${
-                  darkMode ? "bg-slate-950 border-cyan-800/60" : "bg-white border-cyan-300"
+                className={`absolute bottom-full left-0 right-0 mb-2 rounded-xl border overflow-hidden shadow-lg ${
+                  darkMode ? "bg-slate-900 border-slate-700" : "bg-white border-slate-200"
                 }`}
               >
                 {SUGGESTIONS.map((s, idx) => (
@@ -491,10 +512,10 @@ const AIAssistant = ({
                     key={idx}
                     onClick={() => handleSuggestion(s)}
                     className={`flex items-center gap-3 px-4 py-2.5 text-left w-full transition-all border-b last:border-b-0 ${
-                      darkMode ? "border-slate-800 hover:bg-slate-900" : "border-slate-100 hover:bg-slate-50"
+                      darkMode ? "border-slate-800 hover:bg-slate-800/60" : "border-slate-100 hover:bg-slate-50"
                     }`}
                   >
-                    <span className={`w-7 h-7 cyber-cut-sm flex items-center justify-center flex-shrink-0 ${s.iconBg}`}>
+                    <span className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${s.iconBg}`}>
                       {s.icon}
                     </span>
                     <span className="min-w-0">
@@ -520,66 +541,67 @@ const AIAssistant = ({
                   handleSend(e);
                 }
               }}
-              className="relative flex items-center gap-2"
+              className={`flex items-center gap-1.5 sm:gap-2 rounded-full border pl-2 pr-1.5 py-1.5 sm:pl-3 sm:pr-2 shadow-sm transition-colors ${
+                darkMode
+                  ? "bg-slate-950/60 border-slate-700 focus-within:border-violet-500/60"
+                  : "bg-slate-100 border-slate-200 focus-within:border-violet-400"
+              }`}
             >
               <button
                 type="button"
                 onClick={() => setShowQuickActions((prev) => !prev)}
                 aria-label="Quick actions"
-                className={`flex-shrink-0 p-2.5 cyber-cut-sm border-2 transition-all ${
+                className={`flex-shrink-0 p-2 rounded-full transition-all ${
                   showQuickActions
-                    ? "cyber-btn-accent border-cyan-500 text-white"
+                    ? "bg-violet-500 text-white"
                     : darkMode
-                      ? "bg-slate-900 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-cyan-300 hover:border-cyan-800 cyber-3d-sm [--glow-3d:var(--accent-glow-soft)]"
-                      : "bg-slate-100 border-slate-300 text-slate-500 hover:bg-slate-200 hover:text-cyan-600 hover:border-cyan-300"
+                      ? "text-violet-300 hover:bg-violet-500/15"
+                      : "text-violet-500 hover:bg-violet-100"
                 }`}
               >
-                {showQuickActions ? <XIcon className="w-4 h-4" strokeWidth={2.5} /> : <MenuHamburgerIcon className="w-4 h-4" />}
+                {showQuickActions ? <XIcon className="w-4 h-4" strokeWidth={2.5} /> : <SparklesIcon className="w-5 h-5" strokeWidth={2.25} />}
               </button>
 
-              <div className="relative flex-1">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask FinVue AI… or type “spent 120 on lunch”"
-                  className={`cyber-input w-full pl-1 pr-24 py-3 text-sm ${darkMode ? "text-white placeholder-slate-500" : "text-slate-800 placeholder-slate-400"}`}
-                  disabled={isLoading}
-                />
-                <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
-                  <button
-                    type="button"
-                    onClick={startVoice}
-                    aria-label="Voice input"
-                    title="Voice input"
-                    disabled={isLoading}
-                    className={`p-1.5 rounded-lg transition-colors ${
-                      darkMode ? "text-slate-400 hover:text-violet-300 hover:bg-violet-500/10" : "text-slate-400 hover:text-violet-600 hover:bg-violet-50"
-                    }`}
-                  >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-                      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                      <line x1="12" x2="12" y1="19" y2="22" />
-                    </svg>
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={!input.trim() || isLoading}
-                    className={`p-1.5 rounded-lg transition-colors ${
-                      !input.trim() || isLoading
-                        ? darkMode ? "text-slate-600" : "text-slate-400"
-                        : "text-cyan-500 hover:bg-cyan-500/10"
-                    }`}
-                  >
-                    <SendIcon className="w-5 h-5 transform rotate-90" />
-                  </button>
-                </div>
-              </div>
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask FinVue AI… or type “spent 120 on lunch”"
+                className={`flex-1 min-w-0 bg-transparent outline-none text-sm py-2 ${darkMode ? "text-white placeholder-slate-500" : "text-slate-800 placeholder-slate-400"}`}
+                disabled={isLoading}
+              />
+
+              <button
+                type="button"
+                onClick={startVoice}
+                aria-label="Voice input"
+                title="Voice input"
+                disabled={isLoading}
+                className={`flex-shrink-0 p-2 rounded-full transition-colors ${
+                  darkMode ? "text-slate-400 hover:text-violet-300 hover:bg-violet-500/15" : "text-slate-400 hover:text-violet-600 hover:bg-violet-100"
+                }`}
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                  <line x1="12" x2="12" y1="19" y2="22" />
+                </svg>
+              </button>
+
+              <button
+                type="submit"
+                disabled={!input.trim() || isLoading}
+                aria-label="Send message"
+                className={`flex-shrink-0 p-2.5 rounded-full text-white bg-gradient-to-br from-violet-500 to-indigo-500 shadow-lg shadow-violet-500/30 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                  !input.trim() || isLoading ? "opacity-40" : ""
+                }`}
+              >
+                <SendIcon className="w-4 h-4" />
+              </button>
             </form>
 
-            <p className={`text-[10px] mt-2 text-center ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
+            <p className={`text-[10px] mt-2.5 text-center ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
               Tip: try “spent 120 on lunch”, “show my table”, or “give me budget tips”
             </p>
           </div>

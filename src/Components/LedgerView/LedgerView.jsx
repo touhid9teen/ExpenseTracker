@@ -1,24 +1,35 @@
+"use client";
+import { useState } from "react";
 import { normalizeExpenseAmount } from "../../utils/expenseCalculations";
+import { exportExpensesToCSV } from "../../utils/exportUtils";
 import { LedgerHeaderActions } from "./LedgerHeaderActions";
+import { LedgerSummaryCards } from "./LedgerSummaryCards";
 import { LedgerFilters } from "./LedgerFilters";
 import { ExpenseTable } from "./ExpenseTable";
 import { PaginationBar } from "./PaginationBar";
 
 const LedgerView = (props) => {
+    const [showFilters, setShowFilters] = useState(true);
+
     const filteredExpenses = props.filteredExpenses ?? [];
     const currentTableTotal = filteredExpenses.reduce((sum, expense) => sum + normalizeExpenseAmount(expense.amount), 0);
     const getCategoryStyles = props.getCategoryStyles ?? props.getCategoryStylesForTheme ?? (() => ({ bg: "bg-slate-100", bullet: "bg-slate-400", color: "bg-slate-400" }));
 
     // Explicit override lets the overview page stack the ledger under stats.
     const show = props.visible !== undefined ? props.visible : props.activeTab === "ledger";
-    return show ? (
-        <div className="space-y-6 animate-fadeIn">
+    if (!show) return null;
+
+    return (
+        <div className="space-y-5 animate-fadeIn">
             <LedgerHeaderActions
                 darkMode={props.darkMode ?? true}
-                setActiveTab={props.setActiveTab}
                 setShowQuickAdd={props.setShowQuickAdd}
+                showFilters={showFilters}
+                setShowFilters={setShowFilters}
+                onExport={() => exportExpensesToCSV(filteredExpenses)}
             />
-            <LedgerFilters {...props} />
+            <LedgerSummaryCards darkMode={props.darkMode ?? true} expenses={filteredExpenses} />
+            {showFilters && <LedgerFilters {...props} />}
             <ExpenseTable {...props} getCategoryStyles={getCategoryStyles} />
             <PaginationBar
                 darkMode={props.darkMode ?? true}
@@ -30,7 +41,7 @@ const LedgerView = (props) => {
                 currentTableTotal={currentTableTotal}
             />
         </div>
-    ) : null;
+    );
 };
 
 export default LedgerView;

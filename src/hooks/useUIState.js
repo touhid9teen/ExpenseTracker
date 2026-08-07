@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 /**
  * Owns UI chrome state: active tab, modals, open menus, and the chatbot overlay.
@@ -14,6 +14,15 @@ export const useUIState = () => {
     const [deletingExpense, setDeletingExpense] = useState(null);
     const [openMenuId, setOpenMenuId] = useState(null);
     const [pendingAction, setPendingAction] = useState(null);
+    // Last few AI prompts the user sent — powers the "Recent Queries" rail.
+    const [recentQueries, setRecentQueries] = useState([]);
+
+    // Keep the 5 most recent, de-duplicated, newest first.
+    const pushRecentQuery = useCallback((text) => {
+        const clean = (text || "").trim();
+        if (!clean) return;
+        setRecentQueries((prev) => [clean, ...prev.filter((q) => q !== clean)].slice(0, 5));
+    }, []);
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -39,6 +48,8 @@ export const useUIState = () => {
         openMenuId,
         setOpenMenuId,
         pendingAction,
-        setPendingAction
+        setPendingAction,
+        recentQueries,
+        pushRecentQuery
     };
 };

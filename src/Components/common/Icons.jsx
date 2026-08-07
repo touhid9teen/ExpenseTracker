@@ -336,6 +336,24 @@ export const LogInIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
   </svg>
 );
 
+export const LogoutIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13 16l4-4m0 0l-4-4m4 4H3m10-6V5a2 2 0 00-2-2H6a2 2 0 00-2 2v14a2 2 0 002 2h5a2 2 0 002-2v-1" />
+  </svg>
+);
+
+export const ChevronDownIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+  </svg>
+);
+
+export const ExpandIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+  </svg>
+);
+
 // ─── Admin Console ───
 
 export const UsersGroupIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
@@ -372,5 +390,67 @@ export const CrownIcon = ({ className = "w-4 h-4", strokeWidth = 2 }) => (
 export const EmptyStateIcon = ({ className = "w-12 h-12", strokeWidth = 1.5 }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+  </svg>
+);
+
+// ─── Dashboard SaaS UI (clean theme) ───
+
+export const TableCellsIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.375 5.25h17.25M3.375 9.75h17.25M3.375 14.25h17.25M3.375 18.75h17.25M8.25 5.25v13.5m7.5-13.5v13.5M4.5 5.25h15a1.125 1.125 0 011.125 1.125v11.25A1.125 1.125 0 0119.5 18.75h-15A1.125 1.125 0 013.375 17.625V6.375A1.125 1.125 0 014.5 5.25z" />
+  </svg>
+);
+
+export const DownloadIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" />
+  </svg>
+);
+
+export const UploadExportIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 15V3m0 0L8 7m4-4l4 4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" />
+  </svg>
+);
+
+export const WalletIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8.5A2.5 2.5 0 015.5 6H18a1 1 0 011 1v1M3 8.5V17a2 2 0 002 2h14a1 1 0 001-1v-3M3 8.5h16a1 1 0 011 1V13m0 0h-3.5a1.5 1.5 0 000 3H20" />
+  </svg>
+);
+
+export const ClockIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
+export const ArrowUpRightIcon = ({ className = "w-4 h-4", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7m0 0H8m9 0v9" />
+  </svg>
+);
+
+export const ArrowDownRightIcon = ({ className = "w-4 h-4", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M7 7l10 10m0 0V8m0 9H8" />
+  </svg>
+);
+
+export const ChevronRightIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+  </svg>
+);
+
+export const LinkIcon = ({ className = "w-4 h-4", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m8.656-1.828a4 4 0 000-5.656l-.001-.001a4 4 0 00-5.656 0l-1.5 1.5" />
+  </svg>
+);
+
+export const SavingsLeafIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 21c0-6 3-12 14-13-1 9-6 13-11 13-1.5 0-3-.5-3-.5m0 0c0-3 1-5 3-7" />
   </svg>
 );

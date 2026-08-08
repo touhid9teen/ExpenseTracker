@@ -59,6 +59,7 @@ const AIAssistant = ({
   pushRecentQuery,
   resetSignal = 0,
   visible = true,
+  compact = false,
 }) => {
   const [messages, setMessages] = useState(() => [buildWelcome(user)]);
   const [input, setInput] = useState("");
@@ -297,9 +298,13 @@ const AIAssistant = ({
   const showWelcome = messages.length === 1 && messages[0].id === "welcome";
 
   return (
-    <div className={visible ? "block animate-fadeIn" : "hidden"}>
+    <div className={`${visible ? "block animate-fadeIn" : "hidden"} ${compact ? "lg:h-full" : ""}`}>
       <div
-        className="flex flex-col overflow-hidden h-[calc(100dvh-10.5rem)] min-h-[26rem] xl:h-[calc(100dvh-9.5rem)]"
+        className={`flex flex-col overflow-hidden ${
+          compact
+            ? "h-[calc(100dvh-17rem)] min-h-[22rem] lg:h-full lg:min-h-0"
+            : "h-[calc(100dvh-10.5rem)] min-h-[26rem] xl:h-[calc(100dvh-9.5rem)]"
+        }`}
       >
         {/* ── Messages ── */}
         <div className="flex-1 overflow-y-auto no-scrollbar px-4 sm:px-6 py-5 flex flex-col gap-4">

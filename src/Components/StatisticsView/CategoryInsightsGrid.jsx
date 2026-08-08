@@ -5,23 +5,23 @@ import { chipClass, formatTaka, mutedText, headingText } from "./panelStyles";
 
 const InsightCard = ({ darkMode, icon: Icon, chip, title, value, note, dotCategory }) => (
     <div
-        className={`rounded-2xl p-5 border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+        className={`rounded-xl p-2.5 border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
             darkMode
                 ? "bg-slate-900 border-slate-700/70 hover:border-violet-500/50 hover:shadow-violet-500/10"
                 : "bg-white border-slate-200 hover:border-violet-300 hover:shadow-violet-500/10"
         }`}
     >
-        <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${chipClass(chip, darkMode)}`}>
-            <Icon className="w-5 h-5" strokeWidth={2.25} />
+        <div className={`w-7 h-7 rounded-lg flex items-center justify-center mb-1.5 ${chipClass(chip, darkMode)}`}>
+            <Icon className="w-3.5 h-3.5" strokeWidth={2.25} />
         </div>
-        <p className={`text-xs font-semibold ${mutedText(darkMode)}`}>{title}</p>
-        <p className={`flex items-center gap-2 text-lg font-black tracking-tight mt-1 ${headingText(darkMode)}`}>
+        <p className={`text-[10px] font-semibold ${mutedText(darkMode)}`}>{title}</p>
+        <p className={`flex items-center gap-1.5 text-[13px] font-black tracking-tight mt-0.5 ${headingText(darkMode)}`}>
             {dotCategory && (
-                <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: getCategoryHex(dotCategory) }} />
+                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: getCategoryHex(dotCategory) }} />
             )}
             <span className="truncate">{value}</span>
         </p>
-        <p className={`text-xs mt-1 ${mutedText(darkMode)}`}>{note}</p>
+        <p className={`text-[10px] mt-0.5 ${mutedText(darkMode)}`}>{note}</p>
     </div>
 );
 
@@ -31,10 +31,10 @@ export const CategoryInsightsGrid = ({ darkMode, insights }) => {
 
     return (
         <div>
-            <h2 className={`text-lg font-bold tracking-tight mb-4 ${headingText(darkMode)}`}>
+            <h2 className={`text-sm font-bold tracking-tight mb-1.5 ${headingText(darkMode)}`}>
                 Category Spending Insights
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
                 <InsightCard
                     darkMode={darkMode}
                     icon={TrendingUpIcon}

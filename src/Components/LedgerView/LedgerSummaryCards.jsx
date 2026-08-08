@@ -13,19 +13,19 @@ const CHIP = {
 
 const Card = ({ darkMode, icon: Icon, chip, label, value }) => (
     <div
-        className={`rounded-2xl p-5 border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+        className={`rounded-xl p-3 border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
             darkMode
                 ? "bg-slate-900 border-slate-700/70 hover:border-violet-500/50 hover:shadow-violet-500/10"
                 : "bg-white border-slate-200 hover:border-violet-300 hover:shadow-violet-500/10"
         }`}
     >
-        <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${darkMode ? CHIP[chip].dark : CHIP[chip].light}`}>
-                <Icon className="w-5 h-5" strokeWidth={2.25} />
+        <div className="flex items-center gap-2.5">
+            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${darkMode ? CHIP[chip].dark : CHIP[chip].light}`}>
+                <Icon className="w-4 h-4" strokeWidth={2.25} />
             </div>
             <div className="min-w-0">
-                <p className={`text-xs font-semibold ${darkMode ? "text-slate-400" : "text-slate-500"}`}>{label}</p>
-                <p className={`text-xl font-black tracking-tight truncate ${darkMode ? "text-white" : "text-slate-900"}`}>{value}</p>
+                <p className={`text-[11px] font-semibold ${darkMode ? "text-slate-400" : "text-slate-500"}`}>{label}</p>
+                <p className={`text-base font-black tracking-tight truncate ${darkMode ? "text-white" : "text-slate-900"}`}>{value}</p>
             </div>
         </div>
     </div>

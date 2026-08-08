@@ -42,7 +42,7 @@ export const LedgerFilters = ({
         : "bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400 focus:border-violet-400";
 
     const chipClass = (active) =>
-        `px-3.5 py-2 shrink-0 rounded-xl text-xs font-bold transition-all duration-200 border ${
+        `px-3 py-1.5 shrink-0 rounded-lg text-xs font-bold transition-all duration-200 border ${
             active
                 ? "bg-gradient-to-br from-violet-500 to-indigo-500 text-white border-transparent shadow-sm shadow-violet-500/30"
                 : darkMode
@@ -71,7 +71,7 @@ export const LedgerFilters = ({
     };
 
     return (
-        <div className={`rounded-2xl p-4 sm:p-5 border ${darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"}`}>
+        <div className={`rounded-xl p-3 border ${darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"}`}>
             {/* Top row: search + category + record count + reset */}
             <div className="flex flex-col lg:flex-row gap-3 lg:items-center">
                 <div className="relative flex-1 min-w-0">
@@ -81,14 +81,14 @@ export const LedgerFilters = ({
                         placeholder="Search description or item…"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm font-medium outline-none transition-colors ${fieldClass}`}
+                        className={`w-full pl-10 pr-4 py-2 rounded-xl border text-sm font-medium outline-none transition-colors ${fieldClass}`}
                     />
                 </div>
 
                 <select
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
-                    className={`w-full lg:w-48 px-3.5 py-2.5 rounded-xl border text-sm font-medium outline-none transition-colors cursor-pointer ${fieldClass}`}
+                    className={`w-full lg:w-48 px-3.5 py-2 rounded-xl border text-sm font-medium outline-none transition-colors cursor-pointer ${fieldClass}`}
                 >
                     <option value="All">All Categories</option>
                     {CATEGORIES.map((cat) => (
@@ -118,7 +118,7 @@ export const LedgerFilters = ({
             </div>
 
             {/* Date chips */}
-            <div className="flex overflow-x-auto gap-2 mt-4 pb-1 scrollbar-none">
+            <div className="flex overflow-x-auto gap-2 mt-3 pb-1 scrollbar-none">
                 {DATE_CHIPS.map((chip) => (
                     <button key={chip.key} onClick={() => toggleChip(chip.key)} className={chipClass(activeDateFilter === chip.key)}>
                         {chip.label}

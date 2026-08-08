@@ -33,6 +33,11 @@ const formatTime = (value) => {
       });
 };
 
+const thClass = (darkMode, align = "left") =>
+  `px-4 py-2.5 whitespace-nowrap text-xs font-bold uppercase tracking-wider ${align === "right" ? "text-right" : "text-left"} ${
+    darkMode ? "text-slate-400" : "text-slate-500"
+  }`;
+
 const AdminLogsTab = memo(
   function AdminLogsTab({ darkMode, logs, isAdminLoading, clearLogs }) {
     const handleClear = () => {
@@ -42,7 +47,7 @@ const AdminLogsTab = memo(
     };
 
     return (
-      <div className="space-y-4">
+      <div className="space-y-3">
         {/* Polling notice + clear */}
         <div className="flex items-center justify-between">
           <span
@@ -59,10 +64,10 @@ const AdminLogsTab = memo(
           <button
             onClick={handleClear}
             disabled={isAdminLoading || logs.length === 0}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-40 ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-all duration-200 active:scale-95 disabled:opacity-40 ${
               darkMode
-                ? "bg-red-500/10 text-red-400 hover:bg-red-500/20"
-                : "bg-red-50 text-red-600 hover:bg-red-100"
+                ? "bg-red-500/10 text-red-400 hover:bg-red-500/20 border-red-900/50"
+                : "bg-red-50 text-red-600 hover:bg-red-100 border-red-200"
             }`}
           >
             <TrashIcon className="w-3.5 h-3.5" />
@@ -72,11 +77,10 @@ const AdminLogsTab = memo(
 
         {!isAdminLoading && logs.length === 0 ? (
           <div
-            className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center cyber-3d cyber-inner-edge relative ${
-              darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
+            className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center ${
+              darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"
             }`}
           >
-            <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500" />
             <div className={`mb-4 ${darkMode ? "text-slate-500" : "text-slate-300"}`}>
               <ServerIcon className="w-12 h-12" strokeWidth={1.5} />
             </div>
@@ -89,28 +93,25 @@ const AdminLogsTab = memo(
           </div>
         ) : (
           <div
-            className={`rounded-2xl border overflow-hidden cyber-3d cyber-inner-edge relative ${
-              darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
+            className={`rounded-2xl border overflow-hidden ${
+              darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"
             }`}
           >
-            <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500 z-10" />
             <div className="overflow-x-auto">
               <table className="w-full text-left min-w-[760px]">
                 <thead>
                   <tr
-                    className={`cyber-ticker text-[10px] uppercase tracking-widest font-bold border-b-2 ${
-                      darkMode
-                        ? "text-cyan-300/90 border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950"
-                        : "text-cyan-700 border-slate-200 bg-gradient-to-r from-slate-100 via-white to-slate-100"
+                    className={`border-b ${
+                      darkMode ? "border-slate-700/70 bg-slate-800/40" : "border-slate-200 bg-slate-50"
                     }`}
                   >
-                    <th className="px-5 py-3.5">Time</th>
-                    <th className="px-5 py-3.5">Method</th>
-                    <th className="px-5 py-3.5">Path</th>
-                    <th className="px-5 py-3.5">Status</th>
-                    <th className="px-5 py-3.5">User</th>
-                    <th className="px-5 py-3.5">IP</th>
-                    <th className="px-5 py-3.5 text-right">Duration</th>
+                    <th className={thClass(darkMode)}>Time</th>
+                    <th className={thClass(darkMode)}>Method</th>
+                    <th className={thClass(darkMode)}>Path</th>
+                    <th className={thClass(darkMode)}>Status</th>
+                    <th className={thClass(darkMode)}>User</th>
+                    <th className={thClass(darkMode)}>IP</th>
+                    <th className={thClass(darkMode, "right")}>Duration</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -120,19 +121,13 @@ const AdminLogsTab = memo(
                       <tr
                         key={log.id}
                         className={`transition-colors ${
-                          darkMode
-                            ? "divide-slate-800/70 hover:bg-slate-800/40"
-                            : "divide-slate-100 hover:bg-slate-50"
+                          darkMode ? "divide-slate-800/70 hover:bg-slate-800/40" : "divide-slate-100 hover:bg-slate-50"
                         }`}
                       >
-                        <td
-                          className={`px-5 py-3 text-xs tabular-nums whitespace-nowrap ${
-                            darkMode ? "text-slate-400" : "text-slate-500"
-                          }`}
-                        >
+                        <td className={`px-4 py-2.5 text-xs tabular-nums whitespace-nowrap ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                           {formatTime(log.createdAt)}
                         </td>
-                        <td className="px-5 py-3">
+                        <td className="px-4 py-2.5">
                           <span
                             className={`inline-block px-2 py-0.5 rounded-md text-[10px] font-extrabold tracking-wide ${
                               darkMode ? methodStyle.dark : methodStyle.light
@@ -141,40 +136,19 @@ const AdminLogsTab = memo(
                             {log.method || "—"}
                           </span>
                         </td>
-                        <td
-                          className={`px-5 py-3 text-xs font-mono max-w-[280px] truncate ${
-                            darkMode ? "text-slate-300" : "text-slate-600"
-                          }`}
-                          title={log.path || ""}
-                        >
+                        <td className={`px-4 py-2.5 text-xs font-mono max-w-[280px] truncate ${darkMode ? "text-slate-300" : "text-slate-600"}`} title={log.path || ""}>
                           {log.path || "—"}
                         </td>
-                        <td
-                          className={`px-5 py-3 text-xs font-extrabold tabular-nums ${
-                            statusStyle(log.status, darkMode)
-                          }`}
-                        >
+                        <td className={`px-4 py-2.5 text-xs font-extrabold tabular-nums ${statusStyle(log.status, darkMode)}`}>
                           {log.status ?? "—"}
                         </td>
-                        <td
-                          className={`px-5 py-3 text-xs ${
-                            darkMode ? "text-slate-400" : "text-slate-500"
-                          }`}
-                        >
+                        <td className={`px-4 py-2.5 text-xs ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                           {log.username || "—"}
                         </td>
-                        <td
-                          className={`px-5 py-3 text-xs font-mono ${
-                            darkMode ? "text-slate-500" : "text-slate-400"
-                          }`}
-                        >
+                        <td className={`px-4 py-2.5 text-xs font-mono ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
                           {log.ip || "—"}
                         </td>
-                        <td
-                          className={`px-5 py-3 text-right text-xs tabular-nums ${
-                            darkMode ? "text-slate-400" : "text-slate-500"
-                          }`}
-                        >
+                        <td className={`px-4 py-2.5 text-right text-xs tabular-nums ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                           {formatDuration(log.durationMs)}
                         </td>
                       </tr>

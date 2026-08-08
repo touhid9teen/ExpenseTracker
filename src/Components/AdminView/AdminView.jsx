@@ -7,6 +7,8 @@ import {
   RefreshIcon,
   ShieldCheckIcon,
 } from "../common/Icons";
+import { chipClass } from "../StatisticsView/panelStyles";
+import { SegmentedToggle } from "../StatisticsView/SegmentedToggle";
 import AdminUsersTab from "./AdminUsersTab";
 import AdminExpensesTab from "./AdminExpensesTab";
 import AdminLogsTab from "./AdminLogsTab";
@@ -24,45 +26,39 @@ const AdminView = memo(function AdminView(props) {
     lastRefresh,
   } = props;
 
-  const tabs = [
-    { id: "users", label: "Users", icon: UsersGroupIcon, count: users.length },
-    { id: "expenses", label: "Expenses", icon: ClipboardListIcon, count: allExpenses.length },
-    { id: "logs", label: "Live Logs", icon: ActivityIcon, count: logs.length },
+  const ghostBtn = darkMode
+    ? "bg-slate-900 border-slate-700/70 text-slate-200 hover:border-violet-500/50 hover:text-violet-300"
+    : "bg-white border-slate-200 text-slate-600 hover:border-violet-300 hover:text-violet-600";
+
+  const summaryCards = [
+    { label: "Users", value: users.length, icon: UsersGroupIcon, chip: "violet" },
+    { label: "Admins", value: users.filter((u) => u.isAdmin).length, icon: ShieldCheckIcon, chip: "indigo" },
+    { label: "Expenses", value: allExpenses.length, icon: ClipboardListIcon, chip: "sky" },
+    { label: "Live Logs", value: logs.length, icon: ActivityIcon, chip: "emerald" },
   ];
 
   return (
-    <div className="space-y-6 animate-fadeIn pb-8">
-      {/* ── Header ── */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <div className="space-y-3 animate-fadeIn">
+      {/* ── Header (matches the Transactions header flow) ── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <div
-            className={`inline-flex items-center gap-2 px-3 py-1 cyber-cut-sm text-[11px] font-bold uppercase tracking-widest mb-3 border-2 ${
-              darkMode
-                ? "bg-cyan-950/40 text-cyan-400 border-cyan-800/60"
-                : "bg-cyan-50 text-cyan-700 border-cyan-200"
-            }`}
-          >
-            <ShieldCheckIcon className="w-3.5 h-3.5" strokeWidth={2.5} />
-            Admin Console
-          </div>
           <h1
-            className={`text-2xl sm:text-3xl font-extrabold tracking-tight flex items-center gap-3 ${
+            className={`text-xl sm:text-2xl font-extrabold tracking-tight ${
               darkMode ? "text-white" : "text-slate-900"
             }`}
           >
-            Platform Administration
-            <span className={`inline-block w-2 h-8 cyber-cut-sm bg-gradient-to-b ${darkMode ? "from-cyan-400 to-violet-500" : "from-cyan-500 to-violet-600"}`} />
+            Admin Console
           </h1>
           <p
-            className={`mt-1.5 text-sm ${
+            className={`text-xs mt-0.5 ${
               darkMode ? "text-slate-400" : "text-slate-500"
             }`}
           >
-            Manage users, review every expense, and monitor live API activity.
+            Manage users, review expenses, and monitor live API activity
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           {lastRefresh && (
             <span
               className={`text-[11px] font-medium hidden sm:inline ${
@@ -75,56 +71,56 @@ const AdminView = memo(function AdminView(props) {
           <button
             onClick={refreshAdmin}
             disabled={isAdminLoading}
-            className={`inline-flex items-center gap-2 px-4 py-2 cyber-cut-sm text-xs font-bold transition-all duration-200 active:scale-95 disabled:opacity-60 border-2 cyber-3d-sm [--glow-3d:var(--accent-glow-soft)] ${
-              darkMode
-                ? "bg-slate-900 border-cyan-900/70 text-cyan-400 hover:bg-slate-800 hover:border-violet-700 hover:text-violet-400"
-                : "bg-white border-cyan-300 text-cyan-700 hover:bg-slate-50 hover:border-violet-400 hover:text-violet-700"
-            }`}
+            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold border transition-all duration-200 active:scale-95 disabled:opacity-60 ${ghostBtn}`}
           >
             <RefreshIcon
               className={`w-4 h-4 ${isAdminLoading ? "animate-spin" : ""}`}
-              strokeWidth={2.5}
+              strokeWidth={2.25}
             />
             Refresh
           </button>
         </div>
       </div>
 
-      {/* ── Tab Bar ── */}
-      <div
-        className={`inline-flex p-1 border-2 gap-1 cyber-3d-sm cyber-inner-edge ${
-          darkMode ? "bg-slate-950/70 border-cyan-900/60" : "bg-slate-100 border-cyan-300/70"
-        }`}
-      >
-        {tabs.map(({ id, label, icon: Icon, count }) => (
-          <button
-            key={id}
-            onClick={() => setAdminTab(id)}
-            className={`px-3 sm:px-4 py-2 cyber-cut-sm text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
-              adminTab === id
-                ? "cyber-btn-accent text-white"
-                : darkMode
-                ? "text-slate-400 hover:text-cyan-300"
-                : "text-slate-500 hover:text-cyan-600"
+      {/* ── Summary cards (matches the Ledger summary flow) ── */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {summaryCards.map(({ label, value, icon: Icon, chip }) => (
+          <div
+            key={label}
+            className={`rounded-xl p-3 border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+              darkMode
+                ? "bg-slate-900 border-slate-700/70 hover:border-violet-500/50 hover:shadow-violet-500/10"
+                : "bg-white border-slate-200 hover:border-violet-300 hover:shadow-violet-500/10"
             }`}
           >
-            <Icon className="w-3.5 h-3.5" strokeWidth={2.5} />
-            {label}
-            <span
-              className={`px-1.5 py-0.5 rounded-md text-[10px] font-extrabold leading-none ${
-                adminTab === id
-                  ? darkMode
-                    ? "bg-cyan-500/15 text-cyan-400"
-                    : "bg-cyan-100 text-cyan-600"
-                  : darkMode
-                  ? "bg-slate-800 text-slate-500"
-                  : "bg-slate-200 text-slate-500"
-              }`}
-            >
-              {count}
-            </span>
-          </button>
+            <div className="flex items-center gap-2.5">
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${chipClass(chip, darkMode)}`}>
+                <Icon className="w-4 h-4" strokeWidth={2.25} />
+              </div>
+              <div className="min-w-0">
+                <p className={`text-[11px] font-semibold ${darkMode ? "text-slate-400" : "text-slate-500"}`}>{label}</p>
+                <p className={`text-base font-black tracking-tight ${darkMode ? "text-white" : "text-slate-900"}`}>
+                  {value.toLocaleString()}
+                </p>
+              </div>
+            </div>
+          </div>
         ))}
+      </div>
+
+      {/* ── Tab bar (segmented toggle, same as the statistics charts) ── */}
+      <div className="flex">
+        <SegmentedToggle
+          options={[
+            { key: "users", label: `Users (${users.length})` },
+            { key: "expenses", label: `Expenses (${allExpenses.length})` },
+            { key: "logs", label: `Logs (${logs.length})` },
+          ]}
+          value={adminTab}
+          onChange={setAdminTab}
+          darkMode={darkMode}
+          ariaLabel="Admin sections"
+        />
       </div>
 
       {/* ── Tab Content ── */}

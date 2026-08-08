@@ -1,6 +1,8 @@
 "use client";
 import { ChevronLeftIcon, ChevronRightIcon } from "../common/Icons";
 
+const formatTaka = (value) => `৳${Math.round(Number(value) || 0).toLocaleString()}`;
+
 // Builds a compact page list with ellipses: 1 … 4 5 [6] 7 8 … 20
 const buildPageList = (current, total) => {
     if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
@@ -29,7 +31,7 @@ export const PaginationBar = ({
     const to = Math.min(currentPage * itemsPerPage, filteredExpenses.length);
     const pages = buildPageList(currentPage, totalPages);
 
-    const navBtn = `flex items-center justify-center w-9 h-9 rounded-lg text-sm font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
+    const navBtn = `flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
         darkMode
             ? "bg-slate-900 border border-slate-700/70 text-slate-300 hover:border-violet-500/50 hover:text-violet-300"
             : "bg-white border border-slate-200 text-slate-600 hover:border-violet-300 hover:text-violet-600"
@@ -46,6 +48,9 @@ export const PaginationBar = ({
                 <span className={`hidden sm:inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold ${darkMode ? "bg-slate-800 text-slate-300" : "bg-slate-100 text-slate-600"}`}>
                     {itemsPerPage} / page
                 </span>
+                <span className={`hidden md:inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold ${darkMode ? "bg-violet-500/15 text-violet-300" : "bg-violet-50 text-violet-600"}`}>
+                    Total {formatTaka(currentTableTotal)}
+                </span>
             </div>
 
             <div className="flex items-center gap-1.5">
@@ -55,13 +60,13 @@ export const PaginationBar = ({
 
                 {pages.map((p) =>
                     typeof p === "string" ? (
-                        <span key={p} className={`w-9 h-9 flex items-center justify-center text-sm ${darkMode ? "text-slate-600" : "text-slate-400"}`}>…</span>
+                        <span key={p} className={`w-8 h-8 flex items-center justify-center text-sm ${darkMode ? "text-slate-600" : "text-slate-400"}`}>…</span>
                     ) : (
                         <button
                             key={p}
                             onClick={() => setCurrentPage(p)}
                             aria-current={p === currentPage}
-                            className={`flex items-center justify-center w-9 h-9 rounded-lg text-sm font-bold transition-all ${
+                            className={`flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold transition-all ${
                                 p === currentPage
                                     ? "bg-gradient-to-br from-violet-500 to-indigo-500 text-white shadow-sm shadow-violet-500/30"
                                     : darkMode

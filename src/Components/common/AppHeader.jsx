@@ -1,7 +1,7 @@
 "use client";
 
 import { memo } from "react";
-import { SunIcon, MoonIcon, LogoutIcon, LogInIcon, SparklesIcon, ExpandIcon, RefreshIcon } from "./Icons";
+import { SunIcon, MoonIcon, LogoutIcon, LogInIcon, SparklesIcon, ExpandIcon, RefreshIcon, MenuHamburgerIcon } from "./Icons";
 
 const TITLES = {
   overview: "Command Center",
@@ -33,6 +33,7 @@ const AppHeader = memo(function AppHeader({
   chatExpanded = false,
   onToggleExpanded,
   onNewChat,
+  onToggleSidebar,
 }) {
   const title = TITLES[activeTab] || "Command Center";
   const subtitle = SUBTITLES[activeTab] || "Smartly manage your finances with FinVue AI ✨";
@@ -43,14 +44,20 @@ const AppHeader = memo(function AppHeader({
       : "bg-white border-slate-200 text-slate-500 hover:border-violet-300 hover:text-violet-600 shadow-sm";
 
   return (
-    <header
-      className={`sticky top-0 z-30 backdrop-blur-md transition-colors duration-300 ${
-        darkMode ? "bg-[#0b0f19]/85" : "bg-white/70"
-      }`}
-    >
-      <div className="px-4 sm:px-6 lg:px-6 py-4 flex items-center justify-between gap-4">
-        {/* Title + subtitle */}
-        <div className="min-w-0">
+    <header className="sticky top-0 z-30 transition-colors duration-300">
+      <div className="px-4 sm:px-6 lg:px-6 py-3 flex items-center justify-between gap-4">
+        <div className="min-w-0 flex items-center gap-3">
+          {/* Collapsible sidebar toggle — small screens only */}
+          <button
+            onClick={onToggleSidebar}
+            aria-label="Toggle navigation menu"
+            className={`lg:hidden p-2.5 rounded-xl border transition-all duration-200 hover:scale-105 active:scale-95 ${actionBtn}`}
+          >
+            <MenuHamburgerIcon className="w-5 h-5" />
+          </button>
+
+          {/* Title + subtitle */}
+          <div className="min-w-0">
           <h1
             className={`flex items-center gap-2 text-xl sm:text-2xl font-extrabold tracking-tight truncate ${
               darkMode ? "text-white" : "text-slate-900"
@@ -71,6 +78,7 @@ const AppHeader = memo(function AppHeader({
           >
             {subtitle}
           </p>
+          </div>
         </div>
 
         {/* Actions — every button is a bordered white card (mockup style) */}

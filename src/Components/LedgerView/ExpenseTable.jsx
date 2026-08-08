@@ -4,7 +4,7 @@ import LedgerRow from "./LedgerRow";
 const SortHeader = ({ label, sortKey, sortBy, setSortBy, sortOrder, setSortOrder, darkMode, alignRight = false }) => {
     const active = sortBy === sortKey;
     return (
-        <th className={`px-4 py-3.5 whitespace-nowrap ${alignRight ? "text-right" : ""}`}>
+        <th className={`px-4 py-2 whitespace-nowrap ${alignRight ? "text-right" : ""}`}>
             <button
                 onClick={() => {
                     if (active) setSortOrder(sortOrder === "desc" ? "asc" : "desc");
@@ -22,7 +22,7 @@ const SortHeader = ({ label, sortKey, sortBy, setSortBy, sortOrder, setSortOrder
 };
 
 const HeadCell = ({ children, darkMode, alignRight = false, className = "" }) => (
-    <th className={`px-4 py-3.5 whitespace-nowrap text-xs font-bold uppercase tracking-wider ${alignRight ? "text-right" : "text-left"} ${darkMode ? "text-slate-400" : "text-slate-500"} ${className}`}>
+    <th className={`px-4 py-2 whitespace-nowrap text-xs font-bold uppercase tracking-wider ${alignRight ? "text-right" : "text-left"} ${darkMode ? "text-slate-400" : "text-slate-500"} ${className}`}>
         {children}
     </th>
 );

@@ -1,6 +1,6 @@
 "use client";
 import { TrendingUpIcon, CalendarIcon, ChartBarIcon, ChartPieIcon, WalletIcon, ArrowUpRightIcon, ArrowDownRightIcon } from "../common/Icons";
-import { chipClass, formatTaka, panelClass, mutedText } from "./panelStyles";
+import { chipClass, formatTaka, mutedText } from "./panelStyles";
 
 const cards = [
     { key: "allTime", label: "All Time", icon: TrendingUpIcon, chip: "violet" },
@@ -17,26 +17,26 @@ const SummaryCard = ({ darkMode, card, value, delta, budgetPct }) => {
 
     return (
         <div
-            className={`group relative overflow-hidden rounded-2xl p-5 border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+            className={`group relative overflow-hidden rounded-xl p-2.5 border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
                 darkMode
                     ? "bg-slate-900 border-slate-700/70 hover:border-violet-500/50 hover:shadow-violet-500/10"
                     : "bg-white border-slate-200 hover:border-violet-300 hover:shadow-violet-500/10"
             }`}
         >
-            <div className="flex items-start justify-between mb-3">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${chipClass(card.chip, darkMode)}`}>
-                    <Icon className="w-5 h-5" strokeWidth={2.25} />
+            <div className="flex items-start justify-between mb-1.5">
+                <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${chipClass(card.chip, darkMode)}`}>
+                    <Icon className="w-3.5 h-3.5" strokeWidth={2.25} />
                 </div>
                 {showDelta && (
-                    <span className={`flex items-center gap-1 text-xs font-bold ${delta >= 0 ? "text-emerald-500" : "text-rose-500"}`}>
+                    <span className={`flex items-center gap-0.5 text-[10px] font-bold ${delta >= 0 ? "text-emerald-500" : "text-rose-500"}`}>
                         {delta >= 0 ? <ArrowUpRightIcon /> : <ArrowDownRightIcon />}
                         {Math.abs(delta)}%
                     </span>
                 )}
             </div>
 
-            <p className={`text-sm font-semibold ${mutedText(darkMode)}`}>{card.label}</p>
-            <p className={`text-2xl font-black tracking-tight mt-1 ${darkMode ? "text-white" : "text-slate-900"}`}>
+            <p className={`text-[10px] font-semibold ${mutedText(darkMode)}`}>{card.label}</p>
+            <p className={`text-sm font-black tracking-tight mt-0.5 ${darkMode ? "text-white" : "text-slate-900"}`}>
                 {isBudget ? `${budgetPct}%` : formatTaka(value)}
             </p>
         </div>

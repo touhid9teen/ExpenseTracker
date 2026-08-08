@@ -54,9 +54,9 @@ export const SpendingDonutChart = ({ darkMode, expenses = [] }) => {
     const centerPct = focused ? Math.round(focused.percentage) : null;
 
     return (
-        <div className={`rounded-2xl p-5 sm:p-6 h-full ${panelClass(darkMode)}`}>
-            <div className="flex items-center justify-between mb-5 gap-3 flex-wrap">
-                <h2 className={`text-lg font-bold tracking-tight flex items-center gap-2 ${headingText(darkMode)}`}>
+        <div className={`rounded-xl p-3 h-full ${panelClass(darkMode)}`}>
+            <div className="flex items-center justify-between mb-3 gap-3 flex-wrap">
+                <h2 className={`text-sm font-bold tracking-tight flex items-center gap-2 ${headingText(darkMode)}`}>
                     <ChartPieIcon className="w-5 h-5 text-violet-500" strokeWidth={2.25} />
                     Spending by Category
                 </h2>
@@ -64,11 +64,11 @@ export const SpendingDonutChart = ({ darkMode, expenses = [] }) => {
             </div>
 
             {slices.length === 0 ? (
-                <div className={`text-center py-16 text-sm ${mutedText(darkMode)}`}>No spending in this period</div>
+                <div className={`text-center py-10 text-sm ${mutedText(darkMode)}`}>No spending in this period</div>
             ) : (
                 <div onClick={() => setActiveCategory(null)} className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
                     {/* Donut */}
-                    <div className="relative shrink-0 w-44 h-44 sm:w-48 sm:h-48">
+                    <div className="relative shrink-0 w-28 h-28 sm:w-32 sm:h-32">
                         <svg viewBox="0 0 160 160" className="-rotate-90 w-full h-full">
                             <circle cx="80" cy="80" r={RADIUS} fill="none" strokeWidth={STROKE} stroke={darkMode ? "#1e293b" : "#f1f5f9"} />
                             {arcs.map((arc) => {
@@ -121,7 +121,7 @@ export const SpendingDonutChart = ({ darkMode, expenses = [] }) => {
                                 <button
                                     key={arc.category}
                                     onClick={(e) => toggleCategory(e, arc.category)}
-                                    className={`w-full flex items-center justify-between gap-3 text-left px-3 py-2 rounded-xl transition-all duration-200 ${dimmed ? "opacity-40" : "opacity-100"} ${
+                                    className={`w-full flex items-center justify-between gap-3 text-left px-3 py-1.5 rounded-xl transition-all duration-200 ${dimmed ? "opacity-40" : "opacity-100"} ${
                                         selected
                                             ? darkMode ? "bg-slate-800" : "bg-slate-100"
                                             : darkMode ? "hover:bg-slate-800/60" : "hover:bg-slate-50"

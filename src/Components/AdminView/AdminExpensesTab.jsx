@@ -26,13 +26,13 @@ const AdminExpensesTab = memo(
       }
     };
 
-    if (!isAdminLoading && allExpenses.length === 0) {    return (
-      <div
-        className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center cyber-3d cyber-inner-edge relative ${
-          darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
-        }`}
-      >
-          <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500" />
+    if (!isAdminLoading && allExpenses.length === 0) {
+      return (
+        <div
+          className={`rounded-2xl border px-6 py-14 flex flex-col items-center justify-center text-center ${
+            darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"
+          }`}
+        >
           <div className={`mb-4 ${darkMode ? "text-slate-500" : "text-slate-300"}`}>
             <EmptyStateIcon className="w-12 h-12" strokeWidth={1.5} />
           </div>
@@ -48,27 +48,24 @@ const AdminExpensesTab = memo(
 
     return (
       <div
-        className={`rounded-2xl border overflow-hidden cyber-3d cyber-inner-edge relative ${
-          darkMode ? "bg-slate-900/60 border-slate-800" : "bg-white border-slate-300/80"
+        className={`rounded-2xl border overflow-hidden ${
+          darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"
         }`}
       >
-        <span className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-500 z-10" />
         <div className="overflow-x-auto">
           <table className="w-full text-left min-w-[680px]">
             <thead>
               <tr
-                className={`cyber-ticker text-[10px] uppercase tracking-widest font-bold border-b-2 ${
-                  darkMode
-                    ? "text-cyan-300/90 border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950"
-                    : "text-cyan-700 border-slate-200 bg-gradient-to-r from-slate-100 via-white to-slate-100"
+                className={`border-b ${
+                  darkMode ? "border-slate-700/70 bg-slate-800/40" : "border-slate-200 bg-slate-50"
                 }`}
               >
-                <th className="px-5 py-3.5">Owner</th>
-                <th className="px-5 py-3.5">Description</th>
-                <th className="px-5 py-3.5">Category</th>
-                <th className="px-5 py-3.5 text-right">Amount</th>
-                <th className="px-5 py-3.5">Date</th>
-                <th className="px-5 py-3.5 text-right">Actions</th>
+                <th className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Owner</th>
+                <th className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Description</th>
+                <th className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Category</th>
+                <th className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-right ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Amount</th>
+                <th className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Date</th>
+                <th className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-right ${darkMode ? "text-slate-400" : "text-slate-500"}`}>Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -78,37 +75,27 @@ const AdminExpensesTab = memo(
                   <tr
                     key={expense.id}
                     className={`transition-colors ${
-                      darkMode
-                        ? "divide-slate-800/70 hover:bg-slate-800/40"
-                        : "divide-slate-100 hover:bg-slate-50"
+                      darkMode ? "divide-slate-800/70 hover:bg-slate-800/40" : "divide-slate-100 hover:bg-slate-50"
                     }`}
                   >
-                    <td className="px-5 py-3.5">
+                    <td className="px-4 py-2.5">
                       <span className="inline-flex items-center gap-2">
                         <span
-                          className={`w-6 h-6 cyber-cut-sm border flex items-center justify-center text-[10px] font-extrabold ${
-                            darkMode ? "bg-slate-800 text-slate-200 border-slate-700" : "bg-slate-200 text-slate-600 border-slate-300"
+                          className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-extrabold ${
+                            darkMode ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-600"
                           }`}
                         >
                           {(expense.username || "?").charAt(0).toUpperCase()}
                         </span>
-                        <span
-                          className={`text-xs font-semibold ${
-                            darkMode ? "text-slate-300" : "text-slate-600"
-                          }`}
-                        >
+                        <span className={`text-xs font-semibold ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
                           {expense.username || "Unknown"}
                         </span>
                       </span>
                     </td>
-                    <td
-                      className={`px-5 py-3.5 text-sm max-w-[240px] truncate ${
-                        darkMode ? "text-slate-200" : "text-slate-800"
-                      }`}
-                    >
+                    <td className={`px-4 py-2.5 text-sm max-w-[240px] truncate ${darkMode ? "text-slate-200" : "text-slate-800"}`}>
                       {expense.description || "—"}
                     </td>
-                    <td className="px-5 py-3.5">
+                    <td className="px-4 py-2.5">
                       <span
                         className={`inline-block px-2.5 py-1 rounded-lg text-[11px] font-bold ${
                           categoryStyle.bg || (darkMode ? "bg-slate-800 text-slate-400" : "bg-slate-100 text-slate-500")
@@ -117,32 +104,24 @@ const AdminExpensesTab = memo(
                         {expense.category || "Others"}
                       </span>
                     </td>
-                    <td
-                      className={`px-5 py-3.5 text-right text-sm font-extrabold tabular-nums ${
-                        darkMode ? "text-cyan-300" : "text-cyan-700"
-                      }`}
-                    >
+                    <td className={`px-4 py-2.5 text-right text-sm font-bold tabular-nums ${darkMode ? "text-rose-400" : "text-rose-600"}`}>
                       {formatCurrency(expense.amount)}
                     </td>
-                    <td
-                      className={`px-5 py-3.5 text-xs ${
-                        darkMode ? "text-slate-400" : "text-slate-500"
-                      }`}
-                    >
+                    <td className={`px-4 py-2.5 text-xs ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                       {formatDate(expense.date)}
                     </td>
-                    <td className="px-5 py-3.5 text-right">
+                    <td className="px-4 py-2.5 text-right">
                       <button
                         onClick={() => handleDelete(expense)}
                         disabled={isAdminLoading}
                         aria-label="Delete expense"
-                        className={`p-1.5 cyber-cut-sm border transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 ${
+                        className={`p-2 rounded-lg transition-colors disabled:opacity-50 ${
                           darkMode
-                            ? "text-slate-400 hover:text-red-400 hover:bg-red-500/10 border-transparent hover:border-red-900/50"
-                            : "text-slate-400 hover:text-red-600 hover:bg-red-50 border-transparent hover:border-red-300"
+                            ? "text-slate-400 hover:bg-rose-500/15 hover:text-rose-300"
+                            : "text-slate-400 hover:bg-rose-50 hover:text-rose-600"
                         }`}
                       >
-                        <TrashIcon className="w-4 h-4" />
+                        <TrashIcon className="w-4 h-4" strokeWidth={2} />
                       </button>
                     </td>
                   </tr>

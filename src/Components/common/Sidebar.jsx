@@ -12,21 +12,23 @@ import {
   MoonIcon,
   SunIcon,
   ChevronDownIcon,
+  XIcon,
 } from "./Icons";
 
 const TIP_PROMPT =
   "Suggest ways I can reduce my spending based on my expenses. Give me 3 practical tips with the ৳ amounts involved.";
 
 /**
- * Sidebar – the fixed left navigation panel (matches the dashboard mockup).
+ * Sidebar – the left navigation panel (matches the dashboard mockup).
  *   - Logo + nav links (Command Center / Add Expense / Table / Statistics /
  *     Budget Tips / About / Admin)
  *   - Go Premium upsell card
  *   - Dark-mode toggle switch
  *   - User profile footer
  *
- * Hidden below `lg` – the CommandCenter nav cards row takes over navigation
- * on small screens (and the header holds theme + login/logout there).
+ * On `lg` screens it's a fixed sticky panel; below `lg` it collapses into an
+ * off-canvas drawer opened by the hamburger button in the AppHeader. Tab
+ * switching happens from here on every screen size.
  */
 const Sidebar = memo(function Sidebar({
   darkMode,
@@ -37,8 +39,11 @@ const Sidebar = memo(function Sidebar({
   setShowQuickAdd,
   setPendingAction,
   isAdmin = false,
+  mobileOpen = false,
+  onCloseMobile,
 }) {
   const handleClick = (item) => {
+    onCloseMobile?.();
     if (item.action === "modal") {
       setShowQuickAdd(true);
       return;
@@ -88,7 +93,7 @@ const Sidebar = memo(function Sidebar({
   const renderLink = (key, label, Icon, active) => (
     <button
       key={key}
-      onClick={() => setActiveTab(key)}
+      onClick={() => handleClick({ key })}
       className={itemClasses(active)}
     >
       <Icon className="w-5 h-5 shrink-0" strokeWidth={2} />
@@ -96,12 +101,8 @@ const Sidebar = memo(function Sidebar({
     </button>
   );
 
-  return (
-    <aside
-      className={`hidden lg:flex lg:flex-col lg:w-64 shrink-0 lg:sticky lg:top-0 lg:h-screen border-r transition-colors duration-300 ${
-        darkMode ? "bg-[#0d1326] border-slate-800" : "bg-white border-[#EBEBEC]"
-      }`}
-    >
+  const renderBody = (withClose) => (
+    <>
       {/* ── Logo ── */}
       <div className="flex items-center gap-3 px-6 pt-6 pb-5">
         <div className="w-10 h-10 [clip-path:polygon(50%_0%,100%_25%,100%_75%,50%_100%,0%_75%,0%_25%)] bg-gradient-to-br from-blue-500 via-violet-500 to-purple-600 flex items-center justify-center shrink-0">
@@ -117,10 +118,23 @@ const Sidebar = memo(function Sidebar({
         >
           FinVue
         </span>
+        {withClose && (
+          <button
+            onClick={onCloseMobile}
+            aria-label="Close navigation menu"
+            className={`ml-auto p-2 rounded-lg transition-colors ${
+              darkMode
+                ? "text-slate-400 hover:bg-slate-800 hover:text-white"
+                : "text-slate-400 hover:bg-slate-100 hover:text-slate-900"
+            }`}
+          >
+            <XIcon className="w-5 h-5" strokeWidth={2.25} />
+          </button>
+        )}
       </div>
 
       {/* ── Nav links: top group ── */}
-      <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 px-4 space-y-1 overflow-y-auto no-scrollbar">
         {navItems.map(renderItem)}
 
         <div className={`h-px my-3 ${darkMode ? "bg-slate-800" : "bg-[#EBEBEC]"}`} />
@@ -238,7 +252,40 @@ const Sidebar = memo(function Sidebar({
           />
         </div>
       )}
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Mobile off-canvas backdrop */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 lg:hidden bg-black/60 backdrop-blur-sm"
+          onClick={onCloseMobile}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Mobile drawer (collapsible via the AppHeader hamburger) */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-72 lg:hidden flex flex-col transform transition-transform duration-300 ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        } ${
+          darkMode ? "bg-[#0d1326] border-r border-slate-800" : "bg-white border-r border-[#EBEBEC]"
+        }`}
+      >
+        {renderBody(true)}
+      </aside>
+
+      {/* Desktop sidebar */}
+      <aside
+        className={`hidden lg:flex lg:flex-col lg:w-64 shrink-0 lg:sticky lg:top-0 lg:h-screen border-r transition-colors duration-300 ${
+          darkMode ? "bg-[#0d1326] border-slate-800" : "bg-white border-[#EBEBEC]"
+        }`}
+      >
+        {renderBody(false)}
+      </aside>
+    </>
   );
 });
 

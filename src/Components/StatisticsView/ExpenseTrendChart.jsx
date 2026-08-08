@@ -24,9 +24,9 @@ export const ExpenseTrendChart = ({ darkMode, expenses = [] }) => {
     const hasData = buckets.some((b) => b.amount > 0);
 
     return (
-        <div className={`rounded-2xl p-5 sm:p-6 h-full ${panelClass(darkMode)}`}>
-            <div className="flex items-center justify-between mb-5 gap-3 flex-wrap">
-                <h2 className={`text-lg font-bold tracking-tight flex items-center gap-2 ${headingText(darkMode)}`}>
+        <div className={`rounded-xl p-3 h-full ${panelClass(darkMode)}`}>
+            <div className="flex items-center justify-between mb-3 gap-3 flex-wrap">
+                <h2 className={`text-sm font-bold tracking-tight flex items-center gap-2 ${headingText(darkMode)}`}>
                     <ChartBarSquareIcon className="w-5 h-5 text-violet-500" strokeWidth={2.25} />
                     Expense Trend
                 </h2>
@@ -34,9 +34,9 @@ export const ExpenseTrendChart = ({ darkMode, expenses = [] }) => {
             </div>
 
             {!hasData ? (
-                <div className={`text-center py-16 text-sm ${mutedText(darkMode)}`}>No spending to chart yet</div>
+                <div className={`text-center py-10 text-sm ${mutedText(darkMode)}`}>No spending to chart yet</div>
             ) : (
-                <div className="flex items-end justify-between gap-2 sm:gap-3 h-52 pt-6">
+                <div className="flex items-end justify-between gap-2 sm:gap-3 h-32 pt-3">
                     {buckets.map((bucket) => {
                         const heightPct = Math.max(2, Math.round((bucket.amount / maxAmount) * 100));
                         const isActive = activeKey === bucket.key;

@@ -20,7 +20,7 @@ const LedgerView = (props) => {
     if (!show) return null;
 
     return (
-        <div className="space-y-5 animate-fadeIn">
+        <div className="space-y-3 animate-fadeIn">
             <LedgerHeaderActions
                 darkMode={props.darkMode ?? true}
                 setShowQuickAdd={props.setShowQuickAdd}

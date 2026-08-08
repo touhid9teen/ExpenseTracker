@@ -9,7 +9,7 @@ import {
     paginateExpenses
 } from "../utils/expenseCalculations";
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 6;
 
 /**
  * Owns filtering, sorting, pagination, and all derived statistics

@@ -36,7 +36,9 @@ const LedgerView = (props) => {
                 filteredExpenses={filteredExpenses}
                 currentPage={props.currentPage ?? 1}
                 setCurrentPage={props.setCurrentPage}
-                itemsPerPage={props.itemsPerPage ?? 8}
+                itemsPerPage={props.itemsPerPage ?? 10}
+                setItemsPerPage={props.setItemsPerPage}
+                pageSizes={props.pageSizes}
                 totalPages={props.totalPages ?? 1}
                 currentTableTotal={currentTableTotal}
             />

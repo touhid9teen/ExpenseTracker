@@ -1,5 +1,25 @@
 "use client";
-import { EyeIcon, EditPencilIcon, TrashIcon } from "../common/Icons";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { EyeIcon, EditPencilIcon, TrashIcon, KebabIcon } from "../common/Icons";
+
+const MenuItem = ({ darkMode, icon: Icon, label, onClick, danger = false }) => (
+    <button
+        onClick={onClick}
+        className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm font-semibold transition-colors ${
+            danger
+                ? darkMode
+                    ? "text-rose-400 hover:bg-rose-500/15"
+                    : "text-rose-600 hover:bg-rose-50"
+                : darkMode
+                    ? "text-slate-300 hover:bg-slate-800 hover:text-violet-300"
+                    : "text-slate-600 hover:bg-slate-100 hover:text-violet-600"
+        }`}
+    >
+        <Icon className="w-4 h-4" strokeWidth={2} />
+        {label}
+    </button>
+);
 
 const LedgerRow = ({
     exp,
@@ -11,17 +31,47 @@ const LedgerRow = ({
     setDeletingExpense,
 }) => {
     const style = getCategoryStyles(exp.category);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [menuPos, setMenuPos] = useState({ top: 0, right: 0 });
+    const btnRef = useRef(null);
 
-    const actionBtn = (variant) =>
-        `p-2 rounded-lg transition-colors ${
-            variant === "danger"
-                ? darkMode
-                    ? "text-slate-400 hover:bg-rose-500/15 hover:text-rose-300"
-                    : "text-slate-400 hover:bg-rose-50 hover:text-rose-600"
-                : darkMode
-                    ? "text-slate-400 hover:bg-slate-800 hover:text-violet-300"
-                    : "text-slate-400 hover:bg-slate-100 hover:text-violet-600"
-        }`;
+    const actionBtn = `p-2 rounded-lg transition-colors ${
+        darkMode
+            ? "text-slate-400 hover:bg-slate-800 hover:text-violet-300"
+            : "text-slate-400 hover:bg-slate-100 hover:text-violet-600"
+    }`;
+
+    useEffect(() => {
+        if (!menuOpen) return undefined;
+
+        const close = () => setMenuOpen(false);
+        const onKeyDown = (e) => {
+            if (e.key === "Escape") close();
+        };
+        document.addEventListener("click", close);
+        window.addEventListener("scroll", close, true);
+        document.addEventListener("keydown", onKeyDown);
+        return () => {
+            document.removeEventListener("click", close);
+            window.removeEventListener("scroll", close, true);
+            document.removeEventListener("keydown", onKeyDown);
+        };
+    }, [menuOpen]);
+
+    const toggleMenu = (e) => {
+        e.stopPropagation();
+        const rect = btnRef.current.getBoundingClientRect();
+        setMenuPos({
+            top: rect.bottom + 6,
+            right: Math.max(8, window.innerWidth - rect.right),
+        });
+        setMenuOpen((v) => !v);
+    };
+
+    const run = (fn) => {
+        setMenuOpen(false);
+        fn();
+    };
 
     return (
         <tr className={`border-b last:border-0 transition-colors ${darkMode ? "border-slate-800 hover:bg-slate-800/40" : "border-slate-100 hover:bg-slate-50"}`}>
@@ -60,16 +110,53 @@ const LedgerRow = ({
 
             {/* Actions */}
             <td className="px-4 py-2 whitespace-nowrap">
-                <div className="flex items-center justify-end gap-1">
-                    <button onClick={() => setSelectedDailyDate(exp.date)} className={actionBtn()} aria-label="View day" title="View day">
-                        <EyeIcon className="w-4 h-4" strokeWidth={2} />
+                <div className="flex items-center justify-end">
+                    <button
+                        ref={btnRef}
+                        onClick={toggleMenu}
+                        className={actionBtn}
+                        aria-label="Actions"
+                        aria-haspopup="menu"
+                        aria-expanded={menuOpen}
+                        title="Actions"
+                    >
+                        <KebabIcon className="w-4 h-4" />
                     </button>
-                    <button onClick={() => setEditingExpense(exp)} className={actionBtn()} aria-label="Edit expense" title="Edit">
-                        <EditPencilIcon className="w-4 h-4" strokeWidth={2} />
-                    </button>
-                    <button onClick={() => setDeletingExpense(exp)} className={actionBtn("danger")} aria-label="Delete expense" title="Delete">
-                        <TrashIcon className="w-4 h-4" strokeWidth={2} />
-                    </button>
+
+                    {menuOpen &&
+                        createPortal(
+                            <div
+                                role="menu"
+                                className={`fixed z-50 min-w-[160px] rounded-xl border shadow-xl py-1.5 ${
+                                    darkMode
+                                        ? "bg-slate-900 border-slate-700/70 shadow-black/40"
+                                        : "bg-white border-slate-200 shadow-slate-300/40"
+                                }`}
+                                style={{ top: menuPos.top, right: menuPos.right }}
+                            >
+                                <MenuItem
+                                    darkMode={darkMode}
+                                    icon={EyeIcon}
+                                    label="View Day"
+                                    onClick={() => run(() => setSelectedDailyDate(exp.date))}
+                                />
+                                <MenuItem
+                                    darkMode={darkMode}
+                                    icon={EditPencilIcon}
+                                    label="Edit"
+                                    onClick={() => run(() => setEditingExpense(exp))}
+                                />
+                                <div className={`my-1 h-px mx-2 ${darkMode ? "bg-slate-700/70" : "bg-slate-200"}`} />
+                                <MenuItem
+                                    darkMode={darkMode}
+                                    icon={TrashIcon}
+                                    label="Delete"
+                                    danger
+                                    onClick={() => run(() => setDeletingExpense(exp))}
+                                />
+                            </div>,
+                            document.body
+                        )}
                 </div>
             </td>
         </tr>

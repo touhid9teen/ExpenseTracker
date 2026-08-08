@@ -9,7 +9,8 @@ import {
     paginateExpenses
 } from "../utils/expenseCalculations";
 
-const ITEMS_PER_PAGE = 6;
+const DEFAULT_PAGE_SIZE = 10;
+const PAGE_SIZES = [5, 10, 25, 50];
 
 /**
  * Owns filtering, sorting, pagination, and all derived statistics
@@ -26,6 +27,7 @@ export const useExpenseFilters = (expenses) => {
     const [sortBy, setSortBy] = useState("date");
     const [sortOrder, setSortOrder] = useState("desc");
     const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(DEFAULT_PAGE_SIZE);
 
     const filteredExpenses = useMemo(
         () =>
@@ -51,11 +53,16 @@ export const useExpenseFilters = (expenses) => {
     const categoryBreakdown = useMemo(() => calculateCategoryBreakdown(filteredExpenses), [filteredExpenses]);
     const dailySpendingTrend = useMemo(() => calculateDailySpendingTrend(filteredExpenses), [filteredExpenses]);
 
-    const totalPages = Math.max(1, Math.ceil(filteredExpenses.length / ITEMS_PER_PAGE));
+    const totalPages = Math.max(1, Math.ceil(filteredExpenses.length / itemsPerPage));
     const paginatedExpenses = useMemo(
-        () => paginateExpenses(filteredExpenses, currentPage, ITEMS_PER_PAGE),
-        [filteredExpenses, currentPage]
+        () => paginateExpenses(filteredExpenses, currentPage, itemsPerPage),
+        [filteredExpenses, currentPage, itemsPerPage]
     );
+
+    const handleItemsPerPage = (value) => {
+        setItemsPerPage(Number(value) || DEFAULT_PAGE_SIZE);
+        setCurrentPage(1);
+    };
 
     const handleResetFilters = () => {
         setSearchQuery("");
@@ -104,7 +111,9 @@ export const useExpenseFilters = (expenses) => {
         setSortOrder,
         currentPage,
         setCurrentPage,
-        itemsPerPage: ITEMS_PER_PAGE,
+        itemsPerPage,
+        setItemsPerPage: handleItemsPerPage,
+        pageSizes: PAGE_SIZES,
         filteredExpenses,
         summaryCards,
         quickStats,

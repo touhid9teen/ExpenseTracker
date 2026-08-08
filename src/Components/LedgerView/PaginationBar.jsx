@@ -24,6 +24,8 @@ export const PaginationBar = ({
     currentPage,
     setCurrentPage,
     itemsPerPage,
+    setItemsPerPage,
+    pageSizes = [5, 10, 25, 50],
     totalPages,
     currentTableTotal,
 }) => {
@@ -37,17 +39,35 @@ export const PaginationBar = ({
             : "bg-white border border-slate-200 text-slate-600 hover:border-violet-300 hover:text-violet-600"
     }`;
 
+    const selectClass = `px-2 py-1.5 rounded-lg text-xs font-bold border outline-none cursor-pointer transition-colors ${
+        darkMode
+            ? "bg-slate-900 border-slate-700/70 text-slate-200"
+            : "bg-white border-slate-200 text-slate-600"
+    }`;
+
     return (
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
                 <p className={`text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                     Showing <span className="font-bold text-violet-500">{from}</span> to{" "}
                     <span className="font-bold text-violet-500">{to}</span> of{" "}
                     <span className="font-bold text-violet-500">{filteredExpenses.length}</span>
                 </p>
-                <span className={`hidden sm:inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold ${darkMode ? "bg-slate-800 text-slate-300" : "bg-slate-100 text-slate-600"}`}>
-                    {itemsPerPage} / page
-                </span>
+                <label className={`inline-flex items-center gap-2 text-xs font-bold ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
+                    Rows per page
+                    <select
+                        value={itemsPerPage}
+                        onChange={(e) => setItemsPerPage(e.target.value)}
+                        className={selectClass}
+                        aria-label="Rows per page"
+                    >
+                        {pageSizes.map((n) => (
+                            <option key={n} value={n}>
+                                {n}
+                            </option>
+                        ))}
+                    </select>
+                </label>
                 <span className={`hidden md:inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold ${darkMode ? "bg-violet-500/15 text-violet-300" : "bg-violet-50 text-violet-600"}`}>
                     Total {formatTaka(currentTableTotal)}
                 </span>

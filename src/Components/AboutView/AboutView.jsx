@@ -139,14 +139,14 @@ const AboutView = ({ darkMode, setActiveTab }) => {
       </div>
 
       {/* ── Footer ── */}
-      <div className={`text-center pt-6 pb-2 border-t ${darkMode ? "border-slate-800" : "border-slate-200"}`}>
+      {/* <div className={`text-center pt-6 pb-2 border-t ${darkMode ? "border-slate-800" : "border-slate-200"}`}>
         <p className={`text-xs sm:text-sm ${muted}`}>
           Built with Next.js, Tailwind CSS, and Neon PostgreSQL.
         </p>
         <p className={`text-xs mt-1 ${darkMode ? "text-slate-600" : "text-slate-400"}`}>
           &copy; {new Date().getFullYear()} FinVue. All rights reserved.
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };

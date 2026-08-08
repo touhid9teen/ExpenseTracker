@@ -44,7 +44,7 @@ const AppHeader = memo(function AppHeader({
       : "bg-white border-slate-200 text-slate-500 hover:border-violet-300 hover:text-violet-600 shadow-sm";
 
   return (
-    <header className="sticky top-0 z-30 transition-colors duration-300">
+    <header className="transition-colors duration-300">
       <div className="px-4 sm:px-6 lg:px-6 py-3 flex items-center justify-between gap-4">
         <div className="min-w-0 flex items-center gap-3">
           {/* Collapsible sidebar toggle — small screens only */}

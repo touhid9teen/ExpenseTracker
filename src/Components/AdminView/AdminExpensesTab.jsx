@@ -1,6 +1,8 @@
 "use client";
 import { memo } from "react";
 import { TrashIcon, EmptyStateIcon } from "../common/Icons";
+import { useAdminPagination } from "./useAdminPagination";
+import { AdminPagination } from "./AdminPagination";
 
 const formatCurrency = (amount) =>
   `৳${Math.round(Number(amount) || 0).toLocaleString()}`;
@@ -26,6 +28,15 @@ const AdminExpensesTab = memo(
       }
     };
 
+    const {
+      page,
+      setPage,
+      rowsPerPage,
+      setRowsPerPage,
+      total,
+      paginatedRows,
+    } = useAdminPagination(allExpenses);
+
     if (!isAdminLoading && allExpenses.length === 0) {
       return (
         <div
@@ -47,11 +58,12 @@ const AdminExpensesTab = memo(
     }
 
     return (
-      <div
-        className={`rounded-2xl border overflow-hidden ${
-          darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"
-        }`}
-      >
+      <div className="space-y-3">
+        <div
+          className={`rounded-2xl border overflow-hidden ${
+            darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"
+          }`}
+        >
         <div className="overflow-x-auto">
           <table className="w-full text-left min-w-[680px]">
             <thead>
@@ -69,7 +81,7 @@ const AdminExpensesTab = memo(
               </tr>
             </thead>
             <tbody className="divide-y">
-              {allExpenses.map((expense) => {
+              {paginatedRows.map((expense) => {
                 const categoryStyle = getCategoryStyles?.(expense.category) || {};
                 return (
                   <tr
@@ -131,6 +143,16 @@ const AdminExpensesTab = memo(
           </table>
         </div>
       </div>
+
+      <AdminPagination
+        darkMode={darkMode}
+        page={page}
+        setPage={setPage}
+        rowsPerPage={rowsPerPage}
+        setRowsPerPage={setRowsPerPage}
+        total={total}
+      />
+    </div>
     );
   }
 );

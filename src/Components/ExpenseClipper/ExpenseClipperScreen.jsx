@@ -32,9 +32,10 @@ import InsightsRail from "../AIAssistant/InsightsRail";
  * Layout (dashboard mockup style):
  *  - A fixed left Sidebar holds the logo, nav links, premium card, dark-mode
  *    toggle and the user profile (hidden on small screens).
- *  - The content column has a sticky AppHeader (title + theme/login/logout).
- *  - The CommandCenter nav-cards row lives on the Command Center tab only;
- *    on small screens it stays as the primary navigation on every tab.
+ *  - The content column has an AppHeader (title + theme/login/logout) that
+ *    scrolls away with the content.
+ *  - The CommandCenter nav-cards row lives on the Command Center tab only
+ *    (desktop).
  *  - The Command Center tab shows the command buttons + AI chat; the other
  *    sections (statistics / table / about / admin) render on their own tabs.
  *  - Guests can browse the app; adding an expense (or logging in) opens the
@@ -133,9 +134,7 @@ const ExpenseClipperScreen = (props) => {
           className={`flex-1 min-w-0 ${
             isOverview
               ? "lg:overflow-hidden lg:flex lg:flex-col"
-              : activeTab === "ledger" || activeTab === "statistics"
-                ? "lg:overflow-hidden"
-                : "lg:overflow-y-auto no-scrollbar"
+              : "lg:overflow-y-auto no-scrollbar"
           }`}
         >
           <AppHeader
@@ -229,11 +228,12 @@ const ExpenseClipperScreen = (props) => {
             </main>
 
             {/* AI Insights rail — real derived insights + recent queries,
-                visible on every tab from xl up (hidden in fullscreen chat). */}
-            {!(isChat && chatExpanded) && (
+                shown on the finance tabs only (not About / Admin, and hidden
+                in fullscreen chat). */}
+            {!(isChat && chatExpanded) && activeTab !== "about" && activeTab !== "admin" && (
               <aside
                 className={`hidden xl:block w-80 shrink-0 ${
-                  isOverview ? "lg:min-h-0" : "sticky top-24"
+                  isOverview ? "lg:min-h-0" : ""
                 }`}
               >
                 {/* On the Command Center tab the rail stays fixed with its

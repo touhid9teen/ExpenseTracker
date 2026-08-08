@@ -1,6 +1,8 @@
 "use client";
 import { memo } from "react";
 import { UsersGroupIcon, CrownIcon, ShieldCheckIcon, TrashIcon } from "../common/Icons";
+import { useAdminPagination } from "./useAdminPagination";
+import { AdminPagination } from "./AdminPagination";
 
 const formatDate = (value) => {
   if (!value) return "—";
@@ -33,6 +35,15 @@ const AdminUsersTab = memo(
       }
     };
 
+    const {
+      page,
+      setPage,
+      rowsPerPage,
+      setRowsPerPage,
+      total,
+      paginatedRows,
+    } = useAdminPagination(users);
+
     if (!isAdminLoading && users.length === 0) {
       return (
         <EmptyState
@@ -45,11 +56,12 @@ const AdminUsersTab = memo(
     }
 
     return (
-      <div
-        className={`rounded-2xl border overflow-hidden ${
-          darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"
-        }`}
-      >
+      <div className="space-y-3">
+        <div
+          className={`rounded-2xl border overflow-hidden ${
+            darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"
+          }`}
+        >
         <div className="overflow-x-auto">
           <table className="w-full text-left min-w-[640px]">
             <thead>
@@ -66,7 +78,7 @@ const AdminUsersTab = memo(
               </tr>
             </thead>
             <tbody className="divide-y">
-              {users.map((user) => (
+              {paginatedRows.map((user) => (
                 <tr
                   key={user.id}
                   className={`transition-colors ${
@@ -162,6 +174,16 @@ const AdminUsersTab = memo(
           </table>
         </div>
       </div>
+
+      <AdminPagination
+        darkMode={darkMode}
+        page={page}
+        setPage={setPage}
+        rowsPerPage={rowsPerPage}
+        setRowsPerPage={setRowsPerPage}
+        total={total}
+      />
+    </div>
     );
   }
 );

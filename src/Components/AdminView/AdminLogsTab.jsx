@@ -1,6 +1,8 @@
 "use client";
 import { memo } from "react";
 import { ServerIcon, TrashIcon } from "../common/Icons";
+import { useAdminPagination } from "./useAdminPagination";
+import { AdminPagination } from "./AdminPagination";
 
 const METHOD_STYLES = {
   GET: { dark: "bg-sky-500/10 text-sky-400 border border-sky-500/25", light: "bg-sky-100 text-sky-700 border border-sky-200" },
@@ -45,6 +47,15 @@ const AdminLogsTab = memo(
         clearLogs();
       }
     };
+
+    const {
+      page,
+      setPage,
+      rowsPerPage,
+      setRowsPerPage,
+      total,
+      paginatedRows,
+    } = useAdminPagination(logs);
 
     return (
       <div className="space-y-3">
@@ -92,6 +103,7 @@ const AdminLogsTab = memo(
             </p>
           </div>
         ) : (
+          <>
           <div
             className={`rounded-2xl border overflow-hidden ${
               darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"
@@ -114,8 +126,8 @@ const AdminLogsTab = memo(
                     <th className={thClass(darkMode, "right")}>Duration</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y">
-                  {logs.map((log) => {
+            <tbody className="divide-y">
+              {paginatedRows.map((log) => {
                     const methodStyle = METHOD_STYLES[log.method] || METHOD_STYLES.GET;
                     return (
                       <tr
@@ -158,6 +170,16 @@ const AdminLogsTab = memo(
               </table>
             </div>
           </div>
+
+          <AdminPagination
+            darkMode={darkMode}
+            page={page}
+            setPage={setPage}
+            rowsPerPage={rowsPerPage}
+            setRowsPerPage={setRowsPerPage}
+            total={total}
+          />
+          </>
         )}
       </div>
     );

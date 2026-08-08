@@ -139,12 +139,13 @@ const ExpenseClipperScreen = (props) => {
       className={`relative min-h-screen lg:h-screen font-sans transition-colors duration-300 pb-16 lg:pb-0 overflow-x-clip lg:overflow-hidden ${
         props.darkMode
           ? "bg-[#0b0f19] text-slate-100"
-          : "bg-[#F9FAFC] text-slate-800"
+          : "bg-white text-slate-800"
       }`}
     >
-      {/* Ambient aurora + grid backdrop (dark mode only — light mode stays a
-          clean flat background like the mockup so white cards read as white) */}
-      {props.darkMode && (
+      {/* Ambient backdrop — dark mode gets the cyan/violet aurora + grid;
+          light mode gets a full-page vertical gradient, top to bottom:
+          white → purple → white, with a matching subtle grid. */}
+      {props.darkMode ? (
         <div
           aria-hidden="true"
           className="pointer-events-none fixed inset-0 z-0 aurora-bg"
@@ -153,6 +154,13 @@ const ExpenseClipperScreen = (props) => {
           <div className="absolute top-1/3 -right-32 w-[30rem] h-[30rem] rounded-full bg-violet-500/10 blur-[110px] aurora-blob" style={{ animationDelay: "-7s" }} />
           <div className="absolute -bottom-32 left-1/4 w-[28rem] h-[28rem] rounded-full bg-indigo-500/10 blur-[110px] aurora-blob" style={{ animationDelay: "-14s" }} />
           <div className="absolute inset-0 cyber-grid opacity-70" />
+        </div>
+      ) : (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 z-0 aurora-bg-light-pink"
+        >
+          <div className="absolute inset-0 cyber-grid-light" />
         </div>
       )}
 

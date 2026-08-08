@@ -22,7 +22,7 @@ const SocialButtons = ({ disabled = false, text = 'Login with Google' }) => {
       type="button"
       disabled={disabled}
       onClick={notReady}
-      className="flex items-center justify-center gap-2.5 w-full py-3 rounded-lg border border-slate-200 bg-white text-slate-700 text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 hover:shadow-sm transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
+      className="flex items-center justify-center gap-2.5 w-full py-3 rounded-lg border border-slate-200 bg-white text-slate-700 text-sm font-semibold hover:bg-violet-50/60 hover:border-violet-300 hover:text-violet-700 hover:shadow-sm transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
     >
       <GoogleGlyph className="w-5 h-5 shrink-0" />
       <span>{text}</span>

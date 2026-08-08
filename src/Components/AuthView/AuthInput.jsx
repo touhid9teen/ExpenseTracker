@@ -39,7 +39,7 @@ const AuthInput = ({
 
   const boxClass = hasError
     ? 'bg-red-50/60 border-red-300 focus:border-red-400 focus:ring-red-500/10'
-    : 'bg-white border-slate-200 hover:border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/15';
+    : 'bg-white border-slate-200 hover:border-slate-300 focus:border-violet-400 focus:ring-violet-400/20';
 
   // Left side shows a success/error badge, or the (optional) field icon.
   // The badge renders even without an icon so success/error stays visible.
@@ -101,7 +101,7 @@ const AuthInput = ({
       ) : null}
 
       {detectCapsLock && capsOn && !hasError && (
-        <p className="mt-1.5 ml-1 text-xs text-indigo-600 flex items-center gap-1">
+        <p className="mt-1.5 ml-1 text-xs text-violet-500 flex items-center gap-1">
           <WarningTriangleIcon className="w-3 h-3" />
           Caps Lock is on
         </p>

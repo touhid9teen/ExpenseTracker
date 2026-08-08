@@ -11,11 +11,12 @@ const variants = {
     glow: "from-violet-400/30 via-purple-500/25 to-indigo-500/30",
     loading: "bg-violet-500/70",
   },
-  // Solid indigo (#6366f1) — matches the mockup's primary login button.
-  indigo: {
-    base: "bg-indigo-500 hover:bg-indigo-600 text-white",
-    glow: "from-indigo-500/30 via-indigo-500/25 to-indigo-600/30",
-    loading: "bg-indigo-500/70",
+  // Solid light purple (violet-400 #a78bfa) — the login page's primary
+  // sign-in / sign-up button (form accents are light purple).
+  lightPurple: {
+    base: "bg-violet-400 hover:bg-violet-500 text-white",
+    glow: "from-violet-400/40 via-violet-400/30 to-violet-500/40",
+    loading: "bg-violet-400/70",
   },
 };
 

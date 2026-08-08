@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 import Link from "next/link";
 import Header, { LogoMark } from "./Header";
+import OrnamentalDivider from "./OrnamentalDivider";
 import Footer from "./Footer";
 import SuccessModal from "./SuccessModal";
 import ForgotPasswordModal from "./ForgotPasswordModal";
@@ -206,8 +207,8 @@ const AuthView = ({ setUser, onClose }) => {
   const checkboxClass = (checked) =>
     `w-4 h-4 rounded border flex items-center justify-center transition-colors duration-200 ${
       checked
-        ? "bg-indigo-500 border-indigo-500"
-        : "bg-white border-slate-300 hover:border-slate-400"
+        ? "bg-violet-400 border-violet-400"
+        : "bg-white border-slate-300 hover:border-violet-300"
     }`;
 
   return (
@@ -221,7 +222,7 @@ const AuthView = ({ setUser, onClose }) => {
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95 hover:border-indigo-300 hover:text-indigo-600"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95 hover:border-violet-300 hover:text-violet-600"
               >
                 <XIcon className="w-3.5 h-3.5" />
                 Back
@@ -261,13 +262,20 @@ const AuthView = ({ setUser, onClose }) => {
               <button
                 type="button"
                 onClick={onClose}
-                className="absolute top-8 right-8 z-10 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95 bg-white/90 border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600 backdrop-blur"
+                className="absolute top-8 right-8 z-10 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95 bg-white/90 border-slate-200 text-slate-600 hover:border-violet-300 hover:text-violet-600 backdrop-blur"
               >
                 <XIcon className="w-4 h-4" />
                 Back to app
               </button>
             )}
           </section>
+
+          {/* ── Divider line — a very thin straight vertical line separating
+                 the dashboard image from the sign-in form, light purple
+                 (desktop only). Height is ~half the form content, centered. ── */}
+          <div className="hidden lg:block absolute top-[5%] bottom-[5%] left-1/2 -translate-x-1/2 z-10 w-16 pointer-events-none select-none">
+            <OrnamentalDivider className="h-full w-full text-violet-400 drop-shadow-[0_0_18px_rgba(167,139,250,0.45)]" />
+          </div>
 
           {/* ── Right: centered white sign-in / sign-up card ── */}
           <section className="flex items-center justify-center bg-white px-4 sm:px-8 py-10">
@@ -323,7 +331,7 @@ const AuthView = ({ setUser, onClose }) => {
                       <button
                         type="button"
                         onClick={() => setShowForgotPassword(true)}
-                        className="text-xs font-semibold text-indigo-500 hover:text-indigo-600 transition-colors"
+                        className="text-xs font-semibold text-violet-500 hover:text-violet-600 transition-colors"
                       >
                         Forgot Password?
                       </button>
@@ -332,7 +340,7 @@ const AuthView = ({ setUser, onClose }) => {
                     <div className="pt-1">
                       <Button
                         type="submit"
-                        variant="indigo"
+                        variant="lightPurple"
                         cyber={false}
                         loading={isLoading}
                         disabled={!isLoginValid}
@@ -349,7 +357,7 @@ const AuthView = ({ setUser, onClose }) => {
                       <button
                         type="button"
                         onClick={() => mode !== "register" && toggleMode()}
-                        className="font-bold text-indigo-500 hover:text-indigo-600 transition-colors"
+                        className="font-bold text-violet-500 hover:text-violet-600 transition-colors"
                       >
                         Sign up here
                       </button>
@@ -454,7 +462,7 @@ const AuthView = ({ setUser, onClose }) => {
                         I agree to{" "}
                         <Link
                           href="/terms"
-                          className="text-indigo-500 hover:text-indigo-600 underline underline-offset-2 transition-colors"
+                          className="text-violet-500 hover:text-violet-600 underline underline-offset-2 transition-colors"
                         >
                           privacy policy &amp; terms
                         </Link>
@@ -464,7 +472,7 @@ const AuthView = ({ setUser, onClose }) => {
                     <div className="pt-1">
                       <Button
                         type="submit"
-                        variant="indigo"
+                        variant="lightPurple"
                         cyber={false}
                         loading={isLoading}
                         disabled={!isRegisterValid}
@@ -484,7 +492,7 @@ const AuthView = ({ setUser, onClose }) => {
                       <button
                         type="button"
                         onClick={() => mode !== "login" && toggleMode()}
-                        className="font-bold text-indigo-500 hover:text-indigo-600 transition-colors"
+                        className="font-bold text-violet-500 hover:text-violet-600 transition-colors"
                       >
                         Sign in here
                       </button>

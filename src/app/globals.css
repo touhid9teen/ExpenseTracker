@@ -79,9 +79,23 @@
   --accent-deep: rgb(var(--cyan-700));
 
   --accent-border: rgb(var(--cyan-800));
-  --accent-gradient: linear-gradient(100deg, rgb(var(--cyan-400)), rgb(var(--sky-400)) 55%, rgb(var(--violet-400)));
-  --accent-gradient-strong: linear-gradient(100deg, rgb(var(--cyan-500)), rgb(var(--indigo-500)));
-  --aurora-gradient: linear-gradient(120deg, rgb(var(--cyan-400)), rgb(var(--indigo-400)) 50%, rgb(var(--violet-400)));
+  --accent-gradient: linear-gradient(
+    100deg,
+    rgb(var(--cyan-400)),
+    rgb(var(--sky-400)) 55%,
+    rgb(var(--violet-400))
+  );
+  --accent-gradient-strong: linear-gradient(
+    100deg,
+    rgb(var(--cyan-500)),
+    rgb(var(--indigo-500))
+  );
+  --aurora-gradient: linear-gradient(
+    120deg,
+    rgb(var(--cyan-400)),
+    rgb(var(--indigo-400)) 50%,
+    rgb(var(--violet-400))
+  );
 
   --accent-glow: rgba(34, 211, 238, 0.35);
   --accent-glow-strong: rgba(34, 211, 238, 0.55);
@@ -106,8 +120,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-20px) scale(1.05); }
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
 }
 
 @keyframes fadeSlideUp {
@@ -122,31 +141,84 @@
 }
 
 @keyframes auroraDrift {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  33% { transform: translate3d(4%, -3%, 0) scale(1.08); }
-  66% { transform: translate3d(-3%, 4%, 0) scale(0.96); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-3%, 4%, 0) scale(0.96);
+  }
 }
 
 @keyframes shineSweep {
-  0% { transform: translateX(-130%) skewX(-18deg); }
-  60%, 100% { transform: translateX(230%) skewX(-18deg); }
+  0% {
+    transform: translateX(-130%) skewX(-18deg);
+  }
+  60%,
+  100% {
+    transform: translateX(230%) skewX(-18deg);
+  }
 }
 
 /* ─── Aurora ambient background ──────────────────────────────────
    Fixed layered radial glows (cyan + violet + indigo) behind the app
    shell. Place as a fixed inset-0 -z-10 layer; pair with .aurora-grid. */
 .aurora-bg {
-  background:
-    radial-gradient(55rem 32rem at 12% -8%, rgba(34, 211, 238, 0.13), transparent 60%),
-    radial-gradient(48rem 30rem at 88% -6%, rgba(129, 140, 248, 0.12), transparent 60%),
-    radial-gradient(60rem 36rem at 50% 115%, rgba(139, 92, 246, 0.1), transparent 62%),
-    radial-gradient(30rem 22rem at 70% 40%, rgba(56, 189, 248, 0.05), transparent 60%);
+  background: radial-gradient(
+      55rem 32rem at 12% -8%,
+      rgba(34, 211, 238, 0.13),
+      transparent 60%
+    ),
+    radial-gradient(
+      48rem 30rem at 88% -6%,
+      rgba(129, 140, 248, 0.12),
+      transparent 60%
+    ),
+    radial-gradient(
+      60rem 36rem at 50% 115%,
+      rgba(139, 92, 246, 0.1),
+      transparent 62%
+    ),
+    radial-gradient(
+      30rem 22rem at 70% 40%,
+      rgba(56, 189, 248, 0.05),
+      transparent 60%
+    );
 }
 .aurora-bg-light {
-  background:
-    radial-gradient(55rem 32rem at 12% -8%, rgba(34, 211, 238, 0.12), transparent 60%),
-    radial-gradient(48rem 30rem at 88% -6%, rgba(129, 140, 248, 0.12), transparent 60%),
-    radial-gradient(60rem 36rem at 50% 115%, rgba(139, 92, 246, 0.08), transparent 62%);
+  background: radial-gradient(
+      55rem 32rem at 12% -8%,
+      rgba(34, 211, 238, 0.12),
+      transparent 60%
+    ),
+    radial-gradient(
+      48rem 30rem at 88% -6%,
+      rgba(129, 140, 248, 0.12),
+      transparent 60%
+    ),
+    radial-gradient(
+      60rem 36rem at 50% 115%,
+      rgba(139, 92, 246, 0.08),
+      transparent 62%
+    );
+}
+/* Light theme ambient background — a full-page vertical formation,
+   top to bottom: white → purple → white. The color band sits in the
+   middle of the page while the top and bottom edges stay plain white
+   (its own color combo, distinct from the dark aurora). */
+.aurora-bg-light-pink {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    rgba(167, 139, 250, 0.22) 26%,
+    rgba(196, 181, 253, 0.34) 44%,
+    rgba(196, 181, 253, 0.2) 62%,
+    rgba(167, 139, 250, 0.1) 80%,
+    #ffffff 100%
+  );
 }
 .aurora-blob {
   position: absolute;
@@ -156,12 +228,22 @@
   animation: auroraDrift 22s ease-in-out infinite;
 }
 .aurora-grid {
-  background-image:
-    linear-gradient(var(--accent-glow-softest) 1px, transparent 1px),
+  background-image: linear-gradient(
+      var(--accent-glow-softest) 1px,
+      transparent 1px
+    ),
     linear-gradient(90deg, var(--accent-glow-softest) 1px, transparent 1px);
   background-size: 36px 36px;
-  mask-image: radial-gradient(80rem 44rem at 50% 0%, black 30%, transparent 78%);
-  -webkit-mask-image: radial-gradient(80rem 44rem at 50% 0%, black 30%, transparent 78%);
+  mask-image: radial-gradient(
+    80rem 44rem at 50% 0%,
+    black 30%,
+    transparent 78%
+  );
+  -webkit-mask-image: radial-gradient(
+    80rem 44rem at 50% 0%,
+    black 30%,
+    transparent 78%
+  );
 }
 
 /* ─── Neo-Cyber Brutalism utilities ─────────────────────────────── */
@@ -169,13 +251,34 @@
 /* Slanted cut corners (diagonal top-right / bottom-left) */
 @layer utilities {
   .cyber-cut {
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    clip-path: polygon(
+      0 0,
+      calc(100% - 12px) 0,
+      100% 12px,
+      100% 100%,
+      12px 100%,
+      0 calc(100% - 12px)
+    );
   }
   .cyber-cut-sm {
-    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    clip-path: polygon(
+      0 0,
+      calc(100% - 8px) 0,
+      100% 8px,
+      100% 100%,
+      8px 100%,
+      0 calc(100% - 8px)
+    );
   }
   .cyber-cut-lg {
-    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+    clip-path: polygon(
+      0 0,
+      calc(100% - 20px) 0,
+      100% 20px,
+      100% 100%,
+      20px 100%,
+      0 calc(100% - 20px)
+    );
   }
   /* Only the top-right corner cut */
   .cyber-cut-tr {
@@ -219,11 +322,13 @@
   /* Neon text glow for financial metrics */
   .neon-taka,
   .neon-taka-cyan {
-    text-shadow: 0 0 8px var(--accent-glow-strong), 0 0 24px rgba(34, 211, 238, 0.25);
+    text-shadow: 0 0 8px var(--accent-glow-strong),
+      0 0 24px rgba(34, 211, 238, 0.25);
   }
   /* Gold currency glow — the ৳ figure is the hero of the app */
   .neon-gold {
-    text-shadow: 0 0 10px rgba(251, 191, 36, 0.4), 0 0 30px rgba(245, 158, 11, 0.22);
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.4),
+      0 0 30px rgba(245, 158, 11, 0.22);
   }
 
   /* Glowing bottom-line input */
@@ -245,21 +350,33 @@
     inset: 4px 0;
     border-radius: 999px;
     background: var(--aurora-gradient);
-    box-shadow:
-      inset 0 2px 0 rgba(255, 255, 255, 0.35),
-      inset 0 -3px 0 rgba(0, 0, 0, 0.35),
-      0 0 18px rgba(34, 211, 238, 0.5),
-      0 0 36px rgba(139, 92, 246, 0.28),
-      0 3px 0 rgb(var(--violet-900));
-    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1), width 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -3px 0 rgba(0, 0, 0, 0.35), 0 0 18px rgba(34, 211, 238, 0.5),
+      0 0 36px rgba(139, 92, 246, 0.28), 0 3px 0 rgb(var(--violet-900));
+    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+      width 0.35s cubic-bezier(0.65, 0, 0.35, 1);
     z-index: 0;
   }
 
-  /* Subtle cyber grid backdrop */
+  /* Subtle cyber grid backdrop (dark surfaces) */
   .cyber-grid {
-    background-image:
-      linear-gradient(var(--accent-glow-softest) 1px, transparent 1px),
+    background-image: linear-gradient(
+        var(--accent-glow-softest) 1px,
+        transparent 1px
+      ),
       linear-gradient(90deg, var(--accent-glow-softest) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Subtle cyber grid backdrop for light surfaces — a faint violet-tinted
+     line so it stays visible on white while matching the purple gradient.
+     Visible across the full page (no fade-out mask). */
+  .cyber-grid-light {
+    background-image: linear-gradient(
+        rgba(167, 139, 250, 0.09) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(167, 139, 250, 0.09) 1px, transparent 1px);
     background-size: 32px 32px;
   }
 
@@ -276,7 +393,13 @@
 
   /* Slanted "cyber ticker" strip for table headers */
   .cyber-ticker {
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 18px) 100%, 0 100%);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 10px),
+      calc(100% - 18px) 100%,
+      0 100%
+    );
   }
 
   .auth-pattern {
@@ -284,13 +407,11 @@
     --c1: #67e8f9;
     --c2: #22d3ee;
 
-    --_g: #0000, #0004 5%,
-       var(--c2) 6% 14%, var(--c1) 16% 24%, var(--c2) 26% 34%, var(--c1) 36% 44%,
-       var(--c2) 46% 54%, var(--c1) 56% 64%, var(--c2) 66% 74%, var(--c1) 76% 84%,
-       var(--c2) 86% 94%, #0004 95%, #0000;
-    background:
-      radial-gradient(100% 50% at 100% 0   , var(--_g)),
-      radial-gradient(100% 50% at 0    50% , var(--_g)),
+    --_g: #0000, #0004 5%, var(--c2) 6% 14%, var(--c1) 16% 24%,
+      var(--c2) 26% 34%, var(--c1) 36% 44%, var(--c2) 46% 54%, var(--c1) 56% 64%,
+      var(--c2) 66% 74%, var(--c1) 76% 84%, var(--c2) 86% 94%, #0004 95%, #0000;
+    background: radial-gradient(100% 50% at 100% 0, var(--_g)),
+      radial-gradient(100% 50% at 0 50%, var(--_g)),
       radial-gradient(100% 50% at 100% 100%, var(--_g));
     background-size: var(--s) calc(2 * var(--s));
   }
@@ -351,37 +472,25 @@
   /* Comprehensive transition so overriding Tailwind's transition-* utilities
      here doesn't kill color/border hover transitions (unlayered rules beat
      layered utilities in the cascade). */
-  transition:
-    filter 0.2s ease,
-    transform 0.25s ease,
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
+  transition: filter 0.2s ease, transform 0.25s ease, background-color 0.2s ease,
+    border-color 0.2s ease, color 0.2s ease;
 }
 .cyber-3d {
-  filter:
-    drop-shadow(0 0 24px var(--glow-3d, var(--accent-glow-soft)))
+  filter: drop-shadow(0 0 24px var(--glow-3d, var(--accent-glow-soft)))
     drop-shadow(0 0 42px var(--glow-3d-2, var(--violet-glow-soft)))
-    drop-shadow(1px 1px 0 var(--edge-1))
-    drop-shadow(2px 2px 0 var(--edge-2))
-    drop-shadow(3px 3px 0 var(--edge-3))
-    drop-shadow(5px 5px 0 rgb(0 0 0 / 0.5));
+    drop-shadow(1px 1px 0 var(--edge-1)) drop-shadow(2px 2px 0 var(--edge-2))
+    drop-shadow(3px 3px 0 var(--edge-3)) drop-shadow(5px 5px 0 rgb(0 0 0 / 0.5));
 }
 .cyber-3d-sm {
-  filter:
-    drop-shadow(0 0 16px var(--glow-3d, var(--accent-glow-soft)))
-    drop-shadow(1px 1px 0 var(--edge-1))
-    drop-shadow(2px 2px 0 var(--edge-2))
+  filter: drop-shadow(0 0 16px var(--glow-3d, var(--accent-glow-soft)))
+    drop-shadow(1px 1px 0 var(--edge-1)) drop-shadow(2px 2px 0 var(--edge-2))
     drop-shadow(3px 3px 0 rgb(0 0 0 / 0.4));
 }
 .cyber-3d-lg {
-  filter:
-    drop-shadow(0 0 32px var(--glow-3d, var(--accent-glow-soft)))
+  filter: drop-shadow(0 0 32px var(--glow-3d, var(--accent-glow-soft)))
     drop-shadow(0 0 52px var(--glow-3d-2, var(--violet-glow-soft)))
-    drop-shadow(1px 1px 0 var(--edge-1))
-    drop-shadow(2px 2px 0 var(--edge-2))
-    drop-shadow(3px 3px 0 var(--edge-3))
-    drop-shadow(4px 4px 0 rgb(0 0 0 / 0.5))
+    drop-shadow(1px 1px 0 var(--edge-1)) drop-shadow(2px 2px 0 var(--edge-2))
+    drop-shadow(3px 3px 0 var(--edge-3)) drop-shadow(4px 4px 0 rgb(0 0 0 / 0.5))
     drop-shadow(5px 5px 0 rgb(0 0 0 / 0.55));
 }
 /* Lift the slab on hover — element rises, the extruded edge stays below */
@@ -391,8 +500,7 @@
   transform: translate(-2px, -2px);
 }
 .cyber-3d-hover:hover {
-  filter:
-    drop-shadow(0 0 36px var(--glow-3d, var(--accent-glow-soft)))
+  filter: drop-shadow(0 0 36px var(--glow-3d, var(--accent-glow-soft)))
     drop-shadow(0 0 54px var(--glow-3d-2, var(--violet-glow-soft)))
     drop-shadow(1px 1px 0 var(--edge-1, rgb(var(--cyan-700))))
     drop-shadow(2px 2px 0 var(--edge-2, rgb(var(--cyan-800))))
@@ -400,19 +508,15 @@
     drop-shadow(5px 5px 0 rgb(0 0 0 / 0.5));
 }
 .cyber-3d-sm-hover:hover {
-  filter:
-    drop-shadow(0 0 26px var(--glow-3d, var(--accent-glow-soft)))
-    drop-shadow(1px 1px 0 var(--edge-1))
-    drop-shadow(2px 2px 0 var(--edge-2))
+  filter: drop-shadow(0 0 26px var(--glow-3d, var(--accent-glow-soft)))
+    drop-shadow(1px 1px 0 var(--edge-1)) drop-shadow(2px 2px 0 var(--edge-2))
     drop-shadow(4px 4px 0 rgb(0 0 0 / 0.45));
 }
 /* Beveled raised slab for NON-clipped elements (dock, pills) — box-shadow
    works here because there is no clip-path clipping it. */
 .cyber-raised {
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -3px 0 rgba(0, 0, 0, 0.35),
-    0 5px 0 rgb(var(--cyan-700)),
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.35), 0 5px 0 rgb(var(--cyan-700)),
     0 8px 16px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -426,12 +530,8 @@
 }
 .cyber-tilt {
   transform-style: preserve-3d;
-  transition:
-    transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1),
-    filter 0.3s ease,
-    box-shadow 0.3s ease,
-    background-color 0.2s ease,
-    border-color 0.2s ease,
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1), filter 0.3s ease,
+    box-shadow 0.3s ease, background-color 0.2s ease, border-color 0.2s ease,
     color 0.2s ease;
   will-change: transform;
 }
@@ -441,8 +541,7 @@
      slab keeps its 3D edges on hover — otherwise the tilt filter override
      would flatten the card. The edge gets one extra step on hover, so the
      slab visibly thickens as it lifts. */
-  filter:
-    brightness(1.06)
+  filter: brightness(1.06)
     drop-shadow(0 0 30px var(--glow-3d, var(--accent-glow-soft)))
     drop-shadow(0 0 40px var(--glow-3d-2, var(--violet-glow-soft)))
     drop-shadow(1px 1px 0 var(--edge-1, rgb(var(--cyan-700))))
@@ -460,26 +559,18 @@
    rules would normally beat them — combined selectors below merge the
    emboss with the neon glow so both effects coexist. */
 .cyber-emboss {
-  text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.09),
-    0 -1px 0 rgba(0, 0, 0, 0.45),
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.09), 0 -1px 0 rgba(0, 0, 0, 0.45),
     0 2px 10px rgba(0, 0, 0, 0.35);
 }
 .cyber-emboss.neon-taka,
 .cyber-emboss.neon-taka-cyan {
-  text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.09),
-    0 -1px 0 rgba(0, 0, 0, 0.5),
-    0 2px 10px rgba(0, 0, 0, 0.4),
-    0 0 8px var(--accent-glow-strong),
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.09), 0 -1px 0 rgba(0, 0, 0, 0.5),
+    0 2px 10px rgba(0, 0, 0, 0.4), 0 0 8px var(--accent-glow-strong),
     0 0 24px rgba(34, 211, 238, 0.25);
 }
 .cyber-emboss.neon-gold {
-  text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.09),
-    0 -1px 0 rgba(0, 0, 0, 0.5),
-    0 2px 10px rgba(0, 0, 0, 0.4),
-    0 0 10px rgba(251, 191, 36, 0.4),
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.09), 0 -1px 0 rgba(0, 0, 0, 0.5),
+    0 2px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(251, 191, 36, 0.4),
     0 0 30px rgba(245, 158, 11, 0.22);
 }
 
@@ -492,7 +583,12 @@
   bottom: -20%;
   width: 45%;
   left: 0;
-  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.14),
+    transparent
+  );
   transform: translateX(-160%) skewX(-18deg);
   transition: transform 0.65s ease;
   pointer-events: none;
@@ -505,8 +601,7 @@
 /* Inner bevel border — 1px glass highlight on the top edge makes
    dark slabs read as lit from above (professional depth). */
 .cyber-inner-edge {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(0, 0, 0, 0.35);
 }
 
@@ -520,11 +615,13 @@
     background-image: var(--accent-gradient-strong);
     color: #fff;
     transition: filter 0.15s ease, transform 0.15s ease;
-    filter: drop-shadow(0 3px 0 rgb(var(--violet-900))) drop-shadow(0 5px 0 rgb(0 0 0 / 0.4));
+    filter: drop-shadow(0 3px 0 rgb(var(--violet-900)))
+      drop-shadow(0 5px 0 rgb(0 0 0 / 0.4));
   }
   .cyber-btn-accent:hover {
     transform: translateY(-1px);
-    filter: brightness(1.08) drop-shadow(0 3px 0 rgb(var(--violet-900))) drop-shadow(0 6px 0 rgb(0 0 0 / 0.45));
+    filter: brightness(1.08) drop-shadow(0 3px 0 rgb(var(--violet-900)))
+      drop-shadow(0 6px 0 rgb(0 0 0 / 0.45));
   }
   .cyber-btn-accent:active {
     transform: translateY(2px) scale(0.99);
@@ -540,18 +637,19 @@
      outer <button> so the drop-shadow follows the cyber-cut silhouette
      (the accent gradient itself lives on an inner layer in Button.jsx). */
   .cyber-btn-3d {
-    filter: drop-shadow(0 3px 0 rgb(var(--violet-900))) drop-shadow(0 5px 0 rgb(0 0 0 / 0.4));
+    filter: drop-shadow(0 3px 0 rgb(var(--violet-900)))
+      drop-shadow(0 5px 0 rgb(0 0 0 / 0.4));
     transition: filter 0.15s ease, transform 0.15s ease;
   }
   .cyber-btn-3d:hover {
     transform: translateY(-1px);
-    filter: brightness(1.06) drop-shadow(0 3px 0 rgb(var(--violet-900))) drop-shadow(0 6px 0 rgb(0 0 0 / 0.45));
+    filter: brightness(1.06) drop-shadow(0 3px 0 rgb(var(--violet-900)))
+      drop-shadow(0 6px 0 rgb(0 0 0 / 0.45));
   }
   .cyber-btn-3d:active {
     transform: translateY(2px) scale(0.99);
     filter: brightness(0.96) drop-shadow(0 1px 0 rgb(0 0 0 / 0.4));
   }
-
 }
 
 /* Respect users who prefer reduced motion */

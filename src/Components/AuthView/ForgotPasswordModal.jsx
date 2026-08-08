@@ -117,12 +117,12 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
         onClick={onClose}
       />
       <div className="relative w-full max-w-sm transition-all duration-300">
-        <div className="relative cyber-cut-lg p-8 bg-slate-950 border-2 border-cyan-700/60 cyber-3d-lg">
-          <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-cyan-400 to-sky-400 opacity-70 pointer-events-none" />
+        <div className="relative rounded-2xl p-6 sm:p-8 bg-white border border-slate-200 shadow-2xl">
+          <span className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 opacity-70 pointer-events-none" />
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-slate-500 hover:text-slate-300 transition-colors p-1"
+            className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 transition-colors p-1"
           >
             <XIcon className="w-5 h-5" />
           </button>
@@ -130,10 +130,10 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
           {/* Step 1: Enter email */}
           {step === STEPS.EMAIL && (
             <>
-              <h3 className="text-xl font-bold text-white mb-2">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">
                 Forgot Password?
               </h3>
-              <p className="text-sm text-slate-400 mb-6">
+              <p className="text-sm text-slate-500 mb-6">
                 Enter your email address and we&apos;ll send you a reset code.
               </p>
               <form onSubmit={handleSendCode}>
@@ -148,7 +148,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     autoComplete="email"
-                    className="cyber-input w-full pl-9 pr-4 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_var(--accent-glow-strong)]"
+                    className="cyber-input w-full pl-9 pr-4 py-3.5 text-sm text-slate-800 placeholder-slate-400 border-b-2 border-slate-200 focus:border-b-violet-400 focus:shadow-[0_12px_20px_-16px_rgba(139,92,246,0.45)]"
                   />
                 </div>
                 <div className="mt-5">
@@ -167,16 +167,16 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
           {/* Step 2: Enter reset code and new password */}
           {step === STEPS.CODE && (
             <>
-              <h3 className="text-xl font-bold text-white mb-2">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">
                 Reset Password
               </h3>
-              <p className="text-sm text-slate-400 mb-6">
+              <p className="text-sm text-slate-500 mb-6">
                 Enter the reset code sent to your email and create a new password.
               </p>
               <form onSubmit={handleResetPassword}>
                 {/* Code input */}
                 <div className="mb-3">
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
+                  <label className="block text-xs font-medium text-slate-500 mb-1.5 ml-1">
                     Reset Code
                   </label>
                   <input
@@ -185,18 +185,18 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     value={resetCode}
                     onChange={(e) => setResetCode(e.target.value)}
                     placeholder={devToken ? `Dev code: ${devToken}` : "Enter reset code"}
-                    className="cyber-input w-full px-1 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_var(--accent-glow-strong)]"
+                    className="cyber-input w-full px-1 py-3.5 text-sm text-slate-800 placeholder-slate-400 border-b-2 border-slate-200 focus:border-b-violet-400 focus:shadow-[0_12px_20px_-16px_rgba(139,92,246,0.45)]"
                   />
                   {devMode && (
-                    <p className="text-xs text-cyan-400/70 mt-1.5 ml-1">
-                      ⚡ Dev mode: code is <span className="font-mono font-bold text-cyan-300">{devToken}</span>
+                    <p className="text-xs text-violet-500/80 mt-1.5 ml-1">
+                      ⚡ Dev mode: code is <span className="font-mono font-bold text-violet-600">{devToken}</span>
                     </p>
                   )}
                 </div>
 
                 {/* New password */}
                 <div className="mb-3">
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
+                  <label className="block text-xs font-medium text-slate-500 mb-1.5 ml-1">
                     New Password
                   </label>
                   <div className="relative">
@@ -209,7 +209,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                       onChange={(e) => setNewPassword(e.target.value)}
                       placeholder="New password"
                       autoComplete="new-password"
-                      className="cyber-input w-full pl-9 pr-12 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_var(--accent-glow-strong)]"
+                      className="cyber-input w-full pl-9 pr-12 py-3.5 text-sm text-slate-800 placeholder-slate-400 border-b-2 border-slate-200 focus:border-b-violet-400 focus:shadow-[0_12px_20px_-16px_rgba(139,92,246,0.45)]"
                     />
                     {newPassword && (
                       <button
@@ -225,7 +225,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
 
                 {/* Confirm password */}
                 <div className="mb-4">
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">
+                  <label className="block text-xs font-medium text-slate-500 mb-1.5 ml-1">
                     Confirm Password
                   </label>
                   <input
@@ -234,7 +234,7 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm new password"
                     autoComplete="new-password"
-                    className="cyber-input w-full px-1 py-3.5 text-sm text-white placeholder-slate-500 border-b-2 border-slate-600/60 focus:border-b-cyan-400 focus:shadow-[0_12px_20px_-16px_var(--accent-glow-strong)]"
+                    className="cyber-input w-full px-1 py-3.5 text-sm text-slate-800 placeholder-slate-400 border-b-2 border-slate-200 focus:border-b-violet-400 focus:shadow-[0_12px_20px_-16px_rgba(139,92,246,0.45)]"
                   />
                 </div>
 
@@ -253,15 +253,15 @@ const ForgotPasswordModal = ({ onClose, onLoginAfterReset }) => {
           {step === STEPS.DONE && (
             <div className="text-center py-4">
               <div className="relative w-16 h-16 mx-auto mb-4">
-                <div className="absolute inset-0 rounded-full bg-cyan-500/20 blur-xl" />
-                <div className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center mx-auto">
+                <div className="absolute inset-0 rounded-full bg-violet-500/20 blur-xl" />
+                <div className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-violet-500 to-indigo-500 flex items-center justify-center mx-auto">
                   <CheckIcon className="w-8 h-8 text-white" strokeWidth={3} />
                 </div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">
                 Password Reset!
               </h3>
-              <p className="text-sm text-slate-400 mb-6">
+              <p className="text-sm text-slate-500 mb-6">
                 Your password has been updated successfully. You can now sign in.
               </p>
               <Button

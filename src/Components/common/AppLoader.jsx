@@ -1,40 +1,30 @@
-const AppLoader = ({ darkMode = true }) => {
+/**
+ * AppLoader – the boot-time loading indicator.
+ *
+ * A "rotating lines" spinner: a ring of purple bars rotating around the
+ * center with a soft fading trail. No background — it floats, centered,
+ * over whatever is behind it.
+ */
+const AppLoader = () => {
+  const BARS = 12;
+
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center transition-colors duration-700 ${
-        darkMode ? "bg-[#060a16] aurora-bg" : "bg-[#f5f7fc] aurora-bg-light"
-      }`}
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      role="status"
+      aria-label="Loading"
     >
-      {/* Logo */}
-      <div className="relative mb-6 cyber-3d-sm [--glow-3d:var(--accent-glow-soft)] [--glow-3d-2:var(--violet-glow-soft)]">
-        <div className="w-16 h-16 cyber-cut bg-gradient-to-tr from-cyan-500 via-sky-500 to-violet-500 flex items-center justify-center">
-          <svg
-            className="w-9 h-9 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <circle
-              cx="12"
-              cy="12"
-              r="9"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M9 7.5h6M9 7.5v9M9 12h4.5"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-        {/* Spinning ring */}
-        <div
-          className={`absolute -inset-2 rounded-full border-2 border-transparent animate-spin ${
-            darkMode ? "border-t-cyan-400 border-r-violet-500" : "border-t-cyan-500 border-r-violet-600"
-          }`}
-        />
+      <div className="relative h-16 w-16 animate-spin [animation-duration:1.3s]">
+        {Array.from({ length: BARS }).map((_, i) => (
+          <span
+            key={i}
+            className="absolute left-1/2 top-1/2 h-4 w-[5px] rounded-full bg-gradient-to-b from-purple-400 via-violet-500 to-violet-700"
+            style={{
+              transform: `translate(-50%, -50%) rotate(${(360 / BARS) * i}deg) translateY(-20px)`,
+              opacity: 0.15 + (i / BARS) * 0.85,
+            }}
+          />
+        ))}
       </div>
     </div>
   );

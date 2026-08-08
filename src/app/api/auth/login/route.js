@@ -1,3 +1,4 @@
+import dns from 'node:dns';
 import sql from '../../../../lib/db';
 import { encrypt } from '../../../../lib/jwt';
 import bcrypt from 'bcryptjs';
@@ -9,6 +10,10 @@ import { withApiLog } from '../../../../utils/apiLogger';
 // bcryptjs uses setImmediate (a Node API) internally, which the Edge Runtime
 // does not provide — so this route must run on the Node.js runtime.
 export const runtime = 'nodejs';
+
+// Neon's host resolves to IPv6 first on some networks, which fails — force
+// IPv4-first lookups (same convention as the maintenance scripts).
+dns.setDefaultResultOrder('ipv4first');
 
 async function postHandler(request) {
   try {

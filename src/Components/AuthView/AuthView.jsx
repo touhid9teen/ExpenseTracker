@@ -209,7 +209,7 @@ const AuthView = ({ setUser, onClose }) => {
           <button
             type="button"
             onClick={onClose}
-            className="fixed top-4 left-4 sm:left-6 z-[60] inline-flex items-center gap-1.5 px-3 py-2 cyber-cut-sm border-2 text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95 bg-white/90 border-cyan-300/70 text-slate-600 hover:border-rose-400 hover:text-rose-600"
+            className="fixed top-4 left-4 sm:left-6 z-[60] inline-flex items-center gap-1.5 px-3 py-2 cyber-cut-sm border-2 text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95 bg-white/90 border-violet-300/70 text-slate-600 hover:border-rose-400 hover:text-rose-600"
           >
             <XIcon className="w-4 h-4" />
             Back to app
@@ -241,7 +241,7 @@ const AuthView = ({ setUser, onClose }) => {
                 mounted ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'
               }`}
             >
-              <div className="relative px-2 sm:px-4 py-6 cyber-cut-lg border-2 border-cyan-500/30 bg-white/80 backdrop-blur-md cyber-3d-lg [--glow-3d:var(--accent-glow)]">
+              <div className="relative px-2 sm:px-4 py-6 cyber-cut-lg border-2 border-violet-500/20 bg-white/80 backdrop-blur-md cyber-3d-lg [--glow-3d:var(--violet-glow-soft)]">
                 <Header mode={mode} />
 
                 <div className="pt-4">
@@ -277,7 +277,7 @@ const AuthView = ({ setUser, onClose }) => {
                       <button
                         type="button"
                         onClick={() => setShowForgotPassword(true)}
-                        className="block text-xs font-medium text-slate-500 hover:text-cyan-600 transition-colors ml-1"
+                        className="block text-xs font-medium text-slate-500 hover:text-violet-600 transition-colors ml-1"
                       >
                         Having trouble signing in?
                       </button>
@@ -308,7 +308,7 @@ const AuthView = ({ setUser, onClose }) => {
                         <button
                           type="button"
                           onClick={() => mode !== 'register' && toggleMode()}
-                          className="font-bold text-slate-900 hover:text-cyan-600 transition-colors"
+                          className="font-bold text-slate-900 hover:text-violet-600 transition-colors"
                         >
                           Register Now
                         </button>
@@ -396,7 +396,7 @@ const AuthView = ({ setUser, onClose }) => {
                       <button
                         type="button"
                         onClick={() => mode !== 'login' && toggleMode()}
-                        className="font-bold text-slate-900 hover:text-cyan-600 transition-colors"
+                        className="font-bold text-slate-900 hover:text-violet-600 transition-colors"
                       >
                         Login
                       </button>

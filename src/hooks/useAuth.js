@@ -46,6 +46,10 @@ export const useAuth = ({ onLogout } = {}) => {
         checkAuth();
     }, []);
 
+    // Returns true on success so callers can decide whether to navigate away.
+    // If the API call fails (e.g. offline) the httpOnly cookie stays valid and
+    // the user is still signed in — navigating to /login would just bounce
+    // back, so callers must only redirect when this resolves true.
     const handleLogout = async () => {
         try {
             await fetch("/api/auth/logout", { method: "POST" });
@@ -53,9 +57,11 @@ export const useAuth = ({ onLogout } = {}) => {
             setUser(null);
             onLogout?.();
             toast.success("Logged out successfully!");
+            return true;
         } catch (error) {
             console.error("Logout failed:", error);
             toast.error("Failed to log out.");
+            return false;
         }
     };
 

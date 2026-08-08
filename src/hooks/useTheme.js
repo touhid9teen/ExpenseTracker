@@ -6,7 +6,8 @@ import { loadThemePreference, saveThemePreference } from "../utils/storageUtils"
  * Owns the dark/light theme preference and theme-aware category styling.
  */
 export const useTheme = () => {
-    const [darkMode, setDarkMode] = useState(true);
+    // Default theme is light; the saved/system preference is applied on mount.
+    const [darkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
         setDarkMode(loadThemePreference());

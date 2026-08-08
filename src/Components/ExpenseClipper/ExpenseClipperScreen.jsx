@@ -1,10 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import AppLoader from "../common/AppLoader";
 import StatisticsSkeleton from "../Skeleton/StatisticsSkeleton/StatisticsSkeleton";
 import LedgerSkeleton from "../Skeleton/LedgerSkeleton/LedgerSkeleton";
+import AboutSkeleton from "../Skeleton/AboutSkeleton/AboutSkeleton";
+import AdminSkeleton from "../Skeleton/AdminSkeleton/AdminSkeleton";
+import ChatSkeleton from "../Skeleton/ChatSkeleton/ChatSkeleton";
+import { loadThemePreference } from "../../utils/storageUtils";
 import AuthView from "../AuthView/AuthView";
 import GoToTopButton from "../common/GoToTopButton";
 import CommandCenter from "../CommandCenter/CommandCenter";
@@ -19,7 +23,9 @@ import {
 import LedgerView from "../LedgerView/LedgerView";
 import dynamic from "next/dynamic";
 const StatisticsView = dynamic(() => import("../StatisticsView/StatisticsView"), {
-    loading: () => <StatisticsSkeleton darkMode={true} />
+    // The dynamic chunk only loads once at app boot; use the persisted theme
+    // so the brief fallback matches the active theme.
+    loading: () => <StatisticsSkeleton darkMode={loadThemePreference()} />
 });
 import AboutView from "../AboutView/AboutView";
 import AdminView from "../AdminView/AdminView";
@@ -46,16 +52,51 @@ const ExpenseClipperScreen = (props) => {
   const [chatExpanded, setChatExpanded] = useState(false);
   const [newChatSignal, setNewChatSignal] = useState(0);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [tabTransitioning, setTabTransitioning] = useState(false);
+  const firstRenderRef = useRef(true);
+
+  const { activeTab } = props;
+  const isOverview = activeTab === "overview";
+  const isChat = activeTab === "chat";
+
+  // A brief per-tab skeleton plays on every tab switch (the AppLoader
+  // already covers initial boot, so the first render is skipped); it stays
+  // up longer while that tab's data is genuinely still loading (fresh fetch
+  // with nothing cached yet). Cached content renders instantly — no flash.
+  useEffect(() => {
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
+      return;
+    }
+    setTabTransitioning(true);
+    const t = setTimeout(() => setTabTransitioning(false), 300);
+    return () => clearTimeout(t);
+  }, [activeTab]);
 
   if (props.isAuthLoading) {
     return <AppLoader darkMode={props.darkMode} />;
   }
 
-  const { activeTab } = props;
-  const isOverview = activeTab === "overview";
-  const isChat = activeTab === "chat";
-  const isLoading =
-    props.isExpensesLoading && (activeTab === "statistics" || activeTab === "ledger");
+  const hasExpenses = (props.expenses?.length ?? 0) > 0;
+  const hasAdminData =
+    (props.users?.length ?? 0) > 0 || (props.allExpenses?.length ?? 0) > 0;
+
+  // Chat renders instantly (no server data of its own), so it only gets the
+  // brief tab-switch skeleton. Data-backed tabs keep theirs up while loading.
+  const showPageSkeleton =
+    tabTransitioning ||
+    (activeTab === "statistics" && props.isExpensesLoading && !hasExpenses) ||
+    (activeTab === "ledger" && props.isExpensesLoading && !hasExpenses) ||
+    (activeTab === "admin" && props.isAdminLoading && !hasAdminData);
+
+  const pageSkeleton = {
+    chat: <ChatSkeleton darkMode={props.darkMode} />,
+    overview: <ChatSkeleton darkMode={props.darkMode} compact={isOverview} />,
+    statistics: <StatisticsSkeleton darkMode={props.darkMode} />,
+    ledger: <LedgerSkeleton darkMode={props.darkMode} />,
+    about: <AboutSkeleton darkMode={props.darkMode} />,
+    admin: <AdminSkeleton darkMode={props.darkMode} adminTab={props.adminTab} />,
+  }[activeTab];
 
   // Close the auth overlay as soon as a session is established.
   const handleSetUser = (user) => {
@@ -63,11 +104,16 @@ const ExpenseClipperScreen = (props) => {
     if (user) setShowAuth(false);
   };
 
-  // Logging out returns the user to the home (chat) view.
-  const handleLogout = () => {
-    props.handleLogout();
+  // Logging out clears the session and sends the user to the public login
+  // page (middleware blocks the app for unauthenticated visitors). Only
+  // navigate when the server actually cleared the cookie — otherwise the
+  // still-valid token would bounce /login straight back to the app.
+  const handleLogout = async () => {
+    const loggedOut = await props.handleLogout();
+    if (!loggedOut) return;
     props.setActiveTab("chat");
     setMobileSidebarOpen(false);
+    window.location.href = "/login";
   };
 
   // Guests can browse (AI chat + layout) but must log in to mutate data.
@@ -177,32 +223,28 @@ const ExpenseClipperScreen = (props) => {
               isOverview ? "lg:flex-1 lg:min-h-0" : ""
             }`}>
             {/* The Command Center tab shows the command buttons + AI chat only;
-                the analysis & transaction table live on their own tabs. */}
-            {isLoading && activeTab === "statistics" && (
-              <StatisticsSkeleton darkMode={props.darkMode} />
-            )}
-            {isLoading && activeTab === "ledger" && (
-              <LedgerSkeleton darkMode={props.darkMode} />
-            )}
+                the analysis & transaction table live on their own tabs. Each
+                tab shows its own page skeleton while switching / loading. */}
+            {showPageSkeleton && pageSkeleton}
 
             {/* Always mounted (CSS-hidden when inactive) so chart state survives
                 section switches. */}
             <StatisticsView
               {...props}
-              visible={!props.isExpensesLoading && activeTab === "statistics"}
+              visible={!showPageSkeleton && activeTab === "statistics"}
             />
 
-            {!props.isExpensesLoading && activeTab === "ledger" && (
+            {!showPageSkeleton && activeTab === "ledger" && (
               <LedgerView {...props} />
             )}
 
-            {activeTab === "about" && (
+            {!showPageSkeleton && activeTab === "about" && (
               <AboutView
                 darkMode={props.darkMode}
                 setActiveTab={props.setActiveTab}
               />
             )}
-            {!!props.user?.isAdmin && activeTab === "admin" && (
+            {!!props.user?.isAdmin && activeTab === "admin" && !showPageSkeleton && (
               <AdminView {...props} />
             )}
 
@@ -221,7 +263,7 @@ const ExpenseClipperScreen = (props) => {
               setPendingAction={props.setPendingAction}
               pushRecentQuery={props.pushRecentQuery}
               resetSignal={newChatSignal}
-              visible={isChat || isOverview}
+              visible={!showPageSkeleton && (isChat || isOverview)}
               compact={isOverview}
             />
             </div>

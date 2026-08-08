@@ -34,7 +34,7 @@ const AuthInput = ({
 
   const borderClass = hasError
     ? 'border-b-red-500 focus:border-b-red-400 focus:shadow-[0_12px_20px_-16px_rgba(244,63,94,0.6)]'
-    : 'border-b-slate-300 hover:border-b-slate-400 focus:border-b-cyan-500 focus:shadow-[0_12px_20px_-16px_var(--accent-glow-strong)]';
+    : 'border-b-slate-300 hover:border-b-slate-400 focus:border-b-violet-500 focus:shadow-[0_12px_20px_-16px_rgba(139,92,246,0.45)]';
 
   return (
     <div>
@@ -88,7 +88,7 @@ const AuthInput = ({
       ) : null}
 
       {detectCapsLock && capsOn && !hasError && (
-        <p className="mt-1 ml-1 text-xs text-cyan-600 flex items-center gap-1">
+        <p className="mt-1 ml-1 text-xs text-violet-600 flex items-center gap-1">
           <WarningTriangleIcon className="w-3 h-3" />
           Caps Lock is on
         </p>

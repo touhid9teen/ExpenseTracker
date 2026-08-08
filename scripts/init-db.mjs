@@ -10,22 +10,27 @@ import path from 'path';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const main = async () => {
-    // Manually getting from .env.local
-    let envLocal = '';
-    try {
-        envLocal = fs.readFileSync('.env.local', 'utf8');
-    } catch (e) {
-        console.error("Could not find .env.local file.");
-        process.exit(1);
+    // Prefer the DATABASE_URL env var (Docker / production); fall back to
+    // reading it from .env.local for local development.
+    let dbUrl = process.env.DATABASE_URL;
+    if (!dbUrl) {
+        let envLocal = '';
+        try {
+            envLocal = fs.readFileSync('.env.local', 'utf8');
+        } catch (e) {
+            console.error("Could not find .env.local file and DATABASE_URL is not set.");
+            process.exit(1);
+        }
+
+        const dbUrlMatch = envLocal.match(/DATABASE_URL="([^"]+)"/);
+        if (!dbUrlMatch) {
+            console.error("Could not find DATABASE_URL in .env.local");
+            process.exit(1);
+        }
+
+        dbUrl = dbUrlMatch[1];
     }
 
-    const dbUrlMatch = envLocal.match(/DATABASE_URL="([^"]+)"/);
-    if (!dbUrlMatch) {
-        console.error("Could not find DATABASE_URL in .env.local");
-        process.exit(1);
-    }
-
-    const dbUrl = dbUrlMatch[1];
     console.log("Found database URL. Connecting...");
 
     const sql = neon(dbUrl);

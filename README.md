@@ -1,73 +1,132 @@
-# FinVue - Modern Expense Tracker
+<div align = "center">
 
-FinVue is a modern, full-stack Expense Tracker application built with Next.js and React. It helps you manage your personal finances by tracking daily expenses, visualizing spending habits, and categorizing transactions.
+### 📚 FinVue : Expense Tracker 📚
 
-## ✨ Features
+##### 💰 A modern, full-stack expense tracker built with Next.js 🚀
 
-- **User Authentication**: Secure signup and login flow using JWT (JSON Web Tokens) and bcrypt for password hashing.
-- **Expense Management**: Add, edit, delete, and view your daily expenses seamlessly.
-- **Filtering & Sorting**: Filter expenses by category, search by description, or view by specific date ranges.
-- **Dashboard & Statistics**: View quick statistics, category breakdowns, and spending trends with a beautiful, responsive UI.
-- **Dark/Light Mode**: Full support for theme toggling with smooth transitions.
-- **Modern UI**: Built with Tailwind CSS for a sleek, responsive design and micro-interactions.
-- **Database Integration**: Powered by a robust PostgreSQL database using Neon (serverless).
+**---🧾 Track daily expenses, visualize spending, and get AI-powered insights 🧾---**
 
-## 🛠️ Tech Stack
+![](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![](https://img.shields.io/badge/json%20web%20tokens-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink)
+![](https://img.shields.io/badge/Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
 
-- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Edge API Routes)
-- **Frontend**: [React 18](https://reactjs.org/), [Tailwind CSS](https://tailwindcss.com/)
-- **Database**: [PostgreSQL](https://www.postgresql.org/), [@neondatabase/serverless](https://neon.tech/)
-- **Authentication**: JWT (`jose`), `bcryptjs`, Cookies (`js-cookie`)
-- **UI Components**: `react-hot-toast` for notifications
+<div align = "center">
+  <img src="./src/assets/screenshot.png" alt="FinVue Dashboard" style="width: 50%;" />
+</div>
 
-## 🚀 Getting Started
+<hr>
+</div>
 
-### Prerequisites
+### ✨ FinVue : Features
 
-Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
+- **Authentication**: JWT-based signup/login with bcrypt password hashing.
+- **Expense Management**: Add, edit, delete, and view expenses.
+- **Filters & Sorting**: Filter by category, date, and search.
+- **Dashboard & Statistics**: Category breakdowns and spending trends.
+- **AI Assistant**: Chat to analyze spending and get budgeting tips.
+- **Admin Panel**: Manage users, expenses, and view API logs.
+- **Dark/Light Mode**: Theme toggle with smooth transitions.
+- **Offline Support**: Changes queue locally and sync on reconnect.
 
-### Installation
 
-1. **Clone the repository:**
+<hr>
 
-   ```bash
-   git clone <repository-url>
-   cd ExpenseTracker
-   ```
+### 🐚 FinVue : Setup Instructions (Manual)
 
-2. **Install dependencies:**
+- 📌 Clone the repository :
 
-   ```bash
-   npm install
-   ```
+```
+git clone https://github.com/touhid9teen/ExpenseTracker.git
+```
 
-3. **Set up environment variables:**
-   Create a `.env.local` file in the root directory and add the following keys:
+- 📌 Go to the project directory and run the following command
 
-   ```env
-   APP_ENV=development or production      
-   GEMINI_API_KEY=your-GEMINI_API_KEY
-   DATABASE_URL="your-neon-postgres-database-url"
-   JWT_SECRET="your-secure-jwt-secret"
-   ```
+```
+cd ExpenseTracker
+```
 
-4. **Initialize the Database:**
-   The application uses a SQL database. Ensure your PostgreSQL database is running and accessible via the `DATABASE_URL`. Run any provided initialization scripts to create the `users` and `expenses` tables.
+- 📌 Install Require Package
 
-5. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
-   The application will be available at [http://localhost:3000](http://localhost:3000).
+```
+npm install
+```
 
-## 📂 Project Structure
+- 📌 Create a `.env.local` file with the following keys :
 
-- `/src/app`: Next.js App Router pages and API routes.
-- `/src/Components`: Reusable React components (AuthModal, ExpenseTable, etc.).
-- `/src/hooks`: Custom React hooks (e.g., `useExpenseClipper`).
-- `/src/utils`: Helper functions for date formatting, calculations, etc.
-- `/src/lib`: Database and authentication utilities.
+```
+APP_ENV=development
+DATABASE_URL="your-neon-postgres-database-url"
+JWT_SECRET="your-secure-jwt-secret"
+GEMINI_API_KEY="your-gemini-api-key"
+```
 
-## 📄 License
+- 📌 Initialize the database :
 
-This project is licensed under the MIT License.
+```
+node scripts/init-db.mjs
+```
+
+- 📌 Start the dev server
+
+```
+npm run dev
+```
+
+- 📌 To visit the website, Open the Browser and go to the following URL
+
+```
+http://localhost:3000/
+```
+
+<hr>
+
+### 🐚 FinVue : Setup Instructions (Docker)
+
+- 📌 Create a `.env` file in the project root with the same keys as `.env.local` :
+
+```
+DATABASE_URL="your-neon-postgres-database-url"
+JWT_SECRET="your-secure-jwt-secret"
+GEMINI_API_KEY="your-gemini-api-key"
+```
+
+- 📌 Build and start the app (the `db-init` service applies the schema first) :
+
+```bash
+docker compose up --build
+```
+
+- 📌 To run using the existing image, run the following command
+
+```bash
+docker compose up
+```
+
+- 📌 Re-run the schema manually (if needed) :
+
+```bash
+docker compose run --rm db-init
+```
+
+- 📌 Stop Docker after you finish visiting the website
+
+```bash
+docker compose down
+```
+
+- 📌 Docker is running properly !
+
+<hr>
+
+### 📚 FinVue : Documentation
+
+- 📌 Project Structure : **( [ 👉 Click Here](./PROJECT_STRUCTURE.md) )**
+- 📌 Entity Relationship : **( [ 👉 Click Here](./ENTITY_RELATIONSHIP.md) )**
+
+<hr>
+
+### 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.

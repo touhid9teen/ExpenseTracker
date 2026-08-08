@@ -8,19 +8,38 @@ ExpenseTracker/
 ├── 📄 next.config.mjs              # Next.js configuration
 ├── 📄 tailwind.config.js            # Tailwind CSS theme & plugins config
 ├── 📄 postcss.config.cjs            # PostCSS configuration
-├── 📄 eslint.config.js              # ESLint configuration
+├── 📄 eslint.config.js              # ESLint configuration (flat config)
 ├── 📄 jsconfig.json                 # JS/Path alias configuration
 ├── 📄 package.json                  # Dependencies & scripts
-├── 📄 yarn.lock                     # Yarn lockfile
+├── 📄 package-lock.json             # Lockfile (npm)
+├── 📄 Dockerfile                    # Multi-stage production build
+├── 📄 docker-compose.yml            # App + db-init services
+├── 📄 .dockerignore                 # Files excluded from Docker context
 ├── 📄 .gitignore                    # Git ignore rules
+├── 📄 .env.local                    # Local env vars (never committed)
+├── 📄 .env                          # Docker Compose env vars
+├── 📄 initDB.js                     # Database initialization script (legacy JS)
 ├── 📄 README.md                     # Project overview & setup guide
+├── 📄 AGENTS.md                     # Guidance for AI coding agents
+├── 📄 CLAUDE.md                     # Detailed architecture reference
+├── 📄 knowledge.md                  # Conventions & gotchas
 ├── 📄 ENTITY_RELATIONSHIP.md        # Database entity relationship docs
-├── 📄 initDB.js                     # Database initialization script (JS)
+├── 📄 PROJECT_STRUCTURE.md          # This file
 │
 ├── 📂 scripts/                      # Utility scripts
-│   └── 📄 init-db.mjs               # DB init script (ESM)
+│   ├── 📄 init-db.mjs               # DB init / migration script (ESM)
+│   ├── 📄 db-inspect.mjs            # Database inspection tool
+│   └── 📄 admin-e2e.mjs             # Admin end-to-end test script
+│
+├── 📂 public/                       # Static assets (PWA manifest, icons)
+│   ├── 📄 favicon.svg
+│   ├── 📄 manifest.json
+│   ├── 📄 sw.js
+│   └── 📄 vite.svg
 │
 ├── 📂 src/                          # Main application source
+│   │
+│   ├── 📄 middleware.js             # Edge middleware (auth guard)
 │   │
 │   ├── 📂 app/                      # Next.js App Router (pages & APIs)
 │   │   ├── 📄 layout.js             # Root layout (HTML shell, fonts, providers)
@@ -28,98 +47,173 @@ ExpenseTracker/
 │   │   ├── 📄 loading.js            # Root loading skeleton (Suspense fallback)
 │   │   ├── 📄 globals.css           # Global styles & Tailwind directives
 │   │   │
+│   │   ├── 📂 login/                # Standalone login page
+│   │   │   └── 📄 page.js
+│   │   │
 │   │   ├── 📂 terms/                # Terms & Conditions page
 │   │   │   └── 📄 page.js
 │   │   │
 │   │   └── 📂 api/                  # Next.js API route handlers
 │   │       ├── 📂 auth/
 │   │       │   ├── 📂 login/        # POST — authenticate user
-│   │       │   │   └── 📄 route.js
+│   │       │   ├── 📂 register/     # POST — create new user
 │   │       │   ├── 📂 logout/       # POST — clear auth session
-│   │       │   │   └── 📄 route.js
-│   │       │   └── 📂 me/           # GET — fetch current user info
-│   │       │       └── 📄 route.js
+│   │       │   ├── 📂 profile/      # GET — fetch current user info
+│   │       │   ├── 📂 recover/      # POST — password recovery
+│   │       │   └── 📂 security/     # POST — security question verification
 │   │       ├── 📂 expenses/
 │   │       │   ├── 📄 route.js      # GET (list) / POST (create) expenses
 │   │       │   └── 📂 [id]/
 │   │       │       └── 📄 route.js  # PATCH / DELETE a single expense
+│   │       ├── 📂 admin/
+│   │       │   ├── 📂 users/        # Admin — user management
+│   │       │   ├── 📂 expenses/     # Admin — expense management
+│   │       │   └── 📂 logs/         # Admin — API logs
 │   │       ├── 📂 chat/
 │   │       │   └── 📄 route.js      # POST — AI-powered chat endpoint
 │   │       └── 📂 init-db/
-│   │           └── 📄 route.js      # POST — initialize database tables
+│   │           └── 📄 route.js      # GET — initialize database tables
 │   │
-│   ├── 📂 Components/               # Reusable UI components
-│   │   ├── 📄 AppHeader.jsx         # Top navigation bar
-│   │   ├── 📄 MobileBottomNav.jsx   # Bottom navigation (mobile)
-│   │   ├── 📄 Button.jsx            # Reusable button component
-│   │   ├── 📄 InputField.jsx        # Reusable input field
-│   │   ├── 📄 Icons.jsx             # SVG icon set
-│   │   ├── 📄 AuthModal.jsx         # Login / Register modal
-│   │   ├── 📄 LedgerView.jsx        # Expense ledger (table view)
-│   │   ├── 📄 StatisticsView.jsx    # Statistics & charts view
-│   │   ├── 📄 AboutView.jsx         # About / info view
-│   │   ├── 📄 ExpenseClipper.jsx    # Expense clipper trigger
-│   │   ├── 📄 ExpenseClipperScreen.jsx  # Expense clipper screen overlay
-│   │   ├── 📄 ExpenseModals.jsx     # Expense modal manager
-│   │   ├── 📄 ToastProvider.jsx     # Toast notification provider
-│   │   ├── 📄 LedgerSkeleton.jsx    # Skeleton loader for ledger
-│   │   ├── 📄 StatisticsSkeleton.jsx # Skeleton loader for statistics
-│   │   ├── 📄 Skeleton.jsx          # Generic skeleton primitive
+│   ├── 📂 assets/                   # Static images
+│   │   ├── 📄 login-view.jpg
+│   │   └── 📄 react.svg
+│   │
+│   ├── 📂 Components/               # Reusable UI components (by feature)
+│   │   ├── 📂 common/               # Shared UI primitives
+│   │   │   ├── 📄 AppHeader.jsx         # Top navigation bar
+│   │   │   ├── 📄 Sidebar.jsx           # Side navigation
+│   │   │   ├── 📄 Button.jsx            # Reusable button component
+│   │   │   ├── 📄 InputField.jsx        # Reusable input field
+│   │   │   ├── 📄 Icons.jsx             # Inline SVG icon set
+│   │   │   ├── 📄 categoryIcons.jsx     # Category icon map
+│   │   │   ├── 📄 ToastProvider.jsx     # Toast notification provider
+│   │   │   ├── 📄 AppLoader.jsx         # App-level loading spinner
+│   │   │   ├── 📄 GoToTopButton.jsx     # Scroll-to-top button
+│   │   │   ├── 📄 InstallPWAPrompt.jsx  # PWA install prompt
+│   │   │   └── 📄 OfflineBanner.jsx     # Offline status banner
 │   │   │
-│   │   ├── 📂 LedgerView/           # Sub-components for ledger view
+│   │   ├── 📂 AuthView/             # Authentication UI
+│   │   │   ├── 📄 AuthView.jsx          # Login / register screen
+│   │   │   ├── 📄 Background.jsx        # Animated background
+│   │   │   ├── 📄 Header.jsx            # Auth header
+│   │   │   ├── 📄 Footer.jsx            # Auth footer
+│   │   │   ├── 📄 UsernameStep.jsx      # Username signup step
+│   │   │   ├── 📄 PasswordStep.jsx      # Password signup step
+│   │   │   ├── 📄 SecurityQuestionStep.jsx # Security question step
+│   │   │   ├── 📄 PasswordStrengthMeter.jsx # Password strength indicator
+│   │   │   ├── 📄 AuthInput.jsx         # Auth input field
+│   │   │   ├── 📄 SocialButtons.jsx     # Social login buttons
+│   │   │   ├── 📄 ForgotPasswordModal.jsx # Password recovery modal
+│   │   │   ├── 📄 SuccessModal.jsx      # Success confirmation modal
+│   │   │   └── 📄 OrnamentalDivider.jsx # Ornamental divider
+│   │   │
+│   │   ├── 📂 ExpenseClipper/       # Main expense entry flow
+│   │   │   ├── 📄 ExpenseClipper.jsx       # Clipper container
+│   │   │   ├── 📄 ExpenseClipperScreen.jsx # Screen overlay
+│   │   │   └── 📂 ExpenseModals/
+│   │   │       ├── 📄 ExpenseModals.jsx       # Modal manager
+│   │   │       ├── 📄 ModalShell.jsx          # Shared modal shell/tokens
+│   │   │       ├── 📄 AddExpenseModal.jsx     # Add expense modal
+│   │   │       ├── 📄 DailyExpenseModal.jsx   # Daily expense modal
+│   │   │       ├── 📄 EditExpenseModal.jsx    # Edit expense modal
+│   │   │       └── 📄 DeleteExpenseModal.jsx  # Confirm delete modal
+│   │   │
+│   │   ├── 📂 LedgerView/           # Expense ledger (table view)
+│   │   │   ├── 📄 LedgerView.jsx         # Ledger container
 │   │   │   ├── 📄 ExpenseTable.jsx       # Expense rows table
 │   │   │   ├── 📄 LedgerRow.jsx          # Single expense row
 │   │   │   ├── 📄 LedgerFilters.jsx      # Filter bar (search, category, date)
 │   │   │   ├── 📄 LedgerHeaderActions.jsx # Header action buttons
-│   │   │   ├── 📄 QuickAddExpenseForm.jsx # Inline quick-add form
+│   │   │   ├── 📄 LedgerSummaryCards.jsx # Summary cards
 │   │   │   └── 📄 PaginationBar.jsx      # Pagination controls
 │   │   │
-│   │   ├── 📂 StatisticsView/       # Sub-components for statistics view
-│   │   │   ├── 📄 StatisticsHeader.jsx   # Stats header / date range picker
-│   │   │   ├── 📄 SummaryCardsGrid.jsx   # Summary statistic cards
-│   │   │   ├── 📄 QuickStatsGrid.jsx     # Quick mini-stat cards
-│   │   │   ├── 📄 CategoryBreakdown.jsx  # Category breakdown chart
-│   │   │   └── 📄 DailyTrendChart.jsx    # Daily spending trend chart
+│   │   ├── 📂 StatisticsView/       # Statistics & charts view
+│   │   │   ├── 📄 StatisticsView.jsx        # Stats container
+│   │   │   ├── 📄 StatisticsHeader.jsx      # Header / date range picker
+│   │   │   ├── 📄 SummaryCardsGrid.jsx      # Summary statistic cards
+│   │   │   ├── 📄 SegmentedToggle.jsx       # View toggle control
+│   │   │   ├── 📄 SpendingDonutChart.jsx    # Category donut chart
+│   │   │   ├── 📄 SpendingOverviewChart.jsx # Spending overview chart
+│   │   │   ├── 📄 ExpenseTrendChart.jsx     # Daily trend chart
+│   │   │   ├── 📄 CategoryInsightsGrid.jsx  # Category insight cards
+│   │   │   ├── 📄 AIInsightCards.jsx        # AI-generated insight cards
+│   │   │   └── 📄 panelStyles.js            # Shared panel styles
 │   │   │
-│   │   ├── 📂 ExpenseModals/        # Expense CRUD modals
-│   │   │   ├── 📄 DailyExpenseModal.jsx  # Add daily expense modal
-│   │   │   ├── 📄 EditExpenseModal.jsx   # Edit expense modal
-│   │   │   └── 📄 DeleteExpenseModal.jsx # Confirm delete modal
+│   │   ├── 📂 AIAssistant/          # AI insights & chat widgets
+│   │   │   ├── 📄 AIAssistant.jsx       # AI assistant container
+│   │   │   ├── 📄 ChatWidgets.jsx       # Chat UI widgets
+│   │   │   └── 📄 InsightsRail.jsx      # Insights rail panel
 │   │   │
-│   │   └── 📂 ChatBot/              # AI Chat assistant
-│   │       ├── 📄 index.jsx              # ChatBot main component
-│   │       ├── 📄 FloatingTrigger.jsx    # Floating chat trigger button
-│   │       ├── 📄 ChatBotHeader.jsx      # Chat header with branding
-│   │       ├── 📄 ChatInput.jsx          # Message input field
-│   │       ├── 📄 ChatMessage.jsx        # Individual message bubble
-│   │       ├── 📄 ChatMessageList.jsx    # Scrollable message list
-│   │       ├── 📄 QuickActionsPopover.jsx # Quick action suggestions popover
-│   │       └── 📄 suggestions.js         # Predefined suggestion data
+│   │   ├── 📂 ChatBot/              # AI chat assistant
+│   │   │   ├── 📄 ChatMessage.jsx       # Individual message bubble
+│   │   │   └── 📄 suggestions.js        # Predefined suggestion data
+│   │   │
+│   │   ├── 📂 CommandCenter/        # Command palette
+│   │   │   └── 📄 CommandCenter.jsx
+│   │   │
+│   │   ├── 📂 AdminView/            # Admin console
+│   │   │   ├── 📄 AdminView.jsx           # Admin container
+│   │   │   ├── 📄 AdminUsersTab.jsx       # Users management tab
+│   │   │   ├── 📄 AdminExpensesTab.jsx    # Expenses management tab
+│   │   │   ├── 📄 AdminLogsTab.jsx        # API logs tab
+│   │   │   ├── 📄 AdminPagination.jsx     # Pagination controls
+│   │   │   └── 📄 useAdminPagination.js   # Pagination hook
+│   │   │
+│   │   ├── 📂 AboutView/            # About / info view
+│   │   │   ├── 📄 AboutView.jsx         # About screen
+│   │   │   └── 📄 aboutData.js          # About content data
+│   │   │
+│   │   └── 📂 Skeleton/             # Loading skeletons
+│   │       ├── 📄 Skeleton.jsx              # Generic skeleton primitive
+│   │       ├── 📂 LedgerSkeleton/           # Ledger loader
+│   │       ├── 📂 StatisticsSkeleton/       # Stats loader
+│   │       ├── 📂 LoginSkeleton/            # Login loader
+│   │       ├── 📂 AdminSkeleton/            # Admin loader
+│   │       ├── 📂 ChatSkeleton/             # Chat loader
+│   │       └── 📂 AboutSkeleton/            # About loader
 │   │
 │   ├── 📂 hooks/                    # Custom React hooks
-│   │   └── 📄 useExpenseClipper.js  # Expense clipper screen state & logic
+│   │   ├── 📄 useExpenseClipper.js  # Composition layer (merges sub-hooks)
+│   │   ├── 📄 useAuth.js            # Auth state & actions
+│   │   ├── 📄 useTheme.js           # Dark/light mode toggle
+│   │   ├── 📄 useExpenses.js        # Expense CRUD & optimistic cache
+│   │   ├── 📄 useExpenseFilters.js  # Filter & sorting state
+│   │   ├── 📄 useExpenseForm.js     # Expense form state
+│   │   ├── 📄 useUIState.js         # UI modal/panel state
+│   │   ├── 📄 useOnlineStatus.js    # Online/offline detection
+│   │   └── 📄 useAdmin.js           # Admin panel state & actions
+│   │
+│   ├── 📂 config/                   # Configuration modules
+│   │   └── 📄 aiModels.js           # AI model provider config
 │   │
 │   ├── 📂 data/                     # Static / mock data
-│   │   └── 📄 expenseData.js        # Sample expense data
+│   │   └── 📄 expenseData.js        # Seed expense data & categories
 │   │
 │   ├── 📂 lib/                      # Core library modules
-│   │   ├── 📄 db.js                 # Neon PostgreSQL connection pool
-│   │   ├── 📄 schema.sql            # SQL schema (users + expenses tables)
-│   │   └── 📄 jwt.js                # JWT sign / verify utilities
+│   │   ├── 📄 db.js                 # Neon PostgreSQL client (Edge-compatible)
+│   │   ├── 📄 jwt.js                # JWT sign / verify utilities
+│   │   ├── 📄 admin.js              # Admin authorization helpers
+│   │   ├── 📄 validations.js        # Zod validation schemas
+│   │   ├── 📄 schema.sql            # SQL schema (mirror of schema.mjs)
+│   │   └── 📄 schema.mjs            # Canonical schema (used by /api/init-db)
 │   │
 │   └── 📂 utils/                    # Utility functions
 │       ├── 📄 dateUtils.js          # Date formatting & helpers
 │       ├── 📄 expenseCalculations.js # Expense aggregation & math
 │       ├── 📄 categoryStyles.js     # Category color & style map
-│       └── 📄 storageUtils.js       # localStorage helpers
+│       ├── 📄 storageUtils.js       # localStorage helpers
+│       ├── 📄 offlineStore.js       # Per-user offline queue & sync
+│       ├── 📄 apiLogger.js          # API log writer (admin Live Logs)
+│       ├── 📄 rateLimiter.js        # In-memory rate limiting
+│       ├── 📄 smartExpenseParser.js # Smart quick-add parser
+│       ├── 📄 aiProviders.js        # Gemini / DeepSeek / Groq / OpenAI clients
+│       ├── 📄 promptBuilder.js      # AI prompt construction
+│       ├── 📄 passwordStrength.js   # Password strength scoring
+│       ├── 📄 exportUtils.js        # Export helpers (CSV)
+│       └── 📄 scrollUtils.js        # Scroll helpers
 │
 └── 📂 .vite/                        # Vite cache (auto-generated)
     └── 📂 deps/
-        ├── 📄 _metadata.json
-        ├── 📄 package.json
-        ├── 📄 react.js
-        ├── 📄 react-dom_client.js
-        └── 📄 chunk-GFWMZNU4.js
 ```
 
 ---
@@ -128,17 +222,22 @@ ExpenseTracker/
 
 | Layer | Location | Description |
 |-------|----------|-------------|
-| **Pages** | `src/app/` | Next.js App Router pages — home, terms, loading |
-| **API** | `src/app/api/` | RESTful route handlers — auth, expenses, chat, init-db |
+| **Pages** | `src/app/` | Next.js App Router pages — home, login, terms, loading |
+| **API** | `src/app/api/` | RESTful route handlers — auth, expenses, admin, chat, init-db |
 | **Components** | `src/Components/` | All React UI components, organized by feature |
 | **Hooks** | `src/hooks/` | Custom React hooks for shared stateful logic |
-| **Lib** | `src/lib/` | Database client, schema SQL, JWT utilities |
-| **Utils** | `src/utils/` | Pure helper functions for dates, calculations, styles, storage |
+| **Config** | `src/config/` | AI model provider configuration |
+| **Lib** | `src/lib/` | Database client, schema, JWT & validation utilities |
+| **Utils** | `src/utils/` | Pure helper functions — dates, calculations, styles, storage |
+| **Middleware** | `src/middleware.js` | Edge middleware for request guarding |
 
 ### 🔐 Authentication Flow
+- **Register** → `POST /api/auth/register` → creates user with bcrypt-hashed password
 - **Login** → `POST /api/auth/login` → validates credentials → sets JWT cookie
 - **Logout** → `POST /api/auth/logout` → clears JWT cookie
-- **Me** → `GET /api/auth/me` → verifies JWT → returns user data
+- **Profile** → `GET /api/auth/profile` → verifies JWT → returns user data
+- **Recover** → `POST /api/auth/recover` → password recovery
+- **Security** → `POST /api/auth/security` → security question verification
 
 ### 💰 Expense CRUD
 - **List** → `GET /api/expenses` (supports filtering, search, pagination)
@@ -146,6 +245,12 @@ ExpenseTracker/
 - **Update** → `PATCH /api/expenses/[id]`
 - **Delete** → `DELETE /api/expenses/[id]`
 
+### 🛡️ Admin Panel
+- **Users** → `GET/PATCH/DELETE /api/admin/users`
+- **Expenses** → `GET/DELETE /api/admin/expenses`
+- **Logs** → `GET /api/admin/logs` → powered by `withApiLog` (`src/utils/apiLogger.js`)
+
 ### 🤖 AI Chat
-- **Endpoint** → `POST /api/chat` → powered by Google Gemini AI
-- **UI** → `src/Components/ChatBot/` — full-featured chatbot UI with quick actions
+- **Endpoint** → `POST /api/chat` → Gemini AI with DeepSeek / Groq / OpenAI fallbacks
+- **Config** → `src/config/aiModels.js` + `src/utils/aiProviders.js`
+- **UI** → `src/Components/ChatBot/` + `src/Components/AIAssistant/` — chat UI with quick actions

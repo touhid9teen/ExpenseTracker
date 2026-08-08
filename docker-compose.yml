@@ -1,0 +1,31 @@
+services:
+  db-init:
+    build:
+      context: .
+      target: builder
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+        JWT_SECRET: ${JWT_SECRET}
+        GEMINI_API_KEY: ${GEMINI_API_KEY}
+    command: sh -c "node scripts/init-db.mjs"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    restart: "no"
+
+  app:
+    build:
+      context: .
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+        JWT_SECRET: ${JWT_SECRET}
+        GEMINI_API_KEY: ${GEMINI_API_KEY}
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      APP_ENV: ${APP_ENV:-production}
+    depends_on:
+      db-init:
+        condition: service_completed_successfully

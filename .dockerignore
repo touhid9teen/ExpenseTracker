@@ -1,0 +1,27 @@
+# Dependencies
+node_modules
+.pnp
+
+# Next.js build output
+.next
+out
+dist
+.turbo
+
+# Env / secrets (never baked into images)
+.env
+.env.local
+.env.*.local
+
+# Git
+.git
+.gitignore
+
+# Docs & agent notes (keep the image lean)
+*.md
+
+# Misc
+.DS_Store
+npm-debug.log*
+*.tsbuildinfo
+.vite

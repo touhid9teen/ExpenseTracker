@@ -2,6 +2,11 @@
 import { useId, useState } from 'react';
 import { EyeIcon, EyeOffIcon, CheckIcon, WarningTriangleIcon } from '../common/Icons';
 
+/**
+ * AuthInput – boxed form field matching the sign-in mockup: small dark
+ * label, light gray rounded input with a thin border, optional icon on the
+ * left and a password visibility toggle on the right.
+ */
 const AuthInput = ({
   label,
   icon: Icon,
@@ -32,25 +37,31 @@ const AuthInput = ({
     }
   };
 
-  const borderClass = hasError
-    ? 'border-b-red-500 focus:border-b-red-400 focus:shadow-[0_12px_20px_-16px_rgba(244,63,94,0.6)]'
-    : 'border-b-slate-300 hover:border-b-slate-400 focus:border-b-violet-500 focus:shadow-[0_12px_20px_-16px_rgba(139,92,246,0.45)]';
+  const boxClass = hasError
+    ? 'bg-red-50/60 border-red-300 focus:border-red-400 focus:ring-red-500/10'
+    : 'bg-white border-slate-200 hover:border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/15';
+
+  // Left side shows a success/error badge, or the (optional) field icon.
+  // The badge renders even without an icon so success/error stays visible.
+  const showBadge = showSuccessIcon || hasError;
 
   return (
     <div>
-      <label className="block text-xs font-semibold text-slate-500 mb-1.5 ml-1">
+      <label className="block text-xs font-medium text-slate-600 mb-1.5">
         {label}
       </label>
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-          {showSuccessIcon ? (
-            <CheckIcon className="w-4 h-4 text-emerald-500" strokeWidth={3} />
-          ) : hasError ? (
-            <WarningTriangleIcon className="w-4 h-4 text-red-400" />
-          ) : (
-            <Icon className="w-4 h-4 text-slate-400" />
-          )}
-        </div>
+        {(Icon || showBadge) && (
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+            {showSuccessIcon ? (
+              <CheckIcon className="w-4 h-4 text-emerald-500" strokeWidth={3} />
+            ) : hasError ? (
+              <WarningTriangleIcon className="w-4 h-4 text-red-400" />
+            ) : (
+              <Icon className="w-4 h-4 text-slate-400" />
+            )}
+          </div>
+        )}
         <input
           ref={inputRef}
           type={isPassword ? (showPassword ? 'text' : 'password') : type}
@@ -58,7 +69,9 @@ const AuthInput = ({
           aria-describedby={describedBy}
           onKeyUp={detectCapsLock ? handleKey : undefined}
           onKeyDown={detectCapsLock ? handleKey : undefined}
-          className={`w-full pl-9 ${isPassword ? 'pr-12' : 'pr-2'} py-2.5 bg-transparent border-b-2 ${borderClass} text-slate-800 placeholder-slate-400 focus:outline-none transition-all duration-200 text-sm disabled:opacity-50`}
+          className={`w-full ${Icon || showBadge ? 'pl-10' : 'pl-3.5'} ${
+            isPassword ? 'pr-11' : 'pr-3.5'
+          } py-3 rounded-lg border text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 transition-all duration-200 disabled:opacity-50 ${boxClass}`}
           {...inputProps}
         />
         {isPassword && inputProps.value && (
@@ -78,17 +91,17 @@ const AuthInput = ({
       </div>
 
       {hasError ? (
-        <p id={errorId} role="alert" className="mt-1 ml-1 text-xs text-red-500">
+        <p id={errorId} role="alert" className="mt-1.5 ml-1 text-xs text-red-500">
           {error}
         </p>
       ) : hint ? (
-        <p id={hintId} className="mt-1 ml-1 text-xs text-slate-400">
+        <p id={hintId} className="mt-1.5 ml-1 text-xs text-slate-400">
           {hint}
         </p>
       ) : null}
 
       {detectCapsLock && capsOn && !hasError && (
-        <p className="mt-1 ml-1 text-xs text-violet-600 flex items-center gap-1">
+        <p className="mt-1.5 ml-1 text-xs text-indigo-600 flex items-center gap-1">
           <WarningTriangleIcon className="w-3 h-3" />
           Caps Lock is on
         </p>

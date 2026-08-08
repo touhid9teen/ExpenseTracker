@@ -11,6 +11,12 @@ const variants = {
     glow: "from-violet-400/30 via-purple-500/25 to-indigo-500/30",
     loading: "bg-violet-500/70",
   },
+  // Solid indigo (#6366f1) — matches the mockup's primary login button.
+  indigo: {
+    base: "bg-indigo-500 hover:bg-indigo-600 text-white",
+    glow: "from-indigo-500/30 via-indigo-500/25 to-indigo-600/30",
+    loading: "bg-indigo-500/70",
+  },
 };
 
 const sizes = {
@@ -31,15 +37,19 @@ const Button = ({
   className = "",
   shimmer = true,
   glow = true,
+  // When false, the button drops the cyber cut-corner + 3D edge and uses a
+  // clean rounded pill instead (used on the sign-in card).
+  cyber = true,
 }) => {
   const v = variants[variant];
+  const shape = cyber ? "cyber-btn-3d cyber-cut-sm" : "rounded-xl";
 
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled || loading}
-      className={`relative w-full font-bold text-white overflow-hidden group transition-all duration-300 cyber-btn-3d disabled:cursor-not-allowed cyber-cut-sm ${
+      className={`relative w-full font-bold text-white overflow-hidden group transition-all duration-300 disabled:cursor-not-allowed ${shape} ${
         disabled && !loading ? 'opacity-50' : ''
       } ${sizes[size]} ${className}`}
     >
@@ -48,8 +58,10 @@ const Button = ({
           loading ? v.loading : v.base
         }`}
       />
-      {/* Neon edge strip along the top */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-violet-400 via-white/50 to-indigo-400 opacity-90" />
+      {/* Neon edge strip along the top (cyber look only) */}
+      {cyber && (
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-violet-400 via-white/50 to-indigo-400 opacity-90" />
+      )}
       {!loading && shimmer && (
         <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
       )}

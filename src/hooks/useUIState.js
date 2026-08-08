@@ -6,8 +6,9 @@ import { useCallback, useEffect, useState } from "react";
  */
 export const useUIState = () => {
     // Single-page command-driven app: sections swap below the command bar.
-    // The app now opens on the AI chat home view (hero Add button + chat).
-    const [activeTab, setActiveTab] = useState("chat");
+    // The app opens on the Command Center (overview) view so first-time
+    // sign-ins land there with the tab auto-selected in the sidebar.
+    const [activeTab, setActiveTab] = useState("overview");
     const [showQuickAdd, setShowQuickAdd] = useState(false);
     const [selectedDailyDate, setSelectedDailyDate] = useState(null);
     const [editingExpense, setEditingExpense] = useState(null);

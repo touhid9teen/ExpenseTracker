@@ -316,6 +316,11 @@
     color: transparent;
   }
 
+  /* Soft floating motion — used by the auth page's floating stat chips. */
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+
   /* Hide the scrollbar while keeping the area scrollable (Firefox / Edge /
      WebKit). The mockup keeps content scrolling but never shows the bar. */
   .no-scrollbar {

@@ -28,6 +28,7 @@ const AppHeader = memo(function AppHeader({
   user,
   handleLogout,
   onLogin,
+  authLoading = false,
   activeTab = "overview",
   isChat = false,
   chatExpanded = false,
@@ -113,7 +114,16 @@ const AppHeader = memo(function AppHeader({
             )}
           </button>
 
-          {user ? (
+          {!user && authLoading ? (
+            // Session still being verified — neutral placeholder instead of
+            // flashing a "Login" button right after signing in.
+            <span
+              aria-hidden="true"
+              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border ${actionBtn}`}
+            >
+              <span className="w-4 h-4 rounded-full border-2 border-slate-300 border-t-violet-500 animate-spin" />
+            </span>
+          ) : user ? (
             <button
               onClick={handleLogout}
               className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-200 hover:scale-[1.02] active:scale-95 ${

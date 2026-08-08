@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import AppLoader from "../common/AppLoader";
 import StatisticsSkeleton from "../Skeleton/StatisticsSkeleton/StatisticsSkeleton";
 import LedgerSkeleton from "../Skeleton/LedgerSkeleton/LedgerSkeleton";
 import AboutSkeleton from "../Skeleton/AboutSkeleton/AboutSkeleton";
@@ -59,10 +58,11 @@ const ExpenseClipperScreen = (props) => {
   const isOverview = activeTab === "overview";
   const isChat = activeTab === "chat";
 
-  // A brief per-tab skeleton plays on every tab switch (the AppLoader
-  // already covers initial boot, so the first render is skipped); it stays
-  // up longer while that tab's data is genuinely still loading (fresh fetch
-  // with nothing cached yet). Cached content renders instantly — no flash.
+  // A brief per-tab skeleton plays on every tab switch (the first render is
+  // skipped because the shell already shows the active tab's skeleton while
+  // the session loads); it stays up longer while that tab's data is genuinely
+  // still loading (fresh fetch with nothing cached yet). Cached content
+  // renders instantly — no flash.
   useEffect(() => {
     if (firstRenderRef.current) {
       firstRenderRef.current = false;
@@ -73,17 +73,16 @@ const ExpenseClipperScreen = (props) => {
     return () => clearTimeout(t);
   }, [activeTab]);
 
-  if (props.isAuthLoading) {
-    return <AppLoader darkMode={props.darkMode} />;
-  }
-
   const hasExpenses = (props.expenses?.length ?? 0) > 0;
   const hasAdminData =
     (props.users?.length ?? 0) > 0 || (props.allExpenses?.length ?? 0) > 0;
 
-  // Chat renders instantly (no server data of its own), so it only gets the
-  // brief tab-switch skeleton. Data-backed tabs keep theirs up while loading.
+  // The app shell always renders. While the session is being verified (first
+  // login lands on the Command Center tab, auto-selected in the sidebar), on
+  // tab switches, and while a data-backed tab first loads, the active tab's
+  // own skeleton is shown instead of a floating spinner.
   const showPageSkeleton =
+    props.isAuthLoading ||
     tabTransitioning ||
     (activeTab === "statistics" && props.isExpensesLoading && !hasExpenses) ||
     (activeTab === "ledger" && props.isExpensesLoading && !hasExpenses) ||
@@ -189,6 +188,7 @@ const ExpenseClipperScreen = (props) => {
             user={props.user}
             handleLogout={handleLogout}
             onLogin={() => setShowAuth(true)}
+            authLoading={props.isAuthLoading}
             activeTab={activeTab}
             isChat={isChat}
             chatExpanded={chatExpanded}
@@ -213,7 +213,7 @@ const ExpenseClipperScreen = (props) => {
             >
             {/* Nav cards row — Command Center tab only, desktop only.
                 On small screens navigation lives in the collapsible sidebar. */}
-            {isOverview && (
+            {isOverview && !props.isAuthLoading && (
               <div className="hidden lg:block shrink-0">
                 <CommandCenter {...commandCenterProps} />
               </div>
@@ -272,7 +272,7 @@ const ExpenseClipperScreen = (props) => {
             {/* AI Insights rail — real derived insights + recent queries,
                 shown on the finance tabs only (not About / Admin, and hidden
                 in fullscreen chat). */}
-            {!(isChat && chatExpanded) && activeTab !== "about" && activeTab !== "admin" && (
+            {!props.isAuthLoading && !(isChat && chatExpanded) && activeTab !== "about" && activeTab !== "admin" && (
               <aside
                 className={`hidden xl:block w-80 shrink-0 ${
                   isOverview ? "lg:min-h-0" : ""

@@ -1,47 +1,50 @@
 "use client";
-import { useState, useEffect, useRef } from 'react';
-import toast from 'react-hot-toast';
-import Image from 'next/image';
-import Header from './Header';
-import Footer from './Footer';
-import SuccessModal from './SuccessModal';
-import ForgotPasswordModal from './ForgotPasswordModal';
-import AuthInput from './AuthInput';
-import PasswordStrengthMeter from './PasswordStrengthMeter';
-import SocialButtons from './SocialButtons';
-import Button from '../common/Button';
-import loginArt from '../../assets/login-view.jpg';
-import { getPasswordStrength } from '../../utils/passwordStrength';
-import {
-  ArrowRightIcon,
-  LogInIcon,
-  MailIcon,
-  UserIcon,
-  LockIcon,
-  XIcon,
-} from '../common/Icons';
+import { useState, useEffect, useRef } from "react";
+import toast from "react-hot-toast";
+import Image from "next/image";
+import Link from "next/link";
+import Header, { LogoMark } from "./Header";
+import Footer from "./Footer";
+import SuccessModal from "./SuccessModal";
+import ForgotPasswordModal from "./ForgotPasswordModal";
+import AuthInput from "./AuthInput";
+import PasswordStrengthMeter from "./PasswordStrengthMeter";
+import SocialButtons from "./SocialButtons";
+import Button from "../common/Button";
+// Retina 2× upscale of the original illustration (see scripts: sharp lanczos3).
+import loginArt from "../../assets/login-view.jpg";
+import { getPasswordStrength } from "../../utils/passwordStrength";
+import { ArrowRightIcon, LogInIcon, XIcon, CheckIcon } from "../common/Icons";
 
+/**
+ * FinVue login page — matches the sign-in mockup: a white split layout with
+ * the dashboard image on the left (FinVue logo in the top-left corner only)
+ * and the centered white sign-in / sign-up form on the right. The logo mark
+ * is intentionally NOT repeated inside the form card.
+ */
 const AuthView = ({ setUser, onClose }) => {
-  const [mode, setMode] = useState('login'); // 'login' | 'register'
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [mode, setMode] = useState("login"); // 'login' | 'register'
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
+  const [agreeTerms, setAgreeTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [createdUser, setCreatedUser] = useState(null);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [touched, setTouched] = useState({});
   const usernameRef = useRef(null);
 
-  const markTouched = (field) => setTouched((prev) => ({ ...prev, [field]: true }));
+  const markTouched = (field) =>
+    setTouched((prev) => ({ ...prev, [field]: true }));
 
   useEffect(() => {
-    setMounted(true);
-    setTimeout(() => usernameRef.current?.focus(), 600);
+    const timer = setTimeout(() => usernameRef.current?.focus(), 600);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -49,11 +52,11 @@ const AuthView = ({ setUser, onClose }) => {
   }, [mode]);
 
   const toggleMode = () => {
-    setMode(prev => prev === 'login' ? 'register' : 'login');
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+    setMode((prev) => (prev === "login" ? "register" : "login"));
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
     setTouched({});
   };
 
@@ -66,17 +69,17 @@ const AuthView = ({ setUser, onClose }) => {
   const trimmedEmail = email.trim();
 
   const usernameError =
-    mode === 'register' && trimmedUsername && trimmedUsername.length < 3
-      ? 'Username must be at least 3 characters'
-      : '';
+    mode === "register" && trimmedUsername && trimmedUsername.length < 3
+      ? "Username must be at least 3 characters"
+      : "";
   const emailError =
     trimmedEmail && !validateEmail(trimmedEmail)
-      ? 'Enter a valid email address'
-      : '';
+      ? "Enter a valid email address"
+      : "";
   const confirmError =
     confirmPassword && password !== confirmPassword
-      ? 'Passwords do not match'
-      : '';
+      ? "Passwords do not match"
+      : "";
 
   const isLoginValid = Boolean(trimmedUsername && password);
   const isRegisterValid =
@@ -84,35 +87,36 @@ const AuthView = ({ setUser, onClose }) => {
     validateEmail(trimmedEmail) &&
     getPasswordStrength(password).score >= 2 &&
     password.length >= 8 &&
-    password === confirmPassword;
+    password === confirmPassword &&
+    agreeTerms;
 
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!username.trim()) {
-      toast.error('Please enter your username');
+      toast.error("Please enter your username");
       return;
     }
     if (!password) {
-      toast.error('Please enter your password');
+      toast.error("Please enter your password");
       return;
     }
 
     setIsLoading(true);
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: username.trim(), password }),
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        toast.success('Welcome back!');
+        toast.success("Welcome back!");
         setUser(data.user);
       } else {
-        toast.error(data.error || 'Login failed');
+        toast.error(data.error || "Login failed");
       }
     } catch {
-      toast.error('An error occurred during login');
+      toast.error("An error occurred during login");
     } finally {
       setIsLoading(false);
     }
@@ -122,51 +126,55 @@ const AuthView = ({ setUser, onClose }) => {
     e.preventDefault();
 
     if (!username.trim()) {
-      toast.error('Please enter a username');
+      toast.error("Please enter a username");
       return;
     }
     if (username.trim().length < 3) {
-      toast.error('Username must be at least 3 characters');
+      toast.error("Username must be at least 3 characters");
       return;
     }
     if (!email.trim()) {
-      toast.error('Please enter your email');
+      toast.error("Please enter your email");
       return;
     }
     if (!validateEmail(email.trim())) {
-      toast.error('Please enter a valid email address');
+      toast.error("Please enter a valid email address");
       return;
     }
     if (!password) {
-      toast.error('Please enter a password');
+      toast.error("Please enter a password");
       return;
     }
     if (password.length < 8) {
-      toast.error('Password must be at least 8 characters');
+      toast.error("Password must be at least 8 characters");
       return;
     }
     if (!/[A-Z]/.test(password)) {
-      toast.error('Password must include at least one uppercase letter');
+      toast.error("Password must include at least one uppercase letter");
       return;
     }
     if (!/[a-z]/.test(password)) {
-      toast.error('Password must include at least one lowercase letter');
+      toast.error("Password must include at least one lowercase letter");
       return;
     }
     if (!/\d/.test(password)) {
-      toast.error('Password must include at least one number');
+      toast.error("Password must include at least one number");
       return;
     }
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      toast.error("Passwords do not match");
+      return;
+    }
+    if (!agreeTerms) {
+      toast.error("Please accept the privacy policy & terms");
       return;
     }
 
     setIsLoading(true);
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: username.trim(),
           email: email.trim(),
@@ -178,10 +186,10 @@ const AuthView = ({ setUser, onClose }) => {
         setCreatedUser(data.user);
         setShowSuccess(true);
       } else {
-        toast.error(data.error || 'Registration failed');
+        toast.error(data.error || "Registration failed");
       }
     } catch {
-      toast.error('An error occurred during registration');
+      toast.error("An error occurred during registration");
     } finally {
       setIsLoading(false);
     }
@@ -195,152 +203,197 @@ const AuthView = ({ setUser, onClose }) => {
     }
   };
 
+  const checkboxClass = (checked) =>
+    `w-4 h-4 rounded border flex items-center justify-center transition-colors duration-200 ${
+      checked
+        ? "bg-indigo-500 border-indigo-500"
+        : "bg-white border-slate-300 hover:border-slate-400"
+    }`;
+
   return (
     <>
-      <div
-        className={`fixed inset-0 z-50 overflow-y-auto bg-[#f5f7fc] aurora-bg-light transition-opacity duration-700 ${
-          mounted ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <div className="pointer-events-none absolute inset-0 cyber-grid opacity-50" />
-
-        {/* Back-to-app button (guest browsing mode) */}
-        {onClose && (
-          <button
-            type="button"
-            onClick={onClose}
-            className="fixed top-4 left-4 sm:left-6 z-[60] inline-flex items-center gap-1.5 px-3 py-2 cyber-cut-sm border-2 text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95 bg-white/90 border-violet-300/70 text-slate-600 hover:border-rose-400 hover:text-rose-600"
-          >
-            <XIcon className="w-4 h-4" />
-            Back to app
-          </button>
-        )}
-        <div className="relative min-h-full flex items-center justify-center gap-8 xl:gap-16 px-4 py-6 sm:px-8">
-          {/* ─── Illustration ─── */}
-          <div
-            className={`hidden lg:block w-[22rem] xl:w-[26rem] aspect-[4/3] shrink-0 transition-all duration-700 ${
-              mounted ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'
-            }`}
-          >
-            <div className="relative w-full h-full">
-              <Image
-                src={loginArt}
-                alt="FinVue expense tracking illustration"
-                fill
-                priority
-                sizes="(max-width: 1024px) 0px, (max-width: 1280px) 22rem, 26rem"
-                className="object-contain select-none pointer-events-none"
-              />
-            </div>
+      <div className="fixed inset-0 z-50 overflow-y-auto bg-white">
+        <div className="relative min-h-full lg:grid lg:grid-cols-2">
+          {/* Mobile brand bar (back button is in-flow so it never overlaps
+              the logo) */}
+          <div className="lg:hidden sticky top-0 z-30 flex items-center gap-3 bg-white/90 backdrop-blur px-4 py-3 border-b border-slate-100">
+            {onClose && (
+              <button
+                type="button"
+                onClick={onClose}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95 hover:border-indigo-300 hover:text-indigo-600"
+              >
+                <XIcon className="w-3.5 h-3.5" />
+                Back
+              </button>
+            )}
+            <LogoMark />
+            <span className="text-lg font-extrabold tracking-tight text-[#0F172A]">
+              FinVue
+            </span>
           </div>
 
-          {/* ─── Form ─── */}
-          <div className="flex items-center justify-center">
-            <div
-              className={`relative w-full max-w-md transform transition-all duration-500 ${
-                mounted ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'
-              }`}
-            >
-              <div className="relative px-2 sm:px-4 py-6 cyber-cut-lg border-2 border-violet-500/20 bg-white/80 backdrop-blur-md cyber-3d-lg [--glow-3d:var(--violet-glow-soft)]">
-                <Header mode={mode} />
+          {/* ── Left: dashboard image with the logo in the top-left corner
+                 only (desktop). object-contain keeps the full illustration
+                 visible and responsive at every screen size — no cropping. ── */}
+          <section className="relative hidden lg:block lg:h-full overflow-hidden bg-white">
+            <Image
+              src={loginArt}
+              alt="FinVue dashboard illustration"
+              priority
+              quality={100}
+              sizes="(min-width: 1280px) 50vw, (min-width: 1024px) 50vw, 100vw"
+              fill
+              className="object-contain select-none pointer-events-none"
+            />
 
-                <div className="pt-4">
-                  {/* ─── Login Form ─── */}
-                  {mode === 'login' && (
-                    <form onSubmit={handleLogin} className="space-y-3">
-                      <AuthInput
-                        label="Username"
-                        icon={UserIcon}
-                        inputRef={usernameRef}
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Your username"
-                        autoComplete="username"
-                        disabled={isLoading}
-                      />
+            {/* FinVue logo — top-left corner only (no border/pill) */}
+            <div className="absolute top-8 left-8 z-10 inline-flex items-center gap-3">
+              <LogoMark />
+              <span className="text-xl font-extrabold tracking-tight text-[#0F172A] drop-shadow-sm">
+                FinVue
+              </span>
+            </div>
 
-                      <AuthInput
-                        label="Password"
-                        icon={LockIcon}
-                        isPassword
-                        detectCapsLock
-                        showPassword={showPassword}
-                        onToggleShow={() => setShowPassword(!showPassword)}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Your password"
-                        autoComplete="current-password"
-                        disabled={isLoading}
-                      />
+            {/* Back-to-app button (guest browsing mode) — top-right, in-flow
+                so it never floats over the brand mark */}
+            {onClose && (
+              <button
+                type="button"
+                onClick={onClose}
+                className="absolute top-8 right-8 z-10 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95 bg-white/90 border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600 backdrop-blur"
+              >
+                <XIcon className="w-4 h-4" />
+                Back to app
+              </button>
+            )}
+          </section>
 
-                      {/* Forgot password link */}
-                      <button
-                        type="button"
-                        onClick={() => setShowForgotPassword(true)}
-                        className="block text-xs font-medium text-slate-500 hover:text-violet-600 transition-colors ml-1"
-                      >
-                        Having trouble signing in?
-                      </button>
+          {/* ── Right: centered white sign-in / sign-up card ── */}
+          <section className="flex items-center justify-center bg-white px-4 sm:px-8 py-10">
+            <div className="w-full max-w-md">
+              <Header mode={mode} />
 
-                      <div className="pt-1">
-                        <Button
-                          type="submit"
-                          variant="cyan"
-                          loading={isLoading}
-                          disabled={!isLoginValid}
-                          icon={<LogInIcon className="w-5 h-5" strokeWidth={2.5} />}
-                        >
-                          {isLoading ? 'Signing in…' : 'Sign In'}
-                        </Button>
-                      </div>
-
-                      {/* Divider */}
-                      <div className="flex items-center gap-3 py-1">
-                        <span className="h-px flex-1 bg-slate-200" />
-                        <span className="text-xs font-medium text-slate-400">Or sign in with</span>
-                        <span className="h-px flex-1 bg-slate-200" />
-                      </div>
-
-                      <SocialButtons disabled={isLoading} />
-
-                      <p className="text-center text-sm text-slate-500">
-                        Don&apos;t have an account?{' '}
-                        <button
-                          type="button"
-                          onClick={() => mode !== 'register' && toggleMode()}
-                          className="font-bold text-slate-900 hover:text-violet-600 transition-colors"
-                        >
-                          Register Now
-                        </button>
-                      </p>
-                    </form>
-                  )}
-
-                {/* ─── Register Form ─── */}
-                {mode === 'register' && (
-                  <form onSubmit={handleRegister} className="space-y-3">
+              <div className="mt-8">
+                {/* ─── Login Form ─── */}
+                {mode === "login" && (
+                  <form onSubmit={handleLogin} className="space-y-4">
                     <AuthInput
                       label="Username"
-                      icon={UserIcon}
                       inputRef={usernameRef}
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      onBlur={() => markTouched('username')}
-                      error={touched.username ? usernameError : ''}
+                      placeholder="Enter your username"
+                      autoComplete="username"
+                      disabled={isLoading}
+                    />
+
+                    <AuthInput
+                      label="Password"
+                      isPassword
+                      detectCapsLock
+                      showPassword={showPassword}
+                      onToggleShow={() => setShowPassword(!showPassword)}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Enter your password"
+                      autoComplete="current-password"
+                      disabled={isLoading}
+                    />
+
+                    {/* Remember me + forgot password */}
+                    <div className="flex items-center justify-between">
+                      <label className="flex items-center gap-2 text-xs font-medium text-slate-600 cursor-pointer select-none">
+                        <button
+                          type="button"
+                          role="checkbox"
+                          aria-checked={rememberMe}
+                          onClick={() => setRememberMe((v) => !v)}
+                          className={checkboxClass(rememberMe)}
+                        >
+                          {rememberMe && (
+                            <CheckIcon
+                              className="w-3 h-3 text-white"
+                              strokeWidth={3.5}
+                            />
+                          )}
+                        </button>
+                        Remember Me
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => setShowForgotPassword(true)}
+                        className="text-xs font-semibold text-indigo-500 hover:text-indigo-600 transition-colors"
+                      >
+                        Forgot Password?
+                      </button>
+                    </div>
+
+                    <div className="pt-1">
+                      <Button
+                        type="submit"
+                        variant="indigo"
+                        cyber={false}
+                        loading={isLoading}
+                        disabled={!isLoginValid}
+                        icon={
+                          <LogInIcon className="w-5 h-5" strokeWidth={2.5} />
+                        }
+                      >
+                        {isLoading ? "Signing in…" : "Login"}
+                      </Button>
+                    </div>
+
+                    <p className="text-center text-sm text-slate-500">
+                      Don&apos;t have an account?{" "}
+                      <button
+                        type="button"
+                        onClick={() => mode !== "register" && toggleMode()}
+                        className="font-bold text-indigo-500 hover:text-indigo-600 transition-colors"
+                      >
+                        Sign up here
+                      </button>
+                    </p>
+
+                    {/* Divider */}
+                    <div className="flex items-center gap-3 py-1">
+                      <span className="flex-1 border-t border-slate-200" />
+                      <span className="text-xs text-slate-400 font-medium">
+                        Or Continue With
+                      </span>
+                      <span className="flex-1 border-t border-slate-200" />
+                    </div>
+
+                    <SocialButtons
+                      disabled={isLoading}
+                      text="Login with Google"
+                    />
+                  </form>
+                )}
+
+                {/* ─── Register Form ─── */}
+                {mode === "register" && (
+                  <form onSubmit={handleRegister} className="space-y-4">
+                    <AuthInput
+                      label="Username"
+                      inputRef={usernameRef}
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      onBlur={() => markTouched("username")}
+                      error={touched.username ? usernameError : ""}
                       placeholder="Choose a username"
                       autoComplete="username"
                       disabled={isLoading}
                     />
 
                     <AuthInput
-                      label="Email"
-                      icon={MailIcon}
+                      label="Email Address"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      onBlur={() => markTouched('email')}
-                      error={touched.email ? emailError : ''}
-                      placeholder="your@email.com"
+                      onBlur={() => markTouched("email")}
+                      error={touched.email ? emailError : ""}
+                      placeholder="info@example.com"
                       autoComplete="email"
                       disabled={isLoading}
                     />
@@ -348,7 +401,6 @@ const AuthView = ({ setUser, onClose }) => {
                     <div>
                       <AuthInput
                         label="Password"
-                        icon={LockIcon}
                         isPassword
                         detectCapsLock
                         showPassword={showPassword}
@@ -364,56 +416,108 @@ const AuthView = ({ setUser, onClose }) => {
 
                     <AuthInput
                       label="Confirm Password"
-                      icon={LockIcon}
                       isPassword
                       detectCapsLock
                       showPassword={showConfirmPassword}
-                      onToggleShow={() => setShowConfirmPassword(!showConfirmPassword)}
-                      showSuccessIcon={Boolean(confirmPassword) && password === confirmPassword}
-                      error={touched.confirmPassword ? confirmError : ''}
+                      onToggleShow={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                      showSuccessIcon={
+                        Boolean(confirmPassword) && password === confirmPassword
+                      }
+                      error={touched.confirmPassword ? confirmError : ""}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      onBlur={() => markTouched('confirmPassword')}
+                      onBlur={() => markTouched("confirmPassword")}
                       placeholder="Confirm your password"
                       autoComplete="new-password"
                       disabled={isLoading}
                     />
 
+                    {/* Terms agreement */}
+                    <label className="flex items-start gap-2 text-xs text-slate-600 cursor-pointer select-none pt-0.5">
+                      <button
+                        type="button"
+                        role="checkbox"
+                        aria-checked={agreeTerms}
+                        onClick={() => setAgreeTerms((v) => !v)}
+                        className={`mt-px ${checkboxClass(agreeTerms)}`}
+                      >
+                        {agreeTerms && (
+                          <CheckIcon
+                            className="w-3 h-3 text-white"
+                            strokeWidth={3.5}
+                          />
+                        )}
+                      </button>
+                      <span>
+                        I agree to{" "}
+                        <Link
+                          href="/terms"
+                          className="text-indigo-500 hover:text-indigo-600 underline underline-offset-2 transition-colors"
+                        >
+                          privacy policy &amp; terms
+                        </Link>
+                      </span>
+                    </label>
+
                     <div className="pt-1">
                       <Button
                         type="submit"
-                        variant="cyan"
+                        variant="indigo"
+                        cyber={false}
                         loading={isLoading}
                         disabled={!isRegisterValid}
-                        icon={<ArrowRightIcon className="w-4 h-4" strokeWidth={2.5} />}
+                        icon={
+                          <ArrowRightIcon
+                            className="w-4 h-4"
+                            strokeWidth={2.5}
+                          />
+                        }
                       >
-                        {isLoading ? 'Creating account…' : 'Create Account'}
+                        {isLoading ? "Creating account…" : "Sign up"}
                       </Button>
                     </div>
 
                     <p className="text-center text-sm text-slate-500">
-                      Already have an account?{' '}
+                      Have an account?{" "}
                       <button
                         type="button"
-                        onClick={() => mode !== 'login' && toggleMode()}
-                        className="font-bold text-slate-900 hover:text-violet-600 transition-colors"
+                        onClick={() => mode !== "login" && toggleMode()}
+                        className="font-bold text-indigo-500 hover:text-indigo-600 transition-colors"
                       >
-                        Login
+                        Sign in here
                       </button>
                     </p>
-                  </form>
-                  )}
-                </div>
 
-                <Footer />
+                    {/* Divider */}
+                    <div className="flex items-center gap-3 py-1">
+                      <span className="flex-1 border-t border-slate-200" />
+                      <span className="text-xs text-slate-400 font-medium">
+                        Or Continue With
+                      </span>
+                      <span className="flex-1 border-t border-slate-200" />
+                    </div>
+
+                    <SocialButtons
+                      disabled={isLoading}
+                      text="Sign up with Google"
+                    />
+                  </form>
+                )}
               </div>
+
+              <Footer />
             </div>
-          </div>
+          </section>
         </div>
       </div>
 
       {showSuccess && createdUser && (
-        <SuccessModal username={createdUser.username} onContinue={handleContinue} />
+        <SuccessModal
+          username={createdUser.username}
+          onContinue={handleContinue}
+        />
       )}
 
       {showForgotPassword && (
@@ -421,9 +525,9 @@ const AuthView = ({ setUser, onClose }) => {
           onClose={() => setShowForgotPassword(false)}
           onLoginAfterReset={(username) => {
             setShowForgotPassword(false);
-            setMode('login');
-            setUsername(username || '');
-            setPassword('');
+            setMode("login");
+            setUsername(username || "");
+            setPassword("");
           }}
         />
       )}

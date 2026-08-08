@@ -85,7 +85,7 @@ const ExpenseClipperScreen = (props) => {
 
   return (
     <div
-      className={`relative min-h-screen font-sans transition-colors duration-300 pb-16 overflow-x-clip ${
+      className={`relative min-h-screen lg:h-screen font-sans transition-colors duration-300 pb-16 lg:pb-0 overflow-x-clip lg:overflow-hidden ${
         props.darkMode
           ? "bg-[#0b0f19] text-slate-100"
           : "bg-[#f5f7fc] text-slate-800"
@@ -102,7 +102,7 @@ const ExpenseClipperScreen = (props) => {
         <div className={`absolute inset-0 cyber-grid ${props.darkMode ? "opacity-70" : "opacity-40"}`} />
       </div>
 
-      <div className="relative z-10 lg:flex">
+      <div className="relative z-10 lg:flex lg:h-screen">
         {/* ── Left sidebar navigation ── */}
         <Sidebar
           darkMode={props.darkMode}

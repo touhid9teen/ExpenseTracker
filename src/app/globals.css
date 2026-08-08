@@ -213,10 +213,10 @@
   background: linear-gradient(
     180deg,
     #ffffff 0%,
-    rgba(167, 139, 250, 0.22) 26%,
-    rgba(196, 181, 253, 0.34) 44%,
-    rgba(196, 181, 253, 0.2) 62%,
-    rgba(167, 139, 250, 0.1) 80%,
+    rgba(167, 139, 250, 0.1) 26%,
+    rgba(196, 181, 253, 0.16) 44%,
+    rgba(196, 181, 253, 0.09) 62%,
+    rgba(167, 139, 250, 0.05) 80%,
     #ffffff 100%
   );
 }
@@ -373,10 +373,10 @@
      Visible across the full page (no fade-out mask). */
   .cyber-grid-light {
     background-image: linear-gradient(
-        rgba(167, 139, 250, 0.09) 1px,
+        rgba(167, 139, 250, 0.045) 1px,
         transparent 1px
       ),
-      linear-gradient(90deg, rgba(167, 139, 250, 0.09) 1px, transparent 1px);
+      linear-gradient(90deg, rgba(167, 139, 250, 0.045) 1px, transparent 1px);
     background-size: 32px 32px;
   }
 

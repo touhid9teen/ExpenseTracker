@@ -66,6 +66,23 @@ const OrnamentalDivider = ({ className = "" }) => (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
+    {/* Flower in the middle of the straight line — six rounded almond
+        petals around a solid center dot, sitting on the line at y=255. */}
+    <g
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+    >
+      <path d="M34 250 A 6 7 0 0 1 46 250 A 6 7 0 0 0 34 250" />
+      <path d="M34 250 A 6 7 0 0 1 46 250 A 6 7 0 0 0 34 250" transform="rotate(60 40 255)" />
+      <path d="M34 250 A 6 7 0 0 1 46 250 A 6 7 0 0 0 34 250" transform="rotate(120 40 255)" />
+      <path d="M34 250 A 6 7 0 0 1 46 250 A 6 7 0 0 0 34 250" transform="rotate(180 40 255)" />
+      <path d="M34 250 A 6 7 0 0 1 46 250 A 6 7 0 0 0 34 250" transform="rotate(240 40 255)" />
+      <path d="M34 250 A 6 7 0 0 1 46 250 A 6 7 0 0 0 34 250" transform="rotate(300 40 255)" />
+    </g>
+    <circle cx="40" cy="255" r="2.4" fill="currentColor" stroke="none" />
   </svg>
 );
 

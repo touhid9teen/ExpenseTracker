@@ -590,7 +590,7 @@ const AIAssistant = ({
             </form>
 
             <p className={`text-[10px] mt-2.5 text-center ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
-              Tip: Try “How can I reduce my expenses?” or “Show trends for last 6 months”
+              Tip: Try &quot;How can I reduce my expenses?&quot; or &quot;Show trends for last 6 months&quot;
             </p>
           </div>
         </div>

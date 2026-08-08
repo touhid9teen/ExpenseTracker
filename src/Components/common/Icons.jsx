@@ -356,7 +356,7 @@ export const LogInIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
 
 export const LogoutIcon = ({ className = "w-5 h-5", strokeWidth = 2 }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={strokeWidth}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13 16l4-4m0 0l-4-4m4 4H3m10-6V5a2 2 0 00-2-2H6a2 2 0 00-2 2v14a2 2 0 002 2h5a2 2 0 002-2v-1" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4m7 14l5-5-5-5m5 5H9" />
   </svg>
 );
 

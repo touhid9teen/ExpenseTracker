@@ -45,13 +45,13 @@ const CommandCenter = memo(function CommandCenter({
   // mockup's colored icon boxes.
   const commands = [
     { key: "chat", label: "Ask AI", icon: SparklesIcon, iconBg: "bg-violet-100 text-violet-600", iconBgDark: "bg-violet-500/15 text-violet-300" },
-    { key: "add", label: "Add Expense", icon: PlusIcon, action: "modal", iconBg: "bg-emerald-100 text-emerald-600", iconBgDark: "bg-emerald-500/15 text-emerald-300" },
-    { key: "ledger", label: "Table", icon: ClipboardListIcon, iconBg: "bg-sky-100 text-sky-600", iconBgDark: "bg-sky-500/15 text-sky-400" },
-    { key: "statistics", label: "Statistics", icon: ChartBarSquareIcon, iconBg: "bg-indigo-100 text-indigo-600", iconBgDark: "bg-indigo-500/15 text-indigo-300" },
-    { key: "tips", label: "Budget Tips", icon: LightbulbIcon, action: "tips", iconBg: "bg-amber-200/60 text-amber-600", iconBgDark: "bg-amber-500/15 text-amber-300" },
-    { key: "about", label: "About", icon: InfoCircleIcon, iconBg: "bg-cyan-100 text-cyan-600", iconBgDark: "bg-cyan-500/15 text-cyan-300" },
+    { key: "add", label: "Add Expense", icon: PlusIcon, action: "modal", iconBg: "bg-violet-100 text-violet-600", iconBgDark: "bg-violet-500/15 text-violet-300" },
+    { key: "ledger", label: "Table", icon: ClipboardListIcon, iconBg: "bg-violet-100 text-violet-600", iconBgDark: "bg-violet-500/15 text-violet-300" },
+    { key: "statistics", label: "Statistics", icon: ChartBarSquareIcon, iconBg: "bg-violet-100 text-violet-600", iconBgDark: "bg-violet-500/15 text-violet-300" },
+    { key: "tips", label: "Budget Tips", icon: LightbulbIcon, action: "tips", iconBg: "bg-violet-100 text-violet-600", iconBgDark: "bg-violet-500/15 text-violet-300" },
+    { key: "about", label: "About", icon: InfoCircleIcon, iconBg: "bg-violet-100 text-violet-600", iconBgDark: "bg-violet-500/15 text-violet-300" },
     ...(isAdmin
-      ? [{ key: "admin", label: "Admin", icon: ShieldCheckIcon, iconBg: "bg-rose-100 text-rose-600", iconBgDark: "bg-rose-500/15 text-rose-300" }]
+      ? [{ key: "admin", label: "Admin", icon: ShieldCheckIcon, iconBg: "bg-violet-100 text-violet-600", iconBgDark: "bg-violet-500/15 text-violet-300" }]
       : []),
   ];
 
@@ -75,12 +75,12 @@ const CommandCenter = memo(function CommandCenter({
               isActive
                 ? "bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 text-white border-violet-200 shadow-lg shadow-violet-500/30"
                 : darkMode
-                  ? "bg-slate-900 border-slate-700/70 text-slate-100 hover:-translate-y-0.5 hover:border-violet-500/50 hover:text-violet-300 hover:shadow-lg hover:shadow-violet-500/10"
-                  : "bg-white border-slate-200 text-slate-500 hover:-translate-y-0.5 hover:border-violet-300 hover:text-violet-600 hover:shadow-lg hover:shadow-violet-500/10"
+                  ? "bg-slate-800/50 border-slate-700/70 text-white hover:-translate-y-0.5 hover:border-violet-500/50 hover:text-white hover:shadow-lg hover:shadow-violet-500/10"
+                  : "bg-slate-50 border-slate-200 text-black hover:-translate-y-0.5 hover:border-violet-300 hover:text-black hover:shadow-lg hover:shadow-violet-500/10"
             }`}
           >
             <span
-              className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors duration-200 ${
+              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${
                 isActive ? "bg-white/20 text-white" : darkMode ? cmd.iconBgDark : cmd.iconBg
               }`}
             >

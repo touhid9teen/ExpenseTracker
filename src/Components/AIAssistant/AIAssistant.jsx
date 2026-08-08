@@ -11,31 +11,39 @@ import {
   SendIcon,
   SparklesIcon,
   CheckIcon,
-  ExpandIcon,
+  PaperclipIcon,
 } from "../common/Icons";
-
-const WELCOME_MESSAGE = {
-  id: "welcome",
-  text: "Hi there! I'm FinVue AI. Ask me about your spending, or just type something like “spent 120 on lunch” and I'll add it instantly.",
-  sender: "ai",
-};
+import { buildCategoryBreakdown, buildMonthlyTrend } from "./ChatWidgets";
 
 // Short local time label (e.g. "3:42 PM") for message timestamps.
 const nowTime = () =>
   new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 
+const buildWelcome = (user) => {
+  const name = user?.username || user?.email?.split("@")[0] || "there";
+  return {
+    id: "welcome",
+    text: `Hi ${name}! 👋\n\nI'm FinVue AI. I can help you analyze your spending, find insights, set budgets, and answer any questions about your finances.\n\nHow can I help you today?`,
+    sender: "ai",
+    time: nowTime(),
+  };
+};
+
 /**
- * AIAssistant – the modern, full-page AI conversation (ChatGPT/Gemini style).
+ * AIAssistant – the full-page AI conversation (ChatGPT/Gemini style).
  *
- * A single always-visible composer drives everything:
- *  - Expense-like text → inline quick-confirm chip (editable, one-tap add)
- *  - Anything else      → sent to the AI for a full-page answer
+ * The conversation fills the available height: messages scroll in the middle
+ * and the composer is fixed at the bottom. Expense-like text shows a
+ * quick-confirm chip; anything else is sent to the AI. AI replies may carry
+ * [WIDGET: ...] directives which render real chart cards (donut / trend)
+ * computed from the user's actual expenses.
  *
  * Props:
  *   - darkMode, user, expenses
  *   - addExpenseDirect / updateExpenseDirect / deleteExpenseDirect
- *   - setActiveTab            – for [NAVIGATE] blocks + close
+ *   - setActiveTab            – for [NAVIGATE] blocks
  *   - pendingAction, setPendingAction – command buttons feed prompts here
+ *   - resetSignal             – bump to start a fresh conversation ("New chat")
  *   - visible                 – CSS-show/hide (keeps the conversation mounted)
  */
 const AIAssistant = ({
@@ -49,13 +57,13 @@ const AIAssistant = ({
   pendingAction,
   setPendingAction,
   pushRecentQuery,
+  resetSignal = 0,
   visible = true,
 }) => {
-  const [messages, setMessages] = useState([WELCOME_MESSAGE]);
+  const [messages, setMessages] = useState(() => [buildWelcome(user)]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
-  const [expanded, setExpanded] = useState(false);
   const [suggestion, setSuggestion] = useState(null); // quick-confirm chip
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -65,6 +73,17 @@ const AIAssistant = ({
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
+
+  // "New chat" from the header resets the conversation.
+  useEffect(() => {
+    if (resetSignal <= 0) return;
+    setMessages([buildWelcome(user)]);
+    setInput("");
+    setSuggestion(null);
+    setShowQuickActions(false);
+    setPendingAction?.(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetSignal]);
 
   // Live quick-confirm chip: whenever the input looks like an expense,
   // prepare a suggestion card (user can still just press Enter to send).
@@ -79,7 +98,7 @@ const AIAssistant = ({
 
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-  // ── Core send: user message → AI → parse [ACTION] / [NAVIGATE] ──
+  // ── Core send: user message → AI → parse [ACTION] / [NAVIGATE] / [WIDGET] ──
   const handleSend = useCallback(
     async (e, directText = null) => {
       if (e) e.preventDefault();
@@ -117,10 +136,29 @@ const AIAssistant = ({
 
         if (res.ok) {
           let aiText = data.response || "";
-          const actionRegex = /\[ACTION:\s*({.*?})\s*\]/gs;
-          const navRegex = /\[NAVIGATE:\s*"([a-z]+)"\s*\]/gi;
+
+          // Chart widget directives → real cards computed from real expenses.
+          const widgetRegex = /\[WIDGET:\s*([^\]]+)\s*\]/gi;
+          const widgetMatches = [...aiText.matchAll(widgetRegex)];
+          aiText = aiText.replace(widgetRegex, "").trim();
+          const widgets = [];
+          for (const match of widgetMatches) {
+            const directive = (match[1] || "").trim();
+            if (/^category-breakdown$/i.test(directive)) {
+              widgets.push({ type: "category-breakdown", data: buildCategoryBreakdown(expenses) });
+            } else if (/^monthly-trend$/i.test(directive)) {
+              widgets.push({ type: "trend", data: buildMonthlyTrend(expenses), category: null });
+            } else {
+              const cat = directive.match(/^trend:\s*(.+)$/i);
+              if (cat) {
+                const name = cat[1].trim();
+                widgets.push({ type: "trend", data: buildMonthlyTrend(expenses, name), category: name });
+              }
+            }
+          }
 
           // Execute expense mutations.
+          const actionRegex = /\[ACTION:\s*({.*?})\s*\]/gs;
           const actions = [...aiText.matchAll(actionRegex)];
           aiText = aiText.replace(actionRegex, "").trim();
           for (const match of actions) {
@@ -135,6 +173,7 @@ const AIAssistant = ({
           }
 
           // On-demand section switching ("show my table" → ledger).
+          const navRegex = /\[NAVIGATE:\s*"([a-z]+)"\s*\]/gi;
           const navs = [...aiText.matchAll(navRegex)];
           aiText = aiText.replace(navRegex, "").trim();
           if (navs.length > 0) {
@@ -150,7 +189,7 @@ const AIAssistant = ({
           }
           setMessages((prev) => [
             ...prev,
-            { id: Date.now() + 1, text: aiText, sender: "ai", time: nowTime() },
+            { id: Date.now() + 1, text: aiText, sender: "ai", time: nowTime(), widgets },
           ]);
         } else {
           const errorText = data.response || "Sorry, I encountered an error. Please try again.";
@@ -173,7 +212,7 @@ const AIAssistant = ({
         setIsLoading(false);
       }
     },
-    [input, expenses, user, addExpenseDirect, updateExpenseDirect, deleteExpenseDirect, setActiveTab]
+    [input, expenses, user, addExpenseDirect, updateExpenseDirect, deleteExpenseDirect, setActiveTab, pushRecentQuery]
   );
 
   // ── Commands from the CommandCenter (e.g. "Budget Tips") feed the composer.
@@ -255,87 +294,19 @@ const AIAssistant = ({
     }
   };
 
-  const resetConversation = () => {
-    setMessages([WELCOME_MESSAGE]);
-    setInput("");
-    setSuggestion(null);
-    setShowQuickActions(false);
-    setPendingAction?.(null);
-  };
-
   const showWelcome = messages.length === 1 && messages[0].id === "welcome";
 
   return (
     <div className={visible ? "block animate-fadeIn" : "hidden"}>
       <div
-        className={`relative rounded-2xl border overflow-hidden flex flex-col shadow-sm ${
-          darkMode
-            ? "bg-slate-900/90 border-slate-800"
-            : "bg-white border-slate-200"
-        }`}
-        style={{ minHeight: expanded ? "88vh" : "60vh", maxHeight: expanded ? "94vh" : "78vh" }}
+        className="flex flex-col overflow-hidden h-[calc(100dvh-10.5rem)] min-h-[26rem] xl:h-[calc(100dvh-9.5rem)]"
       >
-
-        {/* ── Header ── */}
-        <div
-          className={`flex items-center justify-between gap-3 px-4 sm:px-6 py-4 border-b flex-shrink-0 ${
-            darkMode ? "border-slate-800" : "border-slate-100"
-          }`}
-        >
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/25">
-              <SparklesIcon className="w-5 h-5 text-white" strokeWidth={2.5} />
-            </div>
-            <div className="min-w-0">
-              <h3 className={`font-extrabold text-base ${darkMode ? "text-white" : "text-slate-800"}`}>
-                FinVue AI
-              </h3>
-              <div
-                className={`inline-flex items-center gap-1.5 mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
-                  darkMode ? "bg-emerald-500/15 text-emerald-300" : "bg-slate-100 text-slate-500"
-                }`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                {isLoading ? "Thinking…" : "On demand · always ready"}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              onClick={resetConversation}
-              className={`hidden sm:inline-block px-4 py-1.5 rounded-full text-xs font-bold border transition-all ${
-                darkMode
-                  ? "bg-slate-900 border-slate-700 text-slate-200 hover:border-violet-500/60 hover:text-violet-300"
-                  : "bg-white border-slate-200 text-slate-600 hover:border-violet-300 hover:text-violet-600 shadow-sm"
-              }`}
-            >
-              New chat
-            </button>
-            <button
-              onClick={() => setExpanded((v) => !v)}
-              aria-label={expanded ? "Collapse assistant" : "Expand assistant"}
-              className={`p-2 rounded-xl border transition-all ${
-                darkMode
-                  ? "bg-slate-900 border-slate-700 text-slate-300 hover:border-violet-500/60 hover:text-violet-300"
-                  : "bg-white border-slate-200 text-slate-500 hover:border-violet-300 hover:text-violet-600 shadow-sm"
-              }`}
-            >
-              <ExpandIcon className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-
-        {/* ── Body ── */}
-        <div
-          className={`flex-1 overflow-y-auto px-4 sm:px-6 py-5 flex flex-col gap-4 ${
-            darkMode ? "bg-transparent" : "bg-slate-50/50"
-          }`}
-        >
+        {/* ── Messages ── */}
+        <div className="flex-1 overflow-y-auto no-scrollbar px-4 sm:px-6 py-5 flex flex-col gap-4">
           {showWelcome ? (
             <div className="my-auto py-6">
               <div className="text-center mb-6">
-                <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-violet-500/30 mb-3">
+                <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-blue-500/30 mb-3">
                   <SparklesIcon className="w-7 h-7 text-white" strokeWidth={2.5} />
                 </div>
                 <h3 className={`text-lg font-black tracking-tight ${darkMode ? "text-white" : "text-slate-800"}`}>
@@ -384,7 +355,7 @@ const AIAssistant = ({
 
           {isLoading && (
             <div className="flex justify-start">
-              <div className={`flex gap-1.5 items-center h-4 px-4 py-3 rounded-full border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-slate-100 border-slate-200"}`}>
+              <div className={`flex gap-1.5 items-center h-4 px-4 py-3 rounded-full border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200 shadow-sm"}`}>
                 <span className="w-2 h-2 rounded-full bg-violet-500 animate-bounce" />
                 <span className="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: "150ms" }} />
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: "300ms" }} />
@@ -498,8 +469,8 @@ const AIAssistant = ({
           </div>
         )}
 
-        {/* ── Composer ── */}
-        <div className={`px-4 sm:px-6 py-4 border-t flex-shrink-0 ${darkMode ? "border-slate-800" : "border-slate-100"}`}>
+        {/* ── Composer (fixed at the bottom) ── */}
+        <div className="px-4 sm:px-6 py-4 flex-shrink-0">
           <div className="relative">
             {showQuickActions && (
               <div
@@ -543,8 +514,8 @@ const AIAssistant = ({
               }}
               className={`flex items-center gap-1.5 sm:gap-2 rounded-full border pl-2 pr-1.5 py-1.5 sm:pl-3 sm:pr-2 shadow-sm transition-colors ${
                 darkMode
-                  ? "bg-slate-950/60 border-slate-700 focus-within:border-violet-500/60"
-                  : "bg-slate-100 border-slate-200 focus-within:border-violet-400"
+                  ? "bg-slate-900 border-slate-700 focus-within:border-violet-500/60"
+                  : "bg-white border-violet-200 focus-within:border-violet-400"
               }`}
             >
               <button
@@ -562,12 +533,24 @@ const AIAssistant = ({
                 {showQuickActions ? <XIcon className="w-4 h-4" strokeWidth={2.5} /> : <SparklesIcon className="w-5 h-5" strokeWidth={2.25} />}
               </button>
 
+              <button
+                type="button"
+                onClick={() => inputRef.current?.focus()}
+                aria-label="Attach"
+                className={`flex-shrink-0 p-2 rounded-full transition-colors ${
+                  darkMode ? "text-slate-400 hover:text-violet-300 hover:bg-violet-500/15" : "text-slate-400 hover:text-violet-600 hover:bg-violet-100"
+                }`}
+              >
+                <PaperclipIcon className="w-4 h-4" strokeWidth={2.25} />
+              </button>
+
               <input
                 ref={inputRef}
                 type="text"
+                name="chat-input"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask FinVue AI… or type “spent 120 on lunch”"
+                placeholder="Ask anything about your finances..."
                 className={`flex-1 min-w-0 bg-transparent outline-none text-sm py-2 ${darkMode ? "text-white placeholder-slate-500" : "text-slate-800 placeholder-slate-400"}`}
                 disabled={isLoading}
               />
@@ -602,7 +585,7 @@ const AIAssistant = ({
             </form>
 
             <p className={`text-[10px] mt-2.5 text-center ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
-              Tip: try “spent 120 on lunch”, “show my table”, or “give me budget tips”
+              Tip: Try “How can I reduce my expenses?” or “Show trends for last 6 months”
             </p>
           </div>
         </div>

@@ -1,21 +1,26 @@
 "use client";
 
 import { memo } from "react";
-import { SunIcon, MoonIcon, LogoutIcon, LogInIcon } from "./Icons";
+import { SunIcon, MoonIcon, LogoutIcon, LogInIcon, SparklesIcon, ExpandIcon, RefreshIcon } from "./Icons";
 
 const TITLES = {
   overview: "Command Center",
-  chat: "Ask AI",
+  chat: "AI Assistant",
   ledger: "Table",
   statistics: "Statistics",
   about: "About",
   admin: "Admin",
 };
 
+const SUBTITLES = {
+  chat: "Your smart financial companion",
+};
+
 /**
  * AppHeader – the dashboard header above the main content (matches the
- * mockup): section title + subtitle on the left, theme toggle + login/logout
- * on the right. Sticky at the top of the content column.
+ * mockup): section title + subtitle on the left, bordered action buttons on
+ * the right. Sticky at the top of the content column, with NO border below.
+ * On the chat tab it gains "New chat" + fullscreen-toggle buttons.
  */
 const AppHeader = memo(function AppHeader({
   darkMode,
@@ -24,25 +29,39 @@ const AppHeader = memo(function AppHeader({
   handleLogout,
   onLogin,
   activeTab = "overview",
+  isChat = false,
+  chatExpanded = false,
+  onToggleExpanded,
+  onNewChat,
 }) {
   const title = TITLES[activeTab] || "Command Center";
+  const subtitle = SUBTITLES[activeTab] || "Smartly manage your finances with FinVue AI ✨";
+
+  const actionBtn =
+    darkMode
+      ? "bg-slate-900 border-slate-700 text-slate-300 hover:border-violet-500/60 hover:text-violet-300"
+      : "bg-white border-slate-200 text-slate-500 hover:border-violet-300 hover:text-violet-600 shadow-sm";
 
   return (
     <header
-      className={`sticky top-0 z-30 border-b backdrop-blur-md transition-colors duration-300 ${
-        darkMode
-          ? "bg-[#0b0f19]/85 border-slate-800"
-          : "bg-white/85 border-slate-200"
+      className={`sticky top-0 z-30 backdrop-blur-md transition-colors duration-300 ${
+        darkMode ? "bg-[#0b0f19]/85" : "bg-white/70"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
+      <div className="px-4 sm:px-6 lg:px-6 py-4 flex items-center justify-between gap-4">
         {/* Title + subtitle */}
         <div className="min-w-0">
           <h1
-            className={`text-xl sm:text-2xl font-extrabold tracking-tight truncate ${
+            className={`flex items-center gap-2 text-xl sm:text-2xl font-extrabold tracking-tight truncate ${
               darkMode ? "text-white" : "text-slate-900"
             }`}
           >
+            {isChat && (
+              <span className="flex items-center shrink-0 gap-0.5" aria-hidden="true">
+                <SparklesIcon className="w-5 h-5 text-violet-500" strokeWidth={2.5} />
+                <SparklesIcon className="w-3.5 h-3.5 text-indigo-500 -ml-1" strokeWidth={2.5} />
+              </span>
+            )}
             {title}
           </h1>
           <p
@@ -50,20 +69,34 @@ const AppHeader = memo(function AppHeader({
               darkMode ? "text-slate-400" : "text-slate-500"
             }`}
           >
-            Smartly manage your finances with FinVue AI ✨
+            {subtitle}
           </p>
         </div>
 
-        {/* Actions */}
+        {/* Actions — every button is a bordered white card (mockup style) */}
         <div className="flex shrink-0 items-center gap-2.5">
+          {isChat && (
+            <button
+              onClick={onNewChat}
+              className={`hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-200 hover:scale-[1.02] active:scale-95 ${actionBtn}`}
+            >
+              <RefreshIcon className="w-4 h-4" strokeWidth={2.5} />
+              New chat
+            </button>
+          )}
+          {isChat && (
+            <button
+              onClick={onToggleExpanded}
+              aria-label={chatExpanded ? "Exit fullscreen chat" : "Fullscreen chat"}
+              className={`hidden xl:inline-flex p-2.5 rounded-xl border transition-all duration-200 hover:scale-105 active:scale-95 ${actionBtn}`}
+            >
+              <ExpandIcon className="w-5 h-5" />
+            </button>
+          )}
           <button
             onClick={toggleTheme}
             aria-label="Toggle Theme"
-            className={`p-2.5 rounded-xl border transition-all duration-200 hover:scale-105 active:scale-95 ${
-              darkMode
-                ? "bg-slate-900 border-slate-700 text-violet-300 hover:border-violet-500/60"
-                : "bg-white border-slate-200 text-slate-500 hover:border-violet-300 hover:text-violet-600 shadow-sm"
-            }`}
+            className={`p-2.5 rounded-xl border transition-all duration-200 hover:scale-105 active:scale-95 ${actionBtn}`}
           >
             {darkMode ? (
               <SunIcon className="w-5 h-5" />
@@ -87,7 +120,11 @@ const AppHeader = memo(function AppHeader({
           ) : (
             <button
               onClick={onLogin}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-br from-violet-500 to-indigo-500 shadow-lg shadow-violet-500/25 transition-all duration-200 hover:scale-[1.02] active:scale-95"
+              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-200 hover:scale-[1.02] active:scale-95 ${
+                darkMode
+                  ? "bg-slate-900 text-violet-300 border-violet-500/50 hover:bg-violet-500/10"
+                  : "bg-white text-violet-600 border-violet-200 hover:bg-violet-50 shadow-sm"
+              }`}
             >
               <LogInIcon className="w-4 h-4" strokeWidth={2.5} />
               Login

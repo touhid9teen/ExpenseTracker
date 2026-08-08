@@ -315,6 +315,18 @@
     background-clip: text;
     color: transparent;
   }
+
+  /* Hide the scrollbar while keeping the area scrollable (Firefox / Edge /
+     WebKit). The mockup keeps content scrolling but never shows the bar. */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
 }
 
 /* ─── 3D depth system ────────────────────────────────────────────
@@ -547,4 +559,17 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ─── Global scrollbars ───────────────────────────────────────────
+   Keep the page scrollable but never show the right-hand scrollbar
+   (the mockup hides it everywhere). Inner scroll areas use .no-scrollbar. */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }

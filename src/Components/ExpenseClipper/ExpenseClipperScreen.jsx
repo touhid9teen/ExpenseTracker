@@ -41,6 +41,8 @@ import InsightsRail from "../AIAssistant/InsightsRail";
  */
 const ExpenseClipperScreen = (props) => {
   const [showAuth, setShowAuth] = useState(false);
+  const [chatExpanded, setChatExpanded] = useState(false);
+  const [newChatSignal, setNewChatSignal] = useState(0);
 
   if (props.isAuthLoading) {
     return <AppLoader darkMode={props.darkMode} />;
@@ -115,8 +117,8 @@ const ExpenseClipperScreen = (props) => {
           isAdmin={!!props.user?.isAdmin}
         />
 
-        {/* ── Main content column ── */}
-        <div className="flex-1 min-w-0">
+        {/* ── Main content column (scrolls internally, scrollbar hidden) ── */}
+        <div className="flex-1 min-w-0 lg:overflow-y-auto no-scrollbar">
           <AppHeader
             darkMode={props.darkMode}
             toggleTheme={props.toggleTheme}
@@ -124,12 +126,24 @@ const ExpenseClipperScreen = (props) => {
             handleLogout={handleLogout}
             onLogin={() => setShowAuth(true)}
             activeTab={activeTab}
+            isChat={isChat}
+            chatExpanded={chatExpanded}
+            onToggleExpanded={() => setChatExpanded((v) => !v)}
+            onNewChat={() => setNewChatSignal((n) => n + 1)}
           />
 
-          <div className="max-w-6xl xl:max-w-[92rem] mx-auto px-4 sm:px-6 lg:px-8 py-6 xl:flex xl:gap-6 xl:items-start">
+          {/* Tight gap next to the sidebar, matching the mockup */}
+          <div className="px-4 sm:px-6 lg:px-6 py-6 xl:flex xl:gap-6 xl:items-start">
             <main className="min-w-0 xl:flex-1">
-            {/* Nav cards row */}
-            <CommandCenter {...commandCenterProps} />
+            {/* Nav cards row — only on the Command Center tab (desktop);
+                on small screens it stays as the primary navigation */}
+            {isOverview ? (
+              <CommandCenter {...commandCenterProps} />
+            ) : (
+              <div className="lg:hidden">
+                <CommandCenter {...commandCenterProps} />
+              </div>
+            )}
 
             <div className="mt-6 space-y-8 sm:space-y-10">
             {isLoading && (isOverview || activeTab === "statistics") && (
@@ -175,26 +189,31 @@ const ExpenseClipperScreen = (props) => {
               pendingAction={props.pendingAction}
               setPendingAction={props.setPendingAction}
               pushRecentQuery={props.pushRecentQuery}
+              resetSignal={newChatSignal}
               visible={isChat}
             />
             </div>
             </main>
 
             {/* AI Insights rail — real derived insights + recent queries,
-                visible on every tab from xl up. */}
-            <aside className="hidden xl:block w-80 shrink-0 sticky top-24">
-              <InsightsRail
-                darkMode={props.darkMode}
-                expenses={props.expenses}
-                recentQueries={props.recentQueries}
-                setActiveTab={props.setActiveTab}
-                setPendingAction={props.setPendingAction}
-              />
-            </aside>
+                visible on every tab from xl up (hidden in fullscreen chat). */}
+            {!(isChat && chatExpanded) && (
+              <aside className="hidden xl:block w-80 shrink-0 sticky top-24">
+                <InsightsRail
+                  darkMode={props.darkMode}
+                  expenses={props.expenses}
+                  recentQueries={props.recentQueries}
+                  setActiveTab={props.setActiveTab}
+                  setPendingAction={props.setPendingAction}
+                />
+              </aside>
+            )}
           </div>
         </div>
 
-        <GoToTopButton darkMode={props.darkMode} />
+        {/* Floating controls hidden while chatting so they never overlap
+            the composer */}
+        {!isChat && <GoToTopButton darkMode={props.darkMode} />}
 
         <AddExpenseModal
           showQuickAdd={props.showQuickAdd}

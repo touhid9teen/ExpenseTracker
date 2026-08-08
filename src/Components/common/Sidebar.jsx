@@ -2,10 +2,9 @@
 
 import { memo } from "react";
 import {
-  SparklesIcon,
-  ChartPieIcon,
-  PlusIcon,
-  ClipboardListIcon,
+  HomeIcon,
+  PlusCircleIcon,
+  TableCellsIcon,
   ChartBarSquareIcon,
   LightbulbIcon,
   InfoCircleIcon,
@@ -13,7 +12,6 @@ import {
   MoonIcon,
   SunIcon,
   ChevronDownIcon,
-  CrownIcon,
 } from "./Icons";
 
 const TIP_PROMPT =
@@ -55,125 +53,99 @@ const Sidebar = memo(function Sidebar({
   };
 
   const navItems = [
-    { key: "overview", label: "Command Center", icon: ChartPieIcon },
-    { key: "add", label: "Add Expense", icon: PlusIcon, action: "modal" },
-    { key: "ledger", label: "Table", icon: ClipboardListIcon },
+    { key: "overview", label: "Command Center", icon: HomeIcon },
+    { key: "add", label: "Add Expense", icon: PlusCircleIcon, action: "modal" },
+    { key: "ledger", label: "Table", icon: TableCellsIcon },
     { key: "statistics", label: "Statistics", icon: ChartBarSquareIcon },
     { key: "tips", label: "Budget Tips", icon: LightbulbIcon, action: "tips" },
   ];
 
   const isActive = (item) => !item.action && item.key === activeTab;
 
+  const itemClasses = (active) =>
+    `w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${active
+      ? darkMode
+        ? "bg-violet-500/25 text-white font-semibold"
+        : "bg-[#EFEFFB] text-violet-700 font-semibold"
+      : darkMode
+        ? "text-slate-300 hover:bg-slate-800/70 hover:text-white font-medium"
+        : "text-[#3D3A5C] hover:bg-[#F5F5FA] hover:text-[#1E1B4B] font-medium"}`;
+
+  const renderItem = (item) => {
+    const Icon = item.icon;
+    return (
+      <button
+        key={item.key}
+        onClick={() => handleClick(item)}
+        className={itemClasses(isActive(item))}
+      >
+        <Icon className="w-5 h-5 shrink-0" strokeWidth={2} />
+        {item.label}
+      </button>
+    );
+  };
+
+  const renderLink = (key, label, Icon, active) => (
+    <button
+      key={key}
+      onClick={() => setActiveTab(key)}
+      className={itemClasses(active)}
+    >
+      <Icon className="w-5 h-5 shrink-0" strokeWidth={2} />
+      {label}
+    </button>
+  );
+
   return (
     <aside
       className={`hidden lg:flex lg:flex-col lg:w-64 shrink-0 lg:sticky lg:top-0 lg:h-screen border-r transition-colors duration-300 ${
-        darkMode ? "bg-[#0d1326] border-slate-800" : "bg-white border-slate-200"
+        darkMode ? "bg-[#0d1326] border-slate-800" : "bg-white border-[#EBEBEC]"
       }`}
     >
       {/* ── Logo ── */}
       <div className="flex items-center gap-3 px-6 pt-6 pb-5">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-violet-500/30">
-          <SparklesIcon className="w-5 h-5 text-white" strokeWidth={2.5} />
+        <div className="w-10 h-10 [clip-path:polygon(50%_0%,100%_25%,100%_75%,50%_100%,0%_75%,0%_25%)] bg-gradient-to-br from-blue-500 via-violet-500 to-purple-600 flex items-center justify-center shrink-0">
+          <svg viewBox="0 0 20 20" className="w-6 h-6 text-white" fill="currentColor" aria-hidden="true">
+            <path d="M7 0l2.4 4.6L14 7l-4.6 2.4L7 14l-2.4-4.6L0 7l4.6-2.4L7 0z" />
+            <path d="M15.5 0l1.35 3.15L20 4.5l-3.15 1.35L15.5 9l-1.35-3.15L11 4.5l3.15-1.35L15.5 0z" />
+          </svg>
         </div>
         <span
           className={`text-xl font-extrabold tracking-tight ${
-            darkMode ? "text-white" : "text-slate-900"
+            darkMode ? "text-white" : "text-[#1E1B4B]"
           }`}
         >
           FinVue
         </span>
       </div>
 
-      {/* ── Nav links ── */}
+      {/* ── Nav links: top group ── */}
       <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
-        <p
-          className={`px-2 pb-2 text-[11px] font-bold uppercase tracking-widest ${
-            darkMode ? "text-slate-500" : "text-slate-400"
-          }`}
-        >
-          Menu
-        </p>
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const active = isActive(item);
-          return (
-            <button
-              key={item.key}
-              onClick={() => handleClick(item)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                active
-                  ? darkMode
-                    ? "bg-violet-500/25 text-white shadow-inner"
-                    : "bg-violet-100 text-violet-700"
-                  : darkMode
-                    ? "text-slate-300 hover:bg-slate-800/70 hover:text-white"
-                    : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
-              }`}
-            >
-              <Icon className="w-5 h-5 shrink-0" strokeWidth={2.25} />
-              {item.label}
-              {active && (
-                <span
-                  className={`ml-auto w-1.5 h-1.5 rounded-full ${
-                    darkMode ? "bg-violet-400" : "bg-violet-500"
-                  }`}
-                />
-              )}
-            </button>
-          );
-        })}
+        {navItems.map(renderItem)}
 
-        <div className={`h-px my-3 ${darkMode ? "bg-slate-800" : "bg-slate-100"}`} />
+        <div className={`h-px my-3 ${darkMode ? "bg-slate-800" : "bg-[#EBEBEC]"}`} />
 
-        <button
-          onClick={() => setActiveTab("about")}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-            activeTab === "about"
-              ? darkMode
-                ? "bg-violet-500/25 text-white"
-                : "bg-violet-100 text-violet-700"
-              : darkMode
-                ? "text-slate-300 hover:bg-slate-800/70 hover:text-white"
-                : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
-          }`}
-        >
-          <InfoCircleIcon className="w-5 h-5 shrink-0" strokeWidth={2.25} />
-          About
-        </button>
+        {/* ── Nav links: middle group (About / Admin) ── */}
+        {renderLink("about", "About", InfoCircleIcon, activeTab === "about")}
+        {isAdmin &&
+          renderLink("admin", "Admin", ShieldCheckIcon, activeTab === "admin")}
+      </nav>
 
-        {isAdmin && (
-          <button
-            onClick={() => setActiveTab("admin")}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-              activeTab === "admin"
-                ? darkMode
-                  ? "bg-violet-500/25 text-white"
-                  : "bg-violet-100 text-violet-700"
-                : darkMode
-                  ? "text-slate-300 hover:bg-slate-800/70 hover:text-white"
-                  : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
-            }`}
-          >
-            <ShieldCheckIcon className="w-5 h-5 shrink-0" strokeWidth={2.25} />
-            Admin
-          </button>
-        )}
-
-        {/* ── Go Premium card ── */}
+      {/* ── Go Premium card ── */}
+      <div className="px-4 pb-3">
         <div
-          className={`mt-4 rounded-2xl p-4 border ${
+          className={`rounded-xl border p-4 ${
             darkMode
-              ? "bg-[#0e1428] border-violet-500/30"
-              : "bg-violet-50 border-violet-100"
+              ? "bg-[#0e1428] border-slate-800"
+              : "bg-[#FAFAFC] border-[#EBEBEC]"
           }`}
         >
           <p
-            className={`flex items-center gap-1.5 text-sm font-extrabold ${
-              darkMode ? "text-violet-300" : "text-violet-700"
+            className={`text-sm font-bold ${
+              darkMode ? "text-white" : "text-slate-900"
             }`}
           >
-            <CrownIcon className="w-4 h-4" strokeWidth={2.25} />
-            Go Premium
+            Go Premium ✨✨
           </p>
           <p
             className={`mt-1 text-xs leading-relaxed ${
@@ -183,66 +155,70 @@ const Sidebar = memo(function Sidebar({
             Unlock advanced reports, custom categories &amp; more.
           </p>
           <button
-            className={`mt-3 w-full rounded-full py-2 text-xs font-bold transition-all duration-200 hover:scale-[1.02] active:scale-95 ${
+            className={`mt-3 w-full rounded-full border py-2 text-xs font-bold transition-all duration-200 hover:scale-[1.02] active:scale-95 ${
               darkMode
-                ? "bg-slate-900 text-white border border-violet-500/50 hover:bg-slate-800 hover:border-violet-400"
-                : "bg-white text-violet-600 shadow-sm hover:shadow"
+                ? "bg-transparent text-violet-400 border-violet-500/50 hover:bg-violet-500/10"
+                : "bg-white text-violet-600 border-violet-500/50 hover:bg-violet-50"
             }`}
           >
             Upgrade Now
           </button>
         </div>
-      </nav>
+      </div>
 
-      {/* ── Dark mode toggle ── */}
-      <div
-        className={`px-6 py-4 border-t flex items-center justify-between ${
-          darkMode ? "border-slate-800" : "border-slate-100"
-        }`}
-      >
-        <span
-          className={`flex items-center gap-2 text-sm font-semibold ${
-            darkMode ? "text-slate-200" : "text-slate-600"
-          }`}
-        >
-          {darkMode ? (
-            <MoonIcon className="w-4 h-4" strokeWidth={2.25} />
-          ) : (
-            <SunIcon className="w-4 h-4" strokeWidth={2.25} />
-          )}
-          Dark mode
-        </span>
-        <button
-          onClick={toggleTheme}
-          role="switch"
-          aria-checked={darkMode}
-          aria-label="Toggle dark mode"
-          className={`relative w-10 h-6 rounded-full transition-colors duration-200 ${
-            darkMode ? "bg-violet-500" : "bg-slate-300"
+      {/* ── Dark mode toggle row ── */}
+      <div className="px-4 pb-4">
+        <div
+          className={`flex items-center justify-between rounded-xl border px-3 py-2.5 ${
+            darkMode
+              ? "bg-[#141a2e] border-slate-800"
+              : "bg-[#F7F7FA] border-[#EBEBEC]"
           }`}
         >
           <span
-            className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200 ${
-              darkMode ? "translate-x-[18px]" : "translate-x-0.5"
+            className={`flex items-center gap-2 text-sm font-medium ${
+              darkMode ? "text-slate-200" : "text-[#3D3A5C]"
             }`}
-          />
-        </button>
+          >
+            {darkMode ? (
+              <SunIcon className="w-4 h-4" strokeWidth={2.25} />
+            ) : (
+              <MoonIcon className="w-4 h-4" strokeWidth={2.25} />
+            )}
+            Dark mode
+          </span>
+          <button
+            onClick={toggleTheme}
+            role="switch"
+            aria-checked={darkMode}
+            aria-label="Toggle dark mode"
+            className={`relative w-10 h-6 rounded-full transition-colors duration-200 shrink-0 ${
+              darkMode ? "bg-violet-500" : "bg-slate-300"
+            }`}
+          >
+            <span
+              className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200 ${
+                darkMode ? "translate-x-[18px]" : "translate-x-0.5"
+              }`}
+            />
+          </button>
+        </div>
       </div>
 
-      {/* ── User profile ── */}
+      {/* ── User profile footer ── */}
       {user && (
         <div
-          className={`px-4 pb-5 border-t flex items-center gap-3 ${
-            darkMode ? "border-slate-800" : "border-slate-100"
+          className={`px-4 py-4 border-t flex items-center gap-3 ${
+            darkMode ? "border-slate-800" : "border-[#EBEBEC]"
           }`}
         >
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center text-white text-sm font-extrabold shrink-0">
+          <div className="w-9 h-9 rounded-full bg-violet-600 flex items-center justify-center text-white text-sm font-bold shrink-0">
             {user.username?.charAt(0).toUpperCase() || "?"}
           </div>
           <div className="min-w-0 flex-1">
             <p
               className={`text-sm font-bold truncate ${
-                darkMode ? "text-white" : "text-slate-800"
+                darkMode ? "text-white" : "text-slate-900"
               }`}
             >
               {user.username}

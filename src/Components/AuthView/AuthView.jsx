@@ -213,8 +213,12 @@ const AuthView = ({ setUser, onClose }) => {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 overflow-y-auto bg-white">
-        <div className="relative min-h-full lg:grid lg:grid-cols-2">
+      <div className="fixed inset-0 z-50 overflow-y-auto bg-white lg:bg-[#F5F4FB]">
+        {/* Centered shell — constrains the split into a single elevated card
+            so the image and the form sit close together in the middle of the
+            viewport instead of hugging the far edges (desktop only). */}
+        <div className="relative min-h-full lg:flex lg:items-center lg:justify-center lg:p-6 xl:p-10">
+          <div className="relative w-full lg:grid lg:grid-cols-2 lg:max-w-5xl lg:overflow-hidden lg:rounded-3xl lg:bg-white lg:ring-1 lg:ring-slate-900/5 lg:shadow-[0_24px_80px_-24px_rgba(76,29,149,0.25)]">
           {/* Mobile brand bar (back button is in-flow so it never overlaps
               the logo) */}
           <div className="lg:hidden sticky top-0 z-30 flex items-center gap-3 bg-white/90 backdrop-blur px-4 py-3 border-b border-slate-100">
@@ -237,7 +241,7 @@ const AuthView = ({ setUser, onClose }) => {
           {/* ── Left: dashboard image with the logo in the top-left corner
                  only (desktop). object-contain keeps the full illustration
                  visible and responsive at every screen size — no cropping. ── */}
-          <section className="relative hidden lg:block lg:h-full overflow-hidden bg-white">
+          <section className="relative hidden lg:block lg:h-full lg:min-h-[480px] overflow-hidden bg-white">
             <Image
               src={loginArt}
               alt="FinVue dashboard illustration"
@@ -273,9 +277,9 @@ const AuthView = ({ setUser, onClose }) => {
           {/* ── Divider line — a very thin straight vertical line separating
                  the dashboard image from the sign-in form, light purple
                  (desktop only). Height is ~half the form content, centered. ── */}
-          <div className="hidden lg:block absolute top-[5%] bottom-[5%] left-1/2 -translate-x-1/2 z-10 w-16 pointer-events-none select-none">
+          {/* <div className="hidden lg:block absolute top-[5%] bottom-[5%] left-1/2 -translate-x-1/2 z-10 w-16 pointer-events-none select-none">
             <OrnamentalDivider className="h-full w-full text-violet-400 drop-shadow-[0_0_18px_rgba(167,139,250,0.45)]" />
-          </div>
+          </div> */}
 
           {/* ── Right: centered white sign-in / sign-up card ── */}
           <section className="flex items-center justify-center bg-white px-4 sm:px-8 py-10">
@@ -518,6 +522,7 @@ const AuthView = ({ setUser, onClose }) => {
               <Footer />
             </div>
           </section>
+          </div>
         </div>
       </div>
 

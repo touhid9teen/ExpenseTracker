@@ -22,7 +22,13 @@ Key code locations:
 - `node scripts/db-inspect.mjs` — diagnostic: prints current `users` columns, table existence, admins
 - `node scripts/admin-e2e.mjs` — end-to-end check of admin API flow
 
-Env vars in `.env.local`: `DATABASE_URL` (Neon Postgres), `JWT_SECRET`, `APP_ENV` (`development`|`production`), `GEMINI_API_KEY` (+ optional `DEEPSEEK_API_KEY`, `GROQ_API_KEY`, `OPENAI_API_KEY` for chat fallbacks).
+Docker (see README; `docker-compose.yml` + `Dockerfile` in root, `db-init` service applies the schema):
+
+- `docker compose up --build` — build & start app (db-init runs schema first)
+- `docker compose run --rm db-init` — re-apply schema manually
+- `docker compose down` — stop
+
+Env vars in `.env.local` (or `.env` for Docker): `DATABASE_URL` (Neon Postgres), `JWT_SECRET`, `APP_ENV` (`development`|`production`), `GEMINI_API_KEY` (+ optional `DEEPSEEK_API_KEY`, `GROQ_API_KEY`, `OPENAI_API_KEY` for chat fallbacks).
 
 ## Conventions & gotchas
 
@@ -31,7 +37,7 @@ Env vars in `.env.local`: `DATABASE_URL` (Neon Postgres), `JWT_SECRET`, `APP_ENV
 - **Neon connection is flaky** from some networks (IPv6 issues / cold-started free-tier compute). Node scripts set `dns.setDefaultResultOrder('ipv4first')` and use retry loops. Don't remove those. The Node-runtime auth routes (`/api/auth/login|register|recover|security`) also call `dns.setDefaultResultOrder('ipv4first')` at module scope for the same reason — keep that import (`node:dns`) only in Node-runtime files, never in files bundled for Edge.
 - No dev-user fallback: without DB/auth, auth returns `null` and `GET /api/expenses` returns `SEED_EXPENSES` demo data. **Dev-mode DB-failure fallback:** the Node-runtime auth routes (`/api/auth/login|register|recover`) fall back to their existing mock responses when a query throws a *connection* error (see `isConnectionError()` in `src/lib/db.js`) — but **only when `APP_ENV=development`**. So a local session (any credentials / mock reset codes) works while Neon is unreachable; in production a DB failure still returns 500 instead of faking auth. **All routes are now protected by `src/middleware.js`** — it verifies the `auth_token` cookie (same `decrypt()` from `src/lib/jwt.js`) and redirects unauthenticated page requests to `/login` (401 JSON for APIs). Public exceptions: `/login`, `/terms`, `/api/auth/*`, `/api/init-db`, and static assets (matcher).
 - Auth: JWT (jose, HS256, 30-day) in `auth_token` httpOnly cookie. `authenticateUser(request)` / `authenticateAdmin(request)` in `src/lib/jwt.js`. All API handlers wrapped in `withApiLog` from `src/utils/apiLogger.js` (writes to `api_logs`).
-- Login UI: standalone **light-only** page at `src/app/login/page.js` rendering `AuthView` (violet/indigo design flow); `AuthView` is also used as an in-app overlay. Logout redirects to `/login`.
+- Login UI: standalone **light-only** page at `src/app/login/page.js` rendering `AuthView` (violet/indigo design flow); `AuthView` is also used as an in-app overlay. Desktop layout is a centered two-column card (image + form, `max-w-5xl`) over a light lavender page background — keep it centered/elevated, don't revert to a full-bleed 50/50 split. Logout redirects to `/login`.
 - Admin API: `/api/admin/users` (list/role/delete), `/api/admin/expenses` (list/delete), `/api/admin/logs` — all Edge runtime, guarded by `authenticateAdmin`; admins can't change/delete their own account.
 - Rate limiting: `src/utils/rateLimiter.js` (in-memory sliding window per instance); applied to auth register/login/recover and chat.
 - Zod validation: `src/lib/validations.js`; routes use `schema.safeParse(body)` → 400 with `parsed.error.errors[0].message`.

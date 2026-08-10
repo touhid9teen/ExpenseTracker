@@ -93,19 +93,25 @@ ExpenseTracker/
 │   │   │   └── 📄 OfflineBanner.jsx     # Offline status banner
 │   │   │
 │   │   ├── 📂 AuthView/             # Authentication UI
-│   │   │   ├── 📄 AuthView.jsx          # Login / register screen
-│   │   │   ├── 📄 Background.jsx        # Animated background
-│   │   │   ├── 📄 Header.jsx            # Auth header
-│   │   │   ├── 📄 Footer.jsx            # Auth footer
-│   │   │   ├── 📄 UsernameStep.jsx      # Username signup step
-│   │   │   ├── 📄 PasswordStep.jsx      # Password signup step
-│   │   │   ├── 📄 SecurityQuestionStep.jsx # Security question step
-│   │   │   ├── 📄 PasswordStrengthMeter.jsx # Password strength indicator
-│   │   │   ├── 📄 AuthInput.jsx         # Auth input field
-│   │   │   ├── 📄 SocialButtons.jsx     # Social login buttons
-│   │   │   ├── 📄 ForgotPasswordModal.jsx # Password recovery modal
-│   │   │   ├── 📄 SuccessModal.jsx      # Success confirmation modal
-│   │   │   └── 📄 OrnamentalDivider.jsx # Ornamental divider
+│   │   │   ├── 📄 AuthView.jsx          # Login / register screen (composition)
+│   │   │   ├── 📄 useAuthView.js        # Auth state & submit handlers hook
+│   │   │   ├── 📄 authValidation.js     # Validation rules & error messages
+│   │   │   ├── 📂 layout/               # Page shell
+│   │   │   │   ├── 📄 AuthShell.jsx     # Full-screen layout shell
+│   │   │   │   ├── 📄 AuthAside.jsx     # Left dashboard illustration panel
+│   │   │   │   ├── 📄 Header.jsx        # Auth card header + logo mark
+│   │   │   │   └── 📄 Footer.jsx        # Auth footer
+│   │   │   ├── 📂 forms/                # Sign-in / sign-up pieces
+│   │   │   │   ├── 📄 LoginForm.jsx     # Sign-in form
+│   │   │   │   ├── 📄 RegisterForm.jsx  # Sign-up form
+│   │   │   │   ├── 📄 AuthInput.jsx     # Auth input field
+│   │   │   │   ├── 📄 AuthCheckbox.jsx  # Custom accessible checkbox
+│   │   │   │   ├── 📄 OrDivider.jsx     # "Or Continue With" divider
+│   │   │   │   ├── 📄 PasswordStrengthMeter.jsx # Strength indicator
+│   │   │   │   └── 📄 SocialButtons.jsx # Social login buttons
+│   │   │   └── 📂 modals/               # Overlay dialogs
+│   │   │       ├── 📄 ForgotPasswordModal.jsx # Password recovery modal
+│   │   │       └── 📄 SuccessModal.jsx  # Success confirmation modal
 │   │   │
 │   │   ├── 📂 ExpenseClipper/       # Main expense entry flow
 │   │   │   ├── 📄 ExpenseClipper.jsx       # Clipper container

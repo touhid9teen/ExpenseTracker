@@ -1,5 +1,5 @@
-import { CheckIcon } from "../common/Icons";
-import Button from "../common/Button";
+import { CheckIcon } from "../../common/Icons";
+import Button from "../../common/Button";
 
 const SuccessModal = ({ username, onContinue }) => (
   <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 transition-opacity duration-300">

@@ -1,5 +1,5 @@
 "use client";
-import { getPasswordStrength } from '../../utils/passwordStrength';
+import { getPasswordStrength } from '../../../utils/passwordStrength';
 
 const PasswordStrengthMeter = ({ password = '' }) => {
   if (!password) return null;

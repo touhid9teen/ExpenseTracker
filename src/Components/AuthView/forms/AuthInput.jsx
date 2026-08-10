@@ -1,6 +1,6 @@
 "use client";
 import { useId, useState } from 'react';
-import { EyeIcon, EyeOffIcon, CheckIcon, WarningTriangleIcon } from '../common/Icons';
+import { EyeIcon, EyeOffIcon, CheckIcon, WarningTriangleIcon } from '../../common/Icons';
 
 /**
  * AuthInput – boxed form field matching the sign-in mockup: small dark

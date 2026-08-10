@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
-import { XIcon, CheckIcon, LockIcon, MailIcon, EyeIcon, EyeOffIcon } from "../common/Icons";
-import Button from "../common/Button";
+import { XIcon, CheckIcon, LockIcon, MailIcon, EyeIcon, EyeOffIcon } from "../../common/Icons";
+import Button from "../../common/Button";
 
 const STEPS = {
   EMAIL: 1,

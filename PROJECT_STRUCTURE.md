@@ -115,9 +115,15 @@ ExpenseTracker/
 │   │   │
 │   │   ├── 📂 ExpenseClipper/       # Main expense entry flow
 │   │   │   ├── 📄 ExpenseClipper.jsx       # Clipper container
-│   │   │   ├── 📄 ExpenseClipperScreen.jsx # Screen overlay
+│   │   │   ├── 📄 ExpenseClipperScreen.jsx # Screen shell (composition)
+│   │   │   ├── 📄 useClipperScreen.js      # Shell UI state & handlers hook
+│   │   │   ├── 📄 MainContentView.jsx      # Header + tab content + insights rail
+│   │   │   ├── 📄 TabContent.jsx           # Command cards, skeletons & views
+│   │   │   ├── 📄 InsightsRailSide.jsx     # AI insights rail (desktop)
+│   │   │   ├── 📄 AmbientBackground.jsx    # Aurora/grid backdrop
 │   │   │   └── 📂 ExpenseModals/
 │   │   │       ├── 📄 ExpenseModals.jsx       # Modal manager
+│   │   │       ├── 📄 ModalLayer.jsx          # Renders all expense modals
 │   │   │       ├── 📄 ModalShell.jsx          # Shared modal shell/tokens
 │   │   │       ├── 📄 AddExpenseModal.jsx     # Add expense modal
 │   │   │       ├── 📄 DailyExpenseModal.jsx   # Daily expense modal

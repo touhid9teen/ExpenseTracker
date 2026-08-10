@@ -1,138 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
-import StatisticsSkeleton from "../Skeleton/StatisticsSkeleton/StatisticsSkeleton";
-import LedgerSkeleton from "../Skeleton/LedgerSkeleton/LedgerSkeleton";
-import AboutSkeleton from "../Skeleton/AboutSkeleton/AboutSkeleton";
-import AdminSkeleton from "../Skeleton/AdminSkeleton/AdminSkeleton";
-import ChatSkeleton from "../Skeleton/ChatSkeleton/ChatSkeleton";
-import { loadThemePreference } from "../../utils/storageUtils";
 import AuthView from "../AuthView/AuthView";
 import GoToTopButton from "../common/GoToTopButton";
-import CommandCenter from "../CommandCenter/CommandCenter";
 import Sidebar from "../common/Sidebar";
-import AppHeader from "../common/AppHeader";
-import {
-  DailyExpenseModal,
-  DeleteExpenseModal,
-  EditExpenseModal,
-  AddExpenseModal,
-} from "./ExpenseModals/ExpenseModals";
-import LedgerView from "../LedgerView/LedgerView";
-import dynamic from "next/dynamic";
-const StatisticsView = dynamic(() => import("../StatisticsView/StatisticsView"), {
-    // The dynamic chunk only loads once at app boot; use the persisted theme
-    // so the brief fallback matches the active theme.
-    loading: () => <StatisticsSkeleton darkMode={loadThemePreference()} />
-});
-import AboutView from "../AboutView/AboutView";
-import AdminView from "../AdminView/AdminView";
-import AIAssistant from "../AIAssistant/AIAssistant";
-import InsightsRail from "../AIAssistant/InsightsRail";
+import AmbientBackground from "./AmbientBackground";
+import ModalLayer from "./ExpenseModals/ModalLayer";
+import MainContentView from "./MainContentView";
+import useClipperScreen from "./useClipperScreen";
 
 /**
- * ExpenseClipperScreen – the single-page shell.
+ * ExpenseClipperScreen – the single-page shell (composition only).
  *
  * Layout (dashboard mockup style):
  *  - A fixed left Sidebar holds the logo, nav links, premium card, dark-mode
  *    toggle and the user profile (hidden on small screens).
- *  - The content column has an AppHeader (title + theme/login/logout) that
- *    scrolls away with the content.
- *  - The CommandCenter nav-cards row lives on the Command Center tab only
- *    (desktop).
+ *  - The content column (MainContentView) has an AppHeader, the active tab's
+ *    content and the AI insights rail.
  *  - The Command Center tab shows the command buttons + AI chat; the other
  *    sections (statistics / table / about / admin) render on their own tabs.
  *  - Guests can browse the app; adding an expense (or logging in) opens the
  *    AuthView as an overlay instead of replacing the whole page.
+ *
+ * State & handlers live in useClipperScreen; the layout pieces are
+ * AmbientBackground, MainContentView, ModalLayer and AuthView.
  */
 const ExpenseClipperScreen = (props) => {
-  const [showAuth, setShowAuth] = useState(false);
-  const [chatExpanded, setChatExpanded] = useState(false);
-  const [newChatSignal, setNewChatSignal] = useState(0);
-  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const [tabTransitioning, setTabTransitioning] = useState(false);
-  const firstRenderRef = useRef(true);
-
-  const { activeTab } = props;
-  const isOverview = activeTab === "overview";
-  const isChat = activeTab === "chat";
-
-  // A brief per-tab skeleton plays on every tab switch (the first render is
-  // skipped because the shell already shows the active tab's skeleton while
-  // the session loads); it stays up longer while that tab's data is genuinely
-  // still loading (fresh fetch with nothing cached yet). Cached content
-  // renders instantly — no flash.
-  useEffect(() => {
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false;
-      return;
-    }
-    setTabTransitioning(true);
-    const t = setTimeout(() => setTabTransitioning(false), 300);
-    return () => clearTimeout(t);
-  }, [activeTab]);
-
-  const hasExpenses = (props.expenses?.length ?? 0) > 0;
-  const hasAdminData =
-    (props.users?.length ?? 0) > 0 || (props.allExpenses?.length ?? 0) > 0;
-
-  // The app shell always renders. While the session is being verified (first
-  // login lands on the Command Center tab, auto-selected in the sidebar), on
-  // tab switches, and while a data-backed tab first loads, the active tab's
-  // own skeleton is shown instead of a floating spinner.
-  const showPageSkeleton =
-    props.isAuthLoading ||
-    tabTransitioning ||
-    (activeTab === "statistics" && props.isExpensesLoading && !hasExpenses) ||
-    (activeTab === "ledger" && props.isExpensesLoading && !hasExpenses) ||
-    (activeTab === "admin" && props.isAdminLoading && !hasAdminData);
-
-  const pageSkeleton = {
-    chat: <ChatSkeleton darkMode={props.darkMode} />,
-    overview: <ChatSkeleton darkMode={props.darkMode} compact={isOverview} />,
-    statistics: <StatisticsSkeleton darkMode={props.darkMode} />,
-    ledger: <LedgerSkeleton darkMode={props.darkMode} />,
-    about: <AboutSkeleton darkMode={props.darkMode} />,
-    admin: <AdminSkeleton darkMode={props.darkMode} adminTab={props.adminTab} />,
-  }[activeTab];
-
-  // Close the auth overlay as soon as a session is established.
-  const handleSetUser = (user) => {
-    props.setUser(user);
-    if (user) setShowAuth(false);
-  };
-
-  // Logging out clears the session and sends the user to the public login
-  // page (middleware blocks the app for unauthenticated visitors). Only
-  // navigate when the server actually cleared the cookie — otherwise the
-  // still-valid token would bounce /login straight back to the app.
-  const handleLogout = async () => {
-    const loggedOut = await props.handleLogout();
-    if (!loggedOut) return;
-    props.setActiveTab("chat");
-    setMobileSidebarOpen(false);
-    window.location.href = "/login";
-  };
-
-  // Guests can browse (AI chat + layout) but must log in to mutate data.
-  const guardedSetShowQuickAdd = (next) => {
-    if (next && !props.user) {
-      toast.error("Please log in to add expenses.");
-      setShowAuth(true);
-      return;
-    }
-    props.setShowQuickAdd(next);
-  };
-
-  const commandCenterProps = {
-    darkMode: props.darkMode,
-    activeTab,
-    setActiveTab: props.setActiveTab,
-    setShowQuickAdd: guardedSetShowQuickAdd,
-    setPendingAction: props.setPendingAction,
-    isAdmin: !!props.user?.isAdmin,
-  };
+  const screen = useClipperScreen(props);
 
   return (
     <div
@@ -142,27 +35,7 @@ const ExpenseClipperScreen = (props) => {
           : "bg-white text-slate-800"
       }`}
     >
-      {/* Ambient backdrop — dark mode gets the cyan/violet aurora + grid;
-          light mode gets a full-page vertical gradient, top to bottom:
-          white → purple → white, with a matching subtle grid. */}
-      {props.darkMode ? (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-0 aurora-bg"
-        >
-          <div className="absolute -top-24 -left-24 w-[34rem] h-[34rem] rounded-full bg-cyan-500/10 blur-[110px] aurora-blob" />
-          <div className="absolute top-1/3 -right-32 w-[30rem] h-[30rem] rounded-full bg-violet-500/10 blur-[110px] aurora-blob" style={{ animationDelay: "-7s" }} />
-          <div className="absolute -bottom-32 left-1/4 w-[28rem] h-[28rem] rounded-full bg-indigo-500/10 blur-[110px] aurora-blob" style={{ animationDelay: "-14s" }} />
-          <div className="absolute inset-0 cyber-grid opacity-70" />
-        </div>
-      ) : (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-0 aurora-bg-light-pink"
-        >
-          <div className="absolute inset-0 cyber-grid-light" />
-        </div>
-      )}
+      <AmbientBackground darkMode={props.darkMode} />
 
       <div className="relative z-10 lg:flex lg:h-screen">
         {/* ── Left sidebar navigation ── */}
@@ -170,189 +43,34 @@ const ExpenseClipperScreen = (props) => {
           darkMode={props.darkMode}
           toggleTheme={props.toggleTheme}
           user={props.user}
-          activeTab={activeTab}
+          activeTab={screen.activeTab}
           setActiveTab={props.setActiveTab}
-          setShowQuickAdd={guardedSetShowQuickAdd}
+          setShowQuickAdd={screen.guardedSetShowQuickAdd}
           setPendingAction={props.setPendingAction}
           isAdmin={!!props.user?.isAdmin}
-          mobileOpen={mobileSidebarOpen}
-          onCloseMobile={() => setMobileSidebarOpen(false)}
+          mobileOpen={screen.mobileSidebarOpen}
+          onCloseMobile={() => screen.setMobileSidebarOpen(false)}
         />
 
-        {/* ── Main content column (scrolls internally, scrollbar hidden).
-            On the Command Center tab it's a fixed dashboard: header stays
-            put, command row + chat fill the viewport and only the chat /
-            insights scroll. ── */}
-        <div
-          className={`flex-1 min-w-0 ${
-            isOverview
-              ? "lg:overflow-hidden lg:flex lg:flex-col"
-              : "lg:overflow-y-auto no-scrollbar"
-          }`}
-        >
-          <AppHeader
-            darkMode={props.darkMode}
-            toggleTheme={props.toggleTheme}
-            user={props.user}
-            handleLogout={handleLogout}
-            onLogin={() => setShowAuth(true)}
-            authLoading={props.isAuthLoading}
-            activeTab={activeTab}
-            isChat={isChat}
-            chatExpanded={chatExpanded}
-            onToggleExpanded={() => setChatExpanded((v) => !v)}
-            onNewChat={() => setNewChatSignal((n) => n + 1)}
-            onToggleSidebar={() => setMobileSidebarOpen((v) => !v)}
-          />
-
-          {/* Tight gap next to the sidebar, matching the mockup — almost no
-              gap below the header so the command row sits right under it */}
-          <div
-            className={`px-4 sm:px-6 lg:px-6 pt-2 pb-6 flex-1 min-h-0 ${
-              isOverview
-                ? "lg:flex lg:flex-col xl:flex-row xl:gap-6"
-                : "xl:flex xl:gap-6 xl:items-start"
-            }`}
-          >
-            <main
-              className={`min-w-0 flex-1 min-h-0 ${
-                isOverview ? "lg:flex lg:flex-col" : "xl:flex-1"
-              }`}
-            >
-            {/* Nav cards row — Command Center tab only, desktop only.
-                On small screens navigation lives in the collapsible sidebar. */}
-            {isOverview && !props.isAuthLoading && (
-              <div className="hidden lg:block shrink-0">
-                <CommandCenter {...commandCenterProps} />
-              </div>
-            )}
-
-            <div className={`mt-6 space-y-8 sm:space-y-10 ${
-              isOverview ? "lg:flex-1 lg:min-h-0" : ""
-            }`}>
-            {/* The Command Center tab shows the command buttons + AI chat only;
-                the analysis & transaction table live on their own tabs. Each
-                tab shows its own page skeleton while switching / loading. */}
-            {showPageSkeleton && pageSkeleton}
-
-            {/* Always mounted (CSS-hidden when inactive) so chart state survives
-                section switches. */}
-            <StatisticsView
-              {...props}
-              visible={!showPageSkeleton && activeTab === "statistics"}
-            />
-
-            {!showPageSkeleton && activeTab === "ledger" && (
-              <LedgerView {...props} />
-            )}
-
-            {!showPageSkeleton && activeTab === "about" && (
-              <AboutView
-                darkMode={props.darkMode}
-                setActiveTab={props.setActiveTab}
-              />
-            )}
-            {!!props.user?.isAdmin && activeTab === "admin" && !showPageSkeleton && (
-              <AdminView {...props} />
-            )}
-
-            {/* AI assistant — full page on the chat tab, and kept on the
-                Command Center tab below the command buttons (kept mounted so
-                the conversation persists). */}
-            <AIAssistant
-              darkMode={props.darkMode}
-              user={props.user}
-              expenses={props.expenses}
-              addExpenseDirect={props.addExpenseDirect}
-              updateExpenseDirect={props.updateExpenseDirect}
-              deleteExpenseDirect={props.deleteExpenseDirect}
-              setActiveTab={props.setActiveTab}
-              pendingAction={props.pendingAction}
-              setPendingAction={props.setPendingAction}
-              pushRecentQuery={props.pushRecentQuery}
-              resetSignal={newChatSignal}
-              visible={!showPageSkeleton && (isChat || isOverview)}
-              compact={isOverview}
-            />
-            </div>
-            </main>
-
-            {/* AI Insights rail — real derived insights + recent queries,
-                shown on the finance tabs only (not About / Admin, and hidden
-                in fullscreen chat). */}
-            {!props.isAuthLoading && !(isChat && chatExpanded) && activeTab !== "about" && activeTab !== "admin" && (
-              <aside
-                className={`hidden xl:block w-80 shrink-0 ${
-                  isOverview ? "lg:min-h-0" : ""
-                }`}
-              >
-                {/* On the Command Center tab the rail stays fixed with its
-                    own internal scroll */}
-                <div className={isOverview ? "h-full overflow-y-auto no-scrollbar" : ""}>
-                  <InsightsRail
-                    darkMode={props.darkMode}
-                    expenses={props.expenses}
-                    recentQueries={props.recentQueries}
-                    setActiveTab={props.setActiveTab}
-                    setPendingAction={props.setPendingAction}
-                  />
-                </div>
-              </aside>
-            )}
-          </div>
-        </div>
+        <MainContentView
+          props={props}
+          screen={screen}
+          onLogin={() => screen.setShowAuth(true)}
+        />
 
         {/* Floating controls hidden while chatting so they never overlap
             the composer */}
-        {!isChat && <GoToTopButton darkMode={props.darkMode} />}
+        {!screen.isChat && <GoToTopButton darkMode={props.darkMode} />}
 
-        <AddExpenseModal
-          showQuickAdd={props.showQuickAdd}
-          setShowQuickAdd={props.setShowQuickAdd}
-          closeAddModal={props.closeAddModal}
-          darkMode={props.darkMode}
-          CATEGORIES={props.CATEGORIES}
-          getCategoryStyles={props.getCategoryStylesForTheme}
-          addStep={props.addStep}
-          selectCategory={props.selectCategory}
-          goToCategoryStep={props.goToCategoryStep}
-          goToAmountStep={props.goToAmountStep}
-          addCategory={props.addCategory}
-          addDescription={props.addDescription}
-          setAddDescription={props.setAddDescription}
-          addAmount={props.addAmount}
-          setAddAmount={props.setAddAmount}
-          addDate={props.addDate}
-          setAddDate={props.setAddDate}
-          handleAddExpense={props.handleAddExpense}
-          isAddingExpense={props.isAddingExpense}
-        />
-        <DailyExpenseModal
-          selectedDailyDate={props.selectedDailyDate}
-          dailyModalDetails={props.dailyModalDetails}
-          darkMode={props.darkMode}
-          formatDate={props.formatDate}
-          getCategoryStyles={props.getCategoryStylesForTheme}
-          setSelectedDailyDate={props.setSelectedDailyDate}
-        />
-        <EditExpenseModal
-          editingExpense={props.editingExpense}
-          setEditingExpense={props.setEditingExpense}
-          darkMode={props.darkMode}
-          handleSaveEdit={props.handleSaveEdit}
-          CATEGORIES={props.CATEGORIES}
-        />
-        <DeleteExpenseModal
-          deletingExpense={props.deletingExpense}
-          setDeletingExpense={props.setDeletingExpense}
-          darkMode={props.darkMode}
-          handleConfirmDelete={props.handleConfirmDelete}
-        />
+        <ModalLayer {...props} />
       </div>
 
       {/* Auth overlay (guest browsing — click Login / Add while logged out) */}
-      {showAuth && (
-        <AuthView setUser={handleSetUser} onClose={() => setShowAuth(false)} />
+      {screen.showAuth && (
+        <AuthView
+          setUser={screen.handleSetUser}
+          onClose={() => screen.setShowAuth(false)}
+        />
       )}
     </div>
   );

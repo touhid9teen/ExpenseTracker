@@ -211,7 +211,14 @@ ExpenseTracker/
 │   │
 │   └── 📂 utils/                    # Utility functions
 │       ├── 📄 dateUtils.js          # Date formatting & helpers
-│       ├── 📄 expenseCalculations.js # Expense aggregation & math
+│       ├── 📂 expenseCalculations/    # Expense aggregation & math
+│       │   ├── 📄 index.js            # Barrel re-exports (public API)
+│       │   ├── 📄 normalization.js    # Amount/record normalization
+│       │   ├── 📄 filters.js          # Filter, sort, paginate
+│       │   ├── 📄 summary.js          # Summary cards & quick stats
+│       │   ├── 📄 overview.js         # Period chart aggregations
+│       │   ├── 📄 insights.js         # Statistics & AI insights
+│       │   └── 📄 helpers.js          # Shared internal helpers
 │       ├── 📄 categoryStyles.js     # Category color & style map
 │       ├── 📄 storageUtils.js       # localStorage helpers
 │       ├── 📄 offlineStore.js       # Per-user offline queue & sync

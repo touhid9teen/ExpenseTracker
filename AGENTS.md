@@ -18,7 +18,7 @@ Env vars in `.env.local`: `DATABASE_URL` (Neon Postgres), `JWT_SECRET`, `APP_ENV
 
 - Single client page: `src/app/page.js` → `ExpenseClipper` → hook composition layer `src/hooks/useExpenseClipper.js`, which spreads the merged return of sub-hooks into `<ExpenseClipperScreen {...clipper} />`. **Edit the owning sub-hook** (`useAuth`, `useTheme`, `useExpenses`, `useExpenseFilters`, `useUIState`, `useExpenseForm`, `useOnlineStatus`, `useAdmin`), not the composition layer.
 - Views under `src/Components/`: `StatisticsView/`, `LedgerView/`, `AboutView/`, `AuthView/`, `AdminView/` (admin console), `ChatBot/`, `ExpenseClipper/`, `Skeleton/`, `common/`. Icons are inline SVGs in `src/Components/common/Icons.jsx` — one file, no icon library (though `lucide-react` is installed).
-- Derived stats computed client-side in `src/utils/expenseCalculations.js`; the API returns only raw rows.
+- Derived stats computed client-side in `src/utils/expenseCalculations/` (submodules + `index.js` barrel); the API returns only raw rows.
 - All expense CRUD is **optimistic**: update state + cache first, then API call or queue-enqueue (`src/utils/offlineStore.js` — per-user localStorage + coalesced mutation queue, FIFO replay on reconnect).
 - `StatisticsView` keeps charts mounted across tab switches via CSS `hidden`, not conditional rendering.
 - Dark mode is a `darkMode` prop, not Tailwind `dark:` classes. Theme persists via `src/utils/storageUtils.js`.

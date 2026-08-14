@@ -1,5 +1,5 @@
-import sql from "../db";
-import { computePeriods } from "./periods";
+import sql from "../db.js";
+import { computePeriods } from "./periods.js";
 
 // A period is flagged as an alert when spending exceeds the user's own
 // trailing average ("regular spend") by this factor.

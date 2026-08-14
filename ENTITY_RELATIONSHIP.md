@@ -80,6 +80,22 @@
 
 **Description:** Read-only audit trail written by `withApiLog` (`src/utils/apiLogger.js`) for every wrapped route. Powers the admin **Live Logs** panel. Deliberately denormalized (no FK) so log rows survive user deletion.
 
+### Entity 5: `notifications` (Period-End Spending Alerts)
+
+| Attribute    | Type                     | Constraints                                            |
+|--------------|--------------------------|--------------------------------------------------------|
+| `id`         | BIGSERIAL (BIGINT)       | PRIMARY KEY                                            |
+| `user_id`    | UUID                     | FOREIGN KEY → users(id) ON DELETE CASCADE, NOT NULL    |
+| `period`     | VARCHAR(16)              | NOT NULL (`day` \| `week` \| `month` \| `year`)        |
+| `period_key` | VARCHAR(32)              | NOT NULL (e.g. `2026-08-14`, `2026-W33`, `2026-08`, `2026`) |
+| `type`       | VARCHAR(16)              | NOT NULL DEFAULT `summary` (`summary` \| `alert`)       |
+| `title`      | VARCHAR(255)             | NOT NULL                                               |
+| `message`    | TEXT                     | NOT NULL                                               |
+| `is_read`    | BOOLEAN                  | NOT NULL DEFAULT FALSE                                 |
+| `created_at` | TIMESTAMP WITH TIME ZONE | DEFAULT CURRENT_TIMESTAMP                              |
+
+**Description:** Cron-generated spending notifications — daily/weekly/monthly/yearly summaries with a comparison against the previous period, plus an `alert` row when spending crossed the user's own trailing average (×1.25). The unique index on `(user_id, period, period_key, type)` makes the daily cron idempotent.
+
 ### Relationship Summary
 
 ```
@@ -89,13 +105,17 @@ users (1) ────────< (N) expenses
 users (1) ────────< (N) password_reset_tokens
        one-to-many
 
+users (1) ────────< (N) notifications
+       one-to-many
+
 api_logs            (standalone audit table, no FK)
 ```
 
 - A **User** can have **zero or many** Expenses.
 - An **Expense** belongs to **exactly one** User.
 - A **User** can have **zero or many** Password Reset Tokens (old ones are invalidated on each new request).
-- Deleting a User **cascades** to delete their Expenses and Reset Tokens.
+- A **User** can have **zero or many** Notifications (cron-generated, deduped per period).
+- Deleting a User **cascades** to delete their Expenses, Reset Tokens and Notifications.
 - **api_logs** is independent — rows are kept even if the user is later deleted.
 
 ### Category Enum (Application-Level)
@@ -351,6 +371,25 @@ CREATE TABLE IF NOT EXISTS api_logs (
 
 CREATE INDEX IF NOT EXISTS idx_api_logs_id_desc ON api_logs(id DESC);
 CREATE INDEX IF NOT EXISTS idx_api_logs_created_at ON api_logs(created_at DESC);
+
+-- ====================
+-- TABLE: notifications
+-- ====================
+CREATE TABLE IF NOT EXISTS notifications (
+    id          BIGSERIAL PRIMARY KEY,
+    user_id     UUID REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+    period      VARCHAR(16) NOT NULL,
+    period_key  VARCHAR(32) NOT NULL,
+    type        VARCHAR(16) NOT NULL DEFAULT 'summary',
+    title       VARCHAR(255) NOT NULL,
+    message     TEXT NOT NULL,
+    is_read     BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_notifications_user_created ON notifications(user_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_notifications_unread ON notifications(user_id, is_read);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_notifications_dedupe ON notifications(user_id, period, period_key, type);
 
 -- Seed the platform owner as an administrator (idempotent)
 UPDATE users SET is_admin = TRUE WHERE username = 'touhid';
@@ -740,13 +779,16 @@ FUNCTION decrypt(input):
 | Primary Key              | password_reset_tokens  | `id` SERIAL                                |
 | Primary Key              | expenses               | `id` VARCHAR(255), client-generated        |
 | Primary Key              | api_logs               | `id` BIGSERIAL                             |
+| Primary Key              | notifications         | `id` BIGSERIAL                             |
 | Unique                   | users                  | `username` unique across all users         |
 | Unique (partial)         | users                  | `email` unique when non-empty              |
 | Unique                   | password_reset_tokens  | `token` unique                             |
+| Unique (composite)       | notifications         | `(user_id, period, period_key, type)` dedupes cron runs |
 | NOT NULL                 | users                  | `username`, `password_hash` required       |
 | Foreign Key              | expenses               | `user_id` REFERENCES `users(id)`           |
 | Foreign Key              | password_reset_tokens  | `user_id` REFERENCES `users(id)`           |
-| Cascade Delete           | expenses / reset tokens | Deleting a User deletes their children     |
+| Foreign Key              | notifications         | `user_id` REFERENCES `users(id)`           |
+| Cascade Delete           | expenses / reset tokens / notifications | Deleting a User deletes their children |
 | Default Value            | users                  | `is_admin` = FALSE, `created_at` = now     |
 
 ### Application-Level Constraints (Zod — `src/lib/validations.js`)
@@ -813,6 +855,11 @@ CREATE INDEX IF NOT EXISTS idx_expenses_user_id_date ON expenses(user_id, date D
 -- Index 6: Admin Live Logs newest-first feed
 CREATE INDEX IF NOT EXISTS idx_api_logs_id_desc ON api_logs(id DESC);
 CREATE INDEX IF NOT EXISTS idx_api_logs_created_at ON api_logs(created_at DESC);
+
+-- Index 7: Notification center feed per user (newest first, unread on top)
+CREATE INDEX IF NOT EXISTS idx_notifications_user_created ON notifications(user_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_notifications_unread ON notifications(user_id, is_read);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_notifications_dedupe ON notifications(user_id, period, period_key, type);
 ```
 
 **Rationale:**
@@ -825,6 +872,9 @@ CREATE INDEX IF NOT EXISTS idx_api_logs_created_at ON api_logs(created_at DESC);
 | `idx_reset_tokens_user_id`          | Scan active (unused, unexpired) tokens per user               |
 | `idx_expenses_user_id_date`         | Composite index for `WHERE user_id = ? ORDER BY date DESC` — the primary expense-fetching query |
 | `idx_api_logs_id_desc` / `idx_api_logs_created_at` | Newest-first pagination of the admin logs feed |
+| `idx_notifications_user_created`  | Notification center feed per user (newest first)   |
+| `idx_notifications_unread`        | Fast unread-count query per user                   |
+| `idx_notifications_dedupe`        | Unique (user_id, period, period_key, type) — makes the daily cron idempotent |
 
 ---
 

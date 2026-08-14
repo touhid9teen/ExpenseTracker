@@ -37,7 +37,7 @@ Env vars in `.env.local`: `DATABASE_URL` (Neon Postgres), `JWT_SECRET`, `APP_ENV
 ## Schema & migrations
 
 - Canonical schema: `src/lib/schema.mjs` (used by `GET /api/init-db`) and mirrored in `src/lib/schema.sql` (used by `scripts/init-db.mjs`). **These two files must stay in sync manually.** No migration framework — new tables/columns go in both, applied via `node scripts/init-db.mjs` or `GET /api/init-db`. Routes never run inline migrations.
-- Tables: `users` (has `is_admin`, `security_question`, `security_answer_hash`), `expenses` (client-generated string PK), `password_reset_tokens`, `api_logs`.
+- Tables: `users` (has `is_admin`, `security_question`, `security_answer_hash`), `expenses` (client-generated string PK), `password_reset_tokens`, `api_logs`, `notifications` (cron-generated period summaries/alerts; dedupe via `(user_id, period, period_key, type)`).
 
 ## Conventions & gotchas
 

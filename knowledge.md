@@ -10,7 +10,7 @@ Key code locations:
 - Icons: `src/components/ui/Icons.jsx` — one file of inline SVG components (no icon library, though `lucide-react` is installed).
 - Derived stats computed client-side in `src/utils/expenseCalculations/` (focused submodules + `index.js` barrel); API returns raw rows only.
 - Offline persistence & coalesced mutation queue: `src/utils/offlineStore.js` (per-user localStorage; FIFO replay on reconnect).
-- `src/lib/schema.mjs` (canonical) + `src/lib/schema.sql` (mirror for scripts) — **must stay in sync manually**. Tables: `users` (has `is_admin`, `security_question`, `security_answer_hash`), `expenses` (client-generated string PK), `password_reset_tokens`, `api_logs`.
+- `src/lib/schema.mjs` (canonical) + `src/lib/schema.sql` (mirror for scripts) — **must stay in sync manually**. Tables: `users` (has `is_admin`, `security_question`, `security_answer_hash`), `expenses` (client-generated string PK), `password_reset_tokens`, `api_logs`, `notifications` (cron-generated period summaries/alerts; dedupe via `(user_id, period, period_key, type)`).
 
 ## Commands
 

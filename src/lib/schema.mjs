@@ -65,6 +65,25 @@ CREATE TABLE IF NOT EXISTS api_logs (
 CREATE INDEX IF NOT EXISTS idx_api_logs_id_desc ON api_logs(id DESC);
 CREATE INDEX IF NOT EXISTS idx_api_logs_created_at ON api_logs(created_at DESC);
 
+-- Automated period-end spending notifications (cron-generated summaries +
+-- budget-crossing alerts). Dedupe key (user_id, period, period_key, type)
+-- makes the daily cron idempotent across day/week/month/year periods.
+CREATE TABLE IF NOT EXISTS notifications (
+  id BIGSERIAL PRIMARY KEY,
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+  period VARCHAR(16) NOT NULL,               -- day | week | month | year
+  period_key VARCHAR(32) NOT NULL,           -- e.g. 2026-08-14, 2026-W33, 2026-08, 2026
+  type VARCHAR(16) NOT NULL DEFAULT 'summary', -- summary | alert
+  title VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL,
+  is_read BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_notifications_user_created ON notifications(user_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_notifications_unread ON notifications(user_id, is_read);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_notifications_dedupe ON notifications(user_id, period, period_key, type);
+
 -- Seed the platform owner as an administrator (idempotent).
 UPDATE users SET is_admin = TRUE WHERE username = 'touhid';
 `;

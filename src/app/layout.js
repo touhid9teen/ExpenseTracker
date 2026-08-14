@@ -21,8 +21,12 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="h-full">
-      <body className="h-full antialiased font-sans">
+    /* `suppressHydrationWarning` silences attribute mismatches on the root
+       tags caused by browser extensions (e.g. Grammarly) injecting their own
+       attributes into <body> after the server render. Content mismatches
+       are still surfaced. */
+    <html lang="en" className="h-full" suppressHydrationWarning>
+      <body className="h-full antialiased font-sans" suppressHydrationWarning>
         {children}
       </body>
     </html>

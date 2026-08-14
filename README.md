@@ -120,6 +120,33 @@ docker compose down
 
 <hr>
 
+### 🗂️ FinVue : Project Structure
+
+```
+src/
+├── app/                      # Next.js App Router — pages & API routes
+├── assets/                   # Static images
+├── components/               # React UI components (by feature bucket)
+│   ├── layout/               # App shell — AppHeader, Sidebar, AmbientBackground…
+│   ├── ui/                   # Shared primitives — Button, InputField, Icons, ModalShell…
+│   ├── auth/                 # Login / register & password recovery UI
+│   ├── chat/                 # AI assistant, command center & insights rail
+│   ├── expense/              # Expense entry flow (ExpenseClipper) & modals
+│   ├── ledger/               # Expense table view
+│   ├── statistics/           # Charts & statistics view
+│   ├── admin/                # Admin console (users / expenses / logs)
+│   ├── about/                # About view
+│   └── skeletons/            # Loading skeletons
+├── hooks/                    # Custom React hooks (shared stateful logic)
+├── config/                   # AI model provider configuration
+├── data/                     # Static / seed data
+├── lib/                      # DB client, schema, JWT & validation
+├── utils/                    # Pure helpers — dates, calculations, styles, storage
+└── middleware.js             # Edge middleware (auth guard)
+```
+
+<hr>
+
 ### 📚 FinVue : Documentation
 
 - 📌 Project Structure : **( [ 👉 Click Here](./PROJECT_STRUCTURE.md) )**

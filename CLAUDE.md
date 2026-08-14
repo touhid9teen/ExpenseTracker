@@ -34,7 +34,7 @@ When changing behavior, edit the relevant sub-hook, not the composition layer. `
 **StatisticsView preserves chart state** across tab switches — it uses CSS `hidden` instead of conditional rendering to keep the DOM and chart instances mounted.
 
 - Derived data (summary cards, category breakdown, daily trend, filtered/paginated lists) is computed client-side in [src/utils/expenseCalculations/](src/utils/expenseCalculations/) (submodules + `index.js` barrel) — the API only returns raw rows.
-- Component folders under [src/Components/](src/Components/) group by view (`LedgerView/`, `StatisticsView/`, `AuthView/`, `ChatBot/`, `ExpenseClipper/`, `Skeleton/`, `common/`). Icons come from [src/Components/common/Icons.jsx](src/Components/common/Icons.jsx) — a single file of inline SVG components, not an icon library.
+- Component folders under [src/components/](src/components/) group by feature bucket: `layout/`, `ui/`, `auth/`, `chat/`, `expense/`, `ledger/`, `statistics/`, `admin/`, `about/`, `skeletons/`. Icons come from [src/components/ui/Icons.jsx](src/components/ui/Icons.jsx) — a single file of inline SVG components, not an icon library.
 - Currency is BDT (৳). Theme preference persists via [src/utils/storageUtils.js](src/utils/storageUtils.js); dark mode is a state flag passed to components, not a Tailwind `dark:` class strategy.
 
 ### Offline persistence & sync queue

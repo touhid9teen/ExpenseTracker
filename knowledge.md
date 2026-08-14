@@ -6,8 +6,8 @@
 
 Key code locations:
 - `src/app/page.js` → `ExpenseClipper` → `src/hooks/useExpenseClipper.js` — the **composition layer** that wires 7 sub-hooks (`useAuth`, `useTheme`, `useExpenses`, `useExpenseFilters`, `useUIState`, `useExpenseForm`, `useOnlineStatus`, plus `useAdmin`) and spreads their merged return into `<ExpenseClipperScreen {...clipper} />`. Edit the sub-hook owning a slice of state, not this file.
-- Views under `src/Components/`: `StatisticsView/`, `LedgerView/`, `AboutView/`, `AuthView/`, `AdminView/` (admin console: Users/Expenses/Logs tabs), `ChatBot/`, `ExpenseClipper/` (incl. `ExpenseModals/` with shared `ModalShell.jsx`), `Skeleton/`, `common/`.
-- Icons: `src/Components/common/Icons.jsx` — one file of inline SVG components (no icon library, though `lucide-react` is installed).
+- Views under `src/components/`, grouped by feature bucket: `layout/`, `ui/`, `auth/`, `chat/`, `expense/` (incl. `ExpenseModals/` with shared `ModalShell.jsx` in `ui/`), `ledger/`, `statistics/`, `admin/` (admin console: Users/Expenses/Logs tabs), `about/`, `skeletons/`.
+- Icons: `src/components/ui/Icons.jsx` — one file of inline SVG components (no icon library, though `lucide-react` is installed).
 - Derived stats computed client-side in `src/utils/expenseCalculations/` (focused submodules + `index.js` barrel); API returns raw rows only.
 - Offline persistence & coalesced mutation queue: `src/utils/offlineStore.js` (per-user localStorage; FIFO replay on reconnect).
 - `src/lib/schema.mjs` (canonical) + `src/lib/schema.sql` (mirror for scripts) — **must stay in sync manually**. Tables: `users` (has `is_admin`, `security_question`, `security_answer_hash`), `expenses` (client-generated string PK), `password_reset_tokens`, `api_logs`.

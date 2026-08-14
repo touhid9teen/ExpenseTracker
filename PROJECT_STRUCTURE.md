@@ -78,23 +78,27 @@ ExpenseTracker/
 │   │   ├── 📄 login-view.jpg
 │   │   └── 📄 react.svg
 │   │
-│   ├── 📂 Components/               # Reusable UI components (by feature)
-│   │   ├── 📂 common/               # Shared UI primitives
+│   ├── 📂 components/               # Reusable UI components (by feature bucket)
+│   │   ├── 📂 layout/               # App shell & navigation
 │   │   │   ├── 📄 AppHeader.jsx         # Top navigation bar
-│   │   │   ├── 📄 Sidebar.jsx           # Side navigation
+│   │   │   ├── 📂 Sidebar/             # Side navigation (logo, nav, theme, profile)
+│   │   │   ├── 📄 AmbientBackground.jsx # Aurora/grid backdrop
+│   │   │   ├── 📄 AppLoader.jsx         # App-level loading spinner
+│   │   │   ├── 📄 GoToTopButton.jsx     # Scroll-to-top button
+│   │   │   ├── 📄 InstallPWAPrompt.jsx  # PWA install prompt
+│   │   │   ├── 📄 OfflineBanner.jsx     # Offline status banner
+│   │   │   └── 📄 ToastProvider.jsx     # Toast notification provider
+│   │   │
+│   │   ├── 📂 ui/                   # Shared UI primitives
 │   │   │   ├── 📄 Button.jsx            # Reusable button component
 │   │   │   ├── 📄 InputField.jsx        # Reusable input field
 │   │   │   ├── 📄 Icons.jsx             # Inline SVG icon set
 │   │   │   ├── 📄 categoryIcons.jsx     # Category icon map
-│   │   │   ├── 📄 ToastProvider.jsx     # Toast notification provider
-│   │   │   ├── 📄 AppLoader.jsx         # App-level loading spinner
-│   │   │   ├── 📄 GoToTopButton.jsx     # Scroll-to-top button
-│   │   │   ├── 📄 InstallPWAPrompt.jsx  # PWA install prompt
-│   │   │   └── 📄 OfflineBanner.jsx     # Offline status banner
+│   │   │   ├── 📄 ModalShell.jsx        # Shared modal shell/tokens
+│   │   │   └── 📄 SegmentedToggle.jsx   # View toggle control
 │   │   │
-│   │   ├── 📂 AuthView/             # Authentication UI
+│   │   ├── 📂 auth/                 # Authentication UI
 │   │   │   ├── 📄 AuthView.jsx          # Login / register screen (composition)
-│   │   │   ├── 📄 useAuthView.js        # Auth state & submit handlers hook
 │   │   │   ├── 📄 authValidation.js     # Validation rules & error messages
 │   │   │   ├── 📂 layout/               # Page shell
 │   │   │   │   ├── 📄 AuthShell.jsx     # Full-screen layout shell
@@ -110,27 +114,38 @@ ExpenseTracker/
 │   │   │   │   ├── 📄 PasswordStrengthMeter.jsx # Strength indicator
 │   │   │   │   └── 📄 SocialButtons.jsx # Social login buttons
 │   │   │   └── 📂 modals/               # Overlay dialogs
-│   │   │       ├── 📄 ForgotPasswordModal.jsx # Password recovery modal
+│   │   │       ├── 📂 ForgotPasswordModal/ # Password recovery (email/code/done steps)
 │   │   │       └── 📄 SuccessModal.jsx  # Success confirmation modal
 │   │   │
-│   │   ├── 📂 ExpenseClipper/       # Main expense entry flow
+│   │   ├── 📂 chat/                 # AI assistant & chat UI
+│   │   │   ├── 📂 AIAssistant/          # AI chat container & widgets
+│   │   │   │   ├── 📄 AIAssistant.jsx       # AI assistant container
+│   │   │   │   ├── 📄 WelcomeScreen.jsx     # Empty-state welcome
+│   │   │   │   ├── 📄 MessageList.jsx       # Chat message list
+│   │   │   │   ├── 📄 Composer.jsx          # Message input composer
+│   │   │   │   ├── 📄 QuickConfirmCard.jsx  # Quick-action confirm card
+│   │   │   │   ├── 📄 parseDirectives.js    # Directive parser helper
+│   │   │   │   ├── 📂 ChatWidgets/         # Chat UI widgets (charts, data)
+│   │   │   │   └── 📂 InsightsRail/        # Insights rail panel
+│   │   │   ├── 📄 CommandCenter.jsx    # Command cards row (Ask AI, Add, etc.)
+│   │   │   ├── 📄 InsightsRailSide.jsx # AI insights rail (desktop)
+│   │   │   ├── 📂 ChatMessage/         # Message bubble + markdown renderer
+│   │   │   └── 📄 suggestions.js       # Predefined suggestion data
+│   │   │
+│   │   ├── 📂 expense/              # Expense entry flow & modals
 │   │   │   ├── 📄 ExpenseClipper.jsx       # Clipper container
 │   │   │   ├── 📄 ExpenseClipperScreen.jsx # Screen shell (composition)
-│   │   │   ├── 📄 useClipperScreen.js      # Shell UI state & handlers hook
 │   │   │   ├── 📄 MainContentView.jsx      # Header + tab content + insights rail
 │   │   │   ├── 📄 TabContent.jsx           # Command cards, skeletons & views
-│   │   │   ├── 📄 InsightsRailSide.jsx     # AI insights rail (desktop)
-│   │   │   ├── 📄 AmbientBackground.jsx    # Aurora/grid backdrop
 │   │   │   └── 📂 ExpenseModals/
 │   │   │       ├── 📄 ExpenseModals.jsx       # Modal manager
 │   │   │       ├── 📄 ModalLayer.jsx          # Renders all expense modals
-│   │   │       ├── 📄 ModalShell.jsx          # Shared modal shell/tokens
-│   │   │       ├── 📄 AddExpenseModal.jsx     # Add expense modal
+│   │   │       ├── 📂 AddExpenseModal/        # Add expense modal (category/amount steps)
 │   │   │       ├── 📄 DailyExpenseModal.jsx   # Daily expense modal
 │   │   │       ├── 📄 EditExpenseModal.jsx    # Edit expense modal
 │   │   │       └── 📄 DeleteExpenseModal.jsx  # Confirm delete modal
 │   │   │
-│   │   ├── 📂 LedgerView/           # Expense ledger (table view)
+│   │   ├── 📂 ledger/               # Expense ledger (table view)
 │   │   │   ├── 📄 LedgerView.jsx         # Ledger container
 │   │   │   ├── 📄 ExpenseTable.jsx       # Expense rows table
 │   │   │   ├── 📄 LedgerRow.jsx          # Single expense row
@@ -139,43 +154,29 @@ ExpenseTracker/
 │   │   │   ├── 📄 LedgerSummaryCards.jsx # Summary cards
 │   │   │   └── 📄 PaginationBar.jsx      # Pagination controls
 │   │   │
-│   │   ├── 📂 StatisticsView/       # Statistics & charts view
+│   │   ├── 📂 statistics/           # Statistics & charts view
 │   │   │   ├── 📄 StatisticsView.jsx        # Stats container
 │   │   │   ├── 📄 StatisticsHeader.jsx      # Header / date range picker
 │   │   │   ├── 📄 SummaryCardsGrid.jsx      # Summary statistic cards
-│   │   │   ├── 📄 SegmentedToggle.jsx       # View toggle control
 │   │   │   ├── 📄 SpendingDonutChart.jsx    # Category donut chart
-│   │   │   ├── 📄 SpendingOverviewChart.jsx # Spending overview chart
+│   │   │   ├── 📂 SpendingOverviewChart/    # Overview chart (summary + graph panels)
 │   │   │   ├── 📄 ExpenseTrendChart.jsx     # Daily trend chart
 │   │   │   ├── 📄 CategoryInsightsGrid.jsx  # Category insight cards
 │   │   │   ├── 📄 AIInsightCards.jsx        # AI-generated insight cards
 │   │   │   └── 📄 panelStyles.js            # Shared panel styles
 │   │   │
-│   │   ├── 📂 AIAssistant/          # AI insights & chat widgets
-│   │   │   ├── 📄 AIAssistant.jsx       # AI assistant container
-│   │   │   ├── 📄 ChatWidgets.jsx       # Chat UI widgets
-│   │   │   └── 📄 InsightsRail.jsx      # Insights rail panel
-│   │   │
-│   │   ├── 📂 ChatBot/              # AI chat assistant
-│   │   │   ├── 📄 ChatMessage.jsx       # Individual message bubble
-│   │   │   └── 📄 suggestions.js        # Predefined suggestion data
-│   │   │
-│   │   ├── 📂 CommandCenter/        # Command palette
-│   │   │   └── 📄 CommandCenter.jsx
-│   │   │
-│   │   ├── 📂 AdminView/            # Admin console
+│   │   ├── 📂 admin/                # Admin console
 │   │   │   ├── 📄 AdminView.jsx           # Admin container
 │   │   │   ├── 📄 AdminUsersTab.jsx       # Users management tab
 │   │   │   ├── 📄 AdminExpensesTab.jsx    # Expenses management tab
 │   │   │   ├── 📄 AdminLogsTab.jsx        # API logs tab
-│   │   │   ├── 📄 AdminPagination.jsx     # Pagination controls
-│   │   │   └── 📄 useAdminPagination.js   # Pagination hook
+│   │   │   └── 📄 AdminPagination.jsx     # Pagination controls
 │   │   │
-│   │   ├── 📂 AboutView/            # About / info view
+│   │   ├── 📂 about/                # About / info view
 │   │   │   ├── 📄 AboutView.jsx         # About screen
 │   │   │   └── 📄 aboutData.js          # About content data
 │   │   │
-│   │   └── 📂 Skeleton/             # Loading skeletons
+│   │   └── 📂 skeletons/            # Loading skeletons
 │   │       ├── 📄 Skeleton.jsx              # Generic skeleton primitive
 │   │       ├── 📂 LedgerSkeleton/           # Ledger loader
 │   │       ├── 📂 StatisticsSkeleton/       # Stats loader
@@ -193,7 +194,11 @@ ExpenseTracker/
 │   │   ├── 📄 useExpenseForm.js     # Expense form state
 │   │   ├── 📄 useUIState.js         # UI modal/panel state
 │   │   ├── 📄 useOnlineStatus.js    # Online/offline detection
-│   │   └── 📄 useAdmin.js           # Admin panel state & actions
+│   │   ├── 📄 useAdmin.js           # Admin panel state & actions
+│   │   ├── 📄 useClipperScreen.js   # App shell UI state & handlers
+│   │   ├── 📄 useAIAssistant.js     # AI chat state & message flow
+│   │   ├── 📄 useAuthView.js        # Auth screen state & submit handlers
+│   │   └── 📄 useAdminPagination.js # Admin pagination state
 │   │
 │   ├── 📂 config/                   # Configuration modules
 │   │   └── 📄 aiModels.js           # AI model provider config
@@ -243,7 +248,7 @@ ExpenseTracker/
 |-------|----------|-------------|
 | **Pages** | `src/app/` | Next.js App Router pages — home, login, terms, loading |
 | **API** | `src/app/api/` | RESTful route handlers — auth, expenses, admin, chat, init-db |
-| **Components** | `src/Components/` | All React UI components, organized by feature |
+| **Components** | `src/components/` | React UI components — `layout/`, `ui/`, `auth/`, `chat/`, `expense/`, `ledger/`, `statistics/`, `admin/`, `about/`, `skeletons/` |
 | **Hooks** | `src/hooks/` | Custom React hooks for shared stateful logic |
 | **Config** | `src/config/` | AI model provider configuration |
 | **Lib** | `src/lib/` | Database client, schema, JWT & validation utilities |
@@ -272,4 +277,4 @@ ExpenseTracker/
 ### 🤖 AI Chat
 - **Endpoint** → `POST /api/chat` → Gemini AI with DeepSeek / Groq / OpenAI fallbacks
 - **Config** → `src/config/aiModels.js` + `src/utils/aiProviders.js`
-- **UI** → `src/Components/ChatBot/` + `src/Components/AIAssistant/` — chat UI with quick actions
+- **UI** → `src/components/chat/` — `AIAssistant/` (chat + widgets + insights rail), `CommandCenter.jsx`, `ChatMessage/`

@@ -41,8 +41,8 @@ const AIAssistant = ({
       <div
         className={`flex flex-col overflow-hidden ${
           compact
-            ? "h-[calc(100dvh-17rem)] min-h-[22rem] lg:h-full lg:min-h-0"
-            : "h-[calc(100dvh-10.5rem)] min-h-[26rem] xl:h-[calc(100dvh-9.5rem)]"
+            ? "h-[calc(100dvh-8.5rem)] min-h-[22rem] lg:h-full lg:min-h-0"
+            : "h-[calc(100dvh-7rem)] min-h-[26rem] lg:h-[calc(100dvh-10.5rem)] xl:h-[calc(100dvh-9.5rem)]"
         }`}
       >
         {/* ── Messages ── */}

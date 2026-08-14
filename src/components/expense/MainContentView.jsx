@@ -18,7 +18,6 @@ const MainContentView = ({ props, screen, onLogin }) => {
     setChatExpanded,
     newChatSignal,
     setNewChatSignal,
-    setMobileSidebarOpen,
     showPageSkeleton,
     pageSkeleton,
     handleLogout,
@@ -45,7 +44,6 @@ const MainContentView = ({ props, screen, onLogin }) => {
         chatExpanded={chatExpanded}
         onToggleExpanded={() => setChatExpanded((v) => !v)}
         onNewChat={() => setNewChatSignal((n) => n + 1)}
-        onToggleSidebar={() => setMobileSidebarOpen((v) => !v)}
       />
 
       {/* Tight gap next to the sidebar, matching the mockup — almost no

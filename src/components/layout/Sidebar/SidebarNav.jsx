@@ -8,13 +8,24 @@ import {
   LightbulbIcon,
   InfoCircleIcon,
   ShieldCheckIcon,
+  LogInIcon,
+  LogoutIcon,
 } from "../../ui/Icons";
 
 /**
  * SidebarNav – the navigation links (Command Center / Add Expense / Table /
- * Statistics / Budget Tips, then a divider and About / Admin).
+ * Statistics / Budget Tips, then a divider, About / Admin, and a final
+ * divider with Login / Logout).
  */
-const SidebarNav = ({ darkMode, activeTab, isAdmin = false, onNavigate }) => {
+const SidebarNav = ({
+  darkMode,
+  activeTab,
+  isAdmin = false,
+  onNavigate,
+  user,
+  handleLogout,
+  onLogin,
+}) => {
   const navItems = [
     { key: "overview", label: "Command Center", icon: HomeIcon },
     { key: "add", label: "Add Expense", icon: PlusCircleIcon, action: "modal" },
@@ -68,6 +79,34 @@ const SidebarNav = ({ darkMode, activeTab, isAdmin = false, onNavigate }) => {
       {renderLink("about", "About", InfoCircleIcon, activeTab === "about")}
       {isAdmin &&
         renderLink("admin", "Admin", ShieldCheckIcon, activeTab === "admin")}
+
+      <div className={`h-px my-3 ${darkMode ? "bg-slate-800" : "bg-[#EBEBEC]"}`} />
+
+      {user ? (
+        <button
+          onClick={handleLogout}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+            darkMode
+              ? "text-rose-400 hover:bg-rose-500/10 hover:text-rose-300"
+              : "text-rose-500 hover:bg-rose-50 hover:text-rose-600"
+          }`}
+        >
+          <LogoutIcon className="w-5 h-5 shrink-0" strokeWidth={2} />
+          Logout
+        </button>
+      ) : (
+        <button
+          onClick={onLogin}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+            darkMode
+              ? "text-violet-300 hover:bg-violet-500/10 hover:text-violet-200"
+              : "text-violet-600 hover:bg-violet-50 hover:text-violet-700"
+          }`}
+        >
+          <LogInIcon className="w-5 h-5 shrink-0" strokeWidth={2} />
+          Login
+        </button>
+      )}
     </nav>
   );
 };

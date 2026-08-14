@@ -1,7 +1,7 @@
 "use client";
 
 import { memo } from "react";
-import { SunIcon, MoonIcon, LogoutIcon, LogInIcon, SparklesIcon, ExpandIcon, RefreshIcon, MenuHamburgerIcon } from "../ui/Icons";
+import { SunIcon, MoonIcon, LogoutIcon, LogInIcon, SparklesIcon, ExpandIcon, RefreshIcon } from "../ui/Icons";
 
 const TITLES = {
   overview: "Command Center",
@@ -19,8 +19,9 @@ const SUBTITLES = {
 /**
  * AppHeader – the dashboard header above the main content (matches the
  * mockup): section title + subtitle on the left, bordered action buttons on
- * the right. Sticky at the top of the content column, with NO border below.
- * On the chat tab it gains "New chat" + fullscreen-toggle buttons.
+ * the right. Desktop-only (`hidden lg:block`) — on small screens navigation
+ * and actions live in the mobile BottomNav instead. On the chat tab it
+ * gains "New chat" + fullscreen-toggle buttons.
  */
 const AppHeader = memo(function AppHeader({
   darkMode,
@@ -34,7 +35,6 @@ const AppHeader = memo(function AppHeader({
   chatExpanded = false,
   onToggleExpanded,
   onNewChat,
-  onToggleSidebar,
 }) {
   const title = TITLES[activeTab] || "Command Center";
   const subtitle = SUBTITLES[activeTab] || "Smartly manage your finances with FinVue AI ✨";
@@ -45,18 +45,9 @@ const AppHeader = memo(function AppHeader({
       : "bg-white border-slate-200 text-slate-500 hover:border-violet-300 hover:text-violet-600 shadow-sm";
 
   return (
-    <header className="transition-colors duration-300">
+    <header className="hidden lg:block transition-colors duration-300">
       <div className="px-4 sm:px-6 lg:px-6 py-3 flex items-center justify-between gap-4">
         <div className="min-w-0 flex items-center gap-3">
-          {/* Collapsible sidebar toggle — small screens only */}
-          <button
-            onClick={onToggleSidebar}
-            aria-label="Toggle navigation menu"
-            className={`lg:hidden p-2.5 rounded-xl border transition-all duration-200 hover:scale-105 active:scale-95 ${actionBtn}`}
-          >
-            <MenuHamburgerIcon className="w-5 h-5" />
-          </button>
-
           {/* Title + subtitle */}
           <div className="min-w-0">
           <h1

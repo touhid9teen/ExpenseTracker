@@ -2,6 +2,7 @@
 
 import AuthView from "../auth/AuthView";
 import GoToTopButton from "../layout/GoToTopButton";
+import BottomNav from "../layout/BottomNav";
 import Sidebar from "../layout/Sidebar/index";
 import AmbientBackground from "../layout/AmbientBackground";
 import ModalLayer from "./ExpenseModals/ModalLayer";
@@ -13,7 +14,7 @@ const ExpenseClipperScreen = (props) => {
 
   return (
     <div
-      className={`relative min-h-screen lg:h-screen font-sans transition-colors duration-300 pb-16 lg:pb-0 overflow-x-clip lg:overflow-hidden ${
+      className={`relative min-h-screen lg:h-screen font-sans transition-colors duration-300 pb-[calc(5.5rem+env(safe-area-inset-bottom))] lg:pb-0 overflow-x-clip lg:overflow-hidden ${
         props.darkMode
           ? "bg-[#0b0f19] text-slate-100"
           : "bg-white text-slate-800"
@@ -31,6 +32,8 @@ const ExpenseClipperScreen = (props) => {
           setActiveTab={props.setActiveTab}
           setShowQuickAdd={screen.guardedSetShowQuickAdd}
           setPendingAction={props.setPendingAction}
+          handleLogout={screen.handleLogout}
+          onLogin={() => screen.setShowAuth(true)}
           isAdmin={!!props.user?.isAdmin}
           mobileOpen={screen.mobileSidebarOpen}
           onCloseMobile={() => screen.setMobileSidebarOpen(false)}
@@ -40,6 +43,15 @@ const ExpenseClipperScreen = (props) => {
           props={props}
           screen={screen}
           onLogin={() => screen.setShowAuth(true)}
+        />
+
+        {/* Mobile bottom navigation — replaces the AppHeader below `lg` */}
+        <BottomNav
+          darkMode={props.darkMode}
+          activeTab={screen.activeTab}
+          setActiveTab={props.setActiveTab}
+          setShowQuickAdd={screen.guardedSetShowQuickAdd}
+          onToggleSidebar={() => screen.setMobileSidebarOpen((v) => !v)}
         />
 
         {/* Floating controls hidden while chatting so they never overlap

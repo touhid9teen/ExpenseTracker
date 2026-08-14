@@ -64,7 +64,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
 
   return (
     <div
-      className="fixed bottom-4 inset-x-4 z-[70] flex justify-center sm:bottom-6 sm:inset-x-auto sm:right-6"
+      className="fixed inset-x-4 bottom-20 z-[70] flex justify-center sm:inset-x-auto sm:right-6 lg:bottom-6"
       style={{ animation: "fadeSlideUp 0.3s ease-out" }}
     >
       <div

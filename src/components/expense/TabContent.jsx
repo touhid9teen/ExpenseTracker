@@ -34,7 +34,7 @@ const TabContent = ({
 }) => (
   <>
     {/* Nav cards row — Command Center tab only, desktop only. On small
-        screens navigation lives in the collapsible sidebar. */}
+        screens navigation lives in the bottom nav + collapsible sidebar. */}
     {isOverview && !props.isAuthLoading && (
       <div className="hidden lg:block shrink-0">
         <CommandCenter {...commandCenterProps} />

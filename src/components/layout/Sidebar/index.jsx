@@ -17,7 +17,7 @@ const TIP_PROMPT =
  * living in sibling child components.
  *
  * On `lg` screens it's a fixed sticky panel; below `lg` it collapses into an
- * off-canvas drawer opened by the hamburger button in the AppHeader.
+ * off-canvas drawer opened by the menu button in the mobile BottomNav.
  */
 const Sidebar = memo(function Sidebar({
   darkMode,
@@ -27,6 +27,8 @@ const Sidebar = memo(function Sidebar({
   setActiveTab,
   setShowQuickAdd,
   setPendingAction,
+  handleLogout,
+  onLogin,
   isAdmin = false,
   mobileOpen = false,
   onCloseMobile,
@@ -49,7 +51,15 @@ const Sidebar = memo(function Sidebar({
   const renderBody = (withClose) => (
     <>
       <SidebarLogo darkMode={darkMode} withClose={withClose} onCloseMobile={onCloseMobile} />
-      <SidebarNav darkMode={darkMode} activeTab={activeTab} isAdmin={isAdmin} onNavigate={handleClick} />
+      <SidebarNav
+        darkMode={darkMode}
+        activeTab={activeTab}
+        isAdmin={isAdmin}
+        onNavigate={handleClick}
+        user={user}
+        handleLogout={handleLogout}
+        onLogin={onLogin}
+      />
       <PremiumCard darkMode={darkMode} />
       <ThemeToggle darkMode={darkMode} toggleTheme={toggleTheme} />
       {user && <UserProfile darkMode={darkMode} user={user} />}

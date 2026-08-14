@@ -1,0 +1,186 @@
+// Markdown-lite rendering for chat bubbles: **bold**, # headings,
+// bullet/numbered lists and pipe tables. Split out of ChatMessage.jsx.
+
+const renderInline = (text, darkMode) => {
+  const parts = String(text).split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+      return (
+        <strong key={i} className={`font-bold ${darkMode ? "text-white" : "text-slate-900"}`}>
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+};
+
+const renderProse = (text, darkMode) => {
+  const lines = String(text).split("\n");
+  const blocks = [];
+  let list = null;
+  const flushList = () => {
+    if (list) {
+      blocks.push({ type: "list", ordered: list.ordered, items: list.items });
+      list = null;
+    }
+  };
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line) {
+      flushList();
+      continue;
+    }
+    const heading = line.match(/^(#{1,3})\s+(.*)$/);
+    if (heading) {
+      flushList();
+      blocks.push({ type: "heading", text: heading[2] });
+      continue;
+    }
+    const bullet = line.match(/^[-*•]\s+(.*)$/);
+    if (bullet) {
+      if (!list) list = { ordered: false, items: [] };
+      list.items.push(bullet[1]);
+      continue;
+    }
+    const numbered = line.match(/^\d+[.)]\s+(.*)$/);
+    if (numbered) {
+      if (!list) list = { ordered: true, items: [] };
+      list.items.push(numbered[1]);
+      continue;
+    }
+    flushList();
+    blocks.push({ type: "para", text: line });
+  }
+  flushList();
+
+  return blocks.map((block, i) => {
+    if (block.type === "heading") {
+      return (
+        <h4
+          key={i}
+          className={`mt-1 mb-0.5 text-sm font-extrabold tracking-tight ${darkMode ? "text-white" : "text-slate-900"}`}
+        >
+          {renderInline(block.text, darkMode)}
+        </h4>
+      );
+    }
+    if (block.type === "list") {
+      const Tag = block.ordered ? "ol" : "ul";
+      return (
+        <Tag
+          key={i}
+          className={`my-1 pl-5 space-y-0.5 ${block.ordered ? "list-decimal" : "list-disc"}`}
+        >
+          {block.items.map((item, j) => (
+            <li key={j} className="leading-relaxed">
+              {renderInline(item, darkMode)}
+            </li>
+          ))}
+        </Tag>
+      );
+    }
+    return (
+      <p key={i} className="leading-relaxed">
+        {renderInline(block.text, darkMode)}
+      </p>
+    );
+  });
+};
+
+const renderTable = (lines, darkMode) => {
+  const data = lines
+    .filter((line) => line.trim().startsWith("|"))
+    .map((line) =>
+      line
+        .replace(/^\s*\|/, "")
+        .replace(/\|\s*$/, "")
+        .split("|")
+        .map((cell) => cell.trim()),
+    )
+    .filter((row) => !row.every((cell) => /^[-:]+$/.test(cell))); // drop separator rows
+  if (data.length < 2) return null;
+  const [header, ...rows] = data;
+
+  return (
+    <div className="max-w-full overflow-x-auto">
+      <table className={`min-w-full text-sm rounded-lg overflow-hidden ${darkMode ? "text-slate-200" : "text-slate-700"}`}>
+        <thead className={darkMode ? "bg-slate-700" : "bg-slate-100"}>
+          <tr>
+            {header.map((h, i) => (
+              <th
+                key={i}
+                className={`px-2.5 py-1.5 font-bold text-left ${
+                  darkMode ? "border-b border-slate-600" : "border-b border-slate-200"
+                }`}
+              >
+                {renderInline(h, darkMode)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, ri) => (
+            <tr
+              key={ri}
+              className={darkMode ? (ri % 2 ? "bg-slate-900/40" : "bg-transparent") : ri % 2 ? "bg-slate-50" : "bg-white"}
+            >
+              {row.map((cell, ci) => (
+                <td
+                  key={ci}
+                  className={`px-2.5 py-1.5 ${darkMode ? "border-b border-slate-700" : "border-b border-slate-100"}`}
+                >
+                  {renderInline(cell, darkMode)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+// Mixed prose + tables for a single message body.
+const renderBody = (text, darkMode) => {
+  const lines = String(text).split("\n");
+  const blocks = [];
+  let prose = [];
+  const flushProse = () => {
+    if (prose.length) {
+      blocks.push({ kind: "prose", text: prose.join("\n") });
+      prose = [];
+    }
+  };
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const next = lines[i + 1] || "";
+    if (line.trim().startsWith("|") && next.trim().startsWith("|") && /-{2,}/.test(next)) {
+      flushProse();
+      const tableLines = [];
+      while (i < lines.length && lines[i].trim().startsWith("|")) {
+        tableLines.push(lines[i]);
+        i++;
+      }
+      i--;
+      blocks.push({ kind: "table", lines: tableLines });
+    } else {
+      prose.push(line);
+    }
+  }
+  flushProse();
+
+  return blocks.map((block, i) =>
+    block.kind === "table" ? (
+      <div key={i} className="my-1">
+        {renderTable(block.lines, darkMode)}
+      </div>
+    ) : (
+      <div key={i} className="space-y-1">
+        {renderProse(block.text, darkMode)}
+      </div>
+    ),
+  );
+};
+
+export default renderBody;

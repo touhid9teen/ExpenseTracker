@@ -44,6 +44,10 @@ const MainContentView = ({ props, screen, onLogin }) => {
         chatExpanded={chatExpanded}
         onToggleExpanded={() => setChatExpanded((v) => !v)}
         onNewChat={() => setNewChatSignal((n) => n + 1)}
+        notifications={props.notifications}
+        unreadCount={props.unreadCount}
+        markAllRead={props.markAllRead}
+        markRead={props.markRead}
       />
 
       {/* Tight gap next to the sidebar, matching the mockup — almost no

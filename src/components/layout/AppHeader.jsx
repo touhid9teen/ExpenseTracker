@@ -2,6 +2,7 @@
 
 import { memo } from "react";
 import { SunIcon, MoonIcon, LogoutIcon, LogInIcon, SparklesIcon, ExpandIcon, RefreshIcon } from "../ui/Icons";
+import NotificationCenter from "./NotificationCenter";
 
 const TITLES = {
   overview: "Command Center",
@@ -35,6 +36,10 @@ const AppHeader = memo(function AppHeader({
   chatExpanded = false,
   onToggleExpanded,
   onNewChat,
+  notifications,
+  unreadCount,
+  markAllRead,
+  markRead,
 }) {
   const title = TITLES[activeTab] || "Command Center";
   const subtitle = SUBTITLES[activeTab] || "Smartly manage your finances with FinVue AI ✨";
@@ -93,6 +98,17 @@ const AppHeader = memo(function AppHeader({
               <ExpandIcon className="w-5 h-5" />
             </button>
           )}
+          {user && (
+            <NotificationCenter
+              darkMode={darkMode}
+              user={user}
+              notifications={notifications}
+              unreadCount={unreadCount}
+              markAllRead={markAllRead}
+              markRead={markRead}
+            />
+          )}
+
           <button
             onClick={toggleTheme}
             aria-label="Toggle Theme"

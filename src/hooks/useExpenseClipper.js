@@ -11,6 +11,7 @@ import { useUIState } from "./useUIState";
 import { useExpenseForm } from "./useExpenseForm";
 import { useOnlineStatus } from "./useOnlineStatus";
 import { useAdmin } from "./useAdmin";
+import { useNotifications } from "./useNotifications";
 
 /**
  * Composition layer that wires the focused hooks together and exposes
@@ -32,6 +33,7 @@ export const useExpenseClipper = () => {
     const expensesApi = useExpenses(auth.user, isOnline);
     const filters = useExpenseFilters(expensesApi.expenses);
     const admin = useAdmin({ user: auth.user, isOnline, activeTab: ui.activeTab });
+    const notifications = useNotifications(auth.user);
 
     const form = useExpenseForm(async (formValues) => {
         await expensesApi.addExpense(formValues);
@@ -97,6 +99,9 @@ export const useExpenseClipper = () => {
 
         // Admin console
         ...admin,
+
+        // Notifications (cron-generated spending summaries + alerts)
+        ...notifications,
 
         // Derived helpers + static data
         dashboardDateLabels,

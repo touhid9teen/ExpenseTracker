@@ -5,6 +5,7 @@ import GoToTopButton from "../layout/GoToTopButton";
 import BottomNav from "../layout/BottomNav";
 import Sidebar from "../layout/Sidebar/index";
 import AmbientBackground from "../layout/AmbientBackground";
+import NotificationCenter from "../layout/NotificationCenter";
 import ModalLayer from "./ExpenseModals/ModalLayer";
 import MainContentView from "./MainContentView";
 import useClipperScreen from "../../hooks/useClipperScreen";
@@ -53,6 +54,21 @@ const ExpenseClipperScreen = (props) => {
           setShowQuickAdd={screen.guardedSetShowQuickAdd}
           onToggleSidebar={() => screen.setMobileSidebarOpen((v) => !v)}
         />
+
+        {/* Floating notification bell — mobile only (desktop lives in the header) */}
+        {props.user && (
+          <div className="fixed top-3 right-3 z-40 lg:hidden">
+            <NotificationCenter
+              darkMode={props.darkMode}
+              user={props.user}
+              notifications={props.notifications}
+              unreadCount={props.unreadCount}
+              markAllRead={props.markAllRead}
+              markRead={props.markRead}
+              floating
+            />
+          </div>
+        )}
 
         {/* Floating controls hidden while chatting so they never overlap
             the composer */}

@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState, useEffect } from "react";
-import { calculateSpendingOverview } from "../../../utils/expenseCalculations";
+import { calculateSpendingOverview } from "../../../utils/expenseCalculations/index";
 import { panelClass } from "../panelStyles";
 import SummaryPanel from "./SummaryPanel";
 import GraphPanel from "./GraphPanel";

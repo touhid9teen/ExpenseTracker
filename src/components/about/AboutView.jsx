@@ -4,7 +4,7 @@ import {
   ChartPieIcon,
   SparklesIcon,
   ShieldCheckIcon,
-} from "../common/Icons";
+} from "../ui/Icons";
 import { features, manualSteps } from "./aboutData";
 
 const AboutView = ({ darkMode, setActiveTab }) => {

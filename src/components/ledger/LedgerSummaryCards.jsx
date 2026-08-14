@@ -1,6 +1,6 @@
 "use client";
-import { WalletIcon, ClipboardListIcon, ChartBarSquareIcon, TrendingUpIcon } from "../common/Icons";
-import { normalizeExpenseAmount } from "../../utils/expenseCalculations";
+import { WalletIcon, ClipboardListIcon, ChartBarSquareIcon, TrendingUpIcon } from "../ui/Icons";
+import { normalizeExpenseAmount } from "../../utils/expenseCalculations/index";
 
 const formatTaka = (value) => `৳${Math.round(Number(value) || 0).toLocaleString()}`;
 

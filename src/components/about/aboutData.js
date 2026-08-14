@@ -9,7 +9,7 @@ import {
   FilterFunnelIcon,
   EditPencilIcon,
   ChartBarIcon,
-} from "../common/Icons";
+} from "../ui/Icons";
 
 export const features = [
   {

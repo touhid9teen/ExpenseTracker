@@ -1,5 +1,5 @@
 "use client";
-import { ChevronLeftIcon, ChevronRightIcon } from "../common/Icons";
+import { ChevronLeftIcon, ChevronRightIcon } from "../ui/Icons";
 
 const PAGE_SIZES = [5, 10, 25, 50];
 

@@ -1,5 +1,5 @@
 "use client";
-import { TrendingUpIcon, CalendarIcon, ChartBarIcon, ChartPieIcon, WalletIcon, ArrowUpRightIcon, ArrowDownRightIcon } from "../common/Icons";
+import { TrendingUpIcon, CalendarIcon, ChartBarIcon, ChartPieIcon, WalletIcon, ArrowUpRightIcon, ArrowDownRightIcon } from "../ui/Icons";
 import { chipClass, formatTaka, mutedText } from "./panelStyles";
 
 const cards = [

@@ -1,5 +1,5 @@
 "use client";
-import { PlusIcon, FilterFunnelIcon, UploadExportIcon } from "../common/Icons";
+import { PlusIcon, FilterFunnelIcon, UploadExportIcon } from "../ui/Icons";
 
 export const LedgerHeaderActions = ({ darkMode, setShowQuickAdd, showFilters, setShowFilters, onExport }) => {
     const ghostBtn = darkMode

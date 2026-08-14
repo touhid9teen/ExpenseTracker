@@ -1,6 +1,6 @@
 "use client";
-import { SparklesIcon, SavingsLeafIcon, ArrowRightIcon } from "../common/Icons";
-import { calculateSpendingInsights } from "../../utils/expenseCalculations";
+import { SparklesIcon, SavingsLeafIcon, ArrowRightIcon } from "../ui/Icons";
+import { calculateSpendingInsights } from "../../utils/expenseCalculations/index";
 import { formatTaka } from "./panelStyles";
 
 export const AIInsightCards = ({ darkMode, expenses = [], setActiveTab, setPendingAction }) => {

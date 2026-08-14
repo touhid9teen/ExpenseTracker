@@ -4,7 +4,7 @@ import { memo, useMemo } from "react";
 import {
   calculateCategoryInsights,
   calculateStatisticsSummary,
-} from "../../utils/expenseCalculations";
+} from "../../utils/expenseCalculations/index";
 
 const StatisticsHeader = dynamic(() =>
   import("./StatisticsHeader").then((m) => m.StatisticsHeader)
@@ -16,7 +16,7 @@ const CategoryInsightsGrid = dynamic(() =>
   import("./CategoryInsightsGrid").then((m) => m.CategoryInsightsGrid)
 );
 const SpendingOverviewChart = dynamic(() =>
-  import("./SpendingOverviewChart").then((m) => m.SpendingOverviewChart)
+  import("./SpendingOverviewChart/index").then((m) => m.SpendingOverviewChart)
 );
 const SpendingDonutChart = dynamic(() =>
   import("./SpendingDonutChart").then((m) => m.SpendingDonutChart)

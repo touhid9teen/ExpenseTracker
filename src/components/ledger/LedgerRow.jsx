@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { EyeIcon, EditPencilIcon, TrashIcon, KebabIcon } from "../common/Icons";
+import { EyeIcon, EditPencilIcon, TrashIcon, KebabIcon } from "../ui/Icons";
 
 const MenuItem = ({ darkMode, icon: Icon, label, onClick, danger = false }) => (
     <button

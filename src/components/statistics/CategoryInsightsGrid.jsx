@@ -1,5 +1,5 @@
 "use client";
-import { TrendingUpIcon, ChartTrendDownIcon, TagIcon, ChartBarSquareIcon, LightningBoltIcon } from "../common/Icons";
+import { TrendingUpIcon, ChartTrendDownIcon, TagIcon, ChartBarSquareIcon, LightningBoltIcon } from "../ui/Icons";
 import { getCategoryHex } from "../../utils/categoryStyles";
 import { chipClass, formatTaka, mutedText, headingText } from "./panelStyles";
 

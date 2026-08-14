@@ -1,5 +1,5 @@
 "use client";
-import { ChevronLeftIcon, ChevronRightIcon } from "../common/Icons";
+import { ChevronLeftIcon, ChevronRightIcon } from "../ui/Icons";
 
 const formatTaka = (value) => `৳${Math.round(Number(value) || 0).toLocaleString()}`;
 

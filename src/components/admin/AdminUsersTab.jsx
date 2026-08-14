@@ -1,7 +1,7 @@
 "use client";
 import { memo } from "react";
-import { UsersGroupIcon, CrownIcon, ShieldCheckIcon, TrashIcon } from "../common/Icons";
-import { useAdminPagination } from "./useAdminPagination";
+import { UsersGroupIcon, CrownIcon, ShieldCheckIcon, TrashIcon } from "../ui/Icons";
+import { useAdminPagination } from "../../hooks/useAdminPagination";
 import { AdminPagination } from "./AdminPagination";
 
 const formatDate = (value) => {

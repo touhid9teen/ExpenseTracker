@@ -1,7 +1,7 @@
 "use client";
 import { memo } from "react";
-import { TrashIcon, EmptyStateIcon } from "../common/Icons";
-import { useAdminPagination } from "./useAdminPagination";
+import { TrashIcon, EmptyStateIcon } from "../ui/Icons";
+import { useAdminPagination } from "../../hooks/useAdminPagination";
 import { AdminPagination } from "./AdminPagination";
 
 const formatCurrency = (amount) =>

@@ -1,7 +1,7 @@
 "use client";
 import { memo } from "react";
-import { ServerIcon, TrashIcon } from "../common/Icons";
-import { useAdminPagination } from "./useAdminPagination";
+import { ServerIcon, TrashIcon } from "../ui/Icons";
+import { useAdminPagination } from "../../hooks/useAdminPagination";
 import { AdminPagination } from "./AdminPagination";
 
 const METHOD_STYLES = {

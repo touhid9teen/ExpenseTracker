@@ -1,9 +1,9 @@
 "use client";
 import { useMemo, useState } from "react";
-import { ChartBarSquareIcon } from "../common/Icons";
-import { calculateExpenseTrend } from "../../utils/expenseCalculations";
+import { ChartBarSquareIcon } from "../ui/Icons";
+import { calculateExpenseTrend } from "../../utils/expenseCalculations/index";
 import { panelClass, mutedText, headingText, formatTaka } from "./panelStyles";
-import { SegmentedToggle } from "./SegmentedToggle";
+import { SegmentedToggle } from "../ui/SegmentedToggle";
 
 const GRANULARITIES = [
     { key: "daily", label: "Daily" },

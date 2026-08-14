@@ -1,5 +1,5 @@
 "use client";
-import { CalendarIcon, DownloadIcon } from "../common/Icons";
+import { CalendarIcon, DownloadIcon } from "../ui/Icons";
 import { mutedText, headingText } from "./panelStyles";
 import { exportExpensesToCSV } from "../../utils/exportUtils";
 

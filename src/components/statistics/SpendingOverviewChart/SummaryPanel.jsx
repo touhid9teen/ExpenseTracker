@@ -1,7 +1,7 @@
 "use client";
-import { ArrowUpRightIcon, ArrowDownRightIcon } from "../../common/Icons";
+import { ArrowUpRightIcon, ArrowDownRightIcon } from "../../ui/Icons";
 import { mutedText } from "../panelStyles";
-import { SegmentedToggle } from "../SegmentedToggle";
+import { SegmentedToggle } from "../../ui/SegmentedToggle";
 import { formatCurrency } from "./chartPath";
 
 export const PERIODS = [

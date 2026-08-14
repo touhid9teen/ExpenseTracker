@@ -6,9 +6,9 @@ import {
   ActivityIcon,
   RefreshIcon,
   ShieldCheckIcon,
-} from "../common/Icons";
-import { chipClass } from "../StatisticsView/panelStyles";
-import { SegmentedToggle } from "../StatisticsView/SegmentedToggle";
+} from "../ui/Icons";
+import { chipClass } from "../statistics/panelStyles";
+import { SegmentedToggle } from "../ui/SegmentedToggle";
 import AdminUsersTab from "./AdminUsersTab";
 import AdminExpensesTab from "./AdminExpensesTab";
 import AdminLogsTab from "./AdminLogsTab";

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import AppLoader from "../Components/common/AppLoader";
-import LoginSkeleton from "../Components/Skeleton/LoginSkeleton/LoginSkeleton";
+import AppLoader from "../components/layout/AppLoader";
+import LoginSkeleton from "../components/skeletons/LoginSkeleton/LoginSkeleton";
 import { loadThemePreference } from "../utils/storageUtils";
 
 export default function Loading() {

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { normalizeExpenseAmount } from "../../utils/expenseCalculations";
+import { normalizeExpenseAmount } from "../../utils/expenseCalculations/index";
 import { exportExpensesToCSV } from "../../utils/exportUtils";
 import { LedgerHeaderActions } from "./LedgerHeaderActions";
 import { LedgerSummaryCards } from "./LedgerSummaryCards";

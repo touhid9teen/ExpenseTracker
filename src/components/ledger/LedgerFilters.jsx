@@ -1,5 +1,5 @@
 "use client";
-import { XIcon, SearchIcon } from "../common/Icons";
+import { XIcon, SearchIcon } from "../ui/Icons";
 
 const DATE_CHIPS = [
     { key: "today", label: "Today" },

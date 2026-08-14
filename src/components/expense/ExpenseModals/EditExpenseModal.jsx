@@ -1,5 +1,5 @@
-import { CheckIcon, EditPencilIcon } from "../../common/Icons";
-import { ModalShell, fieldClass, ghostBtnClass, primaryBtnClass } from "./ModalShell";
+import { CheckIcon, EditPencilIcon } from "../../ui/Icons";
+import { ModalShell, fieldClass, ghostBtnClass, primaryBtnClass } from "../../ui/ModalShell";
 
 const labelClass = (darkMode) => `block text-xs font-bold uppercase tracking-wider mb-1.5 ${darkMode ? "text-slate-400" : "text-slate-500"}`;
 

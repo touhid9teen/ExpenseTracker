@@ -1,5 +1,5 @@
-import { CalendarIcon } from "../../common/Icons";
-import { ModalShell, ghostBtnClass } from "./ModalShell";
+import { CalendarIcon } from "../../ui/Icons";
+import { ModalShell, ghostBtnClass } from "../../ui/ModalShell";
 
 export const DailyExpenseModal = ({
     selectedDailyDate,

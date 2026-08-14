@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import ToastProvider from "../common/ToastProvider";
-import InstallPWAPrompt from "../common/InstallPWAPrompt";
+import ToastProvider from "../layout/ToastProvider";
+import InstallPWAPrompt from "../layout/InstallPWAPrompt";
 import ExpenseClipperScreen from "./ExpenseClipperScreen";
 import { useExpenseClipper } from "../../hooks/useExpenseClipper";
 

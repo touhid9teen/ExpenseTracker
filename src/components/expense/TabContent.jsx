@@ -1,15 +1,15 @@
 "use client";
 import dynamic from "next/dynamic";
 import { loadThemePreference } from "../../utils/storageUtils";
-import AboutView from "../AboutView/AboutView";
-import AdminView from "../AdminView/AdminView";
-import AIAssistant from "../AIAssistant/AIAssistant";
-import CommandCenter from "../CommandCenter/CommandCenter";
-import LedgerView from "../LedgerView/LedgerView";
-import StatisticsSkeleton from "../Skeleton/StatisticsSkeleton/StatisticsSkeleton";
+import AboutView from "../about/AboutView";
+import AdminView from "../admin/AdminView";
+import AIAssistant from "../chat/AIAssistant/AIAssistant";
+import CommandCenter from "../chat/CommandCenter";
+import LedgerView from "../ledger/LedgerView";
+import StatisticsSkeleton from "../skeletons/StatisticsSkeleton/StatisticsSkeleton";
 
 const StatisticsView = dynamic(
-  () => import("../StatisticsView/StatisticsView"),
+  () => import("../statistics/StatisticsView"),
   {
     // The dynamic chunk only loads once at app boot; use the persisted theme
     // so the brief fallback matches the active theme.

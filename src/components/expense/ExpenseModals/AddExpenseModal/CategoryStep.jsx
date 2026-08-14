@@ -1,5 +1,5 @@
-import { getCategoryIcon } from "../../../common/categoryIcons";
-import { fieldClass } from "../ModalShell";
+import { getCategoryIcon } from "../../../ui/categoryIcons";
+import { fieldClass } from "../../../ui/ModalShell";
 
 const labelClass = (darkMode) => `block text-xs font-bold uppercase tracking-wider mb-1.5 ${darkMode ? "text-slate-400" : "text-slate-500"}`;
 

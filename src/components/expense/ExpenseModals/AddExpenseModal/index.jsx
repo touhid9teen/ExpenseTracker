@@ -1,6 +1,6 @@
-import { CheckIcon, SpinnerIcon } from "../../../common/Icons";
+import { CheckIcon, SpinnerIcon } from "../../../ui/Icons";
 import { ADD_STEPS } from "../../../../hooks/useExpenseForm";
-import { ModalShell, ghostBtnClass, primaryBtnClass } from "../ModalShell";
+import { ModalShell, ghostBtnClass, primaryBtnClass } from "../../../ui/ModalShell";
 import CategoryStep from "./CategoryStep";
 import AmountStep from "./AmountStep";
 

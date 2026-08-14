@@ -1,6 +1,6 @@
 "use client";
-import AppHeader from "../common/AppHeader";
-import InsightsRailSide from "./InsightsRailSide";
+import AppHeader from "../layout/AppHeader";
+import InsightsRailSide from "../chat/InsightsRailSide";
 import TabContent from "./TabContent";
 
 /**

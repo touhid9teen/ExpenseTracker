@@ -1,5 +1,5 @@
-import { WarningTriangleIcon } from "../../common/Icons";
-import { ModalShell, ghostBtnClass } from "./ModalShell";
+import { WarningTriangleIcon } from "../../ui/Icons";
+import { ModalShell, ghostBtnClass } from "../../ui/ModalShell";
 
 export const DeleteExpenseModal = ({
     deletingExpense,

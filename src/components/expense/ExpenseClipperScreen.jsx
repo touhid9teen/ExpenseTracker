@@ -1,12 +1,12 @@
 "use client";
 
-import AuthView from "../AuthView/AuthView";
-import GoToTopButton from "../common/GoToTopButton";
-import Sidebar from "../common/Sidebar";
-import AmbientBackground from "./AmbientBackground";
+import AuthView from "../auth/AuthView";
+import GoToTopButton from "../layout/GoToTopButton";
+import Sidebar from "../layout/Sidebar/index";
+import AmbientBackground from "../layout/AmbientBackground";
 import ModalLayer from "./ExpenseModals/ModalLayer";
 import MainContentView from "./MainContentView";
-import useClipperScreen from "./useClipperScreen";
+import useClipperScreen from "../../hooks/useClipperScreen";
 
 const ExpenseClipperScreen = (props) => {
   const screen = useClipperScreen(props);

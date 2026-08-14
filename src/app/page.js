@@ -1,5 +1,5 @@
 
-import ExpenseClipper from "../Components/ExpenseClipper/ExpenseClipper";
+import ExpenseClipper from "../components/expense/ExpenseClipper";
 
 export default function Home() {
   return <ExpenseClipper />;

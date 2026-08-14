@@ -8,22 +8,6 @@ import ModalLayer from "./ExpenseModals/ModalLayer";
 import MainContentView from "./MainContentView";
 import useClipperScreen from "./useClipperScreen";
 
-/**
- * ExpenseClipperScreen – the single-page shell (composition only).
- *
- * Layout (dashboard mockup style):
- *  - A fixed left Sidebar holds the logo, nav links, premium card, dark-mode
- *    toggle and the user profile (hidden on small screens).
- *  - The content column (MainContentView) has an AppHeader, the active tab's
- *    content and the AI insights rail.
- *  - The Command Center tab shows the command buttons + AI chat; the other
- *    sections (statistics / table / about / admin) render on their own tabs.
- *  - Guests can browse the app; adding an expense (or logging in) opens the
- *    AuthView as an overlay instead of replacing the whole page.
- *
- * State & handlers live in useClipperScreen; the layout pieces are
- * AmbientBackground, MainContentView, ModalLayer and AuthView.
- */
 const ExpenseClipperScreen = (props) => {
   const screen = useClipperScreen(props);
 

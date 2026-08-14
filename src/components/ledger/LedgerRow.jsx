@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { EyeIcon, EditPencilIcon, TrashIcon, KebabIcon } from "../ui/Icons";
+import { formatDate, formatShortDate } from "../../utils/dateUtils";
 
 const MenuItem = ({ darkMode, icon: Icon, label, onClick, danger = false }) => (
     <button
@@ -25,7 +26,6 @@ const LedgerRow = ({
     exp,
     darkMode,
     getCategoryStyles,
-    formatDate,
     setSelectedDailyDate,
     setEditingExpense,
     setDeletingExpense,
@@ -76,40 +76,41 @@ const LedgerRow = ({
     return (
         <tr className={`border-b last:border-0 transition-colors ${darkMode ? "border-slate-800 hover:bg-slate-800/40" : "border-slate-100 hover:bg-slate-50"}`}>
             {/* Date */}
-            <td className="px-4 py-2 whitespace-nowrap">
+            <td className="px-2.5 py-1.5 sm:px-4 sm:py-2 whitespace-nowrap">
                 <button
                     onClick={() => setSelectedDailyDate(exp.date)}
                     className={`text-sm font-semibold transition-colors ${darkMode ? "text-slate-200 hover:text-violet-300" : "text-slate-700 hover:text-violet-600"}`}
                     title="View all expenses for this day"
                 >
-                    {formatDate(exp.date)}
+                    <span className="sm:hidden">{formatShortDate(exp.date)}</span>
+                    <span className="hidden sm:inline">{formatDate(exp.date)}</span>
                 </button>
             </td>
 
             {/* Category pill */}
-            <td className="px-4 py-2 whitespace-nowrap">
-                <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-0.5 rounded-full ${style.bg}`}>
+            <td className="px-2.5 py-1.5 sm:px-4 sm:py-2 whitespace-nowrap">
+                <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-2 py-0.5 sm:px-2.5 rounded-full ${style.bg}`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${style.bullet}`} />
                     {exp.category}
                 </span>
             </td>
 
             {/* Description */}
-            <td className={`px-4 py-2 ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
-                <span className="block max-w-[140px] sm:max-w-xs truncate text-sm font-medium" title={exp.description}>
+            <td className={`px-2.5 py-1.5 sm:px-4 sm:py-2 ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
+                <span className="block max-w-[90px] sm:max-w-[140px] lg:max-w-xs truncate text-sm font-medium" title={exp.description}>
                     {exp.description}
                 </span>
             </td>
 
             {/* Amount (red) */}
-            <td className="px-4 py-2 whitespace-nowrap text-right">
+            <td className="px-2.5 py-1.5 sm:px-4 sm:py-2 whitespace-nowrap text-right">
                 <span className={`text-sm font-bold ${darkMode ? "text-rose-400" : "text-rose-600"}`}>
                     ৳{Math.round(exp.amount).toLocaleString()}
                 </span>
             </td>
 
             {/* Actions */}
-            <td className="px-4 py-2 whitespace-nowrap">
+            <td className="px-2.5 py-1.5 sm:px-4 sm:py-2 whitespace-nowrap">
                 <div className="flex items-center justify-end">
                     <button
                         ref={btnRef}

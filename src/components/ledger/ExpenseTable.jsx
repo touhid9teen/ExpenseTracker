@@ -4,7 +4,7 @@ import LedgerRow from "./LedgerRow";
 const SortHeader = ({ label, sortKey, sortBy, setSortBy, sortOrder, setSortOrder, darkMode, alignRight = false }) => {
     const active = sortBy === sortKey;
     return (
-        <th className={`px-4 py-2 whitespace-nowrap ${alignRight ? "text-right" : ""}`}>
+        <th className={`px-2.5 py-1.5 sm:px-4 sm:py-2 whitespace-nowrap ${alignRight ? "text-right" : ""}`}>
             <button
                 onClick={() => {
                     if (active) setSortOrder(sortOrder === "desc" ? "asc" : "desc");
@@ -22,7 +22,7 @@ const SortHeader = ({ label, sortKey, sortBy, setSortBy, sortOrder, setSortOrder
 };
 
 const HeadCell = ({ children, darkMode, alignRight = false, className = "" }) => (
-    <th className={`px-4 py-2 whitespace-nowrap text-xs font-bold uppercase tracking-wider ${alignRight ? "text-right" : "text-left"} ${darkMode ? "text-slate-400" : "text-slate-500"} ${className}`}>
+    <th className={`px-2.5 py-1.5 sm:px-4 sm:py-2 whitespace-nowrap text-xs font-bold uppercase tracking-wider ${alignRight ? "text-right" : "text-left"} ${darkMode ? "text-slate-400" : "text-slate-500"} ${className}`}>
         {children}
     </th>
 );
@@ -38,7 +38,6 @@ export const ExpenseTable = ({
     setSortBy,
     sortOrder,
     setSortOrder,
-    formatDate,
 }) => {
     return (
         <div className={`rounded-2xl border overflow-hidden ${darkMode ? "bg-slate-900 border-slate-700/70" : "bg-white border-slate-200"}`}>
@@ -67,7 +66,6 @@ export const ExpenseTable = ({
                                     exp={exp}
                                     darkMode={darkMode}
                                     getCategoryStyles={getCategoryStyles}
-                                    formatDate={formatDate}
                                     setSelectedDailyDate={setSelectedDailyDate}
                                     setEditingExpense={setEditingExpense}
                                     setDeletingExpense={setDeletingExpense}

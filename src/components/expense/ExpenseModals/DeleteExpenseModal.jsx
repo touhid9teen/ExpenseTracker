@@ -19,7 +19,7 @@ export const DeleteExpenseModal = ({
                 >
                     <div className="flex items-start gap-3">
                         <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${darkMode ? "bg-rose-500/15 text-rose-300" : "bg-rose-100 text-rose-600"}`}>
-                            <WarningTriangleIcon className="w-6 h-6" />
+                            <WarningTriangleIcon className="w-5 h-5" />
                         </div>
                         <p className={`text-sm leading-relaxed ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
                             Are you absolutely sure you want to permanently delete <span className={`font-bold ${darkMode ? "text-slate-100" : "text-slate-800"}`}>&quot;{deletingExpense.description}&quot;</span> of amount{" "}

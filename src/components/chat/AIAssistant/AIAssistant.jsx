@@ -1,8 +1,8 @@
 "use client";
 
-import SUGGESTIONS from "../ChatBot/suggestions";
-import { SMART_CATEGORIES } from "../../utils/smartExpenseParser";
-import useAIAssistant from "./useAIAssistant";
+import SUGGESTIONS from "../suggestions";
+import { SMART_CATEGORIES } from "../../../utils/smartExpenseParser";
+import useAIAssistant from "../../../hooks/useAIAssistant";
 import MessageList from "./MessageList";
 import QuickConfirmCard from "./QuickConfirmCard";
 import Composer from "./Composer";

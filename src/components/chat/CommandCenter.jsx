@@ -9,7 +9,7 @@ import {
   LightbulbIcon,
   ShieldCheckIcon,
   ChartBarSquareIcon,
-} from "../common/Icons";
+} from "../ui/Icons";
 
 const TIP_PROMPT =
   "Suggest ways I can reduce my spending based on my expenses. Give me 3 practical tips with the ৳ amounts involved.";

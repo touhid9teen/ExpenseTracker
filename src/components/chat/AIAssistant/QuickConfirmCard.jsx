@@ -1,6 +1,6 @@
 "use client";
 
-import { XIcon, CheckIcon } from "../common/Icons";
+import { XIcon, CheckIcon } from "../../ui/Icons";
 
 /**
  * QuickConfirmCard – the smart-expense entry chip shown above the composer

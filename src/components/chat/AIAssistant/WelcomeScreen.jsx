@@ -1,6 +1,6 @@
 "use client";
 
-import { SparklesIcon } from "../common/Icons";
+import { SparklesIcon } from "../../ui/Icons";
 
 /**
  * WelcomeScreen – the empty-conversation hero: gradient sparkle badge,

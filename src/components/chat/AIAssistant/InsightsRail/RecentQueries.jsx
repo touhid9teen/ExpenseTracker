@@ -1,6 +1,6 @@
 "use client";
 
-import { ClockIcon, ArrowRightIcon } from "../../common/Icons";
+import { ClockIcon, ArrowRightIcon } from "../../../ui/Icons";
 
 /**
  * RecentQueries – the last handful of prompts the user sent, click to re-run.

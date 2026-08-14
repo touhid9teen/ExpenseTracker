@@ -1,6 +1,6 @@
 "use client";
 
-import { XIcon, SendIcon, SparklesIcon, PaperclipIcon } from "../common/Icons";
+import { XIcon, SendIcon, SparklesIcon, PaperclipIcon } from "../../ui/Icons";
 
 /**
  * Composer – the fixed-at-the-bottom input row: quick-actions popover,

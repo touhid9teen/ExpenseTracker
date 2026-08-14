@@ -1,6 +1,6 @@
 "use client";
 
-import { ChartPieIcon, TrendingUpIcon } from "../../common/Icons";
+import { ChartPieIcon, TrendingUpIcon } from "../../../ui/Icons";
 import DonutChart, { TrendChart, DONUT_COLORS } from "./charts";
 import { buildCategoryBreakdown, buildMonthlyTrend, formatTaka, monthLabel } from "./data";
 

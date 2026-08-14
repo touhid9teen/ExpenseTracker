@@ -1,5 +1,5 @@
-import { SparklesIcon } from "../../common/Icons";
-import { ChatWidget } from "../../AIAssistant/ChatWidgets";
+import { SparklesIcon } from "../../ui/Icons";
+import { ChatWidget } from "../AIAssistant/ChatWidgets/index";
 import renderBody from "./markdown";
 
 /**

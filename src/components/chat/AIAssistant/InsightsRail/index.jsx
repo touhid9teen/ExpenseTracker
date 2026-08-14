@@ -1,13 +1,13 @@
 "use client";
 
 import { useMemo } from "react";
-import { calculateSpendingInsights, MONTHLY_BUDGET } from "../../../utils/expenseCalculations";
+import { calculateSpendingInsights, MONTHLY_BUDGET } from "../../../../utils/expenseCalculations/index";
 import {
   SparklesIcon,
   WarningTriangleIcon,
   LightbulbIcon,
   WalletIcon,
-} from "../../common/Icons";
+} from "../../../ui/Icons";
 import InsightCard from "./InsightCard";
 import RecentQueries from "./RecentQueries";
 

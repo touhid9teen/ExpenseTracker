@@ -1,6 +1,6 @@
 "use client";
 
-import ChatMessage from "../ChatBot/ChatMessage";
+import ChatMessage from "../ChatMessage/index";
 import WelcomeScreen from "./WelcomeScreen";
 
 /**

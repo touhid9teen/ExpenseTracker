@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRightIcon } from "../../common/Icons";
+import { ArrowRightIcon } from "../../../ui/Icons";
 
 const toneClasses = {
   rose: {

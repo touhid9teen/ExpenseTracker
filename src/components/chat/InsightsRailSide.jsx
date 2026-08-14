@@ -1,4 +1,4 @@
-import InsightsRail from "../AIAssistant/InsightsRail";
+import InsightsRail from "./AIAssistant/InsightsRail/index";
 
 /**
  * InsightsRailSide – the AI insights rail (desktop only) shown on the

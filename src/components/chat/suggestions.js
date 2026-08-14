@@ -1,4 +1,4 @@
-import { ChartBarIcon, CalendarIcon, PlusIcon, EditPencilIcon, TrashIcon, ArrowUpIcon, LightbulbIcon } from "../common/Icons";
+import { ChartBarIcon, CalendarIcon, PlusIcon, EditPencilIcon, TrashIcon, ArrowUpIcon, LightbulbIcon } from "../ui/Icons";
 
 const iconClass = "w-4 h-4";
 

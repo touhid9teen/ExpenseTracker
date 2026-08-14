@@ -1,4 +1,4 @@
-import { buildCategoryBreakdown, buildMonthlyTrend } from "./ChatWidgets";
+import { buildCategoryBreakdown, buildMonthlyTrend } from "./ChatWidgets/index";
 
 /**
  * parseDirectives – pulls the structured directives out of an AI response:

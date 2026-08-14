@@ -6,6 +6,7 @@ import SidebarNav from "./SidebarNav";
 import PremiumCard from "./PremiumCard";
 import ThemeToggle from "./ThemeToggle";
 import UserProfile from "./UserProfile";
+import VersionFooter from "./VersionFooter";
 
 const TIP_PROMPT =
   "Suggest ways I can reduce my spending based on my expenses. Give me 3 practical tips with the ৳ amounts involved.";
@@ -63,6 +64,7 @@ const Sidebar = memo(function Sidebar({
       <PremiumCard darkMode={darkMode} />
       <ThemeToggle darkMode={darkMode} toggleTheme={toggleTheme} />
       {user && <UserProfile darkMode={darkMode} user={user} />}
+      <VersionFooter darkMode={darkMode} />
     </>
   );
 

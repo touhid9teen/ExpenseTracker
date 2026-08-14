@@ -1,11 +1,13 @@
 {
   "name": "ExpenseTracker",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "predev": "node scripts/update-version.mjs --no-bump",
     "build": "next build",
+    "prebuild": "node scripts/update-version.mjs",
     "start": "next start",
     "lint": "eslint ."
   },

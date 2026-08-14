@@ -1,5 +1,5 @@
-import { CheckIcon } from "../../../common/Icons";
-import Button from "../../../common/Button";
+import { CheckIcon } from "../../../ui/Icons";
+import Button from "../../../ui/Button";
 
 /**
  * DoneStep – step 3 of password recovery: success confirmation with a

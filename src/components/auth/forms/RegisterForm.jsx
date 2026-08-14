@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import Button from "../../common/Button";
-import { ArrowRightIcon } from "../../common/Icons";
+import Button from "../../ui/Button";
+import { ArrowRightIcon } from "../../ui/Icons";
 import AuthCheckbox from "./AuthCheckbox";
 import AuthInput from "./AuthInput";
 import OrDivider from "./OrDivider";

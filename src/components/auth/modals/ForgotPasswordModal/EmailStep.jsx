@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { MailIcon } from "../../../common/Icons";
-import Button from "../../../common/Button";
+import { MailIcon } from "../../../ui/Icons";
+import Button from "../../../ui/Button";
 
 /**
  * EmailStep – step 1 of password recovery: enter the account email and

@@ -1,6 +1,6 @@
 "use client";
-import Button from "../../common/Button";
-import { LogInIcon } from "../../common/Icons";
+import Button from "../../ui/Button";
+import { LogInIcon } from "../../ui/Icons";
 import AuthCheckbox from "./AuthCheckbox";
 import AuthInput from "./AuthInput";
 import OrDivider from "./OrDivider";

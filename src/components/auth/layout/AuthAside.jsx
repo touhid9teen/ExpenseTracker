@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { XIcon } from "../../common/Icons";
+import { XIcon } from "../../ui/Icons";
 import { LogoMark } from "./Header";
 // Retina 2× upscale of the original illustration (see scripts: sharp lanczos3).
 import loginArt from "../../../assets/login-view.jpg";

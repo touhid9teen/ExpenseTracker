@@ -1,4 +1,4 @@
-import { XIcon } from "../../common/Icons";
+import { XIcon } from "../../ui/Icons";
 import AuthAside from "./AuthAside";
 import Footer from "./Footer";
 import Header, { LogoMark } from "./Header";

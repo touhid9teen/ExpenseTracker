@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { XIcon } from "../../../common/Icons";
+import { XIcon } from "../../../ui/Icons";
 import EmailStep from "./EmailStep";
 import CodeStep from "./CodeStep";
 import DoneStep from "./DoneStep";

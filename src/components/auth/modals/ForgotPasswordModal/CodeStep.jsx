@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { LockIcon, EyeIcon, EyeOffIcon } from "../../../common/Icons";
-import Button from "../../../common/Button";
+import { LockIcon, EyeIcon, EyeOffIcon } from "../../../ui/Icons";
+import Button from "../../../ui/Button";
 
 const inputClass =
   "cyber-input w-full px-1 py-3.5 text-sm text-slate-800 placeholder-slate-400 border-b-2 border-slate-200 focus:border-b-violet-400 focus:shadow-[0_12px_20px_-16px_rgba(139,92,246,0.45)]";

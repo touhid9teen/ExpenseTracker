@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import AuthView from "../../Components/AuthView/AuthView";
-import ToastProvider from "../../Components/common/ToastProvider";
+import AuthView from "../../components/auth/AuthView";
+import ToastProvider from "../../components/layout/ToastProvider";
 
 /**
  * /login – the standalone, light-only sign-in page.

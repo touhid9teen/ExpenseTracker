@@ -1,5 +1,5 @@
 "use client";
-import { CheckIcon } from "../../common/Icons";
+import { CheckIcon } from "../../ui/Icons";
 
 /**
  * AuthCheckbox – custom accessible checkbox (a role="checkbox" button) used

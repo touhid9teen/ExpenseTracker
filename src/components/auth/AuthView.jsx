@@ -2,9 +2,9 @@
 import LoginForm from "./forms/LoginForm";
 import RegisterForm from "./forms/RegisterForm";
 import AuthShell from "./layout/AuthShell";
-import ForgotPasswordModal from "./modals/ForgotPasswordModal";
+import ForgotPasswordModal from "./modals/ForgotPasswordModal/index";
 import SuccessModal from "./modals/SuccessModal";
-import useAuthView from "./useAuthView";
+import useAuthView from "../../hooks/useAuthView";
 
 /**
  * FinVue login page — matches the sign-in mockup: a white split layout with

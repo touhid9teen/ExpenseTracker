@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { parseSmartExpense } from "../../utils/smartExpenseParser";
-import { getTodayInputValue } from "../../utils/dateUtils";
-import parseDirectives from "./parseDirectives";
+import { parseSmartExpense } from "../utils/smartExpenseParser";
+import { getTodayInputValue } from "../utils/dateUtils";
+import parseDirectives from "../components/chat/AIAssistant/parseDirectives";
 
 // Short local time label (e.g. "3:42 PM") for message timestamps.
 const nowTime = () =>

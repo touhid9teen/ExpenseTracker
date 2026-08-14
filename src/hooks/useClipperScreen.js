@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import ChatSkeleton from "../Skeleton/ChatSkeleton/ChatSkeleton";
-import StatisticsSkeleton from "../Skeleton/StatisticsSkeleton/StatisticsSkeleton";
-import LedgerSkeleton from "../Skeleton/LedgerSkeleton/LedgerSkeleton";
-import AboutSkeleton from "../Skeleton/AboutSkeleton/AboutSkeleton";
-import AdminSkeleton from "../Skeleton/AdminSkeleton/AdminSkeleton";
+import ChatSkeleton from "../components/skeletons/ChatSkeleton/ChatSkeleton";
+import StatisticsSkeleton from "../components/skeletons/StatisticsSkeleton/StatisticsSkeleton";
+import LedgerSkeleton from "../components/skeletons/LedgerSkeleton/LedgerSkeleton";
+import AboutSkeleton from "../components/skeletons/AboutSkeleton/AboutSkeleton";
+import AdminSkeleton from "../components/skeletons/AdminSkeleton/AdminSkeleton";
 
 /**
  * useClipperScreen – local UI state for the app shell: auth overlay, chat

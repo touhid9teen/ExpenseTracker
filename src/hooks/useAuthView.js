@@ -8,7 +8,7 @@ import {
   getUsernameError,
   isLoginValid,
   isRegisterValid,
-} from "./authValidation";
+} from "../components/auth/authValidation";
 
 /**
  * useAuthView – owns every piece of auth state (fields, mode, loading,

@@ -1,6 +1,6 @@
 "use client";
 
-import { XIcon } from "../Icons";
+import { XIcon } from "../../ui/Icons";
 
 /**
  * SidebarLogo – brand mark + wordmark, with an optional close button

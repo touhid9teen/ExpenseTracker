@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useEffect, useState } from "react";
-import { ArrowUpIcon } from "./Icons";
+import { ArrowUpIcon } from "../ui/Icons";
 
 /**
  * GoToTopButton – floating "back to top" control. Appears once the page is

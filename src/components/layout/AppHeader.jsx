@@ -1,7 +1,7 @@
 "use client";
 
 import { memo } from "react";
-import { SunIcon, MoonIcon, LogoutIcon, LogInIcon, SparklesIcon, ExpandIcon, RefreshIcon, MenuHamburgerIcon } from "./Icons";
+import { SunIcon, MoonIcon, LogoutIcon, LogInIcon, SparklesIcon, ExpandIcon, RefreshIcon, MenuHamburgerIcon } from "../ui/Icons";
 
 const TITLES = {
   overview: "Command Center",

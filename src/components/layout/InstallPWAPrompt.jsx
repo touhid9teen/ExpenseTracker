@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FinVueLogoIcon, XIcon, ArrowUpIcon } from "./Icons";
+import { FinVueLogoIcon, XIcon, ArrowUpIcon } from "../ui/Icons";
 
 const DISMISS_KEY = "finvue-pwa-dismissed";
 

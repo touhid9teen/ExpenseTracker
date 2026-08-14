@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDownIcon } from "../Icons";
+import { ChevronDownIcon } from "../../ui/Icons";
 
 /**
  * UserProfile – signed-in user avatar + name/email footer row.

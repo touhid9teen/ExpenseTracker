@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, XIcon } from "../../common/Icons";
+import { ChevronLeftIcon, XIcon } from "./Icons";
 
 // ── Shared design tokens matching the app's main (SaaS dashboard) flow ──
 // Soft rounded surfaces, slate borders, violet→indigo gradient CTAs and

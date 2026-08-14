@@ -1,6 +1,6 @@
 "use client";
 
-import { SunIcon, MoonIcon } from "../Icons";
+import { SunIcon, MoonIcon } from "../../ui/Icons";
 
 /**
  * ThemeToggle – dark-mode switch row (sun/moon icon + toggle button).

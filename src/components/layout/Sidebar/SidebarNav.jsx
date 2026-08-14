@@ -8,7 +8,7 @@ import {
   LightbulbIcon,
   InfoCircleIcon,
   ShieldCheckIcon,
-} from "../Icons";
+} from "../../ui/Icons";
 
 /**
  * SidebarNav – the navigation links (Command Center / Add Expense / Table /

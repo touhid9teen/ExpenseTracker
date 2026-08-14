@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useEffect, useState } from "react";
-import { WarningTriangleIcon, SpinnerIcon, CheckIcon } from "./Icons";
+import { WarningTriangleIcon, SpinnerIcon, CheckIcon } from "../ui/Icons";
 
 /**
  * Fixed banner communicating connectivity state:

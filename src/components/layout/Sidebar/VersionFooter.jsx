@@ -16,14 +16,6 @@ const BUILD_TIME = process.env.NEXT_PUBLIC_APP_BUILD_TIME || "";
 const COMMIT_SHA = process.env.NEXT_PUBLIC_APP_COMMIT_SHA || "";
 
 const VersionFooter = ({ darkMode }) => {
-  const date = BUILD_TIME
-    ? new Date(BUILD_TIME).toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      })
-    : "";
-
   return (
     <div className="mt-auto px-4 pt-2 pb-4">
       <p
@@ -32,19 +24,10 @@ const VersionFooter = ({ darkMode }) => {
         }`}
         title={`Built ${BUILD_TIME}${COMMIT_SHA ? ` · commit ${COMMIT_SHA}` : ""}`}
       >
-        v{VERSION}
-        {date && (
-          <>
-            <span className="mx-1 opacity-50">·</span>
-            {date}
-          </>
-        )}
-        {COMMIT_SHA && (
-          <>
-            <span className="mx-1 opacity-50">·</span>
-            {COMMIT_SHA}
-          </>
-        )}
+        &copy; FinVue{" "}
+        <span className="font-semibold bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+          v{VERSION}
+        </span>
       </p>
     </div>
   );

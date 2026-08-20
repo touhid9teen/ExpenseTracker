@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FinVueLogoIcon, XIcon, ArrowUpIcon } from "../ui/Icons";
+import { DownloadIcon, XIcon, ArrowUpIcon } from "../ui/Icons";
 
 const DISMISS_KEY = "finvue-pwa-dismissed";
 
@@ -67,22 +67,23 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
       className="fixed inset-x-4 bottom-20 z-[70] flex justify-center sm:inset-x-auto sm:right-6 lg:bottom-6"
       style={{ animation: "fadeSlideUp 0.3s ease-out" }}
     >
+      <div className="w-full max-w-sm rounded-2xl p-[1px] bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 shadow-2xl shadow-violet-500/20">
       <div
-        className={`w-full max-w-sm rounded-2xl border shadow-2xl p-4 flex items-start gap-3 ${
+        className={`w-full h-full rounded-2xl p-4 flex items-start gap-3 ${
           darkMode
-            ? "bg-slate-900/95 border-slate-700/70 shadow-black/40 backdrop-blur-sm"
-            : "bg-white border-slate-200 shadow-slate-300/40"
+            ? "bg-slate-900/95 backdrop-blur-sm"
+            : "bg-white"
         }`}
         role="dialog"
-        aria-label="Install FinVue"
+        aria-label="Download FinVue"
       >
         <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 flex items-center justify-center flex-shrink-0">
-          <FinVueLogoIcon className="w-6 h-6 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]" />
+          <DownloadIcon className="w-5 h-5 text-white" />
         </div>
 
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-bold bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-            Install FinVue
+            Get the FinVue App
           </h3>
           {isIOS ? (
             <p
@@ -100,8 +101,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
                 darkMode ? "text-slate-400" : "text-slate-600"
               }`}
             >
-              Add the app to your device for a faster, full-screen experience —
-              works offline too.
+              Download for a faster, full-screen experience — works offline too.
             </p>
           )}
 
@@ -111,7 +111,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
                 onClick={handleInstall}
                 className="px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 hover:from-violet-600 hover:via-purple-600 hover:to-indigo-600 transition-all shadow-md shadow-violet-500/25"
               >
-                Install
+                Download
               </button>
               <button
                 onClick={dismiss}
@@ -138,6 +138,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
         >
           <XIcon className="w-4 h-4" />
         </button>
+      </div>
       </div>
     </div>
   );

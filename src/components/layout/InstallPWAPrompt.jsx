@@ -81,11 +81,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3
-            className={`text-sm font-bold ${
-              darkMode ? "text-white" : "text-slate-900"
-            }`}
-          >
+          <h3 className="text-sm font-bold bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
             Install FinVue
           </h3>
           {isIOS ? (

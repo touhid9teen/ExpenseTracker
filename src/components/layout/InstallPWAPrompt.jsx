@@ -50,7 +50,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
   };
 
   const handleInstall = async () => {
-    if (!deferredPrompt) return;
+    if (isIOS || !deferredPrompt) return;
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === "accepted") {
@@ -77,9 +77,12 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
         role="dialog"
         aria-label="Download FinVue"
       >
-        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 flex items-center justify-center flex-shrink-0">
+        <button
+          onClick={handleInstall}
+          className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 hover:from-violet-600 hover:via-purple-600 hover:to-indigo-600 flex items-center justify-center flex-shrink-0 transition-all shadow-md shadow-violet-500/25"
+        >
           <DownloadIcon className="w-5 h-5 text-white" />
-        </div>
+        </button>
 
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-bold bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
@@ -105,26 +108,6 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
             </p>
           )}
 
-          {!isIOS && (
-            <div className="flex items-center gap-2 mt-3">
-              <button
-                onClick={handleInstall}
-                className="px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 hover:from-violet-600 hover:via-purple-600 hover:to-indigo-600 transition-all shadow-md shadow-violet-500/25"
-              >
-                Download
-              </button>
-              <button
-                onClick={dismiss}
-                className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-colors ${
-                  darkMode
-                    ? "text-slate-400 hover:bg-slate-800"
-                    : "text-slate-500 hover:bg-slate-100"
-                }`}
-              >
-                Not now
-              </button>
-            </div>
-          )}
         </div>
 
         <button

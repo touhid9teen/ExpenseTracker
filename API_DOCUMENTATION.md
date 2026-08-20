@@ -6,7 +6,42 @@ All responses return JSON. Authentication is via `auth_token` httpOnly cookie (J
 
 ---
 
-## 1. Auth
+## API Endpoints Table
+
+| No | Entity | HTTP Method | Purpose | URL | Parameters / Request Body | API Output / Response Example |
+|----|--------|-------------|---------|-----|--------------------------|-------------------------------|
+| 1 | Auth | POST | Register a new user account | `/api/auth/register` | `{ "username": "john", "email": "john@example.com", "password": "secret123" }` | `{ "success": true, "user": { "id": "abc123", "username": "john", "email": "john@example.com", "isAdmin": false }, "isNewUser": true }` |
+| 2 | Auth | POST | Log in and set JWT cookie | `/api/auth/login` | `{ "username": "john", "password": "secret123" }` | `{ "success": true, "user": { "id": "abc123", "username": "john", "email": "john@example.com", "isAdmin": false } }` — sets `auth_token` cookie |
+| 3 | Auth | POST | Log out (delete auth cookie) | `/api/auth/logout` | None | `{ "success": true }` — deletes `auth_token` cookie |
+| 4 | Auth | POST | Request password reset code | `/api/auth/recover` | `{ "email": "john@example.com" }` | `{ "success": true, "message": "If this email is registered, you will receive a reset link." }` — In dev mode also returns `devToken` |
+| 5 | Auth | PUT | Verify reset code and set new password | `/api/auth/recover` | `{ "email": "john@example.com", "token": "482910", "newPassword": "newsecret" }` | `{ "success": true, "message": "Password reset successfully!" }` |
+| 6 | Auth | POST | Set security question and answer | `/api/auth/security` | `{ "securityQuestion": "What is your pet's name?", "securityAnswer": "buddy" }` — Requires `auth_token` cookie | `{ "success": true }` |
+| 7 | Auth | GET | Get current user profile | `/api/auth/profile` | None — Uses `auth_token` cookie | `{ "user": { "id": "abc123", "username": "john", "isAdmin": false } }` or `{ "user": null }` if not logged in |
+| 8 | Expenses | GET | List all expenses for the logged-in user | `/api/expenses` | None — Requires `auth_token` cookie | `[{ "id": "exp-a1b2c3d4e5f6", "user_id": "abc123", "item": "Lunch", "description": "Lunch", "amount": 350, "date": "2026-08-20", "category": "Food" }]` |
+| 9 | Expenses | POST | Create a new expense | `/api/expenses` | `{ "id": "exp-a1b2c3d4e5f6", "description": "Lunch at cafe", "amount": 350, "date": "2026-08-20", "category": "Food" }` — Requires `auth_token` cookie | `{ "id": "exp-a1b2c3d4e5f6", "user_id": "abc123", "item": "Lunch at cafe", "description": "Lunch at cafe", "amount": 350, "date": "2026-08-20", "category": "Food", "created_at": "..." }` |
+| 10 | Expenses | PUT | Update an existing expense by ID | `/api/expenses/:id` | **URL Param:** `id` — `{ "description": "Lunch at cafe", "amount": 400, "date": "2026-08-20", "category": "Food" }` — Requires `auth_token` cookie | `{ "id": "exp-a1b2c3d4e5f6", "user_id": "abc123", "description": "Lunch at cafe", "amount": 400, "date": "2026-08-20", "category": "Food" }` |
+| 11 | Expenses | DELETE | Delete an expense by ID | `/api/expenses/:id` | **URL Param:** `id` — Requires `auth_token` cookie | `{ "success": true, "deleted": { "id": "exp-a1b2c3d4e5f6", ... } }` |
+| 12 | Chat | POST | Send message to AI assistant (multi-provider fallback) | `/api/chat` | `{ "message": "How much did I spend on food?", "expenses": [...], "user": { "username": "john" } }` | `{ "response": "You spent ৳1,500 on Food this month across 8 transactions." }` |
+| 13 | Notifications | GET | Get user notifications + unread count | `/api/notifications` | None — Requires `auth_token` cookie | `{ "notifications": [{ "id": 1, "period": "monthly", "type": "summary", "title": "Monthly Summary", "message": "...", "is_read": false, "created_at": "..." }], "unreadCount": 3 }` |
+| 14 | Notifications | POST | Mark notification(s) as read | `/api/notifications/read` | `{ "id": 1 }` or `{ "all": true }` — Requires `auth_token` cookie | `{ "ok": true }` |
+| 15 | Notifications | GET | Generate notifications (admin/cron) | `/api/notifications/generate` | Requires admin cookie or `Authorization: Bearer <CRON_SECRET>` header | `{ "generated": 2, "skipped": 0 }` |
+| 16 | Notifications | POST | Generate notifications (admin/cron) | `/api/notifications/generate` | Requires admin cookie or `Authorization: Bearer <CRON_SECRET>` header | `{ "generated": 2, "skipped": 0 }` |
+| 17 | Admin Users | GET | List all users with expense counts | `/api/admin/users` | None — Requires admin `auth_token` cookie | `[{ "id": "abc123", "username": "john", "email": "john@example.com", "isAdmin": false, "expenseCount": 12, "createdAt": "2026-01-15T..." }]` |
+| 18 | Admin Users | PATCH | Grant or revoke admin role | `/api/admin/users` | `{ "id": "abc123", "isAdmin": true }` — Requires admin cookie — Cannot change own role | `{ "id": "abc123", "username": "john", "email": "john@example.com", "isAdmin": true, "createdAt": "..." }` |
+| 19 | Admin Users | DELETE | Delete a user account | `/api/admin/users` | `{ "id": "abc123" }` — Requires admin cookie — Cannot delete self | `{ "success": true }` |
+| 20 | Admin Expenses | GET | List all expenses (admin override) | `/api/admin/expenses` | **Query Params (optional):** `?userId=abc123` (filter by user), `?limit=500` (max 2000) — Requires admin cookie | `[{ "id": "exp-...", "userId": "abc123", "username": "john", "description": "Lunch", "amount": 350, "date": "2026-08-20", "category": "Food", "createdAt": "..." }]` |
+| 21 | Admin Expenses | DELETE | Delete any expense by ID | `/api/admin/expenses` | `{ "id": "exp-a1b2c3d4e5f6" }` — Requires admin cookie — No user scoping | `{ "success": true }` |
+| 22 | Admin Logs | GET | List recent API request logs | `/api/admin/logs` | **Query Param (optional):** `?limit=150` (max 500) — Requires admin cookie | `[{ "id": 1, "method": "POST", "path": "/api/auth/login", "status": 200, "userId": "abc123", "username": "john", "ip": "127.0.0.1", "durationMs": 42, "createdAt": "..." }]` |
+| 23 | Admin Logs | DELETE | Clear all API logs | `/api/admin/logs` | None — Requires admin cookie | `{ "success": true }` |
+| 24 | System | GET | Apply/migrate database schema | `/api/init-db` | None — No auth required | `{ "success": true, "message": "Database initialized successfully!" }` |
+
+---
+
+## Detailed Endpoint Breakdown
+
+---
+
+### 1. Auth
 
 **POST** To register a new user account
 
@@ -47,7 +82,7 @@ Response Body (201 Created):
 
 ---
 
-## 2. Auth
+### 2. Auth
 
 **POST** To log in and set JWT cookie
 
@@ -88,7 +123,7 @@ Sets `auth_token` httpOnly cookie with 30-day expiry.
 
 ---
 
-## 3. Auth
+### 3. Auth
 
 **POST** To log out (delete auth cookie)
 
@@ -116,7 +151,7 @@ Deletes `auth_token` cookie.
 
 ---
 
-## 4. Auth
+### 4. Auth
 
 **POST** To request a password reset code
 
@@ -153,7 +188,7 @@ Note: `devToken` and `devMode` fields only appear when `APP_ENV=development`.
 
 ---
 
-## 5. Auth
+### 5. Auth
 
 **PUT** To verify reset code and set new password
 
@@ -188,7 +223,7 @@ Response Body (200 OK):
 
 ---
 
-## 6. Auth
+### 6. Auth
 
 **POST** To set security question and answer
 
@@ -224,7 +259,7 @@ Requires authenticated user via `auth_token` cookie.
 
 ---
 
-## 7. Auth
+### 7. Auth
 
 **GET** To get current user profile
 
@@ -256,7 +291,7 @@ Returns `{ "user": null }` if not logged in.
 
 ---
 
-## 8. Expenses
+### 8. Expenses
 
 **GET** To list all expenses for the logged-in user
 
@@ -293,7 +328,7 @@ Returns `SEED_EXPENSES` demo data when no database or auth is available.
 
 ---
 
-## 9. Expenses
+### 9. Expenses
 
 **POST** To create a new expense
 
@@ -339,7 +374,7 @@ Note: Expense ID is client-generated: `exp-<12hexchars>` from `crypto.randomUUID
 
 ---
 
-## 10. Expenses
+### 10. Expenses
 
 **PUT** To update an existing expense by ID
 
@@ -384,7 +419,7 @@ Returns 404 if expense not found or does not belong to the authenticated user.
 
 ---
 
-## 11. Expenses
+### 11. Expenses
 
 **DELETE** To delete an expense by ID
 
@@ -422,7 +457,7 @@ Returns 404 if expense not found or does not belong to the authenticated user.
 
 ---
 
-## 12. Chat
+### 12. Chat
 
 **POST** To send message to AI assistant (multi-provider fallback)
 
@@ -460,7 +495,7 @@ AI provider chain: Gemini → DeepSeek → Groq → OpenAI (automatic fallback o
 
 ---
 
-## 13. Notifications
+### 13. Notifications
 
 **GET** To get user notifications and unread count
 
@@ -500,7 +535,7 @@ Notifications are cron-generated (daily at 18:00 UTC). Client polls this endpoin
 
 ---
 
-## 14. Notifications
+### 14. Notifications
 
 **POST** To mark notification(s) as read
 
@@ -541,7 +576,7 @@ Response Body (200 OK):
 
 ---
 
-## 15. Notifications
+### 15. Notifications
 
 **GET** To trigger notification generation (admin/cron)
 
@@ -578,7 +613,7 @@ Requires admin JWT cookie or `CRON_SECRET` header. Runs daily via Vercel Cron (`
 
 ---
 
-## 16. Notifications
+### 16. Notifications
 
 **POST** To trigger notification generation (admin/cron)
 
@@ -610,7 +645,7 @@ Same as GET — requires admin JWT cookie or `CRON_SECRET` header.
 
 ---
 
-## 17. Admin Users
+### 17. Admin Users
 
 **GET** To list all users with expense counts
 
@@ -645,7 +680,7 @@ Requires admin privileges (`isAdmin: true` in JWT).
 
 ---
 
-## 18. Admin Users
+### 18. Admin Users
 
 **PATCH** To grant or revoke admin role
 
@@ -685,7 +720,7 @@ Cannot change your own admin role (returns 400).
 
 ---
 
-## 19. Admin Users
+### 19. Admin Users
 
 **DELETE** To delete a user account
 
@@ -720,7 +755,7 @@ Cannot delete your own account (returns 400). Deleting a user cascades to their 
 
 ---
 
-## 20. Admin Expenses
+### 20. Admin Expenses
 
 **GET** To list all expenses (admin override)
 
@@ -762,7 +797,7 @@ Requires admin privileges. No user scoping — admins can see all expenses.
 
 ---
 
-## 21. Admin Expenses
+### 21. Admin Expenses
 
 **DELETE** To delete any expense by ID
 
@@ -797,7 +832,7 @@ Requires admin privileges. No user scoping — admins can delete any expense.
 
 ---
 
-## 22. Admin Logs
+### 22. Admin Logs
 
 **GET** To list recent API request logs
 
@@ -839,7 +874,7 @@ Requires admin privileges. Logs are written by `withApiLog` wrapper on every API
 
 ---
 
-## 23. Admin Logs
+### 23. Admin Logs
 
 **DELETE** To clear all API logs
 
@@ -867,7 +902,7 @@ Requires admin privileges. Wipes the entire `api_logs` table.
 
 ---
 
-## 24. System
+### 24. System
 
 **GET** To apply/migrate database schema
 

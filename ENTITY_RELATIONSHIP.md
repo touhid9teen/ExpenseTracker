@@ -2,7 +2,9 @@
 
 > **Project:** FinVue Expense Tracker  
 > **Stack:** Next.js 16 (App Router) + Neon (PostgreSQL) + JWT Auth  
-> **Runtime:** Edge (Vercel) — auth/bcrypt routes on Node.js
+> **Runtime:** Edge (Vercel) — auth/bcrypt routes on Node.js  
+> **Cron:** Vercel Cron (daily `0 18 * * *`) → `GET /api/notifications/generate`  
+> **Build:** auto-bumped app version per deploy (`scripts/update-version.mjs` → `NEXT_PUBLIC_APP_VERSION`, shown in the sidebar `VersionFooter`)
 
 ---
 
@@ -94,7 +96,7 @@
 | `is_read`    | BOOLEAN                  | NOT NULL DEFAULT FALSE                                 |
 | `created_at` | TIMESTAMP WITH TIME ZONE | DEFAULT CURRENT_TIMESTAMP                              |
 
-**Description:** Cron-generated spending notifications — daily/weekly/monthly/yearly summaries with a comparison against the previous period, plus an `alert` row when spending crossed the user's own trailing average (×1.25). The unique index on `(user_id, period, period_key, type)` makes the daily cron idempotent.
+**Description:** Cron-generated spending notifications — daily/weekly/monthly/yearly summaries with a comparison against the previous period, plus an `alert` row when spending crossed the user's own trailing average (×1.25). The unique index on `(user_id, period, period_key, type)` makes the daily cron idempotent. Served to the app by `GET /api/notifications` and rendered in the notification-center bell (the `useNotifications` hook polls it every 60 seconds).
 
 ### Relationship Summary
 
@@ -280,11 +282,60 @@ Step 43 — calculateQuickStats: highest/lowest spending day, most used category
 ```
 Step 44 — User sends a natural language message via the ChatBot / AIAssistant.
 Step 45 — POST /api/chat (rate-limited) → prompt built by promptBuilder.js.
-Step 46 — Provider chain in aiProviders.js: Gemini → DeepSeek → Groq → OpenAI.
+Step 46 — Provider chain defined in src/config/aiModels.js, invoked via callAIModel() in aiProviders.js: Gemini → DeepSeek → Groq → OpenAI.
 Step 47a — IF the AI returns a tool/action (e.g. "add expense"):
               47a.1. Client parses it and follows the relevant Phase 3 CRUD flow.
 Step 47b — ELSE: the text reply is rendered as an insight.
 Step 48 — AI insight cards in StatisticsView summarize trends without writing rows.
+```
+
+### Phase 6: Notification Center & Cron Generation
+
+```
+Step 49 — useNotifications runs for signed-in users only:
+             49.1. GET /api/notifications → { notifications, unreadCount } —
+                   LIMIT 50 rows, unread first, then newest (created_at DESC).
+             49.2. Polls every 60 seconds so cron-generated rows appear live.
+Step 50 — NotificationCenter bell (desktop AppHeader + floating mobile bell)
+         renders the unreadCount badge; the dropdown lists rows, with `alert`
+         rows highlighted rose.
+Step 51 — Mark-as-read:
+             51a. Clicking an item → POST /api/notifications/read { id }.
+             51b. "Mark all read" → POST /api/notifications/read { all: true }.
+Step 52 — Vercel Cron `0 18 * * *` (18:00 UTC = midnight Dhaka) hits
+         GET /api/notifications/generate, authenticated by
+         `Authorization: Bearer <CRON_SECRET>` (or an `x-cron-secret` header).
+         Admins can also trigger it manually from the admin console.
+Step 53 — generateNotifications() (src/lib/notifications/generate.js):
+             53.1. computePeriods() (src/lib/notifications/periods.js) returns the
+                   most recently completed day/week/month/year, each with the
+                   previous-period window (comparison) and a trailing baseline
+                   window (alerts), all in Dhaka-local dates.
+             53.2. Per user: aggregate expenses into a date → amount map.
+             53.3. For each period with spend > 0: insert a `summary` row
+                   (title + message comparing to the previous period).
+             53.4. If current spend > baseline × 1.25 (ALERT_THRESHOLD): also
+                   insert an `alert` row.
+             53.5. INSERT ... ON CONFLICT DO NOTHING — the dedupe unique index
+                   keeps the cron idempotent across re-runs.
+```
+
+### Phase 7: Admin Console (Users, Expenses, Logs)
+
+```
+Step 54 — authenticateAdmin() guards every /api/admin/* route (403 otherwise).
+Step 55 — GET /api/admin/users → all users with expense_count
+         (LEFT JOIN expenses, GROUP BY u.id), newest first.
+Step 56 — PATCH /api/admin/users { id, isAdmin } → grant/revoke the admin role;
+         changing your own role is blocked server-side (400).
+Step 57 — DELETE /api/admin/users { id } → delete a user; expenses, reset tokens
+         and notifications cascade. Self-delete is blocked (400).
+Step 58 — GET /api/admin/expenses?userId=&limit= → all expenses with the owner
+         username (default 500, capped 2000), newest first.
+Step 59 — DELETE /api/admin/expenses { id } → remove any expense by id.
+Step 60 — GET /api/admin/logs?limit= → newest api_logs rows (default 150,
+         capped 500) for the Live Logs panel.
+Step 61 — DELETE /api/admin/logs → wipe the entire api_logs table.
 ```
 
 ---
@@ -498,6 +549,71 @@ FUNCTION withApiLog(handler):
         })
         RETURN response
         // Best-effort: log failures are swallowed, never break the request.
+```
+
+### Notifications API (Edge Runtime)
+
+```
+FUNCTION GET /api/notifications(request):
+    user ← authenticateUser(request)
+    IF NOT user: RETURN 401
+    IF NOT sql: RETURN { notifications: [], unreadCount: 0 }
+
+    notifications ← SQL.SELECT id, period, type, title, message, is_read, created_at
+                    FROM notifications WHERE user_id = user.id
+                    ORDER BY is_read ASC, created_at DESC LIMIT 50
+    unread ← SQL.SELECT COUNT(*) WHERE user_id = user.id AND is_read = FALSE
+    RETURN { notifications, unreadCount }
+
+FUNCTION POST /api/notifications/read(request):
+    user ← authenticateUser(request)
+    body ← { id } OR { all: true }        // inline validation (no Zod schema)
+    IF all: UPDATE notifications SET is_read = TRUE WHERE user_id = user.id
+    ELSE:   UPDATE notifications SET is_read = TRUE WHERE id = id AND user_id = user.id
+    RETURN { ok: true }
+
+FUNCTION GET/POST /api/notifications/generate(request):
+    // Authorized by CRON_SECRET (Authorization Bearer / x-cron-secret) OR admin JWT
+    IF NOT authorized: RETURN 401
+    result ← generateNotifications()      // see Phase 6, Step 53
+    RETURN result                         // { created, users, periods }
+```
+
+### Admin API (Edge Runtime — authenticateAdmin guard)
+
+```
+FUNCTION GET /api/admin/users:
+    RETURN users.map(u → { id, username, email, isAdmin, expenseCount, createdAt })
+
+FUNCTION PATCH /api/admin/users({ id, isAdmin }):
+    IF id == admin.id: RETURN 400 "You cannot change your own admin role"
+    UPDATE users SET is_admin = isAdmin WHERE id = id RETURNING ...
+    RETURN updated user | 404
+
+FUNCTION DELETE /api/admin/users({ id }):
+    IF id == admin.id: RETURN 400 "You cannot delete your own account"
+    DELETE FROM users WHERE id = id RETURNING id    // children cascade
+    RETURN { success: true } | 404
+
+FUNCTION GET /api/admin/expenses(?userId, ?limit):
+    SELECT e.*, u.username FROM expenses e
+    JOIN users u ON u.id = e.user_id
+    [WHERE e.user_id = userId]
+    ORDER BY e.date DESC LIMIT min(limit, 2000)
+    RETURN mapped rows (amount normalized)
+
+FUNCTION DELETE /api/admin/expenses({ id }):
+    DELETE FROM expenses WHERE id = id RETURNING id
+    RETURN { success: true } | 404
+
+FUNCTION GET /api/admin/logs(?limit):
+    SELECT id, method, path, status, user_id, username, ip, duration_ms, created_at
+    FROM api_logs ORDER BY id DESC LIMIT min(limit, 500)
+    RETURN mapped rows
+
+FUNCTION DELETE /api/admin/logs:
+    DELETE FROM api_logs
+    RETURN { success: true }
 ```
 
 ---
@@ -814,7 +930,7 @@ FUNCTION decrypt(input):
 | `/api/auth/login`      | 10 / minute / IP     |
 | `/api/auth/recover` (POST) | 3 / minute / IP  |
 | `/api/auth/recover` (PUT)  | 5 / minute / IP  |
-| `/api/chat`            | per-instance sliding window |
+| `/api/chat`            | 20 / minute / IP           |
 
 ### Edge Cases Handled
 
@@ -830,6 +946,7 @@ FUNCTION decrypt(input):
 | Reset token expired / already used    | 400 "Invalid or expired reset code."             |
 | API log insert failure                | Swallowed by `withApiLog` (never breaks request) |
 | Offline mutation                      | Queued in `offlineStore.js`, FIFO replay on reconnect |
+| Cron re-run / duplicate notification  | `ON CONFLICT DO NOTHING` + unique dedupe index        |
 
 ---
 
@@ -878,6 +995,6 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_notifications_dedupe ON notifications(user
 
 ---
 
-> **Document Version:** 2.0  
+> **Document Version:** 2.1  
 > **Last Updated:** August 2026  
 > **Project:** ExpenseTracker (FinVue)

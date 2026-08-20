@@ -68,16 +68,16 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
       style={{ animation: "fadeSlideUp 0.3s ease-out" }}
     >
       <div
-        className={`w-full max-w-sm rounded-2xl border shadow-2xl p-4 flex items-start gap-3 cyber-3d cyber-inner-edge ${
+        className={`w-full max-w-sm rounded-2xl border shadow-2xl p-4 flex items-start gap-3 ${
           darkMode
-            ? "bg-slate-900 border-slate-800 shadow-black/40"
+            ? "bg-slate-900/95 border-slate-700/70 shadow-black/40 backdrop-blur-sm"
             : "bg-white border-slate-200 shadow-slate-300/40"
         }`}
         role="dialog"
         aria-label="Install FinVue"
       >
-        <div className="w-11 h-11 cyber-cut bg-gradient-to-tr from-cyan-500 via-sky-500 to-violet-500 flex items-center justify-center cyber-3d-sm [--glow-3d-2:var(--violet-glow)] flex-shrink-0">
-          <FinVueLogoIcon className="w-6 h-6 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
+        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 flex items-center justify-center flex-shrink-0">
+          <FinVueLogoIcon className="w-6 h-6 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]" />
         </div>
 
         <div className="flex-1 min-w-0">
@@ -113,7 +113,7 @@ const InstallPWAPrompt = ({ darkMode = true }) => {
             <div className="flex items-center gap-2 mt-3">
               <button
                 onClick={handleInstall}
-                className="px-4 py-1.5 rounded-lg text-xs font-bold text-white cyber-btn-accent hover:from-cyan-600 hover:to-sky-600 transition-all shadow-md shadow-cyan-500/25"
+                className="px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 hover:from-violet-600 hover:via-purple-600 hover:to-indigo-600 transition-all shadow-md shadow-violet-500/25"
               >
                 Install
               </button>

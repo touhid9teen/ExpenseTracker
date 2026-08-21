@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { decrypt } from './lib/jwt';
+import { decrypt, encrypt } from './lib/jwt';
 
 /**
  * Route protection: every page and API route requires a valid session except
@@ -7,16 +7,36 @@ import { decrypt } from './lib/jwt';
  * public pages (/login, /terms). Unauthenticated page requests are redirected
  * to /login; unauthenticated API requests get a 401 JSON response.
  *
- * Note: this relies on the same HS256 JWT + `auth_token` cookie that the API
- * routes use (see src/lib/jwt.js), so the client-side guest/demo mode no
- * longer applies — visitors must sign in first.
+ * Admin bypass: setting the ADMIN_SECRET env var enables passwordless admin
+ * access. Send the secret via the x-admin-secret header on any request, or
+ * visit /admin-login?secret=<SECRET> to get an admin session cookie set
+ * automatically and be redirected to the dashboard.
  */
 
 // Public pages — reachable without an account.
 const PUBLIC_PAGES = ['/login', '/terms'];
 
+async function createAdminSessionCookie(response) {
+  const token = await encrypt({
+    id: 'admin-bypass',
+    username: 'admin',
+    isAdmin: true,
+  });
+  response.cookies.set({
+    name: 'auth_token',
+    value: token,
+    httpOnly: true,
+    secure: process.env.APP_ENV === 'production', // eslint-disable-line no-undef
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24 * 30,
+    path: '/',
+  });
+  return response;
+}
+
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
+  const adminSecret = process.env.ADMIN_SECRET; // eslint-disable-line no-undef
 
   // Public APIs: the auth flow (login/register/recover/profile/security)
   // plus the first-run database setup endpoint.
@@ -33,6 +53,25 @@ export async function middleware(request) {
       return NextResponse.redirect(new URL('/', request.url));
     }
     return NextResponse.next();
+  }
+
+  // Admin bypass via x-admin-secret header (works for pages and APIs).
+  const headerSecret = request.headers.get('x-admin-secret');
+  if (adminSecret && headerSecret && headerSecret === adminSecret) {
+    if (isApi) return NextResponse.next();
+    const res = NextResponse.redirect(new URL('/', request.url));
+    return createAdminSessionCookie(res);
+  }
+
+  // Admin bypass via /admin-login?secret=<SECRET> (one-click browser access).
+  if (pathname === '/admin-login' && adminSecret) {
+    const urlSecret = request.nextUrl.searchParams.get('secret');
+    if (urlSecret && urlSecret === adminSecret) {
+      const res = NextResponse.redirect(new URL('/', request.url));
+      return createAdminSessionCookie(res);
+    }
+    // Invalid or missing secret — send to login.
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
   // Unauthenticated.

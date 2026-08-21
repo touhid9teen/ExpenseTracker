@@ -16,8 +16,17 @@ export async function authenticateUser(request) {
 }
 
 export async function authenticateAdmin(request) {
+  // Standard JWT check.
   const user = await authenticateUser(request);
   if (user && user.isAdmin === true) return user;
+
+  // Admin secret header bypass (for API-only access without a cookie).
+  const adminSecret = process.env.ADMIN_SECRET;
+  const headerSecret = request.headers.get('x-admin-secret');
+  if (adminSecret && headerSecret && headerSecret === adminSecret) {
+    return { id: 'admin-bypass', username: 'admin', isAdmin: true };
+  }
+
   return null;
 }
 

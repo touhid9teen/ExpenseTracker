@@ -6,12 +6,6 @@ import LedgerSkeleton from "../components/skeletons/LedgerSkeleton/LedgerSkeleto
 import AboutSkeleton from "../components/skeletons/AboutSkeleton/AboutSkeleton";
 import AdminSkeleton from "../components/skeletons/AdminSkeleton/AdminSkeleton";
 
-/**
- * useClipperScreen – local UI state for the app shell: auth overlay, chat
- * expansion, mobile sidebar, per-tab transition skeletons, plus the guarded
- * handlers shared by the sidebar, header and modals. Keeps
- * ExpenseClipperScreen.jsx a thin composition.
- */
 const useClipperScreen = (props) => {
   const [showAuth, setShowAuth] = useState(false);
   const [chatExpanded, setChatExpanded] = useState(false);
@@ -43,10 +37,6 @@ const useClipperScreen = (props) => {
   const hasAdminData =
     (props.users?.length ?? 0) > 0 || (props.allExpenses?.length ?? 0) > 0;
 
-  // The app shell always renders. While the session is being verified (first
-  // login lands on the Command Center tab, auto-selected in the sidebar), on
-  // tab switches, and while a data-backed tab first loads, the active tab's
-  // own skeleton is shown instead of a floating spinner.
   const showPageSkeleton =
     props.isAuthLoading ||
     tabTransitioning ||
@@ -69,10 +59,6 @@ const useClipperScreen = (props) => {
     if (user) setShowAuth(false);
   };
 
-  // Logging out clears the session and sends the user to the public login
-  // page (middleware blocks the app for unauthenticated visitors). Only
-  // navigate when the server actually cleared the cookie — otherwise the
-  // still-valid token would bounce /login straight back to the app.
   const handleLogout = async () => {
     const loggedOut = await props.handleLogout();
     if (!loggedOut) return;

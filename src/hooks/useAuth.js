@@ -7,17 +7,10 @@ import {
     clearUserOfflineData
 } from "../utils/offlineStore";
 
-/**
- * Owns authentication state: current user, initial auth check, and logout.
- * The user is mirrored to localStorage so an offline reload keeps the session
- * (the `/api/auth/profile` check can't reach the server offline).
- */
 export const useAuth = ({ onLogout } = {}) => {
     const [user, setUserState] = useState(null);
     const [isAuthLoading, setIsAuthLoading] = useState(true);
 
-    // Persist the user alongside every state change so offline hydration and
-    // login both keep the cache in sync.
     const setUser = (next) => {
         setUserState(next);
         if (next) saveCachedUser(next);
@@ -46,10 +39,6 @@ export const useAuth = ({ onLogout } = {}) => {
         checkAuth();
     }, []);
 
-    // Returns true on success so callers can decide whether to navigate away.
-    // If the API call fails (e.g. offline) the httpOnly cookie stays valid and
-    // the user is still signed in — navigating to /login would just bounce
-    // back, so callers must only redirect when this resolves true.
     const handleLogout = async () => {
         try {
             await fetch("/api/auth/logout", { method: "POST" });

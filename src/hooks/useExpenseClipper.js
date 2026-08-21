@@ -13,17 +13,6 @@ import { useOnlineStatus } from "./useOnlineStatus";
 import { useAdmin } from "./useAdmin";
 import { useNotifications } from "./useNotifications";
 
-/**
- * Composition layer that wires the focused hooks together and exposes
- * a single props object for the app shell. State ownership lives in:
- *  - useAuth           → user session
- *  - useTheme          → dark mode
- *  - useExpenses       → expense data + CRUD
- *  - useExpenseFilters → filters, sorting, pagination, derived stats
- *  - useUIState        → tabs, modals, menus, chat overlay
- *  - useExpenseForm    → quick-add form fields
- *  - useAdmin          → admin console data + actions
- */
 export const useExpenseClipper = () => {
     const theme = useTheme();
     const ui = useUIState();

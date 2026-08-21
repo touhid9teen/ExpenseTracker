@@ -1,130 +1,34 @@
 "use client";
-import { useEffect, useState } from "react";
-import { DownloadIcon, XIcon, ArrowUpIcon } from "../ui/Icons";
+import { useEffect } from "react";
 
 const DISMISS_KEY = "finvue-pwa-dismissed";
 
 /**
- * InstallPWAPrompt – a dismissible popup inviting the user to install the
- * FinVue PWA. Relies on the browser's `beforeinstallprompt` event, with a
- * separate hint for iOS Safari (which doesn't fire that event).
+ * InstallPWAPrompt – silently triggers the browser's native PWA install dialog
+ * as soon as the `beforeinstallprompt` event fires. No banner or alert is shown.
  */
-const InstallPWAPrompt = ({ darkMode = true }) => {
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [visible, setVisible] = useState(false);
-  const [isIOS, setIsIOS] = useState(false);
-
+const InstallPWAPrompt = () => {
   useEffect(() => {
-    // Already installed / running standalone — never prompt.
     const standalone =
       window.matchMedia("(display-mode: standalone)").matches ||
       window.navigator.standalone === true;
     if (standalone) return;
 
-    // Respect a previous dismissal.
     if (localStorage.getItem(DISMISS_KEY) === "1") return;
-
-    const ios =
-      /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase()) &&
-      !window.navigator.userAgent.includes("Chrome");
-
-    if (ios) {
-      setIsIOS(true);
-      setVisible(true);
-      return;
-    }
 
     const handler = (e) => {
       e.preventDefault();
-      setDeferredPrompt(e);
-      setVisible(true);
+      e.prompt();
+      e.userChoice.then(() => {
+        localStorage.setItem(DISMISS_KEY, "1");
+      });
     };
 
     window.addEventListener("beforeinstallprompt", handler);
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
-  const dismiss = () => {
-    setVisible(false);
-    localStorage.setItem(DISMISS_KEY, "1");
-  };
-
-  const handleInstall = async () => {
-    if (isIOS || !deferredPrompt) return;
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === "accepted") {
-      setVisible(false);
-    }
-    setDeferredPrompt(null);
-    localStorage.setItem(DISMISS_KEY, "1");
-  };
-
-  if (!visible) return null;
-
-  return (
-    <div
-      className="fixed inset-x-4 bottom-20 z-[70] flex justify-center sm:inset-x-auto sm:right-6 lg:bottom-6"
-      style={{ animation: "fadeSlideUp 0.3s ease-out" }}
-    >
-      <div className="w-full max-w-sm rounded-2xl p-[1px] bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 shadow-2xl shadow-violet-500/20">
-      <div
-        className={`w-full h-full rounded-2xl p-4 flex items-start gap-3 ${
-          darkMode
-            ? "bg-slate-900/95 backdrop-blur-sm"
-            : "bg-white"
-        }`}
-        role="dialog"
-        aria-label="Download FinVue"
-      >
-        <button
-          onClick={handleInstall}
-          className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 hover:from-violet-600 hover:via-purple-600 hover:to-indigo-600 flex items-center justify-center flex-shrink-0 transition-all shadow-md shadow-violet-500/25"
-        >
-          <DownloadIcon className="w-5 h-5 text-white" />
-        </button>
-
-        <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-bold bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-            Get the FinVue App
-          </h3>
-          {isIOS ? (
-            <p
-              className={`mt-0.5 text-xs leading-relaxed flex items-center flex-wrap gap-1 ${
-                darkMode ? "text-slate-400" : "text-slate-600"
-              }`}
-            >
-              Tap the Share
-              <ArrowUpIcon className="w-3.5 h-3.5 inline" strokeWidth={2.5} />
-              button, then <span className="font-semibold">Add to Home Screen</span>.
-            </p>
-          ) : (
-            <p
-              className={`mt-0.5 text-xs leading-relaxed ${
-                darkMode ? "text-slate-400" : "text-slate-600"
-              }`}
-            >
-              Download for a faster, full-screen experience — works offline too.
-            </p>
-          )}
-
-        </div>
-
-        <button
-          onClick={dismiss}
-          aria-label="Dismiss"
-          className={`p-1 rounded-lg transition-colors flex-shrink-0 ${
-            darkMode
-              ? "text-slate-500 hover:bg-slate-800 hover:text-slate-300"
-              : "text-slate-400 hover:bg-slate-100 hover:text-slate-600"
-          }`}
-        >
-          <XIcon className="w-4 h-4" />
-        </button>
-      </div>
-      </div>
-    </div>
-  );
+  return null;
 };
 
 export default InstallPWAPrompt;

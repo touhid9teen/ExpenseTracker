@@ -20,7 +20,7 @@ const ExpenseClipper = () => {
         <>
             <ToastProvider darkMode={clipper.darkMode} />
             <ExpenseClipperScreen {...clipper} />
-            <InstallPWAPrompt darkMode={clipper.darkMode} />
+            <InstallPWAPrompt />
         </>
     );
 };

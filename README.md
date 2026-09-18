@@ -26,6 +26,12 @@
 
 - 📌 Project Structure : **( [ 👉 Click Here](./PROJECT_STRUCTURE.md) )**
 - 📌 Entity Relationship : **( [ 👉 Click Here](./ENTITY_RELATIONSHIP.md) )**
+- 📌 Workflow Diagram : **( [ 👉 View PNG](./docs/diagrams/finvue-workflow.png) | [ 👉 Open Draw.io](./docs/diagrams/finvue-workflow.drawio) )**
+
+<div align="center">
+  <img src="./docs/diagrams/finvue-workflow.png" alt="FinVue Workflow Diagram" width="900" />
+</div>
+
 <hr>
 
 ### ✨ FinVue : Features

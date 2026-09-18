@@ -1,0 +1,265 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="6FqWVfROpXpTSVDytkVS" name="Page-1">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1700" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="start" parent="1" style="ellipse;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="" vertex="1">
+          <mxGeometry height="60" width="60" x="380" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="loginPost" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="POST /auth/login" vertex="1">
+          <mxGeometry height="50" width="200" x="300" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="loginDecision" parent="1" style="rhombus;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Login successful?" vertex="1">
+          <mxGeometry height="100" width="200" x="300" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="loginFailed" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Login failed — status 401" vertex="1">
+          <mxGeometry height="50" width="200" x="40" y="255" as="geometry" />
+        </mxCell>
+        <mxCell id="forgotPassword" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Change / forgot password" vertex="1">
+          <mxGeometry height="50" width="200" x="40" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="sendOtp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Send &amp; verify 6-digit OTP (bcrypt hashed, 15 min TTL)" vertex="1">
+          <mxGeometry height="60" width="200" x="40" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="changePassword" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Change password" vertex="1">
+          <mxGeometry height="50" width="200" x="40" y="535" as="geometry" />
+        </mxCell>
+        <mxCell id="genJwt" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Generate JWT (HS256, 30d) — set auth_token cookie" vertex="1">
+          <mxGeometry height="60" width="220" x="290" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="middleware" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Middleware decodes JWT on every request" vertex="1">
+          <mxGeometry height="60" width="220" x="290" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="adminDecision" parent="1" style="rhombus;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="isAdmin flag true?" vertex="1">
+          <mxGeometry height="100" width="200" x="300" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="userDashboard" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="User dashboard: Overview / Ledger / Stats / Chat" vertex="1">
+          <mxGeometry height="60" width="220" x="620" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="getExpenses" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="GET /api/expenses — hydrate cache, then fetch" vertex="1">
+          <mxGeometry height="60" width="220" x="450" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="opDecision" parent="1" style="rhombus;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Which operation?" vertex="1">
+          <mxGeometry height="100" width="200" x="220" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="addExpense" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="POST /api/expenses — add" vertex="1">
+          <mxGeometry height="60" width="180" x="120" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="updateExpense" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="PUT /api/expenses/[id] — update" vertex="1">
+          <mxGeometry height="60" width="180" x="380" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="deleteExpense" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="DELETE /api/expenses/[id] — delete" vertex="1">
+          <mxGeometry height="60" width="200" x="700" y="1120" as="geometry" />
+        </mxCell>
+        <mxCell id="offlineDecision" parent="1" style="rhombus;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Currently offline?" vertex="1">
+          <mxGeometry height="100" width="200" x="230" y="1130" as="geometry" />
+        </mxCell>
+        <mxCell id="enqueueMutation" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Enqueue mutation (coalesced FIFO local queue)" vertex="1">
+          <mxGeometry height="60" width="200" x="90" y="1280" as="geometry" />
+        </mxCell>
+        <mxCell id="replayQueue" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Replay FIFO on reconnect (stop on 5xx, drop on 404)" vertex="1">
+          <mxGeometry height="60" width="200" x="300" y="1390" as="geometry" />
+        </mxCell>
+        <mxCell id="endPersist" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Persisted to Neon Postgres" vertex="1">
+          <mxGeometry height="50" width="200" x="450" y="1240" as="geometry" />
+        </mxCell>
+        <mxCell id="chatEntry" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Chat tab: POST /api/chat" vertex="1">
+          <mxGeometry height="50" width="200" x="700" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="aiCascade" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="AI cascade: Gemini to DeepSeek to Groq to OpenAI" vertex="1">
+          <mxGeometry height="60" width="200" x="970" y="778" as="geometry" />
+        </mxCell>
+        <mxCell id="chatAction" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="[ACTION] directive triggers expense mutation" vertex="1">
+          <mxGeometry height="60" width="200" x="800" y="930" as="geometry" />
+        </mxCell>
+        <mxCell id="adminConsole" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Admin console" vertex="1">
+          <mxGeometry height="60" width="200" x="670" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="adminUsersTab" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Users tab — GET /api/admin/users" vertex="1">
+          <mxGeometry height="50" width="200" x="770" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="adminExpensesTab" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Expenses tab — GET /api/admin/expenses" vertex="1">
+          <mxGeometry height="50" width="220" x="1070" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="adminLogsTab" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="Logs tab — GET /api/admin/logs (auto-refresh 10s)" vertex="1">
+          <mxGeometry height="50" width="220" x="1280" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="toggleAdmin" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="PATCH /api/admin/users — toggle admin role" vertex="1">
+          <mxGeometry height="60" width="200" x="910" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="deleteUser" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="DELETE /api/admin/users — delete user (cascades)" vertex="1">
+          <mxGeometry height="60" width="200" x="1010" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="deleteAdminExpense" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="DELETE /api/admin/expenses — remove any expense" vertex="1">
+          <mxGeometry height="60" width="220" x="1150" y="669" as="geometry" />
+        </mxCell>
+        <mxCell id="clearLogs" parent="1" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;fillColor=none;strokeColor=#000000;fontColor=#000000;" value="DELETE /api/admin/logs — wipe api_logs table" vertex="1">
+          <mxGeometry height="60" width="220" x="1310" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="start" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="loginPost">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="loginPost" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="loginDecision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="loginDecision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="loginFailed" value="No">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="loginFailed" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="forgotPassword">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="forgotPassword" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="sendOtp" value="POST /auth/recover">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="sendOtp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="changePassword" value="PUT /auth/recover">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="loginDecision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="genJwt" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="genJwt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="middleware">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="middleware" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="adminDecision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="adminDecision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="userDashboard" value="No">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="adminConsole" value="Yes">
+          <mxGeometry relative="1" x="-0.0938" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="400.03" y="550.03" />
+              <mxPoint x="610.03" y="550.03" />
+              <mxPoint x="610.03" y="455" />
+            </Array>
+            <mxPoint x="400" y="559.9400000000003" as="sourcePoint" />
+            <mxPoint x="829.9999999999995" y="299.9988235294117" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="userDashboard" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="getExpenses">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="userDashboard" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="chatEntry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="getExpenses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="opDecision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="opDecision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="addExpense" value="Add">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="950.06" />
+              <mxPoint x="210" y="950.06" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="opDecision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="updateExpense" value="Update">
+          <mxGeometry relative="1" x="0.75" as="geometry">
+            <mxPoint y="-1" as="offset" />
+            <Array as="points">
+              <mxPoint x="320" y="970.06" />
+              <mxPoint x="470" y="970.06" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" value="Delete">
+          <mxGeometry relative="1" x="-0.3333" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="320" y="969.94" />
+              <mxPoint x="320" y="949.94" />
+              <mxPoint x="610" y="949.94" />
+              <mxPoint x="610" y="1119.94" />
+            </Array>
+            <mxPoint x="470" y="969.94" as="sourcePoint" />
+            <mxPoint x="700" y="1119.9388235294118" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="addExpense" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="offlineDecision">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="1100.06" />
+              <mxPoint x="330" y="1100.06" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="updateExpense" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="offlineDecision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="deleteExpense" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="offlineDecision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="offlineDecision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="enqueueMutation" value="Offline">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="1" source="offlineDecision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="endPersist" value="Online">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e23" edge="1" parent="1" source="enqueueMutation" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="replayQueue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e24" edge="1" parent="1" source="replayQueue" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="endPersist" value="on reconnect">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e25" edge="1" parent="1" source="chatEntry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="aiCascade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e26" edge="1" parent="1" source="aiCascade" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="chatAction">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1060" y="890.06" />
+              <mxPoint x="1140" y="890.06" />
+              <mxPoint x="1140" y="960.06" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e27" edge="1" parent="1" source="chatAction" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;dashed=1;" target="opDecision" value="mutates via CRUD">
+          <mxGeometry relative="1" x="-0.1666" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="660" y="950.06" />
+              <mxPoint x="660" y="870.06" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e28" edge="1" parent="1" source="adminConsole" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="adminUsersTab">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="990" y="430.06" />
+              <mxPoint x="990" y="520.06" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e29" edge="1" parent="1" source="adminConsole" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="adminExpensesTab">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1240" y="430.06" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e30" edge="1" parent="1" source="adminConsole" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="adminLogsTab">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1370" y="430.06" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e31" edge="1" parent="1" source="adminUsersTab" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="toggleAdmin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e32" edge="1" parent="1" source="adminUsersTab" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="deleteUser">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e33" edge="1" parent="1" source="adminExpensesTab" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="deleteAdminExpense">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e34" edge="1" parent="1" source="adminLogsTab" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;html=1;strokeColor=#000000;endArrow=block;" target="clearLogs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -26,10 +26,10 @@
 
 - 📌 Project Structure : **( [ 👉 Click Here](./PROJECT_STRUCTURE.md) )**
 - 📌 Entity Relationship : **( [ 👉 Click Here](./ENTITY_RELATIONSHIP.md) )**
-- 📌 Workflow Diagram : **( [ 👉 View PNG](./docs/diagrams/finvue-workflow.png) | [ 👉 Open Zoom Viewer](./docs/diagram-viewer.html) | [ 👉 Open Draw.io](./docs/diagrams/finvue-workflow.drawio) )**
+- 📌 Workflow Diagram : **( [ 👉 View SVG](./docs/diagrams/finvue-workflow.svg) | [ 👉 Open Draw.io](./docs/diagrams/finvue-workflow.drawio) )**
 
 <div align="center">
-  <img src="./docs/diagrams/finvue-workflow.png" alt="FinVue Workflow Diagram" width="100%" style="max-width: 1100px; height: auto; border-radius: 12px; box-shadow: 0 16px 40px rgba(15,23,42,0.12);" />
+  <img src="./docs/diagrams/finvue-workflow.svg" alt="FinVue Workflow Diagram" width="100%" style="max-width: 1100px; height: auto; border-radius: 12px; box-shadow: 0 16px 40px rgba(15,23,42,0.12);" />
 </div>
 
 <hr>
